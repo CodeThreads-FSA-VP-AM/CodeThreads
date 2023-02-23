@@ -27,7 +27,7 @@ async function buildTables() {
 
     // build tables in correct order
 
-    try {
+    try { 
       console.log(`Starting to build tables...`);
       await client.query(`
 
