@@ -2,7 +2,10 @@ const {
   client,
   // declare your model imports here
   // for example, User
+  User,
 } = require("./");
+
+const { createUser } = require("./models/user");
 
 async function buildTables() {
   try {
@@ -34,8 +37,9 @@ async function buildTables() {
       CREATE TABLE users (
        id SERIAL PRIMARY KEY,
        username VARCHAR(255) UNIQUE NOT NULL,
+       password VARCHAR(255) NOT NULL,
        email VARCHAR(255) UNIQUE NOT NULL,
-       created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+       created_at TIMESTAMP DEFAULT NOW(),
        is_admin BOOLEAN DEFAULT false
        );
        
@@ -105,34 +109,35 @@ const populateInitialData = async () => {
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
-    const createInitialUsers = async () => {
-      try {
-        const usersToCreate = [
-          {
-            username: "JohnDoe",
-            password: "JohnDoe1",
-            email: "johndoe1@gmail.com",
-          },
-          {
-            username: "JaneDoe",
-            password: "JameDoe1",
-            email: "janedoe1@gmail.com",
-          },
-        ];
-        const users = await Promise.all(usersToCreate.map(createUser));
-        console.log("Users Created!");
-        console.log(users);
-        console.log(`Finished creating users!`);
-      } catch (error) {
-        console.error("Error creating users..");
-      }
-    };
   } catch (error) {
     throw error;
   }
 };
+const createInitialUsers = async () => {
+  try {
+    const usersToCreate = [
+      {
+        username: "JohnDoe",
+        password: "JohnDoe1",
+        email: "johndoe1@gmail.com",
+      },
+      {
+        username: "JaneDoe",
+        password: "JameDoe1",
+        email: "janedoe1@gmail.com",
+      },
+    ];
+    const users = await Promise.all(usersToCreate.map(createUser));
+    console.log("Users Created!");
+    console.log(users);
+    console.log(`Finished creating users!`);
+  } catch (error) {
+    console.error("Error creating users..");
+    console.error(error);
+  }
+};
 
 buildTables()
-  .then(populateInitialData)
+  .then(createInitialUsers)
   .catch(console.error)
   .finally(() => client.end());
