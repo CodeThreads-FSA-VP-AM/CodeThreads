@@ -49,7 +49,7 @@ async function buildTables() {
         description TEXT NOT NULL,
         views INTEGER,
         price DECIMAL(10,2) NOT NULL,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW()
+        created_at TIMESTAMP DEFAULT NOW()
       );
         
       CREATE TABLE orders (
@@ -57,7 +57,7 @@ async function buildTables() {
         users_id INTEGER REFERENCES users(id),
         product_id INTEGER REFERENCES products(id),
         status VARCHAR(255) NOT NULL,
-        purchased_at TIMESTAMP NOT NULL DEFAULT NOW()
+        purchased_at TIMESTAMP DEFAULT NOW()
       );
         
         CREATE TABLE images (
@@ -120,11 +120,13 @@ const createInitialUsers = async () => {
         username: "JohnDoe",
         password: "JohnDoe1",
         email: "johndoe1@gmail.com",
+        is_admin: false
       },
       {
         username: "JaneDoe",
         password: "JameDoe1",
         email: "janedoe1@gmail.com",
+        is_admin: false
       },
     ];
     const users = await Promise.all(usersToCreate.map(createUser));
