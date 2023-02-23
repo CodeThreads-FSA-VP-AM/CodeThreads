@@ -27,51 +27,51 @@ async function buildTables() {
 
     // build tables in correct order
 
-    try { 
+    try {
       console.log(`Starting to build tables...`);
       await client.query(`
 
-      CREATE TABLE users(
+      CREATE TABLE users (
        id SERIAL PRIMARY KEY,
-       username VARCHAR(50) UNIQUE NOT NULL,
-       email VARCHAR(255) UNIWUE NOT NULL,
+       username VARCHAR(255) UNIQUE NOT NULL,
+       email VARCHAR(255) UNIQUE NOT NULL,
        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
        is_admin BOOLEAN DEFAULT false
        );
        
-       CREATE TABLE products(
+      CREATE TABLE products (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
         views INTEGER,
         price DECIMAL(10,2) NOT NULL,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        );
+        created_at TIMESTAMP NOT NULL DEFAULT NOW()
+      );
         
-        CREATE TABLE orders(
+      CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
         users_id INTEGER REFERENCES users(id),
         product_id INTEGER REFERENCES products(id),
         status VARCHAR(255) NOT NULL,
-        purchased_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        );
+        purchased_at TIMESTAMP NOT NULL DEFAULT NOW()
+      );
         
-        CREATE TABLE images(
+        CREATE TABLE images (
           id SERIAL PRIMARY KEY,
           users_id INTEGER REFERENCES users(id),
           product_id INTEGER REFERENCES products(id),
           front_url TEXT NOT NULL,
           back_url TEXT NOT NULL,
-          avatar_url TEXT NOT NULL,
+          avatar_url TEXT NOT NULL
       );
 
-      CREATE TABLE tags(
+      CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         name VARCHAR(255) NOT NULL
         );
         
-        CREATE TABLE reviews(
+        CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         users_id INTEGER REFERENCES users(id),
@@ -80,34 +80,57 @@ async function buildTables() {
         rating INTEGER NOT NULL
         );
         
-        CREATE TABLE sizes(
+        CREATE TABLE sizes (
         id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         small INTEGER, 
         medium INTEGER, 
         large INTEGER, 
-        xlarge INTEGER, 
-      )
+        xlarge INTEGER
+      );
       
       `);
       console.log(`Finished building tables.`);
     } catch (error) {
       console.error(`Error building tables.`);
+      console.error(error);
     }
   } catch (error) {
     throw error;
   }
 }
 
-async function populateInitialData() {
+const populateInitialData = async () => {
   try {
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
+    const createInitialUsers = async () => {
+      try {
+        const usersToCreate = [
+          {
+            username: "JohnDoe",
+            password: "JohnDoe1",
+            email: "johndoe1@gmail.com",
+          },
+          {
+            username: "JaneDoe",
+            password: "JameDoe1",
+            email: "janedoe1@gmail.com",
+          },
+        ];
+        const users = await Promise.all(usersToCreate.map(createUser));
+        console.log("Users Created!");
+        console.log(users);
+        console.log(`Finished creating users!`);
+      } catch (error) {
+        console.error("Error creating users..");
+      }
+    };
   } catch (error) {
     throw error;
   }
-}
+};
 
 buildTables()
   .then(populateInitialData)
