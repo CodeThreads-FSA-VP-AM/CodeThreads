@@ -3,9 +3,11 @@ const {
   // declare your model imports here
   // for example, User
   User,
-} = require("./");
+  Products,
+} = require('./');
+const { createProduct } = require('./models/products');
 
-const { createUser } = require("./models/user");
+const { createUser } = require('./models/user');
 
 async function buildTables() {
   try {
@@ -47,7 +49,6 @@ async function buildTables() {
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
-        views INTEGER,
         price DECIMAL(10,2) NOT NULL,
         created_at TIMESTAMP DEFAULT NOW()
       );
@@ -113,33 +114,57 @@ const populateInitialData = async () => {
     throw error;
   }
 };
+const createInitialProducts = async () => {
+  try {
+    const productsToCreate = [
+      {
+        title: 'shirt',
+        description: 'test',
+        price: 9.99,
+      },
+      {
+        title: 'hoodie',
+        description: 'test',
+        price: 99.99,
+      },
+    ];
+    const product = await Promise.all(productsToCreate.map(createProduct));
+    console.log('creating products...');
+    console.log(product);
+    console.log('finished creating products...');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const createInitialUsers = async () => {
   try {
     const usersToCreate = [
       {
-        username: "JohnDoe",
-        password: "JohnDoe1",
-        email: "johndoe1@gmail.com",
-        is_admin: false
+        username: 'JohnDoe',
+        password: 'JohnDoe1',
+        email: 'johndoe1@gmail.com',
+        is_admin: false,
       },
       {
-        username: "JaneDoe",
-        password: "JameDoe1",
-        email: "janedoe1@gmail.com",
-        is_admin: false
+        username: 'JaneDoe',
+        password: 'JameDoe1',
+        email: 'janedoe1@gmail.com',
+        is_admin: false,
       },
     ];
     const users = await Promise.all(usersToCreate.map(createUser));
-    console.log("Users Created!");
+    console.log('Users Created!');
     console.log(users);
     console.log(`Finished creating users!`);
   } catch (error) {
-    console.error("Error creating users..");
+    console.error('Error creating users..');
     console.error(error);
   }
 };
 
 buildTables()
   .then(createInitialUsers)
+  .then(createInitialProducts)
   .catch(console.error)
   .finally(() => client.end());
