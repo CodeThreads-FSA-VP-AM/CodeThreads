@@ -3,9 +3,7 @@ const client = require('../client');
 // get all products
 const getProducts = async () => {
   try {
-    const {
-      rows: [product],
-    } = await client.query(`
+    const { rows: product } = await client.query(`
     SELECT * FROM products
     `);
     return product;
