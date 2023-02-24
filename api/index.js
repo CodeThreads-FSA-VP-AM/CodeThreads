@@ -1,16 +1,17 @@
-const express = require("express")
+const express = require("express");
 const apiRouter = express.Router();
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = process.env;
-const {getUserById} = require("../db/models/user")
+const { JWT_SECRET = "neverTell" } = process.env;
 
-apiRouter.get('/', (req, res, next) => {
+const { getUserById } = require("../db/models/user");
+
+apiRouter.get("/", (req, res, next) => {
   res.send({
-    message: 'API is under construction!',
+    message: "API is under construction!",
   });
 });
 
-apiRouter.get('/health', (req, res, next) => {
+apiRouter.get("/health", (req, res, next) => {
   res.send({
     healthy: true,
   });
@@ -25,12 +26,15 @@ apiRouter.use(async (req, res, next) => {
     next();
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length);
+    console.log(token);
 
     try {
       const { id } = jwt.verify(token, JWT_SECRET);
+      console.log("id here", id);
 
       if (id) {
         req.user = await getUserById(id);
+        console.log(req.user);
         next();
       }
     } catch ({ name, message }) {
@@ -48,7 +52,6 @@ apiRouter.use(async (req, res, next) => {
 // ROUTER: /api/users
 const usersRouter = require("./users");
 apiRouter.use("/users", usersRouter);
-
 
 apiRouter.use((error, req, res, next) => {
   res.send({
