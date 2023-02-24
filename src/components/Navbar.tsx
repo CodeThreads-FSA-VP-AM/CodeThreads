@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [searchInput, setSearchInput] = useState(true);
   const [mdOptionsToggle, setMdOptionsToggle] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
+  const [profile, setProfile] = useState(false);
 
   return (
-    <div className="dark:bg-gray-900">
+    <div className="dark:bg-gray-100">
       <div>
         <div className="relative">
           {/* For md screen size */}
@@ -14,7 +16,7 @@ const Navbar = () => {
             id="md-searchbar"
             className={`${
               mdOptionsToggle ? "hidden" : "flex"
-            } bg-black dark:bg-gray-900 lg:hidden py-5 px-6 items-center justify-between`}
+            } bg-black dark:bg-gray-100 lg:hidden py-5 px-6 items-center justify-between`}
           >
             <div className="flex items-center space-x-3 text-gray-800 dark:text-black">
               <div>
@@ -44,8 +46,8 @@ const Navbar = () => {
               </div>
               <input
                 type="text"
-                placeholder="Search for Mens"
-                className="text-sm leading-none dark:text-gray-300 dark:bg-gray-900 text-gray-600 focus:outline-none"
+                placeholder="Search products"
+                className="text-sm leading-none dark:text-gray-900 dark:bg-gray-100 text-black focus:outline-none"
               />
             </div>
             <div className="space-x-6">
@@ -109,7 +111,7 @@ const Navbar = () => {
           </div>
           {/* For md screen size */}
           {/* For large screens */}
-          <div className="dark:bg-gray-200 bg-gray-50 px-6 py-9">
+          <div className="bg-gray-50 px-6 py-9">
             <div className="container mx-auto flex items-center justify-between">
               <h1
                 className="md:w-2/12 cursor-pointer text-gray-800 dark:text-black text-2xl"
@@ -120,7 +122,7 @@ const Navbar = () => {
               <ul className="hidden w-8/12 md:flex items-center justify-center space-x-8">
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                   >
                     Home
@@ -128,7 +130,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                   >
                     Mens
@@ -136,19 +138,27 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                   >
                     Womens
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="javascript:void(0)"
+                  <NavLink
+                    to="./login"
                     className="dark:text-black text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                   >
-                    Support
-                  </a>
+                    Login
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="./register"
+                    className="dark:text-black text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
+                  >
+                    Sign Up
+                  </NavLink>
                 </li>
               </ul>
               <div className="md:w-2/12 justify-end flex items-center space-x-4 xl:space-x-8">
@@ -188,13 +198,13 @@ const Navbar = () => {
                     placeholder="search"
                     className={` ${
                       searchInput ? "hidden" : ""
-                    } text-sm dark:bg-gray-900 dark:placeholder-gray-300 text-gray-600 rounded ml-1 border border-transparent focus:outline-none focus:border-gray-400 px-1`}
+                    } text-sm dark:bg-gray-100 dark:placeholder-gray-900 text-black rounded ml-1 border border-transparent focus:outline-none focus:border-gray-400 px-1`}
                   />
                 </div>
                 <div className="hidden lg:flex items-center space-x-4 xl:space-x-8">
                   <button
                     aria-label="view favourites"
-                    className="text-gray-800 dark:hover:text-gray-300 dark:text-black focus:outline-none focus:ring-2 focus:ring-gray-800"
+                    className="text-gray-800 dark:hover:text-gray-900 dark:text-black focus:outline-none focus:ring-2 focus:ring-gray-800"
                   >
                     <svg
                       className="fill-stroke"
@@ -331,7 +341,7 @@ const Navbar = () => {
             id="mobile-menu"
             className={`${
               showMenu ? "flex" : "hidden"
-            } absolute dark:bg-gray-900 z-10 inset-0 md:hidden bg-black flex-col h-screen w-full`}
+            } absolute dark:bg-gray-100 z-10 inset-0 md:hidden bg-black flex-col h-screen w-full`}
           >
             <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 pb-4 p-4">
               <div className="flex items-center space-x-3">
@@ -362,8 +372,8 @@ const Navbar = () => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Search for Mens"
-                  className="text-sm dark:bg-gray-900 text-gray-600 placeholder-gray-600 dark:placeholder-gray-300 focus:outline-none"
+                  placeholder="Search products"
+                  className="text-sm dark:bg-gray-100 text-black placeholder-gray-900 dark:placeholder-gray-300 focus:outline-none"
                 />
               </div>
               <button
@@ -398,7 +408,7 @@ const Navbar = () => {
               <ul className="flex flex-col space-y-6">
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800"
                   >
                     Home
@@ -424,7 +434,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800"
                   >
                     Mens
@@ -450,7 +460,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800"
                   >
                     Womens
@@ -476,10 +486,10 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800"
                   >
-                    Support
+                    Account
                     <div>
                       <svg
                         className="fill-stroke text-black dark:text-black"
@@ -503,10 +513,10 @@ const Navbar = () => {
               </ul>
             </div>
             <div className="h-full flex items-end">
-              <ul className="flex flex-col space-y-8 bg-gray-50 w-full py-10 p-4 dark:bg-gray-800">
+              <ul className="flex flex-col space-y-8 bg-gray-50 w-full py-10 p-4 dark:bg-gray-300">
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black text-gray-800 flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                   >
                     <div>
@@ -546,7 +556,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a
-                    href="javascript:void(0)"
+                    href="dangerouslySetInnerHTML"
                     className="dark:text-black text-gray-800 flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                   >
                     <div>

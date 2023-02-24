@@ -5,7 +5,9 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 // where each adapter fetches specific info from our express server's /api route
 // import { getAPIHealth } from "../axios-services";
 import "../style/App.css";
+import Login from "./Login";
 import Navbar from "./Navbar";
+import Register from "./Register";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -31,6 +33,12 @@ const App: React.FC = () => {
     <>
       <Router>
         <Navbar />
+        <div>
+          <Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
       </Router>
     </>
   );
