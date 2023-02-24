@@ -1,7 +1,6 @@
-const APIURL = "http://localhost:5432/";
+const APIURL = "http://localhost:5432/api";
 
 //POST register user
-
 type Register = {
   username: string;
   password: string;
@@ -46,3 +45,12 @@ export const fetchLogin = async (data: Login): Promise<any> => {
 
   return json;
 };
+
+// Product fetch requests
+
+// fetch all products
+export const fetchProducts = async (): Promise<any> => {
+  const res = await fetch(`${APIURL}/products/`)
+  const json = await res.json()
+  return json
+}
