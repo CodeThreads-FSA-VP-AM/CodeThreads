@@ -86,7 +86,7 @@ const editProduct = async ({ productId, ...fields }) => {
       `
       UPDATE products
       SET ${setString}
-      WHERE id=${productId}
+      WHERE id=$1
       RETURNING *
     `,
       Object.values(fields)

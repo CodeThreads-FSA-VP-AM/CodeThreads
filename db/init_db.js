@@ -3,9 +3,9 @@ const {
   // declare your model imports here
   // for example, User
   User,
-  Products,
+  Product,
 } = require('./');
-const { createProduct } = require('./models/products');
+const { createProduct, editProduct, deleteProduct } = require('./models/products');
 
 const { createUser } = require('./models/user');
 
@@ -127,11 +127,54 @@ const createInitialProducts = async () => {
         description: 'test',
         price: 99.99,
       },
+      {
+        title: 'leggins',
+        description: 'delete me',
+        price: 999.99,
+      },
     ];
     const product = await Promise.all(productsToCreate.map(createProduct));
     console.log('creating products...');
     console.log(product);
     console.log('finished creating products...');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const testEdit = async () => {
+  try {
+    const productsToEdit = [
+      {
+        id: 1,
+        title: 'shorts',
+        description: 'edit test',
+        price: 199.99,
+      },
+      {
+        id: 2,
+        title: 'sweatpants',
+        description: 'edit test',
+        price: 499.99,
+      },
+    ];
+    const edit = await Promise.all(productsToEdit.map(editProduct));
+    console.log('editing products...');
+    console.log(edit);
+    console.log('edit products succesful...');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const productToDelete = async () => {
+  try {
+    const deleteProductId = 3;
+    const deletedProduct = await Product.deleteProduct(deleteProductId);
+    console.log('deleting product...');
+    if (deletedProduct === undefined) {
+      console.log(`successfully deleted product ${deleteProductId}...`);
+    }
   } catch (error) {
     console.error(error);
   }
@@ -166,5 +209,7 @@ const createInitialUsers = async () => {
 buildTables()
   .then(createInitialUsers)
   .then(createInitialProducts)
+  .then(testEdit)
+  .then(productToDelete)
   .catch(console.error)
   .finally(() => client.end());
