@@ -54,8 +54,18 @@ const getUserByUsername = async (username) => {
     const {
       rows: [user],
     } = await client.query(`SELECT * FROM users WHERE username = $1`, [
-      userName,
+      username,
     ]);
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const getUserByEmail = async (email) => {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(`SELECT * FROM users WHERE email = $1`, [email]);
     return user;
   } catch (error) {
     console.error(error);
@@ -82,5 +92,6 @@ module.exports = {
   getUser,
   getUserByID,
   getUserByUsername,
+  getUserByEmail,
   getAllUsers,
 };
