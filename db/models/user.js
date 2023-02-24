@@ -61,6 +61,16 @@ const getUserByUsername = async (username) => {
     console.error(error);
   }
 };
+const getUserByEmail = async (email) => {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const getAllUsers = async () => {
   /* this adapter should fetch a list of users from your db */
@@ -82,5 +92,6 @@ module.exports = {
   getUser,
   getUserByID,
   getUserByUsername,
+  getUserByEmail,
   getAllUsers,
 };
