@@ -1,4 +1,4 @@
-const APIURL = "http://localhost:5432/";
+const APIURL = "http://localhost:4000/api";
 
 //POST register user
 
