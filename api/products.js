@@ -85,9 +85,7 @@ productRouter.get("/:productId", async (req, res, next) => {
       });
       res.status(404);
     } else {
-      res.send({
-        product,
-      });
+      res.send(product);
     }
   } catch (error) {
     console.error(error);
