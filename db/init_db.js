@@ -4,10 +4,10 @@ const {
   // for example, User
   User,
   Product,
-} = require('./');
-const { createProduct, editProduct, deleteProduct } = require('./models/products');
+} = require("./");
+const { createProduct, editProduct, deleteProduct } = require("./models/products");
 
-const { createUser } = require('./models/user');
+const { createUser } = require("./models/user");
 
 async function buildTables() {
   try {
@@ -118,25 +118,40 @@ const createInitialProducts = async () => {
   try {
     const productsToCreate = [
       {
-        title: 'shirt',
-        description: 'test',
+        title: "shirt",
+        description: "daily drip",
         price: 9.99,
       },
       {
-        title: 'hoodie',
-        description: 'test',
+        title: "hoodie",
+        description: "wear even if its hot outside",
         price: 99.99,
       },
       {
-        title: 'leggins',
-        description: 'delete me',
+        title: "leggins",
+        description: "delete me",
         price: 999.99,
+      },
+      {
+        title: "tank top",
+        description: "so buff",
+        price: 9999.99,
+      },
+      {
+        title: "skinny jeans",
+        description: "ok",
+        price: 99.99,
+      },
+      {
+        title: "cargo pants",
+        description: "got this in camo?",
+        price: 59.99,
       },
     ];
     const product = await Promise.all(productsToCreate.map(createProduct));
-    console.log('creating products...');
+    console.log("creating products...");
     console.log(product);
-    console.log('finished creating products...');
+    console.log("finished creating products...");
   } catch (error) {
     console.error(error);
   }
@@ -147,21 +162,21 @@ const testEdit = async () => {
     const productsToEdit = [
       {
         id: 1,
-        title: 'shorts',
-        description: 'edit test',
+        title: "shorts",
+        description: "comfy during the hot days",
         price: 199.99,
       },
       {
         id: 2,
-        title: 'sweatpants',
-        description: 'edit test',
+        title: "sweatpants",
+        description: "comfy when its cold",
         price: 499.99,
       },
     ];
     const edit = await Promise.all(productsToEdit.map(editProduct));
-    console.log('editing products...');
+    console.log("editing products...");
     console.log(edit);
-    console.log('edit products succesful...');
+    console.log("edit products succesful...");
   } catch (error) {
     console.error(error);
   }
@@ -171,7 +186,7 @@ const productToDelete = async () => {
   try {
     const deleteProductId = 3;
     const deletedProduct = await Product.deleteProduct(deleteProductId);
-    console.log('deleting product...');
+    console.log("deleting product...");
     if (deletedProduct === undefined) {
       console.log(`successfully deleted product ${deleteProductId}...`);
     }
@@ -184,24 +199,24 @@ const createInitialUsers = async () => {
   try {
     const usersToCreate = [
       {
-        username: 'JohnDoe',
-        password: 'JohnDoe1',
-        email: 'johndoe1@gmail.com',
+        username: "JohnDoe",
+        password: "JohnDoe1",
+        email: "johndoe1@gmail.com",
         is_admin: false,
       },
       {
-        username: 'JaneDoe',
-        password: 'JameDoe1',
-        email: 'janedoe1@gmail.com',
+        username: "JaneDoe",
+        password: "JameDoe1",
+        email: "janedoe1@gmail.com",
         is_admin: false,
       },
     ];
     const users = await Promise.all(usersToCreate.map(createUser));
-    console.log('Users Created!');
+    console.log("Users Created!");
     console.log(users);
     console.log(`Finished creating users!`);
   } catch (error) {
-    console.error('Error creating users..');
+    console.error("Error creating users..");
     console.error(error);
   }
 };
