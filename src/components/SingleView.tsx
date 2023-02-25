@@ -19,7 +19,7 @@ const SingleView: FC<Props> = ({ id, title, description, price }) => {
   setProductId(0);
 
   const getProduct = async () => {
-    const product = await fetchProductById(productId);
+    // const product = await fetchProductById(productId);
   };
 
   return (
