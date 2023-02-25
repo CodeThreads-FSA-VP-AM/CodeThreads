@@ -171,7 +171,7 @@ const Login = () => {
             <div className="mt-6  w-full">
               <label className="text-sm font-medium leading-none text-gray-800">
                 Password
-              </label>
+              </label> 
               <div className="relative flex items-center justify-center">
                 <input
                   aria-label="enter Password"
