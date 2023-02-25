@@ -133,7 +133,7 @@ const Navbar = () => {
                     href="dangerouslySetInnerHTML"
                     className="dark:text-black text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                   >
-                    Mens
+                    Men
                   </a>
                 </li>
                 <li>
@@ -141,7 +141,7 @@ const Navbar = () => {
                     href="dangerouslySetInnerHTML"
                     className="dark:text-black text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                   >
-                    Womens
+                    Women
                   </a>
                 </li>
                 <li>
@@ -437,7 +437,7 @@ const Navbar = () => {
                     href="dangerouslySetInnerHTML"
                     className="dark:text-black flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800"
                   >
-                    Mens
+                    Men
                     <div>
                       <svg
                         className="fill-stroke text-black dark:text-black"
@@ -463,7 +463,7 @@ const Navbar = () => {
                     href="dangerouslySetInnerHTML"
                     className="dark:text-black flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800"
                   >
-                    Womens
+                    Women
                     <div>
                       <svg
                         className="fill-stroke text-black dark:text-black"
