@@ -1,15 +1,20 @@
 const express = require('express');
 const productRouter = express.Router();
 
-const { createProduct, getProducts, editProduct, deleteProduct, getProductById, getProductByName } = require('../db/models/products');
+const {
+  createProduct,
+  getProducts,
+  editProduct,
+  deleteProduct,
+  getProductById,
+  getProductByName,
+} = require('../db/models/products');
 
 // GET /api/products/
 productRouter.get('/', async (req, res, next) => {
   try {
     const products = await getProducts();
-    res.send({
-      products: products,
-    });
+    res.send(products);
   } catch (error) {
     console.error(error);
     next(error);
@@ -40,7 +45,12 @@ productRouter.patch('/edit/:productId', async (req, res, next) => {
     const productId = req.params.productId;
     const { title, description, price } = req.body;
 
-    const updateProduct = await editProduct({ productId, title, description, price });
+    const updateProduct = await editProduct({
+      productId,
+      title,
+      description,
+      price,
+    });
     if (updateProduct) {
       res.send({
         product: updateProduct,

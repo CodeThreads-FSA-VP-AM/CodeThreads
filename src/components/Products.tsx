@@ -1,34 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProducts } from '../api/api';
 
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+}
+
 const Products: React.FC = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  console.log(products);
   useEffect(() => {
-    getProducts();
+    const loadProducts = async () => {
+      try {
+        const allProducts = await fetchProducts();
+        console.log(allProducts);
+        setProducts(allProducts);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadProducts();
   }, []);
-
-  const getProducts = async () => {
-    const allProducts = await fetchProducts();
-    setProducts(allProducts);
-  };
-
-  interface Product {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-  }
 
   return (
     <>
       <div>Products</div>
-      <div>
-        {products.map((p) => (
-          <div>{p}</div>
-        ))}
-      </div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        products?.map((p: Product) => (
+          <div key={p.id}>
+            {p.id}, {p.title}, {p.description}, ${p.price}
+          </div>
+        ))
+      )}
     </>
   );
 };
