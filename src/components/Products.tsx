@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProducts } from '../api/api';
-
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-}
+import { Product } from './Interfaces';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const allProducts = await fetchProducts();
+        const allProducts: Product[] = await fetchProducts();
         console.log(allProducts);
         setProducts(allProducts);
         setLoading(false);
