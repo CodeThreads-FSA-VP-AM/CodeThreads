@@ -14,9 +14,21 @@ const Products: React.FC = () => {
     setProducts(allProducts);
   };
 
+  interface Product {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+  }
+
   return (
     <>
       <div>Products</div>
+      <div>
+        {products.map((p) => (
+          <div>{p}</div>
+        ))}
+      </div>
     </>
   );
 };

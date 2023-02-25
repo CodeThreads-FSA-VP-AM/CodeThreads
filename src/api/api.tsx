@@ -1,4 +1,4 @@
-const APIURL = "http://localhost:5432/api";
+const APIURL = 'http://localhost:4000/api';
 
 //POST register user
 type Register = {
@@ -9,9 +9,9 @@ type Register = {
 export const fetchRegister = async (data: Register): Promise<any> => {
   const { username, password, email } = data;
   const res = await fetch(`${APIURL}/users/register`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -32,9 +32,9 @@ type Login = {
 export const fetchLogin = async (data: Login): Promise<any> => {
   const { username, password } = data;
   const res = await fetch(`${APIURL}/users/login`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -50,7 +50,7 @@ export const fetchLogin = async (data: Login): Promise<any> => {
 
 // fetch all products
 export const fetchProducts = async (): Promise<any> => {
-  const res = await fetch(`${APIURL}/products/`)
-  const json = await res.json()
-  return json
-}
+  const res = await fetch(`${APIURL}/products/`);
+  const json = await res.json();
+  return json;
+};
