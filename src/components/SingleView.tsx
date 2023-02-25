@@ -13,11 +13,13 @@ const SingleView: FC<Props> = ({ id, title, description, price }) => {
   // need to pass productId from products component
   // then fetch the product and set the product id
   // then you can render the page with the required information
-  const [productId, setProductId] = useState<Number>(0);
+  const [productId, setProductId] = useState(0);
   const [product, setProduct] = useState<Product[]>([]);
 
+  setProductId(0);
+
   const getProduct = async () => {
-    const product: number = await fetchProductById(productId);
+    const product = await fetchProductById(productId);
   };
 
   return (
