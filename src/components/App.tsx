@@ -13,7 +13,7 @@ import SingleView from "./SingleView";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
-  const [productId, setProductId] = useState(5);
+  const [productId, setProductId] = useState(0);
 
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
@@ -40,7 +40,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/products" element={<Products />} />
+            <Route path="/products" element={<Products setProductId={setProductId} />} />
             <Route path="singleview" element={<SingleView productId={productId} />} />
           </Routes>
         </div>

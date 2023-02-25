@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../api/api';
-import { Product } from './Interfaces';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { fetchProducts } from "../api/api";
+import { Product } from "./Interfaces";
 
-const Products: React.FC = () => {
+type Props = {
+  setProductId: (id: number) => void;
+};
+
+const Products: React.FC<Props> = ({ setProductId }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
 
@@ -20,6 +25,11 @@ const Products: React.FC = () => {
     loadProducts();
   }, []);
 
+  const idHandle = (id: number) => {
+    console.log(id);
+    setProductId(id);
+  };
+
   return (
     <>
       <div>Products</div>
@@ -27,8 +37,10 @@ const Products: React.FC = () => {
         <div>Loading...</div>
       ) : (
         products?.map((p: Product) => (
-          <div key={p.id}>
-            {p.id}, {p.title}, {p.description}, ${p.price}
+          <div key={p.id} onClick={() => idHandle(p.id)}>
+            <Link to="/singleview">
+              {p.id}, {p.title}, {p.description}, ${p.price}
+            </Link>
           </div>
         ))
       )}
