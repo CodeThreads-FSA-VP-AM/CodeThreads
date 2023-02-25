@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
-import { fetchProductById } from '../api/api';
-import { Product } from './Interfaces';
+import { FC, useState } from "react";
+import { fetchProductById } from "../api/api";
+import { Product } from "./Interfaces";
 
 type Props = {
   id: number;
@@ -20,6 +20,7 @@ const SingleView: FC<Props> = ({ id, title, description, price }) => {
 
   const getProduct = async () => {
     // const product = await fetchProductById(productId);
+    // test to make new branch
   };
 
   return (
