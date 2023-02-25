@@ -8,6 +8,7 @@ import "../style/App.css";
 import Login from "./Login";
 import Navbar from "./Navbar";
 import Register from "./Register";
+import Products from "./Products";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -37,6 +38,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path='/products' element={<Products />} />
           </Routes>
         </div>
       </Router>

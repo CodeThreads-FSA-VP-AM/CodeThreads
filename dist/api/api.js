@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchLogin = exports.fetchRegister = void 0;
-const APIURL = "http://localhost:5432/";
+exports.fetchProducts = exports.fetchLogin = exports.fetchRegister = void 0;
+const APIURL = "http://localhost:5432/api";
 const fetchRegister = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password, email } = data;
     const res = yield fetch(`${APIURL}/users/register`, {
@@ -44,3 +44,11 @@ const fetchLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
     return json;
 });
 exports.fetchLogin = fetchLogin;
+// Product fetch requests
+// fetch all products
+const fetchProducts = () => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield fetch(`${APIURL}/products/`);
+    const json = yield res.json();
+    return json;
+});
+exports.fetchProducts = fetchProducts;
