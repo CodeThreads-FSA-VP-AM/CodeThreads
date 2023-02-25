@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProducts } from '../api/api';
 
-const Products = () => {
+const Products: React.FC = () => {
   const [products, setProducts] = useState([]);
 
+  console.log(products);
   useEffect(() => {
     getProducts();
   }, []);

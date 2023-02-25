@@ -14,6 +14,7 @@ const react_1 = require("react");
 const api_1 = require("../api/api");
 const Products = () => {
     const [products, setProducts] = (0, react_1.useState)([]);
+    console.log(products);
     (0, react_1.useEffect)(() => {
         getProducts();
     }, []);
