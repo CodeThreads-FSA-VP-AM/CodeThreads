@@ -147,3 +147,38 @@ export const fetchProductByName = async (data: Product): Promise<any> => {
   const json = res.json();
   return json;
 };
+
+//Create order
+type Order = {
+  product_id: number;
+  quantity: number;
+  token: string;
+};
+
+export const createOrder = async (data: Order) => {
+  const { product_id, quantity, token } = data;
+  const res = await fetch(`${APIURL}/order`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      productId: `${product_id}`,
+      quantity: `${quantity}`,
+    }),
+  });
+  const json = await res.json();
+  console.log(json);
+  return json;
+};
+
+export const getOrder = async () => {
+  const res = await fetch(`${APIURL}/order`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await res.json();
+  return json;
+};

@@ -5,7 +5,11 @@ const {
   User,
   Product,
 } = require("./");
-const { createProduct, editProduct, deleteProduct } = require("./models/products");
+const {
+  createProduct,
+  editProduct,
+  deleteProduct,
+} = require("./models/products");
 
 const { createUser } = require("./models/user");
 
@@ -58,6 +62,7 @@ async function buildTables() {
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
         users_id INTEGER REFERENCES users(id),
+        product_id INTEGER REFERENCES products(id),
         status VARCHAR(255) NOT NULL,
         purchased_at TIMESTAMP DEFAULT NOW(),
         quantity INTEGER NOT NULL
@@ -65,7 +70,6 @@ async function buildTables() {
         
         CREATE TABLE images (
           id SERIAL PRIMARY KEY,
-          users_id INTEGER REFERENCES users(id),
           product_id INTEGER REFERENCES products(id),
           front_url TEXT,
           back_url TEXT
@@ -96,7 +100,6 @@ async function buildTables() {
         );
         CREATE TABLE cart (
           id SERIAL PRIMARY KEY,
-          product_id INTEGER REFERENCES products(id),
           order_id INTEGER REFERENCES orders(id)
           
       )

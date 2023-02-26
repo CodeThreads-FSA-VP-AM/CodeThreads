@@ -15,6 +15,7 @@ import Orders from "./Orders";
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
   const [productId, setProductId] = useState(0);
+  const [quantity, setQuantity] = useState(0)
 
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
@@ -47,7 +48,7 @@ const App: React.FC = () => {
             />
             <Route
               path="singleview"
-              element={<SingleView productId={productId} />}
+              element={<SingleView productId={productId} quantity={quantity} />}
             />
             <Route path="/orders" element={<Orders />} />
           </Routes>
