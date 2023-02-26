@@ -1,4 +1,5 @@
-const APIURL = "http://localhost:4000/api";
+const APIURL = 'http://localhost:4000/api';
+import { Product } from '../components/Interfaces';
 
 //POST register user
 type Register = {
@@ -9,9 +10,9 @@ type Register = {
 export const fetchRegister = async (data: Register): Promise<any> => {
   const { username, password, email } = data;
   const res = await fetch(`${APIURL}/users/register`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -32,9 +33,9 @@ type Login = {
 export const fetchLogin = async (data: Login): Promise<any> => {
   const { username, password } = data;
   const res = await fetch(`${APIURL}/users/login`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -49,18 +50,10 @@ export const fetchLogin = async (data: Login): Promise<any> => {
 // Product fetch requests
 
 // fetch all products
-export const fetchProducts = async (): Promise<any> => {
+export const fetchProducts = async (): Promise<Product[]> => {
   const res = await fetch(`${APIURL}/products/`);
   const json = await res.json();
   return json;
-};
-
-// interface for create and edit
-type Product = {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
 };
 
 // create product
@@ -68,9 +61,9 @@ export const fetchCreateProduct = async (data: Product): Promise<any> => {
   try {
     const { title, description, price } = data;
     const res = await fetch(`${APIURL}/products/add`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         title: `${title}`,
@@ -91,9 +84,9 @@ export const fetchEditProduct = async (data: Product): Promise<any> => {
   try {
     const { id: productId, title, description, price } = data;
     const res = await fetch(`${APIURL}/products/edit/${productId}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         title: `${title}`,
@@ -159,9 +152,9 @@ export const createOrder = async (data: Order) => {
   const { product_id, quantity, token } = data;
   console.log(data);
   const res = await fetch(`${APIURL}/orders/add`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -177,7 +170,7 @@ export const createOrder = async (data: Order) => {
 export const getOrder = async () => {
   const res = await fetch(`${APIURL}/orders`, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
   const json = await res.json();
