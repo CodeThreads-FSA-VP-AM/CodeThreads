@@ -174,8 +174,8 @@ export const createOrder = async (data: Order) => {
   return json;
 };
 
-export const getOrder = async () => {
-  const res = await fetch(`${APIURL}/orders`, {
+export const fetchOrder = async () => {
+  const res = await fetch(`${APIURL}/`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -184,9 +184,3 @@ export const getOrder = async () => {
   return json;
 };
 
-export const orderTest = async () => {
-  const res = await fetch(`${APIURL}/orders/test`);
-  const json = await res.json();
-  console.log(json);
-  return json;
-};
