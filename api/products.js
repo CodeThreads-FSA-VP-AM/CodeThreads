@@ -36,7 +36,7 @@ productRouter.post("/add", async (req, res, next) => {
 productRouter.patch("/edit/:productId", async (req, res, next) => {
   try {
     const productId = req.params.productId;
-    const { title, description, price } = req.body;
+    const { title, description, price, front_url, back_url } = req.body;
 
     const updateProduct = await editProduct({
       productId,
