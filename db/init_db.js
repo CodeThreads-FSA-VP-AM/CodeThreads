@@ -5,11 +5,7 @@ const {
   User,
   Product,
 } = require("./");
-const {
-  createProduct,
-  editProduct,
-  deleteProduct,
-} = require("./models/products");
+const { createProduct, editProduct, deleteProduct } = require("./models/products");
 
 const { createUser } = require("./models/user");
 
@@ -41,14 +37,14 @@ async function buildTables() {
       await client.query(`
 
       CREATE TABLE users (
-       id SERIAL PRIMARY KEY,
-       username VARCHAR(255) UNIQUE NOT NULL,
-       password VARCHAR(255) NOT NULL,
-       email VARCHAR(255) UNIQUE NOT NULL,
-       created_at TIMESTAMP DEFAULT NOW(),
-       is_admin BOOLEAN DEFAULT false,
-       avatar_url TEXT
-       );
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        created_at TIMESTAMP DEFAULT NOW(),
+        is_admin BOOLEAN DEFAULT false,
+        avatar_url TEXT
+      );
        
       CREATE TABLE products (
         id SERIAL PRIMARY KEY,
@@ -56,8 +52,8 @@ async function buildTables() {
         description TEXT NOT NULL,
         price DECIMAL(10,2) NOT NULL,
         created_at TIMESTAMP DEFAULT NOW(),
-        back_url TEXT,
-        front_url TEXT 
+        front_url TEXT,
+        back_url TEXT
       );
         
       CREATE TABLE orders (
@@ -74,32 +70,32 @@ async function buildTables() {
         id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         name VARCHAR(255) NOT NULL
-        );
+      );
         
-        CREATE TABLE reviews (
+      CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         users_id INTEGER REFERENCES users(id),
         title VARCHAR(255) NOT NULL,
         description TEXT,
         rating INTEGER NOT NULL
-        );
+      );
         
-        CREATE TABLE sizes (
-          id SERIAL PRIMARY KEY,
+      CREATE TABLE sizes (
+        id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         small INTEGER, 
         medium INTEGER, 
         large INTEGER, 
         xlarge INTEGER
-        );
-        CREATE TABLE cart (
-          id SERIAL PRIMARY KEY,
-          order_id INTEGER REFERENCES orders(id)
-          
-      )
+      );
+
+      CREATE TABLE cart (
+        id SERIAL PRIMARY KEY,
+        order_id INTEGER REFERENCES orders(id)
+      );
       
-      `);
+    `);
       console.log(`Finished building tables.`);
     } catch (error) {
       console.error(`Error building tables.`);

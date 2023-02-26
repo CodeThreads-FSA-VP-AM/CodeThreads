@@ -23,7 +23,7 @@ productRouter.post("/add", async (req, res, next) => {
     if (product) {
       res.send({
         product: product,
-        message: "New Product Added Successfully",
+        message: `New Product: [${product.title}] Added Successfully`,
       });
     }
   } catch (error) {
@@ -43,6 +43,8 @@ productRouter.patch("/edit/:productId", async (req, res, next) => {
       title,
       description,
       price,
+      front_url,
+      back_url,
     });
     if (updateProduct) {
       res.send({

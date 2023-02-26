@@ -11,11 +11,12 @@ import Register from "./Register";
 import Products from "./Products";
 import SingleView from "./SingleView";
 import Orders from "./Orders";
+import AddProduct from "./AddProduct";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
   const [productId, setProductId] = useState(0);
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(0);
 
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
@@ -42,15 +43,10 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/products"
-              element={<Products setProductId={setProductId} />}
-            />
-            <Route
-              path="singleview"
-              element={<SingleView productId={productId} quantity={quantity} />}
-            />
+            <Route path="/products" element={<Products setProductId={setProductId} />} />
+            <Route path="singleview" element={<SingleView productId={productId} quantity={quantity} />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/addproduct" element={<AddProduct />} />
           </Routes>
         </div>
       </Router>
