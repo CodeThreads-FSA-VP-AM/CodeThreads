@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getOrder } from "../api/api";
+import { fetchOrder } from "../api/api";
 
 function Orders() {
   const [show, setShow] = useState(false);
@@ -7,16 +7,17 @@ function Orders() {
 
   useEffect(() => {
     try {
-      const fetchOrder = async () => {
-        const order = await getOrder();
-        setOrder(order);
+      const fetchOrders = async () => {
+        const orders = await fetchOrder();
+        setOrder(orders);
       };
-      console.log(order);
-      fetchOrder();
+      fetchOrders();
     } catch (error) {
       console.error(error);
     }
   }, []);
+
+  console.log(order);
   return (
     <>
       <div>

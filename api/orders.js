@@ -30,8 +30,4 @@ ordersRouter.get("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/test", async (req, res, next) => {
-  res.send("Im got to test");
-});
-
 module.exports = ordersRouter;
