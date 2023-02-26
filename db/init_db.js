@@ -25,7 +25,6 @@ async function buildTables() {
       DROP TABLE IF EXISTS sizes;
       DROP TABLE IF EXISTS reviews;
       DROP TABLE IF EXISTS tags;
-      DROP TABLE IF EXISTS images;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS products;
       DROP TABLE IF EXISTS users;
@@ -56,7 +55,9 @@ async function buildTables() {
         title VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
         price DECIMAL(10,2) NOT NULL,
-        created_at TIMESTAMP DEFAULT NOW()
+        created_at TIMESTAMP DEFAULT NOW(),
+        back_url TEXT,
+        front_url TEXT 
       );
         
       CREATE TABLE orders (
@@ -68,12 +69,6 @@ async function buildTables() {
         quantity INTEGER NOT NULL
       );
         
-        CREATE TABLE images (
-          id SERIAL PRIMARY KEY,
-          product_id INTEGER REFERENCES products(id),
-          front_url TEXT,
-          back_url TEXT
-      );
 
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,

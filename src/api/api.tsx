@@ -174,6 +174,7 @@ export const createOrder = async (data: Order) => {
   return json;
 };
 
+//fetch all orders
 export const fetchOrder = async () => {
   const res = await fetch(`${APIURL}/orders/`, {
     headers: {
