@@ -128,7 +128,7 @@ const createInitialProducts = async () => {
         price: 99.99,
       },
       {
-        title: "leggins",
+        title: "leggings",
         description: "delete me",
         price: 999.99,
       },
@@ -146,6 +146,21 @@ const createInitialProducts = async () => {
         title: "cargo pants",
         description: "got this in camo?",
         price: 59.99,
+      },
+      {
+        title: "longsleeve shirt",
+        description: "sometimes it can look nice",
+        price: 399.99,
+      },
+      {
+        title: "button down shirt",
+        description: "spiffy",
+        price: 999.99,
+      },
+      {
+        title: "leather jacket",
+        description: "punk rock 🤘",
+        price: 9999.99,
       },
     ];
     const product = await Promise.all(productsToCreate.map(createProduct));
