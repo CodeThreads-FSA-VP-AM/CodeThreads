@@ -13,8 +13,8 @@ const AddProduct: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [front_url, setFront_url] = useState("");
-  const [back_url, setBack_url] = useState("");
+  const [front_url, setFront_url] = useState("tinyurl.com/dthxwmed");
+  const [back_url, setBack_url] = useState("tinyurl.com/dthxwmed");
 
   const handleCreate: React.FormEventHandler<HTMLFormElement> = async (e) => {
     console.log("triggered");
@@ -37,9 +37,9 @@ const AddProduct: React.FC = () => {
         <label>price</label>
         <input className="bg-gray-200 border" type="number" value={price} onChange={(e) => setPrice(e.target.valueAsNumber)} />
         <label>front_url</label>
-        <input className="bg-gray-200 border" type="text" value={front_url} onChange={(e) => setFront_url(e.target.value)} required />
+        <input className="bg-gray-200 border" type="text" value={front_url} onChange={(e) => setFront_url(e.target.value)} />
         <label>back_url</label>
-        <input className="bg-gray-200 border" type="text" value={back_url} onChange={(e) => setBack_url(e.target.value)} required />
+        <input className="bg-gray-200 border" type="text" value={back_url} onChange={(e) => setBack_url(e.target.value)} />
 
         <button className="bg-slate-500" type="submit">
           create
