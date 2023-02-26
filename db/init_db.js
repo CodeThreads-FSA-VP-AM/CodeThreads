@@ -58,9 +58,9 @@ async function buildTables() {
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
         users_id INTEGER REFERENCES users(id),
-        product_id INTEGER REFERENCES products(id),
         status VARCHAR(255) NOT NULL,
-        purchased_at TIMESTAMP DEFAULT NOW()
+        purchased_at TIMESTAMP DEFAULT NOW(),
+        quantity INTEGER NOT NULL
       );
         
         CREATE TABLE images (
@@ -97,8 +97,8 @@ async function buildTables() {
         CREATE TABLE cart (
           id SERIAL PRIMARY KEY,
           product_id INTEGER REFERENCES products(id),
-          order_id INTEGER REFERENCES orders(id),
-          quantity INTEGER NOT NULL
+          order_id INTEGER REFERENCES orders(id)
+          
       )
       
       `);

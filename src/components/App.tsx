@@ -10,6 +10,7 @@ import Navbar from "./Navbar";
 import Register from "./Register";
 import Products from "./Products";
 import SingleView from "./SingleView";
+import Orders from "./Orders";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -40,8 +41,15 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/products" element={<Products setProductId={setProductId} />} />
-            <Route path="singleview" element={<SingleView productId={productId} />} />
+            <Route
+              path="/products"
+              element={<Products setProductId={setProductId} />}
+            />
+            <Route
+              path="singleview"
+              element={<SingleView productId={productId} />}
+            />
+            <Route path="/orders" element={<Orders />} />
           </Routes>
         </div>
       </Router>
