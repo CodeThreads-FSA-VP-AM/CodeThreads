@@ -175,7 +175,7 @@ export const createOrder = async (data: Order) => {
 };
 
 export const fetchOrder = async () => {
-  const res = await fetch(`${APIURL}/`, {
+  const res = await fetch(`${APIURL}/orders/`, {
     headers: {
       "Content-Type": "application/json",
     },

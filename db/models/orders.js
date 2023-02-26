@@ -22,10 +22,10 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
 
 const fetchOrder = async () => {
   try {
-    const { rows } = await client.query(`
+    const { rows: order } = await client.query(`
     SELECT * FROM orders
     `);
-    return rows;
+    return order;
   } catch (error) {
     console.error(error);
   }
