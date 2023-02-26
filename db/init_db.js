@@ -5,7 +5,11 @@ const {
   User,
   Product,
 } = require("./");
-const { createProduct, editProduct, deleteProduct } = require("./models/products");
+const {
+  createProduct,
+  editProduct,
+  deleteProduct,
+} = require("./models/products");
 
 const { createUser } = require("./models/user");
 
@@ -17,6 +21,7 @@ async function buildTables() {
     try {
       console.log(`Dropping all tables....`);
       await client.query(`
+      DROP TABLE IF EXISTS cart;
       DROP TABLE IF EXISTS sizes;
       DROP TABLE IF EXISTS reviews;
       DROP TABLE IF EXISTS tags;
@@ -42,7 +47,8 @@ async function buildTables() {
        password VARCHAR(255) NOT NULL,
        email VARCHAR(255) UNIQUE NOT NULL,
        created_at TIMESTAMP DEFAULT NOW(),
-       is_admin BOOLEAN DEFAULT false
+       is_admin BOOLEAN DEFAULT false,
+       avatar_url TEXT
        );
        
       CREATE TABLE products (
@@ -58,16 +64,15 @@ async function buildTables() {
         users_id INTEGER REFERENCES users(id),
         product_id INTEGER REFERENCES products(id),
         status VARCHAR(255) NOT NULL,
-        purchased_at TIMESTAMP DEFAULT NOW()
+        purchased_at TIMESTAMP DEFAULT NOW(),
+        quantity INTEGER NOT NULL
       );
         
         CREATE TABLE images (
           id SERIAL PRIMARY KEY,
-          users_id INTEGER REFERENCES users(id),
           product_id INTEGER REFERENCES products(id),
-          front_url TEXT NOT NULL,
-          back_url TEXT NOT NULL,
-          avatar_url TEXT NOT NULL
+          front_url TEXT,
+          back_url TEXT
       );
 
       CREATE TABLE tags (
@@ -86,13 +91,18 @@ async function buildTables() {
         );
         
         CREATE TABLE sizes (
-        id SERIAL PRIMARY KEY,
+          id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         small INTEGER, 
         medium INTEGER, 
         large INTEGER, 
         xlarge INTEGER
-      );
+        );
+        CREATE TABLE cart (
+          id SERIAL PRIMARY KEY,
+          order_id INTEGER REFERENCES orders(id)
+          
+      )
       
       `);
       console.log(`Finished building tables.`);

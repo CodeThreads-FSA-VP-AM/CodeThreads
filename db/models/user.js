@@ -37,7 +37,7 @@ const getUser = async ({ username, password }) => {
   }
 };
 
-const getUserByID = async (userId) => {
+const getUserById = async (userId) => {
   try {
     const {
       rows: [user],
@@ -90,7 +90,7 @@ module.exports = {
   // add your database adapter fns here
   createUser,
   getUser,
-  getUserByID,
+  getUserById,
   getUserByUsername,
   getUserByEmail,
   getAllUsers,
