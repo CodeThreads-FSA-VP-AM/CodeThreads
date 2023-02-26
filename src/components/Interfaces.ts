@@ -6,4 +6,14 @@ export interface Product {
   title: string;
   description: string;
   price: number;
+  front_url?: string
+  back_url?: string
+}
+
+export interface ProductCreate {
+  title: string;
+  description: string;
+  price: number;
+  front_url: string
+  back_url: string
 }
