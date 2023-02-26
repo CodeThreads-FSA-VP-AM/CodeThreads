@@ -157,14 +157,15 @@ type Order = {
 
 export const createOrder = async (data: Order) => {
   const { product_id, quantity, token } = data;
-  const res = await fetch(`${APIURL}/order`, {
+  console.log(data);
+  const res = await fetch(`${APIURL}/orders/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      productId: `${product_id}`,
+      product_id: `${product_id}`,
       quantity: `${quantity}`,
     }),
   });
@@ -174,11 +175,18 @@ export const createOrder = async (data: Order) => {
 };
 
 export const getOrder = async () => {
-  const res = await fetch(`${APIURL}/order`, {
+  const res = await fetch(`${APIURL}/orders`, {
     headers: {
       "Content-Type": "application/json",
     },
   });
   const json = await res.json();
+  return json;
+};
+
+export const orderTest = async () => {
+  const res = await fetch(`${APIURL}/orders/test`);
+  const json = await res.json();
+  console.log(json);
   return json;
 };

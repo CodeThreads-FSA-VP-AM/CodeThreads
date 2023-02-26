@@ -2,6 +2,7 @@ const client = require("../client");
 
 const addProductToCart = async ({ user_id, product_id, quantity }) => {
   try {
+    console.log(user_id, product_id, quantity);
     const {
       rows: [order],
     } = await client.query(
@@ -12,7 +13,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
     `,
       [user_id, product_id, quantity]
     );
-
+    console.log(order);
     return order;
   } catch (error) {
     console.error(error);

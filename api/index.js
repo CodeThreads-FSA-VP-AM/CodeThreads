@@ -1,17 +1,17 @@
-const express = require('express');
+const express = require("express");
 const apiRouter = express.Router();
-const jwt = require('jsonwebtoken');
-const { JWT_SECRET = 'neverTell' } = process.env;
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET = "neverTell" } = process.env;
 
-const { getUserById } = require('../db/models/user');
+const { getUserById } = require("../db/models/user");
 
-apiRouter.get('/', (req, res, next) => {
+apiRouter.get("/", (req, res, next) => {
   res.send({
-    message: 'API is under construction!',
+    message: "API is under construction!",
   });
 });
 
-apiRouter.get('/health', (req, res, next) => {
+apiRouter.get("/health", (req, res, next) => {
   res.send({
     healthy: true,
   });
@@ -19,8 +19,8 @@ apiRouter.get('/health', (req, res, next) => {
 
 //JWT middleware
 apiRouter.use(async (req, res, next) => {
-  const prefix = 'Bearer ';
-  const auth = req.header('Authorization');
+  const prefix = "Bearer ";
+  const auth = req.header("Authorization");
 
   if (!auth) {
     next();
@@ -30,7 +30,7 @@ apiRouter.use(async (req, res, next) => {
 
     try {
       const { id } = jwt.verify(token, JWT_SECRET);
-      console.log('id here', id);
+      console.log("id here", id);
 
       if (id) {
         req.user = await getUserById(id);
@@ -42,7 +42,7 @@ apiRouter.use(async (req, res, next) => {
     }
   } else {
     next({
-      name: 'AuthorizationHeaderError',
+      name: "AuthorizationHeaderError",
       message: `Authorization token must start with ${prefix}`,
     });
   }
@@ -50,11 +50,14 @@ apiRouter.use(async (req, res, next) => {
 
 // place your routers here
 // ROUTER: /api/users
-const usersRouter = require('./users');
-apiRouter.use('/users', usersRouter);
+const usersRouter = require("./users");
+apiRouter.use("/users", usersRouter);
 
-const productsRouter = require('./products');
-apiRouter.use('/products', productsRouter);
+const productsRouter = require("./products");
+apiRouter.use("/products", productsRouter);
+
+const ordersRouter = require("./orders");
+apiRouter.use("/orders", ordersRouter);
 
 apiRouter.use((error, req, res, next) => {
   res.send({

@@ -22,15 +22,16 @@ const SingleView: FC<Props> = ({ productId }) => {
     setProduct(fetchedProduct);
   };
 
-  const addProductToCart = async () => {
-    console.log("hello??");
+  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+    e.preventDefault();
     try {
       const res = await createOrder({
         product_id: productId,
         quantity: 1,
         token: token,
       });
-
       console.log(res);
     } catch (error) {
       console.error();
@@ -268,7 +269,6 @@ const SingleView: FC<Props> = ({ productId }) => {
                   </div>
                   {/* remove disabled to use */}
                   <button
-                    disabled
                     type="submit"
                     onClick={addProductToCart}
                     className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
