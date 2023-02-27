@@ -20,16 +20,14 @@ ordersRouter.post("/add", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/:orderId", async (req, res, next) => {
-  const { orderId } = req.params;
+ordersRouter.get("/", async (req, res, next) => {
   try {
-    const order = await fetchOrder(orderId);
+    const order = await fetchOrder();
     res.send(order);
   } catch (error) {
     console.error(error);
     next(error);
   }
 });
-
 
 module.exports = ordersRouter;
