@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { fetchOrder } from "../api/api";
+import { useParams } from "react-router-dom";
 
 function Orders() {
   const [show, setShow] = useState(false);
   const [order, setOrder] = useState([]);
+  const { orderId } = useParams();
 
   useEffect(() => {
     try {
+      const parsedOrderId = orderId ? parseInt(orderId) : undefined;
       const fetchOrders = async () => {
-        const orders = await fetchOrder();
+        const orders = await fetchOrder(parsedOrderId);
         setOrder(orders);
       };
       fetchOrders();
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [orderId]);
 
   console.log(order);
   return (

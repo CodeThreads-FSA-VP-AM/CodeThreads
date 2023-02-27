@@ -170,13 +170,12 @@ export const createOrder = async (data: Order) => {
     }),
   });
   const json = await res.json();
-  console.log(json);
   return json;
 };
 
 //fetch all orders
-export const fetchOrder = async () => {
-  const res = await fetch(`${APIURL}/orders/`, {
+export const fetchOrder = async (orderId?: number) => {
+  const res = await fetch(`${APIURL}/orders/${orderId}`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -184,4 +183,3 @@ export const fetchOrder = async () => {
   const json = await res.json();
   return json;
 };
-
