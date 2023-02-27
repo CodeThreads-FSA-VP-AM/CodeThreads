@@ -1,4 +1,5 @@
 const APIURL = "http://localhost:4000/api";
+import { Product, ProductCreate, ProductEdit } from "../components/Interfaces";
 
 //POST register user
 type Register = {
@@ -49,24 +50,16 @@ export const fetchLogin = async (data: Login): Promise<any> => {
 // Product fetch requests
 
 // fetch all products
-export const fetchProducts = async (): Promise<any> => {
+export const fetchProducts = async (): Promise<Product[]> => {
   const res = await fetch(`${APIURL}/products/`);
   const json = await res.json();
   return json;
 };
 
-// interface for create and edit
-type Product = {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-};
-
 // create product
-export const fetchCreateProduct = async (data: Product): Promise<any> => {
+export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
   try {
-    const { title, description, price } = data;
+    const { title, description, price, front_url, back_url } = data;
     const res = await fetch(`${APIURL}/products/add`, {
       method: "POST",
       headers: {
@@ -76,6 +69,8 @@ export const fetchCreateProduct = async (data: Product): Promise<any> => {
         title: `${title}`,
         description: `${description}`,
         price: `${price}`,
+        front_url: `${front_url}`,
+        back_url: `${back_url}`,
       }),
     });
 
@@ -87,9 +82,9 @@ export const fetchCreateProduct = async (data: Product): Promise<any> => {
 };
 
 // edit product
-export const fetchEditProduct = async (data: Product): Promise<any> => {
+export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
   try {
-    const { id: productId, title, description, price } = data;
+    const { productId, title, description, price, front_url, back_url } = data;
     const res = await fetch(`${APIURL}/products/edit/${productId}`, {
       method: "PATCH",
       headers: {
@@ -99,6 +94,8 @@ export const fetchEditProduct = async (data: Product): Promise<any> => {
         title: `${title}`,
         description: `${description}`,
         price: `${price}`,
+        front_url: `${front_url}`,
+        back_url: `${back_url}`,
       }),
     });
 

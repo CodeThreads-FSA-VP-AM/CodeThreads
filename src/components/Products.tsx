@@ -14,7 +14,7 @@ const Products: React.FC<Props> = ({ setProductId }) => {
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const allProducts: Product[] = await fetchProducts();
+        const allProducts = await fetchProducts();
         console.log(allProducts);
         setProducts(allProducts);
         setLoading(false);
@@ -50,10 +50,10 @@ const Products: React.FC<Props> = ({ setProductId }) => {
               <div>Loading...</div>
             ) : (
               products?.map((p: Product) => (
-                <li>
+                <li key={p.id}>
                   <Link to="/singleview" className="block overflow-hidden group" onClick={() => idHandle(p.id)}>
                     <img
-                      src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                      src={p.front_url}
                       alt=""
                       className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                     />

@@ -5,11 +5,7 @@ const {
   User,
   Product,
 } = require("./");
-const {
-  createProduct,
-  editProduct,
-  deleteProduct,
-} = require("./models/products");
+const { createProduct, editProduct, deleteProduct } = require("./models/products");
 
 const { createUser } = require("./models/user");
 
@@ -42,14 +38,14 @@ async function buildTables() {
       await client.query(`
 
       CREATE TABLE users (
-       id SERIAL PRIMARY KEY,
-       username VARCHAR(255) UNIQUE NOT NULL,
-       password VARCHAR(255) NOT NULL,
-       email VARCHAR(255) UNIQUE NOT NULL,
-       created_at TIMESTAMP DEFAULT NOW(),
-       is_admin BOOLEAN DEFAULT false,
-       avatar_url TEXT
-       );
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        created_at TIMESTAMP DEFAULT NOW(),
+        is_admin BOOLEAN DEFAULT false,
+        avatar_url TEXT
+      );
        
       CREATE TABLE products (
         id SERIAL PRIMARY KEY,
@@ -57,8 +53,8 @@ async function buildTables() {
         description TEXT NOT NULL,
         price DECIMAL(10,2) NOT NULL,
         created_at TIMESTAMP DEFAULT NOW(),
-        back_url TEXT,
-        front_url TEXT 
+        front_url TEXT,
+        back_url TEXT
       );
         
       CREATE TABLE orders (
@@ -73,24 +69,25 @@ async function buildTables() {
         id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         name VARCHAR(255) NOT NULL
-        );
+      );
         
-        CREATE TABLE reviews (
+      CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         users_id INTEGER REFERENCES users(id),
         title VARCHAR(255) NOT NULL,
         description TEXT,
         rating INTEGER NOT NULL
-        );
+      );
         
-        CREATE TABLE sizes (
-          id SERIAL PRIMARY KEY,
+      CREATE TABLE sizes (
+        id SERIAL PRIMARY KEY,
         product_id INTEGER REFERENCES products(id),
         small INTEGER, 
         medium INTEGER, 
         large INTEGER, 
         xlarge INTEGER
+
         );
 
         CREATE TABLE order_products (
@@ -101,8 +98,9 @@ async function buildTables() {
           product_id INTEGER REFERENCES products(id)
           
       )
+
       
-      `);
+    `);
       console.log(`Finished building tables.`);
     } catch (error) {
       console.error(`Error building tables.`);
@@ -129,46 +127,82 @@ const createInitialProducts = async () => {
         title: "shirt",
         description: "daily drip",
         price: 9.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       {
         title: "hoodie",
         description: "wear even if its hot outside",
         price: 99.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       {
         title: "leggings",
         description: "delete me",
         price: 999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       {
         title: "tank top",
         description: "so buff",
         price: 9999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       {
         title: "skinny jeans",
         description: "ok",
         price: 99.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       {
         title: "cargo pants",
         description: "got this in camo?",
         price: 59.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       {
         title: "longsleeve shirt",
         description: "sometimes it can look nice",
         price: 399.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       {
         title: "button down shirt",
         description: "spiffy",
         price: 999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       {
         title: "leather jacket",
         description: "punk rock 🤘",
         price: 9999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
     ];
     const product = await Promise.all(productsToCreate.map(createProduct));

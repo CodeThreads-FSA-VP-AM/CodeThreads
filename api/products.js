@@ -23,7 +23,7 @@ productRouter.post("/add", async (req, res, next) => {
     if (product) {
       res.send({
         product: product,
-        message: "New Product Added Successfully",
+        message: `New Product: [${product.title}] Added Successfully`,
       });
     }
   } catch (error) {
@@ -36,14 +36,17 @@ productRouter.post("/add", async (req, res, next) => {
 productRouter.patch("/edit/:productId", async (req, res, next) => {
   try {
     const productId = req.params.productId;
-    const { title, description, price } = req.body;
+    const { title, description, price, front_url, back_url } = req.body;
 
     const updateProduct = await editProduct({
       productId,
       title,
       description,
       price,
+      front_url,
+      back_url,
     });
+    console.log({ updateProduct });
     if (updateProduct) {
       res.send({
         product: updateProduct,
