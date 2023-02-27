@@ -17,17 +17,18 @@ async function buildTables() {
     try {
       console.log(`Dropping all tables....`);
       await client.query(`
-      DROP TABLE IF EXISTS cart;
-      DROP TABLE IF EXISTS sizes;
-      DROP TABLE IF EXISTS reviews;
-      DROP TABLE IF EXISTS tags;
-      DROP TABLE IF EXISTS orders;
-      DROP TABLE IF EXISTS products;
-      DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS order_products CASCADE;
+      DROP TABLE IF EXISTS tags CASCADE;
+      DROP TABLE IF EXISTS reviews CASCADE;
+      DROP TABLE IF EXISTS sizes CASCADE;
+      DROP TABLE IF EXISTS orders CASCADE;
+      DROP TABLE IF EXISTS products CASCADE;
+      DROP TABLE IF EXISTS users CASCADE;
       `);
       console.log(`finished dropping tables.`);
     } catch (error) {
       console.error(`Error dropping tables`);
+      console.error(error);
     }
 
     // build tables in correct order
@@ -59,10 +60,8 @@ async function buildTables() {
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
         users_id INTEGER REFERENCES users(id),
-        product_id INTEGER REFERENCES products(id),
-        status VARCHAR(255) NOT NULL,
-        purchased_at TIMESTAMP DEFAULT NOW(),
-        quantity INTEGER NOT NULL
+        is_cart BOOLEAN NOT NULL,
+        purchased_at TIMESTAMP DEFAULT NOW()
       );
         
 
@@ -88,12 +87,18 @@ async function buildTables() {
         medium INTEGER, 
         large INTEGER, 
         xlarge INTEGER
-      );
 
-      CREATE TABLE cart (
-        id SERIAL PRIMARY KEY,
-        order_id INTEGER REFERENCES orders(id)
-      );
+        );
+
+        CREATE TABLE order_products (
+          id SERIAL PRIMARY KEY,
+          order_id INTEGER REFERENCES orders(id),
+          status VARCHAR(255) NOT NULL,
+          quantity INTEGER NOT NULL,
+          product_id INTEGER REFERENCES products(id)
+          
+      )
+
       
     `);
       console.log(`Finished building tables.`);

@@ -24,9 +24,9 @@ ordersRouter.get("/", async (req, res, next) => {
   try {
     const order = await fetchOrder();
     res.send(order);
-    console.log(order);
   } catch (error) {
     console.error(error);
+    next(error);
   }
 });
 

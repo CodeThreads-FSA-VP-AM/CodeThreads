@@ -154,7 +154,6 @@ type Order = {
 
 export const createOrder = async (data: Order) => {
   const { product_id, quantity, token } = data;
-  console.log(data);
   const res = await fetch(`${APIURL}/orders/add`, {
     method: "POST",
     headers: {
@@ -167,7 +166,6 @@ export const createOrder = async (data: Order) => {
     }),
   });
   const json = await res.json();
-  console.log(json);
   return json;
 };
 
@@ -179,5 +177,6 @@ export const fetchOrder = async () => {
     },
   });
   const json = await res.json();
+  console.log(json);
   return json;
 };
