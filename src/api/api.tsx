@@ -1,5 +1,5 @@
 const APIURL = "http://localhost:4000/api";
-import { Product, ProductCreate } from "../components/Interfaces";
+import { Product, ProductCreate, ProductEdit } from "../components/Interfaces";
 
 //POST register user
 type Register = {
@@ -82,9 +82,9 @@ export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
 };
 
 // edit product
-export const fetchEditProduct = async (data: Product): Promise<any> => {
+export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
   try {
-    const { id: productId, title, description, price } = data;
+    const { productId, title, description, price, front_url, back_url } = data;
     const res = await fetch(`${APIURL}/products/edit/${productId}`, {
       method: "PATCH",
       headers: {
@@ -94,6 +94,8 @@ export const fetchEditProduct = async (data: Product): Promise<any> => {
         title: `${title}`,
         description: `${description}`,
         price: `${price}`,
+        front_url: `${front_url}`,
+        back_url: `${back_url}`,
       }),
     });
 

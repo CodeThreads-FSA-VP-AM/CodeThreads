@@ -12,6 +12,7 @@ import Products from "./Products";
 import SingleView from "./SingleView";
 import Orders from "./Orders";
 import AddProduct from "./AddProduct";
+import EditProduct from "./EditProduct";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -47,6 +48,7 @@ const App: React.FC = () => {
             <Route path="singleview" element={<SingleView productId={productId} quantity={quantity} />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
+            <Route path="/editproduct" element={<EditProduct productId={productId} />} />
           </Routes>
         </div>
       </Router>

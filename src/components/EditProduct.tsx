@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { fetchCreateProduct } from "../api/api";
+import { fetchCreateProduct, fetchEditProduct } from "../api/api";
 
 type Props = {
+  productId: number;
+};
+
+type Product = {
+  productId: number;
   title: string;
   description: string;
   price: number;
@@ -9,20 +14,26 @@ type Props = {
   back_url: string;
 };
 
-const AddProduct: React.FC = () => {
+const EditProduct: React.FC<Props> = ({ productId }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(99.99);
   const [front_url, setFront_url] = useState("tinyurl.com/dthxwmed");
   const [back_url, setBack_url] = useState("tinyurl.com/dthxwmed");
+
+  // get all products
+  // be able to select a product and get the id
+  // send the data to fetchEditProduct
+
+  console.log(productId);
 
   const handleCreate: React.FormEventHandler<HTMLFormElement> = async (e) => {
     console.log("triggered");
     e.preventDefault();
-    const data: Props = { title, description, price, front_url, back_url };
+    const data: Product = { productId, title, description, price, front_url, back_url };
     console.log(data);
-    const create = await fetchCreateProduct(data);
-    console.log({ create });
+    const edit = await fetchEditProduct(data);
+    console.log({ edit });
   };
 
   return (
@@ -42,11 +53,11 @@ const AddProduct: React.FC = () => {
         <input className="bg-gray-200 border" type="text" value={back_url} onChange={(e) => setBack_url(e.target.value)} />
 
         <button className="bg-slate-500" type="submit">
-          create
+          edit
         </button>
       </form>
     </div>
   );
 };
 
-export default AddProduct;
+export default EditProduct;
