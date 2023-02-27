@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchOrder } from "../api/api";
 
 function Orders() {
   const [show, setShow] = useState(false);
   const [order, setOrder] = useState([]);
-
+  let navigate = useNavigate();
   useEffect(() => {
     try {
       const fetchOrders = async () => {
@@ -53,7 +54,12 @@ function Orders() {
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <polyline points="15 6 9 12 15 18" />
                   </svg>
-                  <p className="text-sm pl-2 leading-none">Back</p>
+                  <button
+                    className="text-sm pl-2 leading-none"
+                    onClick={() => navigate(-1)}
+                  >
+                    Back
+                  </button>
                 </div>
                 <p className="text-5xl font-black leading-10 text-gray-800 pt-3">
                   Bag
