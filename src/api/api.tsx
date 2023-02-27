@@ -84,7 +84,7 @@ export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
 // edit product
 export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
   try {
-    const { productId, title, description, price } = data;
+    const { productId, title, description, price, front_url, back_url } = data;
     const res = await fetch(`${APIURL}/products/edit/${productId}`, {
       method: "PATCH",
       headers: {
@@ -94,6 +94,8 @@ export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
         title: `${title}`,
         description: `${description}`,
         price: `${price}`,
+        front_url: `${front_url}`,
+        back_url: `${back_url}`,
       }),
     });
 

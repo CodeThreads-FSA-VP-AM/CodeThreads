@@ -70,10 +70,12 @@ const getProductByName = async (name) => {
 
 // edit product
 const editProduct = async ({ productId, ...fields }) => {
+  console.log({ productId });
+  console.log({ fields });
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-
+  console.log({ setString });
   if (setString.length === 0) {
     return;
   }
@@ -84,12 +86,12 @@ const editProduct = async ({ productId, ...fields }) => {
       `
       UPDATE products
       SET ${setString}
-      WHERE id=$1
+      WHERE id=${productId}
       RETURNING *
     `,
       Object.values(fields)
     );
-
+    console.log(product);
     return product;
   } catch (error) {
     console.error(error);

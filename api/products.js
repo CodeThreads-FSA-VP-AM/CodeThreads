@@ -46,6 +46,7 @@ productRouter.patch("/edit/:productId", async (req, res, next) => {
       front_url,
       back_url,
     });
+    console.log({ updateProduct });
     if (updateProduct) {
       res.send({
         product: updateProduct,
