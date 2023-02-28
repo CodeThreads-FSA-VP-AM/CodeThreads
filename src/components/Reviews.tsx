@@ -121,9 +121,7 @@ const Reviews = (props: Props) => {
             </p>
 
             <footer className="mt-4">
-              <p className="text-xs text-gray-500">
-                John Doe - 12th January, 2024
-              </p>
+              <p className="text-xs text-gray-500">John Doe</p>
             </footer>
           </blockquote>
 
@@ -185,9 +183,7 @@ const Reviews = (props: Props) => {
             </p>
 
             <footer className="mt-4">
-              <p className="text-xs text-gray-500">
-                John Doe - 12th January, 2024
-              </p>
+              <p className="text-xs text-gray-500">John Doe</p>
             </footer>
           </blockquote>
 
@@ -249,9 +245,7 @@ const Reviews = (props: Props) => {
             </p>
 
             <footer className="mt-4">
-              <p className="text-xs text-gray-500">
-                John Doe - 12th January, 2024
-              </p>
+              <p className="text-xs text-gray-500">John Doe</p>
             </footer>
           </blockquote>
 
@@ -313,9 +307,7 @@ const Reviews = (props: Props) => {
             </p>
 
             <footer className="mt-4">
-              <p className="text-xs text-gray-500">
-                John Doe - 12th January, 2024
-              </p>
+              <p className="text-xs text-gray-500">John Doe</p>
             </footer>
           </blockquote>
         </div>

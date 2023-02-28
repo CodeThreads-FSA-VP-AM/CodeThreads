@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchProductById, createOrder } from "../api/api";
 import { Product } from "./Interfaces";
+import Reviews from "./Reviews";
 
 type Props = {
   quantity: number;
@@ -214,6 +215,9 @@ const SingleView: FC<Props> = ({}) => {
               </form>
             </div>
           </div>
+        </div>
+        <div>
+          <Reviews />
         </div>
       </section>
     </>
