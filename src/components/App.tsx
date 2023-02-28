@@ -60,8 +60,7 @@ const App: React.FC = () => {
             <Route path={`/products/:id`} element={<SingleView quantity={quantity} />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
-            <Route path="/edit/:id" element={<EditProduct product={product} />} />
-
+            <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
           </Routes>
         </div>
       </Router>
