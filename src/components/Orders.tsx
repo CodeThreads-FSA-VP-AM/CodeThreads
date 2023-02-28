@@ -1,13 +1,13 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchOrder, deleteOrder } from "../api/api";
-import { OrderData, Order } from "./Interfaces";
+import { fetchOrder, deleteOrder, fetchUser } from "../api/api";
+import { OrderData, Order, User } from "./Interfaces";
 
 const Orders = () => {
   const [show, setShow] = useState(false);
   const [orders, setOrders] = useState<OrderData[]>([]);
+  const [userId, setUserId] = useState(0);
   const [token, setToken] = useState("");
-  const [productId, setProductId] = useState(0);
   let navigate = useNavigate();
   const totalPrice = orders.reduce(
     (total, order) => total + order.price * order.quantity,
@@ -21,24 +21,43 @@ const Orders = () => {
         token: token,
       });
       console.log(res);
+      setOrders(orders.filter(order => order.product_id !== product_id));
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
+    const getUser = async (data: User) => {
+      const { token } = data;
+      try {
+        const user = await fetchUser({ token });
+        setUserId(user.id);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const token = localStorage.getItem("token") ?? "";
+    setToken(token);
+    getUser({ token });
+
     try {
-      const fetchOrders = async () => {
-        const order = await fetchOrder();
-        setOrders(order);
+      const fetchOrders = async (userId: number) => {
+        const orders = await fetchOrder(userId);
+        const filteredOrders = orders.filter(
+          (order: { users_id: number }) => order.users_id === userId
+        );
+        setOrders(filteredOrders);
       };
-      fetchOrders();
+      fetchOrders(userId);
     } catch (error) {
       console.error(error);
     }
-    setToken(localStorage.getItem("token") ?? "");
-  }, []);
+  }, [token, userId]);
+
   console.log(orders);
+  console.log(userId);
   return (
     <>
       <div>
@@ -86,8 +105,9 @@ const Orders = () => {
                 </p>
 
                 {/* Map over the orders here */}
-                {orders?.map((o: Order, idx) => {
-                  return (
+                {orders
+                  .filter((o) => o.users_id === userId)
+                  .map((o: Order, idx) => (
                     <div
                       className="md:flex items-center mt-14 py-8 border-t border-gray-200"
                       key={idx}
@@ -145,8 +165,7 @@ const Orders = () => {
                         </div>
                       </div>
                     </div>
-                  );
-                })}
+                  ))}
               </div>
               {/* //Summary starts here */}
               <div className="xl:w-1/2 md:w-1/3 w-full bg-gray-100 h-full">
@@ -202,24 +221,6 @@ const Orders = () => {
           </div>
         </div>
       </div>
-
-      <style>
-        {` /* width */
-                #scroll::-webkit-scrollbar {
-                    width: 1px;
-                }
-
-                /* Track */
-                #scroll::-webkit-scrollbar-track {
-                    background: #f1f1f1;
-                }
-
-                /* Handle */
-                #scroll::-webkit-scrollbar-thumb {
-                    background: rgb(133, 132, 132);
-                }
-`}
-      </style>
     </>
   );
 };

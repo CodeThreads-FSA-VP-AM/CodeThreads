@@ -56,3 +56,8 @@ export interface Order {
   back_url: string;
 
 }
+
+export interface User {
+  token: string;
+  
+}

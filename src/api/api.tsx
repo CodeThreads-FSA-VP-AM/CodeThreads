@@ -25,6 +25,23 @@ export const fetchRegister = async (data: Register): Promise<any> => {
   return json;
 };
 
+//GET users/me
+type User = {
+  token: string;
+};
+
+export const fetchUser = async (data: User) => {
+  const { token } = data;
+  const res = await fetch(`${APIURL}/users/me`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await res.json();
+  return json;
+};
+
 //POST login
 type Login = {
   username: string;
@@ -169,9 +186,8 @@ export const createOrder = async (data: Order) => {
   return json;
 };
 
-//fetch all orders
-export const fetchOrder = async () => {
-  const res = await fetch(`${APIURL}/orders/`, {
+export const fetchOrder = async (userId: number) => {
+  const res = await fetch(`${APIURL}/orders/${userId}`, {
     headers: {
       "Content-Type": "application/json",
     },
