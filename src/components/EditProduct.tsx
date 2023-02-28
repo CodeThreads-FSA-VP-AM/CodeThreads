@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { fetchCreateProduct, fetchEditProduct } from "../api/api";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { fetchEditProduct, fetchProductById } from "../api/api";
 
 type Props = {
-  productId: number;
+  product: any;
 };
 
 type Product = {
@@ -14,18 +15,22 @@ type Product = {
   back_url: string;
 };
 
-const EditProduct: React.FC<Props> = ({ productId }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+const EditProduct: React.FC<Props> = ({ product }) => {
+  const [title, setTitle] = useState(product.title);
+  const [description, setDescription] = useState(product.description);
   const [price, setPrice] = useState(99.99);
-  const [front_url, setFront_url] = useState("tinyurl.com/dthxwmed");
-  const [back_url, setBack_url] = useState("tinyurl.com/dthxwmed");
+  const [front_url, setFront_url] = useState(product.front_url);
+  const [back_url, setBack_url] = useState(product.back_url);
+  const [productId, setProductId] = useState(0);
 
   // get all products
   // be able to select a product and get the id
   // send the data to fetchEditProduct
 
-  console.log(productId);
+  const { id } = useParams();
+
+  console.log({ productId });
+  console.log({ product });
 
   const handleCreate: React.FormEventHandler<HTMLFormElement> = async (e) => {
     console.log("triggered");
@@ -35,6 +40,11 @@ const EditProduct: React.FC<Props> = ({ productId }) => {
     const edit = await fetchEditProduct(data);
     console.log({ edit });
   };
+
+  useEffect(() => {
+    const getID = parseInt(id!);
+    setProductId(getID);
+  }, [productId]);
 
   return (
     <div>

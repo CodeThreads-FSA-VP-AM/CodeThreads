@@ -1,26 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Routes, BrowserRouter as Router, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 // import { getAPIHealth } from "../axios-services";
-import '../style/App.css';
-import Login from './Login';
-import Navbar from './Navbar';
-import Register from './Register';
-import Products from './Products';
-import SingleView from './SingleView';
-import Orders from './Orders';
-import AddProduct from './AddProduct';
-import EditProduct from './EditProduct';
+import "../style/App.css";
+import Login from "./Login";
+import Navbar from "./Navbar";
+import Register from "./Register";
+import Products from "./Products";
+import SingleView from "./SingleView";
+import Orders from "./Orders";
+import AddProduct from "./AddProduct";
+import EditProduct from "./EditProduct";
+import { fetchProductById } from "../api/api";
 
 const App: React.FC = () => {
-  const [APIHealth, setAPIHealth] = useState('');
+  const [APIHealth, setAPIHealth] = useState("");
   const [productId, setProductId] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [product, setProduct] = useState();
 
-  const { id } = useParams();
-  console.log({ id });
+  const getProduct = async () => {
+    const product = await fetchProductById(productId);
+    console.log(product);
+    setProduct(product);
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, [productId]);
 
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
@@ -45,13 +54,13 @@ const App: React.FC = () => {
         <Navbar />
         <div>
           <Routes>
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/products' element={<Products setProductId={setProductId} />} />
-            <Route path={`/products/:id`} element={<SingleView productId={productId} quantity={quantity} />} />
-            <Route path='/orders' element={<Orders />} />
-            <Route path='/addproduct' element={<AddProduct />} />
-            <Route path='/editproduct' element={<EditProduct productId={productId} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/products" element={<Products setProductId={setProductId} />} />
+            <Route path={`/products/:id`} element={<SingleView quantity={quantity} />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/addproduct" element={<AddProduct />} />
+            <Route path="/edit/:id" element={<EditProduct product={product} />} />
           </Routes>
         </div>
       </Router>
