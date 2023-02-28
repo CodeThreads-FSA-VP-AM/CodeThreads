@@ -25,6 +25,23 @@ export const fetchRegister = async (data: Register): Promise<any> => {
   return json;
 };
 
+//GET users/me
+type User = {
+  token: string;
+};
+
+export const fetchUser = async (data: User) => {
+  const { token } = data;
+  const res = await fetch(`${APIURL}/users/me`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await res.json();
+  return json;
+};
+
 //POST login
 type Login = {
   username: string;

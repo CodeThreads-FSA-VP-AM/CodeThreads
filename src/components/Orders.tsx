@@ -1,13 +1,13 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchOrder, deleteOrder } from "../api/api";
+import { fetchOrder, deleteOrder, fetchUser } from "../api/api";
 import { OrderData, Order } from "./Interfaces";
 
 const Orders = () => {
   const [show, setShow] = useState(false);
   const [orders, setOrders] = useState<OrderData[]>([]);
+  const [userId, setUserId] = useState(0);
   const [token, setToken] = useState("");
-  const [productId, setProductId] = useState(0);
   let navigate = useNavigate();
   const totalPrice = orders.reduce(
     (total, order) => total + order.price * order.quantity,
@@ -25,6 +25,22 @@ const Orders = () => {
       console.error(error);
     }
   };
+  type User = {
+    token: string;
+  };
+
+  const getUser = async (data: User) => {
+    const { token } = data;
+    try {
+      const user = await fetchUser({ token });
+      setUserId(user.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getUser({ token });
+  }, [userId]);
 
   useEffect(() => {
     try {
@@ -39,6 +55,7 @@ const Orders = () => {
     setToken(localStorage.getItem("token") ?? "");
   }, []);
   console.log(orders);
+  console.log(userId);
   return (
     <>
       <div>
@@ -86,8 +103,9 @@ const Orders = () => {
                 </p>
 
                 {/* Map over the orders here */}
-                {orders?.map((o: Order, idx) => {
-                  return (
+                {orders
+                  .filter((o) => o.users_id === userId)
+                  .map((o: Order, idx) => (
                     <div
                       className="md:flex items-center mt-14 py-8 border-t border-gray-200"
                       key={idx}
@@ -145,8 +163,7 @@ const Orders = () => {
                         </div>
                       </div>
                     </div>
-                  );
-                })}
+                  ))}
               </div>
               {/* //Summary starts here */}
               <div className="xl:w-1/2 md:w-1/3 w-full bg-gray-100 h-full">
