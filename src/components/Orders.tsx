@@ -21,6 +21,7 @@ const Orders = () => {
         token: token,
       });
       console.log(res);
+      setOrders(orders.filter(order => order.product_id !== product_id));
     } catch (error) {
       console.error(error);
     }
