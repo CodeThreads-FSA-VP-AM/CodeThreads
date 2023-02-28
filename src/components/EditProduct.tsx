@@ -71,9 +71,12 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
         <button className="bg-slate-500" type="submit">
           edit
         </button>
-
-        <button onClick={() => history(-1)}>go back</button>
       </form>
+      <div className="flex">
+        <button className="flex justify-center" onClick={() => history(-1)}>
+          go back
+        </button>
+      </div>
     </div>
   );
 };

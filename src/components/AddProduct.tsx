@@ -47,9 +47,8 @@ const AddProduct: React.FC = () => {
         <button className="bg-slate-500" type="submit">
           create
         </button>
-
-        <button onClick={() => history(-1)}>go back</button>
       </form>
+      <button onClick={() => history(-1)}>go back</button>
     </div>
   );
 };
