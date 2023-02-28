@@ -221,24 +221,6 @@ const Orders = () => {
           </div>
         </div>
       </div>
-
-      <style>
-        {` /* width */
-                #scroll::-webkit-scrollbar {
-                    width: 1px;
-                }
-
-                /* Track */
-                #scroll::-webkit-scrollbar-track {
-                    background: #f1f1f1;
-                }
-
-                /* Handle */
-                #scroll::-webkit-scrollbar-thumb {
-                    background: rgb(133, 132, 132);
-                }
-`}
-      </style>
     </>
   );
 };
