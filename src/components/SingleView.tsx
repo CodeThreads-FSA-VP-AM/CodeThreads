@@ -27,7 +27,7 @@ const SingleView: FC<Props> = ({ productId }) => {
     try {
       const res = await createOrder({
         product_id: productId,
-        quantity: 1,
+        quantity: 2,
         token: token,
       });
       console.log(res);

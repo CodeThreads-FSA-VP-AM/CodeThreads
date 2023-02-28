@@ -85,7 +85,7 @@ function Orders() {
                       </div>
                       <div className="md:pl-3 md:w-3/4">
                         <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">
-                          {order.order_id}
+                          {1 + idx++}
                         </p>
                         <div className="flex items-center justify-between w-full pt-1">
                           <p className="text-base font-black leading-none text-gray-800 capitalize">
@@ -121,7 +121,7 @@ function Orders() {
                             </p>
                           </div>
                           <p className="text-base font-black leading-none text-gray-800">
-                            ${order.price}
+                            ${order.price * order.quantity}
                           </p>
                         </div>
                       </div>
