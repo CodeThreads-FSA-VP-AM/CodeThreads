@@ -43,7 +43,9 @@ const SingleView: FC<Props> = ({}) => {
   };
 
   useEffect(() => {
-    getProduct();
+    if (productId !== 0) {
+      getProduct();
+    }
     setToken(localStorage.getItem("token") ?? "");
     const getID = parseInt(id!);
     setProductId(getID);
