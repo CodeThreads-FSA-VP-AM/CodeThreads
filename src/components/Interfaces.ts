@@ -41,3 +41,18 @@ export interface OrderData {
   back_url: string;
 
 }
+
+export interface Order {
+  id: number;
+  order_id: number;
+  product_id: number;
+  users_id: number;
+  price: number;
+  status: string;
+  title: string;
+  description: string;
+  quantity: number;
+  front_url: string;
+  back_url: string;
+
+}
