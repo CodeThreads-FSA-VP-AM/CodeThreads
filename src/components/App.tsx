@@ -13,11 +13,23 @@ import SingleView from "./SingleView";
 import Orders from "./Orders";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
+import { fetchProductById } from "../api/api";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
   const [productId, setProductId] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [product, setProduct] = useState();
+
+  const getProduct = async () => {
+    const product = await fetchProductById(productId);
+    console.log(product);
+    setProduct(product);
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, [productId]);
 
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
@@ -44,20 +56,11 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/products"
-              element={<Products setProductId={setProductId} />}
-            />
-            <Route
-              path="singleview"
-              element={<SingleView productId={productId} quantity={quantity} />}
-            />
+            <Route path="/products" element={<Products setProductId={setProductId} />} />
+            <Route path="/products/:id" element={<SingleView quantity={quantity} />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
-            <Route
-              path="/editproduct"
-              element={<EditProduct productId={productId} />}
-            />
+            <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
           </Routes>
         </div>
       </Router>

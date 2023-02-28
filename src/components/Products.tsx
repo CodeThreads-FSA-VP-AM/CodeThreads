@@ -41,6 +41,10 @@ const Products: React.FC<Props> = ({ setProductId }) => {
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit
               natus?
             </p>
+
+            <Link to="/addproduct" className="flex justify-center">
+              <button>add</button>
+            </Link>
           </header>
 
           <ul className="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -51,7 +55,7 @@ const Products: React.FC<Props> = ({ setProductId }) => {
             ) : (
               products?.map((p: Product) => (
                 <li key={p.id}>
-                  <Link to="/singleview" className="block overflow-hidden group" onClick={() => idHandle(p.id)}>
+                  <Link to={`/products/${p.id}`} className="block overflow-hidden group" onClick={() => idHandle(p.id)}>
                     <img
                       src={p.front_url}
                       alt=""
