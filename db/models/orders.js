@@ -92,7 +92,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
   }
 };
 
-const fetchOrder = async () => {
+const fetchOrder = async (users_id) => {
   try {
     const { rows: order } = await client.query(
       `
@@ -102,14 +102,15 @@ const fetchOrder = async () => {
       ON o.id = op.order_id
       JOIN products p
       ON op.product_id = p.id
-    `
+      WHERE users_id = $1
+    `,
+      [users_id]
     );
     return order;
   } catch (error) {
     console.error(error);
   }
 };
-
 const deleteOrder = async ({ id }) => {
   console.log(id, "in orderjs models");
   try {

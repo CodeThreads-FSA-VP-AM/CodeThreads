@@ -186,9 +186,8 @@ export const createOrder = async (data: Order) => {
   return json;
 };
 
-//fetch all orders
-export const fetchOrder = async () => {
-  const res = await fetch(`${APIURL}/orders/`, {
+export const fetchOrder = async (userId: number) => {
+  const res = await fetch(`${APIURL}/orders/${userId}`, {
     headers: {
       "Content-Type": "application/json",
     },

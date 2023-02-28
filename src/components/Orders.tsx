@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchOrder, deleteOrder, fetchUser } from "../api/api";
-import { OrderData, Order } from "./Interfaces";
+import { OrderData, Order, User } from "./Interfaces";
 
 const Orders = () => {
   const [show, setShow] = useState(false);
@@ -25,35 +25,36 @@ const Orders = () => {
       console.error(error);
     }
   };
-  type User = {
-    token: string;
-  };
 
-  const getUser = async (data: User) => {
-    const { token } = data;
-    try {
-      const user = await fetchUser({ token });
-      setUserId(user.id);
-    } catch (error) {
-      console.error(error);
-    }
-  };
   useEffect(() => {
+    const getUser = async (data: User) => {
+      const { token } = data;
+      try {
+        const user = await fetchUser({ token });
+        setUserId(user.id);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const token = localStorage.getItem("token") ?? "";
+    setToken(token);
     getUser({ token });
-  }, [userId]);
 
-  useEffect(() => {
     try {
-      const fetchOrders = async () => {
-        const order = await fetchOrder();
-        setOrders(order);
+      const fetchOrders = async (userId: number) => {
+        const orders = await fetchOrder(userId);
+        const filteredOrders = orders.filter(
+          (order: { users_id: number }) => order.users_id === userId
+        );
+        setOrders(filteredOrders);
       };
-      fetchOrders();
+      fetchOrders(userId);
     } catch (error) {
       console.error(error);
     }
-    setToken(localStorage.getItem("token") ?? "");
-  }, []);
+  }, [token, userId]);
+
   console.log(orders);
   console.log(userId);
   return (

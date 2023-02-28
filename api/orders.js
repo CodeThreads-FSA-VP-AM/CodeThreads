@@ -24,16 +24,16 @@ ordersRouter.post("/add", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/", async (req, res, next) => {
+ordersRouter.get("/:users_id", async (req, res, next) => {
+  const users_id = req.params.users_id;
   try {
-    const order = await fetchOrder();
+    const order = await fetchOrder(users_id);
     res.send(order);
   } catch (error) {
     console.error(error);
     next(error);
   }
 });
-
 ordersRouter.delete("/:id", async (req, res, next) => {
   try {
     const orderId = req.params;
