@@ -110,14 +110,14 @@ const fetchOrder = async () => {
   }
 };
 
-const deleteOrder = async (id) => {
+const deleteOrder = async ({ id }) => {
   console.log(id, "in orderjs models");
   try {
     const {
       rows: [order],
     } = await client.query(
       `
-    DELETE FROM order_products WHERE id=${id} 
+    DELETE FROM order_products WHERE product_id=$1 
     RETURNING *
     `,
       [id]
