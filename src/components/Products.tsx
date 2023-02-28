@@ -41,6 +41,10 @@ const Products: React.FC<Props> = ({ setProductId }) => {
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit
               natus?
             </p>
+
+            <Link to="/addproduct" className="flex justify-center">
+              <button>add</button>
+            </Link>
           </header>
 
           <ul className="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
