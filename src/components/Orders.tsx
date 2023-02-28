@@ -1,16 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchOrder } from "../api/api";
-import { OrderData } from "./Interfaces";
+import { fetchOrder, deleteOrder } from "../api/api";
+import { OrderData, Order } from "./Interfaces";
 
-function Orders() {
+const Orders = () => {
   const [show, setShow] = useState(false);
   const [orders, setOrders] = useState<OrderData[]>([]);
+  const [token, setToken] = useState("");
+  const [productId, setProductId] = useState(0);
   let navigate = useNavigate();
   const totalPrice = orders.reduce(
     (total, order) => total + order.price * order.quantity,
     0
   );
+
+  const handleDeleteOrder = async (product_id: number) => {
+    try {
+      const res = await deleteOrder({
+        product_id,
+        token: token,
+      });
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     try {
       const fetchOrders = async () => {
@@ -21,6 +36,7 @@ function Orders() {
     } catch (error) {
       console.error(error);
     }
+    setToken(localStorage.getItem("token") ?? "");
   }, []);
   console.log(orders);
   return (
@@ -70,7 +86,7 @@ function Orders() {
                 </p>
 
                 {/* Map over the orders here */}
-                {orders?.map((order, idx) => {
+                {orders?.map((o: Order, idx) => {
                   return (
                     <div
                       className="md:flex items-center mt-14 py-8 border-t border-gray-200"
@@ -78,50 +94,53 @@ function Orders() {
                     >
                       <div className="w-1/4">
                         <img
-                          src={order.front_url}
+                          src={o.front_url}
                           alt="..."
                           className="w-full h-full object-center object-cover"
                         />
                       </div>
                       <div className="md:pl-3 md:w-3/4">
                         <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">
-                          {order.order_id}
+                          {1 + idx++}
                         </p>
                         <div className="flex items-center justify-between w-full pt-1">
                           <p className="text-base font-black leading-none text-gray-800 capitalize">
-                            {order.title}
+                            {o.title}
                           </p>
                           <label className="p-1 border border-gray-200 focus:outline-none">
                             <input
                               type="number"
                               min="1"
                               max="10"
-                              defaultValue={order.quantity}
+                              defaultValue={o.quantity}
                               className="border-gray-500 border-2 "
                             ></input>
                           </label>
                         </div>
 
                         <p className="text-xs leading-3 text-gray-600 pt-2 capitalize">
-                          {order.description}
+                          {o.description}
                         </p>
                         <p className="text-xs leading-3 text-gray-600 py-4">
                           Color: Black
                         </p>
                         <p className="w-96 text-xs leading-3 text-gray-600 capitalize">
-                          {order.status}
+                          {o.status}
                         </p>
                         <div className="flex items-center justify-between pt-5 pr-6">
                           <div className="flex itemms-center">
                             <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
                               Add to favorites
                             </p>
-                            <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">
+                            <button
+                              className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"
+                              onClick={() => handleDeleteOrder(o.product_id)}
+                            >
                               Remove
-                            </p>
+                            </button>
                           </div>
                           <p className="text-base font-black leading-none text-gray-800">
-                            ${order.price}
+                            ${o.price * o.quantity}
                           </p>
                         </div>
                       </div>
@@ -203,6 +222,6 @@ function Orders() {
       </style>
     </>
   );
-}
+};
 
 export default Orders;

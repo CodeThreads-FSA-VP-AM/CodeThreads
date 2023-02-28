@@ -180,3 +180,23 @@ export const fetchOrder = async () => {
   console.log(json);
   return json;
 };
+
+//Delete a order
+
+type Delete = {
+  product_id: number;
+  token: string;
+};
+
+export const deleteOrder = async (data: Delete) => {
+  const { product_id, token } = data;
+  const res = await fetch(`${APIURL}/orders/${product_id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = res.json();
+  return json;
+};
