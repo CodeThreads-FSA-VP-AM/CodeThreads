@@ -1,7 +1,11 @@
 const express = require("express");
 const ordersRouter = express.Router();
 
-const { addProductToCart, fetchOrder } = require("../db/models/orders");
+const {
+  addProductToCart,
+  fetchOrder,
+  deleteOrder,
+} = require("../db/models/orders");
 
 //Get orders
 
@@ -24,6 +28,18 @@ ordersRouter.get("/", async (req, res, next) => {
   try {
     const order = await fetchOrder();
     res.send(order);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+ordersRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const orderId = req.params;
+    console.log(orderId, "orderID here in api");
+    const deletedOrder = await deleteOrder(orderId);
+    res.send(deletedOrder);
   } catch (error) {
     console.error(error);
     next(error);

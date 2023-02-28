@@ -1,16 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchOrder } from "../api/api";
+import { fetchOrder, deleteOrder } from "../api/api";
 import { OrderData } from "./Interfaces";
 
-function Orders() {
+const Orders = () => {
   const [show, setShow] = useState(false);
   const [orders, setOrders] = useState<OrderData[]>([]);
+  const [token, setToken] = useState("");
+  const [productID, setProductId] = useState(4);
   let navigate = useNavigate();
   const totalPrice = orders.reduce(
     (total, order) => total + order.price * order.quantity,
     0
   );
+
+  const handleDeleteOrder: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+    try {
+      const res = await deleteOrder({
+        product_id: productID,
+        token: token,
+      });
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     try {
       const fetchOrders = async () => {
@@ -21,6 +39,7 @@ function Orders() {
     } catch (error) {
       console.error(error);
     }
+    setToken(localStorage.getItem("token") ?? "");
   }, []);
   console.log(orders);
   return (
@@ -116,9 +135,12 @@ function Orders() {
                             <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
                               Add to favorites
                             </p>
-                            <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">
+                            <button
+                              className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"
+                              onClick={handleDeleteOrder}
+                            >
                               Remove
-                            </p>
+                            </button>
                           </div>
                           <p className="text-base font-black leading-none text-gray-800">
                             ${order.price * order.quantity}
@@ -203,6 +225,6 @@ function Orders() {
       </style>
     </>
   );
-}
+};
 
 export default Orders;
