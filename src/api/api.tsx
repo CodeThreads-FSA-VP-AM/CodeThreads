@@ -227,6 +227,7 @@ type Reviews = {
 
 export const createReview = async (data: Reviews) => {
   const { product_id, title, description, rating, token } = data;
+  console.log(data);
   const res = await fetch(`${APIURL}/reviews/add`, {
     method: "POST",
     headers: {
@@ -241,6 +242,7 @@ export const createReview = async (data: Reviews) => {
     }),
   });
   const json = await res.json();
+  console.log(json);
   return json;
 };
 
