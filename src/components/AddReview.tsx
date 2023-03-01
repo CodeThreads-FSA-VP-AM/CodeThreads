@@ -4,11 +4,6 @@ interface AddReviewProps {
   token: string;
   product_id: number;
 }
-type Review = {
-  title: string;
-  description: string;
-  rating: number;
-};
 
 const AddReview = (props: AddReviewProps) => {
   const [title, setTitle] = useState("");
@@ -19,8 +14,8 @@ const AddReview = (props: AddReviewProps) => {
     e
   ) => {
     e.preventDefault();
-    console.log(title, description, "rating", rating);
     try {
+      console.log(title, description, "rating", rating, props.product_id, props.token);
       const review = await createReview({
         product_id: props.product_id,
         token: props.token,
@@ -156,7 +151,7 @@ const AddReview = (props: AddReviewProps) => {
                         autoComplete="country-name"
                         className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         value={rating}
-                        defaultValue={0}
+                        defaultValue={1}
                         onChange={(e) => setRating(parseInt(e.target.value))}
                       >
                         <option>1</option>

@@ -6,18 +6,18 @@ const { createReview, deleteReview } = require("../db/models/reviews");
 //Create review
 
 reviewsRouter.post("/add", async (req, res, next) => {
-  const { id } = req.user;
   const { product_id, title, description, rating } = req.body;
   console.log(id, "ID from reviewsRouter");
   console.log(id, product_id, title, description, rating);
   try {
-    const user_id = id;
+    const user_id = req.user.id;
+    console.log(user_id);
     const review = await createReview({
       user_id,
       product_id,
       title,
       description,
-      rating
+      rating,
     });
     console.log(review);
     res.send(review);

@@ -227,7 +227,6 @@ type Reviews = {
 
 export const createReview = async (data: Reviews) => {
   const { product_id, title, description, rating, token } = data;
-  console.log(data);
   const res = await fetch(`${APIURL}/reviews/add`, {
     method: "POST",
     headers: {
@@ -235,14 +234,15 @@ export const createReview = async (data: Reviews) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      product_id: `${product_id}`,
-      title: `${title}`,
-      description: `${description}`,
-      rating: `${rating}`,
+      product_id: product_id,
+      title: title,
+      description: description,
+      rating: rating,
     }),
   });
+  console.log(data);
   const json = await res.json();
-  console.log(json);
+
   return json;
 };
 

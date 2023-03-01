@@ -7,6 +7,7 @@ module.exports = {
   ...require("./user"),
   User: require('./user'),
   Product: require('./products'),
+  
 
 };
 
