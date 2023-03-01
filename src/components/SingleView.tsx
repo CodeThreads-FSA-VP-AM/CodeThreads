@@ -45,6 +45,7 @@ const SingleView: FC<Props> = ({}) => {
   };
 
   const deleteProduct = async () => {
+    console.log('@frontend sv.js', productId);
     const deletedProduct = await fetchDeleteProduct(productId);
     console.log(deletedProduct);
     navigate(-1);
@@ -79,9 +80,9 @@ const SingleView: FC<Props> = ({}) => {
               <Link to={`/edit/${product?.id}`}>
                 <button className='mx-2'>edit</button>
               </Link>
-
-              <button onClick={deleteProduct}>delete</button>
-
+              <div>
+                <button onClick={deleteProduct}>delete</button>
+              </div>
               <div className='flex justify-between mt-8'>
                 <div className='max-w-[35ch] space-y-2'>
                   <h1 className='text-xl font-bold sm:text-2xl'>{product?.title}</h1>

@@ -130,10 +130,17 @@ export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
 
 // delete product
 export const fetchDeleteProduct = async (productId: number): Promise<any> => {
+  console.log('frontend api', productId);
   try {
-    const res = await fetch(`${APIURL}/products/delete/${productId}`);
-
-    const json = res.json();
+    const res = await fetch(`${APIURL}/products/delete/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log({ res });
+    const json = await res.json();
+    console.log('json here', { json });
     return json;
   } catch (error) {
     console.error(error);
