@@ -1,29 +1,30 @@
 const client = require("../client");
 
-async function createReview({
+const createReview = async ({
   product_id,
-  users_id,
+  user_id,
   title,
   description,
   rating,
-}) {
+}) => {
+  console.log('got to createReview in models');
   try {
     const {
-      row: [review],
+      rows: [review],
     } = await client.query(
       `
-      INSERT INTO reviews( product_id, users_id, title, description, rating)
-      VALUES ($1,$2,$3,$4, $5)
+      INSERT INTO reviews (product_id, users_id, title, description, rating)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *
     `,
-      [product_id, users_id, title, description, rating]
+      [product_id, user_id, title, description, rating]
     );
     console.log(review);
     return review;
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 async function deleteReview(review_id) {
   try {
