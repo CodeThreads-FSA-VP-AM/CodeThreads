@@ -119,6 +119,69 @@ const deleteProduct = async (productId) => {
   }
 };
 
+// create tags
+const createTags = async (tagList) => {
+  if (tagList === 0) {
+    return;
+  }
+
+  const insertVal = tagList.map((_, i) => `$${i + 1}`).join('), (');
+  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(', ');
+
+  try {
+    await client.query(
+      `
+    INSERT INTO tags(name)
+    VALUES (${insertVal})
+    ON CONFLICT (name) DO NOTHING
+    `,
+      tagList
+    );
+
+    const { rows } = await client.query(
+      `
+    SELECT * FROM tags
+    WHERE name 
+    IN (${selectVal})
+    `,
+      tagList
+    );
+
+    return rows;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// create product tags
+const createProductTag = async (product_id, tag_id) => {
+  try {
+    await client.query(
+      `
+    INSERT INTO  product_tags(product_id, tag_id)
+    VALUES ($1, $2)
+    ON CONFLICT (product_id, tag_id) DO NOTHING
+    `,
+      [product_id, tag_id]
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// add tag to product
+const addTagToProduct = async (product_id, tagList) => {
+  try {
+    const createProductTag = tagList.map((t) => createProductTag(product_id, t.id));
+
+    await Promise.all(createProductTag);
+
+    return await getProductById(product_id);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -126,4 +189,5 @@ module.exports = {
   createProduct,
   editProduct,
   deleteProduct,
+  createTags,
 };

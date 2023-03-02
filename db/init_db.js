@@ -18,6 +18,7 @@ async function buildTables() {
       console.log(`Dropping all tables....`);
       await client.query(`
       DROP TABLE IF EXISTS order_products CASCADE;
+      DROP TABLE IF EXISTS product_tags CASCADE;
       DROP TABLE IF EXISTS tags CASCADE;
       DROP TABLE IF EXISTS reviews CASCADE;
       DROP TABLE IF EXISTS sizes CASCADE;
@@ -67,8 +68,13 @@ async function buildTables() {
 
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
-        product_id INTEGER REFERENCES products(id),
         name VARCHAR(255) NOT NULL
+      );
+
+      CREATE TABLE product_tags (
+        product_id INTEGER REFERENCES products(id),
+        tag_id INTEGER REFERENCES tags(id)
+        UNIQUE (product_id, tag_id)
       );
         
       CREATE TABLE reviews (
