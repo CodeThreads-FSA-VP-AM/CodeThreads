@@ -60,7 +60,7 @@ async function buildTables() {
         
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
-        users_id INTEGER REFERENCES users(id),
+        users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
         is_cart BOOLEAN NOT NULL,
         purchased_at TIMESTAMP DEFAULT NOW()
       );
@@ -72,15 +72,15 @@ async function buildTables() {
       );
 
       CREATE TABLE product_tags (
-        product_id INTEGER REFERENCES products(id),
-        tag_id INTEGER REFERENCES tags(id)
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+        tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE,
         UNIQUE (product_id, tag_id)
       );
         
       CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
-        product_id INTEGER REFERENCES products(id),
-        users_id INTEGER REFERENCES users(id),
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+        users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
         title VARCHAR(255) NOT NULL,
         description TEXT,
         rating INTEGER NOT NULL
@@ -88,7 +88,7 @@ async function buildTables() {
         
       CREATE TABLE sizes (
         id SERIAL PRIMARY KEY,
-        product_id INTEGER REFERENCES products(id),
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
         small INTEGER, 
         medium INTEGER, 
         large INTEGER, 
@@ -96,13 +96,12 @@ async function buildTables() {
 
         );
 
-        CREATE TABLE order_products (
-          id SERIAL PRIMARY KEY,
-          order_id INTEGER REFERENCES orders(id),
-          status VARCHAR(255) NOT NULL,
-          quantity INTEGER NOT NULL,
-          product_id INTEGER REFERENCES products(id)
-          
+      CREATE TABLE order_products (
+        id SERIAL PRIMARY KEY,
+        order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+        status VARCHAR(255) NOT NULL,
+        quantity INTEGER NOT NULL,
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE
       )
 
       
