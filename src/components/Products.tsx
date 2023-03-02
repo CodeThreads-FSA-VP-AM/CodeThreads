@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { fetchProducts } from "../api/api";
-import { Product } from "./Interfaces";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { fetchDeleteProduct, fetchProducts } from '../api/api';
+import { Product } from './Interfaces';
 
 type Props = {
   setProductId: (id: number) => void;
@@ -10,6 +10,7 @@ type Props = {
 const Products: React.FC<Props> = ({ setProductId }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
+  const [selectedId, setSelectedId] = useState(0);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -32,32 +33,40 @@ const Products: React.FC<Props> = ({ setProductId }) => {
 
   const handleSelect: React.ChangeEventHandler<HTMLSelectElement> = (e: any) => {
     setProductId(e.target.value);
+    setSelectedId(e.target.value);
   };
 
-  const handleDelete = () => {
-    console.log("delete me");
+  const handleDelete = async () => {
+    console.log(selectedId);
+    console.log('delete me');
+    const deletedProduct = await fetchDeleteProduct(selectedId);
+
+    const filteredOrders = products.filter((p) => p.id !== selectedId);
+    setProducts(filteredOrders);
+
+    console.log('product removed', deletedProduct);
   };
 
   return (
     <>
       <section>
-        <div className="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
+        <div className='max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8'>
           <header>
-            <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">Product Collection</h2>
+            <h2 className='text-xl font-bold text-gray-900 sm:text-3xl'>Product Collection</h2>
 
-            <p className="max-w-md mt-4 text-gray-500">
+            <p className='max-w-md mt-4 text-gray-500'>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit
               natus?
             </p>
 
-            <Link to="/addproduct" className="flex justify-center">
+            <Link to='/addproduct' className='flex justify-center'>
               <button>add</button>
             </Link>
 
             {/* select drop down */}
             <div>
               <select onChange={handleSelect}>
-                <option value="delete">delete product</option>
+                <option value='delete'>delete product</option>
                 {products.map((p) => (
                   <option value={p.id} key={p.id}>
                     {p.title}
@@ -65,13 +74,13 @@ const Products: React.FC<Props> = ({ setProductId }) => {
                 ))}
               </select>
 
-              <button className="px-1" onClick={handleDelete}>
+              <button className='px-1' onClick={handleDelete}>
                 delete
               </button>
             </div>
           </header>
 
-          <ul className="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className='grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4'>
             {/* map over this code */}
 
             {loading ? (
@@ -79,20 +88,20 @@ const Products: React.FC<Props> = ({ setProductId }) => {
             ) : (
               products?.map((p: Product) => (
                 <li key={p.id}>
-                  <Link to={`/products/${p.id}`} className="block overflow-hidden group" onClick={() => idHandle(p.id)}>
+                  <Link to={`/products/${p.id}`} className='block overflow-hidden group' onClick={() => idHandle(p.id)}>
                     <img
                       src={p.front_url}
-                      alt=""
-                      className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                      alt=''
+                      className='h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]'
                     />
 
-                    <div className="relative pt-3 bg-white">
-                      <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">{p.title}</h3>
+                    <div className='relative pt-3 bg-white'>
+                      <h3 className='text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4'>{p.title}</h3>
 
-                      <p className="mt-2">
-                        <span className="sr-only"> Regular Price </span>
+                      <p className='mt-2'>
+                        <span className='sr-only'> Regular Price </span>
 
-                        <span className="tracking-wider text-gray-900"> £{p.price} GBP </span>
+                        <span className='tracking-wider text-gray-900'> £{p.price} GBP </span>
                       </p>
                     </div>
                   </Link>
