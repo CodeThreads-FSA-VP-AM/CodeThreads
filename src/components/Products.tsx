@@ -30,8 +30,12 @@ const Products: React.FC<Props> = ({ setProductId }) => {
     setProductId(id);
   };
 
-  const handleDelete: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setProductId(e.target.valueAsNumber);
+  const handleSelect: React.ChangeEventHandler<HTMLSelectElement> = (e: any) => {
+    setProductId(e.target.value);
+  };
+
+  const handleDelete = () => {
+    console.log("delete me");
   };
 
   return (
@@ -52,7 +56,7 @@ const Products: React.FC<Props> = ({ setProductId }) => {
 
             {/* select drop down */}
             <div>
-              <select onChange={handleDelete}>
+              <select onChange={handleSelect}>
                 <option value="delete">delete product</option>
                 {products.map((p) => (
                   <option value={p.id} key={p.id}>
@@ -60,6 +64,10 @@ const Products: React.FC<Props> = ({ setProductId }) => {
                   </option>
                 ))}
               </select>
+
+              <button className="px-1" onClick={handleDelete}>
+                delete
+              </button>
             </div>
           </header>
 
