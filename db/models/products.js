@@ -182,6 +182,33 @@ const addTagToProduct = async (product_id, tagList) => {
   }
 };
 
+// get product by tag
+const getProductByTag = async (tag) => {
+  try {
+    const { rows: product } = await client.query(
+      `
+    SELECT products.id FROM products
+    JOIN product_tags ON products.id=product_tags."product_id"
+    JOIN tags ON tags.id=product_tags."tag_id"
+    WHERE tags.name=$1
+    `,
+      [tag]
+    );
+
+    return await Promise.all(product.map((p) => getProductById(p.id)));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// get all tags
+const getAllTags = async () => {
+  const { rows } = await client.query(`
+  SELECT * FROM tags;
+  `);
+  return rows;
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -190,4 +217,8 @@ module.exports = {
   editProduct,
   deleteProduct,
   createTags,
+  createProductTag,
+  addTagToProduct,
+  getProductByTag,
+  getAllTags,
 };
