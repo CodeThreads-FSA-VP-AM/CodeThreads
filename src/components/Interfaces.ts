@@ -61,3 +61,12 @@ export interface User {
   token: string;
   
 }
+
+export interface Review {
+  id: number;
+  product_id: number;
+  rating: number;
+  title: string;
+  description: string;
+  users_id: number;
+}
