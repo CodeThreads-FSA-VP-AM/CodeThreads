@@ -1,5 +1,5 @@
-const APIURL = "http://localhost:4000/api";
-import { Product, ProductCreate, ProductEdit } from "../components/Interfaces";
+const APIURL = 'http://localhost:4000/api';
+import { Product, ProductCreate, ProductEdit } from '../components/Interfaces';
 
 //POST register user
 type Register = {
@@ -10,9 +10,9 @@ type Register = {
 export const fetchRegister = async (data: Register): Promise<any> => {
   const { username, password, email } = data;
   const res = await fetch(`${APIURL}/users/register`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -34,7 +34,7 @@ export const fetchUser = async (data: User) => {
   const { token } = data;
   const res = await fetch(`${APIURL}/users/me`, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });
@@ -50,9 +50,9 @@ type Login = {
 export const fetchLogin = async (data: Login): Promise<any> => {
   const { username, password } = data;
   const res = await fetch(`${APIURL}/users/login`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -78,9 +78,9 @@ export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
   try {
     const { title, description, price, front_url, back_url } = data;
     const res = await fetch(`${APIURL}/products/add`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         title: `${title}`,
@@ -103,9 +103,9 @@ export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
   try {
     const { productId, title, description, price, front_url, back_url } = data;
     const res = await fetch(`${APIURL}/products/edit/${productId}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         title: `${title}`,
@@ -129,12 +129,18 @@ export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
 // };
 
 // delete product
-export const fetchDeleteProduct = async (data: Product): Promise<any> => {
+export const fetchDeleteProduct = async (productId: number): Promise<any> => {
+  console.log('frontend api', productId);
   try {
-    const { id: productId } = data;
-    const res = await fetch(`${APIURL}/products/delete/${productId}`);
-
-    const json = res.json();
+    const res = await fetch(`${APIURL}/products/delete/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log({ res });
+    const json = await res.json();
+    console.log('json here', { json });
     return json;
   } catch (error) {
     console.error(error);
@@ -172,9 +178,9 @@ type Order = {
 export const createOrder = async (data: Order) => {
   const { product_id, quantity, token } = data;
   const res = await fetch(`${APIURL}/orders/add`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -189,7 +195,7 @@ export const createOrder = async (data: Order) => {
 export const fetchOrder = async (userId: number) => {
   const res = await fetch(`${APIURL}/orders/${userId}`, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
   const json = await res.json();
@@ -207,9 +213,9 @@ type Delete = {
 export const deleteOrder = async (data: Delete) => {
   const { product_id, token } = data;
   const res = await fetch(`${APIURL}/orders/${product_id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });

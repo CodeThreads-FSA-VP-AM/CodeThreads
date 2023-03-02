@@ -1,4 +1,4 @@
-const client = require("../client");
+const client = require('../client');
 
 // get all products
 const getProducts = async () => {
@@ -74,7 +74,7 @@ const editProduct = async ({ productId, ...fields }) => {
   console.log({ fields });
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(", ");
+    .join(', ');
   console.log({ setString });
   if (setString.length === 0) {
     return;
@@ -100,6 +100,7 @@ const editProduct = async ({ productId, ...fields }) => {
 
 // delete product
 const deleteProduct = async (productId) => {
+  console.log('@db level delete', productId);
   try {
     const {
       rows: [product],
