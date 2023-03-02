@@ -266,7 +266,7 @@ export const deleteReview = async (data: DeleteReview) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  const json = res.json();
+  const json = await res.json();
   return json;
 };
 

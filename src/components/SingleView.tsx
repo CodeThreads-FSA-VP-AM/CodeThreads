@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { fetchProductById, createOrder, fetchDeleteProduct } from "../api/api";
 import AddReview from "./AddReview";
-import { Product } from "./Interfaces";
+import { Product, Review } from "./Interfaces";
 import Reviews from "./Reviews";
 
 type Props = {
@@ -16,6 +16,7 @@ const SingleView: FC<Props> = ({}) => {
   const [product, setProduct] = useState<Product>();
   const [token, setToken] = useState("");
   const [productId, setProductId] = useState(0);
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   const navigate = useNavigate();
 
@@ -305,8 +306,18 @@ const SingleView: FC<Props> = ({}) => {
           </div>
         </div>
         <div>
-          <Reviews />
-          <AddReview token={token} product_id={productId} />
+          <Reviews
+            product_id={productId}
+            token={token}
+            reviews={reviews}
+            setReviews={setReviews}
+          />
+          <AddReview
+            token={token}
+            product_id={productId}
+            reviews={reviews}
+            setReviews={setReviews}
+          />
         </div>
       </section>
     </>

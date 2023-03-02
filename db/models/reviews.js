@@ -37,15 +37,16 @@ const createReview = async ({
   }
 };
 
-async function deleteReview(review_id) {
+async function deleteReview(reviewId) {
   try {
-    await client.query(
+    const deletedReview = await client.query(
       `
       DELETE FROM reviews r 
       WHERE r.id = $1;
     `,
-      [review_id]
+      [reviewId]
     );
+    return deletedReview;
   } catch (error) {
     console.error(error);
   }

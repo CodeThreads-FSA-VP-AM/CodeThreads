@@ -38,7 +38,7 @@ reviewsRouter.post("/add", async (req, res, next) => {
 
 reviewsRouter.delete("/:id", async (req, res, next) => {
   try {
-    const reviewId = req.params;
+    const reviewId = parseInt(req.params.id); // get the id value from req.params.id and parse it to a number
     const deletedReview = await deleteReview(reviewId);
     res.send(deletedReview);
   } catch (error) {
