@@ -58,6 +58,7 @@ export interface Order {
 }
 
 export interface User {
+
   token: string;
   
 }

@@ -11,6 +11,8 @@ type Props = {
 
 const Reviews = (props: Props) => {
   const [user, setUser] = useState("");
+  const [userId, setUserId] = useState(0);
+  console.log(userId);
 
   const handleDeleteReview = async (reviewId: number) => {
     const token = props.token;
@@ -29,8 +31,9 @@ const Reviews = (props: Props) => {
     const getUser = async (data: User) => {
       const { token } = data;
       try {
-        const user = await fetchUser({ token });
-        setUser(user.username);
+        const userInfo = await fetchUser({ token });
+        setUser(userInfo.username);
+        setUserId(userInfo.id);
       } catch (error) {
         console.error(error);
       }
@@ -171,13 +174,14 @@ const Reviews = (props: Props) => {
                 <footer className="mt-4">
                   <p className="text-xs text-gray-500">{user}</p>
                 </footer>
-
-                <button
-                  onClick={() => handleDeleteReview(r.id)}
-                  className="text-red-600 underline"
-                >
-                  Delete
-                </button>
+                {r.users_id === userId && (
+                  <button
+                    onClick={() => handleDeleteReview(r.id)}
+                    className="text-red-600 underline"
+                  >
+                    Delete
+                  </button>
+                )}
               </blockquote>
             </div>
           ))}
