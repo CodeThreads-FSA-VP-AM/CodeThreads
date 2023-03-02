@@ -295,7 +295,7 @@ const SingleView: FC<Props> = ({}) => {
           </div>
         </div>
         <div>
-          <Reviews />
+          <Reviews product_id={productId}/>
           <AddReview token={token} product_id={productId} />
         </div>
       </section>

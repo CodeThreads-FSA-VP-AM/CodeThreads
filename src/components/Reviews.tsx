@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getAllReviews } from "../api/api";
 import { Review } from "./Interfaces";
 
-type Props = {};
+type Props = {
+  product_id: number;
+};
 
 const Reviews = (props: Props) => {
   const [reviews, setReviews] = useState([]);
@@ -76,7 +78,8 @@ const Reviews = (props: Props) => {
             <p className="mt-0.5 text-xs text-gray-500">Based on 48 reviews</p>
           </div>
         </div>
-        {reviews.map((r: Review) => (
+        {reviews.filter((r: Review) => r.product_id === props.product_id).
+        map((r: Review) => (
           <div
             className="mt-8 grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-2"
             key={r.id}
