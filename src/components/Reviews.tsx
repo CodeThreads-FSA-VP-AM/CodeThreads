@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllReviews, fetchUser } from "../api/api";
+import { getAllReviews, fetchUser, deleteReview } from "../api/api";
 import { Review, User } from "./Interfaces";
 
 type Props = {
@@ -8,8 +8,19 @@ type Props = {
 };
 
 const Reviews = (props: Props) => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [user, setUser] = useState("");
+
+  const handleDeleteReview = async (reviewId: number) => {
+    const token = props.token;
+    try {
+      const res = await deleteReview({ reviewId, token });
+      console.log(res);
+      setReviews(reviews.filter((review) => review.id !== reviewId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const getUser = async (data: User) => {
@@ -157,6 +168,13 @@ const Reviews = (props: Props) => {
                 <footer className="mt-4">
                   <p className="text-xs text-gray-500">{user}</p>
                 </footer>
+
+                <button
+                  onClick={() => handleDeleteReview(r.id)}
+                  className="text-red-600 underline"
+                >
+                  Delete
+                </button>
               </blockquote>
             </div>
           ))}
