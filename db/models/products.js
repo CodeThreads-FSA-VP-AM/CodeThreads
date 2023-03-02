@@ -1,4 +1,4 @@
-const client = require('../client');
+const client = require("../client");
 
 // get all products
 const getProducts = async () => {
@@ -13,7 +13,7 @@ const getProducts = async () => {
 };
 
 // create product
-const createProduct = async ({ title, description, price, front_url, back_url }) => {
+const createProduct = async ({ title, description, price, front_url, back_url, tags = [] }) => {
   try {
     const {
       rows: [product],
@@ -26,7 +26,9 @@ const createProduct = async ({ title, description, price, front_url, back_url })
       [title, description, price, front_url, back_url]
     );
 
-    return product;
+    const tagList = await createTags(tags);
+
+    return await addTagToProduct(product.id, tagList);
   } catch (error) {
     console.error(error);
   }
@@ -72,9 +74,13 @@ const getProductByName = async (name) => {
 const editProduct = async ({ productId, ...fields }) => {
   console.log({ productId });
   console.log({ fields });
+
+  const { tags } = fields;
+  delete fields.tags;
+
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(', ');
+    .join(", ");
   console.log({ setString });
   if (setString.length === 0) {
     return;
@@ -91,8 +97,27 @@ const editProduct = async ({ productId, ...fields }) => {
     `,
       Object.values(fields)
     );
+
+    if (tags === undefined) {
+      return await getProductById(productId);
+    }
+
+    const tagList = await createTags(tags);
+    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
+
+    await client.query(
+      `
+    DELETE FROM product_tags
+    WHERE tag_id
+    NOT IN (${tagListIdString})
+    AND product_id=$1
+    `,
+      [productId]
+    );
+
+    await addTagToProduct(productId, tagList);
     console.log(product);
-    return product;
+    return await getProductById(productId);
   } catch (error) {
     console.error(error);
   }
@@ -100,7 +125,7 @@ const editProduct = async ({ productId, ...fields }) => {
 
 // delete product
 const deleteProduct = async (productId) => {
-  console.log('@db level delete', productId);
+  console.log("@db level delete", productId);
   try {
     const {
       rows: [product],
@@ -125,8 +150,8 @@ const createTags = async (tagList) => {
     return;
   }
 
-  const insertVal = tagList.map((_, i) => `$${i + 1}`).join('), (');
-  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(', ');
+  const insertVal = tagList.map((_, i) => `$${i + 1}`).join("), (");
+  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(", ");
 
   try {
     await client.query(
