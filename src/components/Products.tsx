@@ -83,7 +83,7 @@ const Products: React.FC<Props> = ({ setProductId }) => {
               <button className='px-1' onClick={handleDelete}>
                 delete
               </button>
-              <span>{message}</span>
+              <span className='text-red-400'>{message}</span>
             </div>
           </header>
 
