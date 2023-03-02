@@ -1,10 +1,10 @@
-const express = require("express");
+const express = require('express');
 const productRouter = express.Router();
 
-const { createProduct, getProducts, editProduct, deleteProduct, getProductById, getProductByName } = require("../db/models/products");
+const { createProduct, getProducts, editProduct, deleteProduct, getProductById, getProductByName } = require('../db/models/products');
 
 // GET /api/products/
-productRouter.get("/", async (req, res, next) => {
+productRouter.get('/', async (req, res, next) => {
   try {
     const products = await getProducts();
     res.send(products);
@@ -15,7 +15,7 @@ productRouter.get("/", async (req, res, next) => {
 });
 
 // POST /api/products/add
-productRouter.post("/add", async (req, res, next) => {
+productRouter.post('/add', async (req, res, next) => {
   try {
     const newProduct = req.body;
 
@@ -33,7 +33,7 @@ productRouter.post("/add", async (req, res, next) => {
 });
 
 // PATCH /api/products/edit/#
-productRouter.patch("/edit/:productId", async (req, res, next) => {
+productRouter.patch('/edit/:productId', async (req, res, next) => {
   try {
     const productId = req.params.productId;
     const { title, description, price, front_url, back_url } = req.body;
@@ -60,14 +60,18 @@ productRouter.patch("/edit/:productId", async (req, res, next) => {
 });
 
 // DELETE /api/products/delete/#
-productRouter.delete("/delete/:productId", async (req, res, next) => {
+productRouter.delete('/delete/:productId', async (req, res, next) => {
+  console.log('@got here');
   try {
+    console.log('api backend');
     const productId = req.params.productId;
+    console.log({ productId });
 
-    await deleteProduct(productId);
+    const deleteMe = await deleteProduct(productId);
+    console.log({ deleteMe });
 
     res.send({
-      message: "Successfully Deleted",
+      message: 'Successfully Deleted',
     });
   } catch (error) {
     console.error(error);
@@ -76,14 +80,14 @@ productRouter.delete("/delete/:productId", async (req, res, next) => {
 });
 
 // GET /api/products/# get by id
-productRouter.get("/:productId", async (req, res, next) => {
+productRouter.get('/:productId', async (req, res, next) => {
   try {
     const productId = req.params.productId;
 
     const product = await getProductById(productId);
     if (!product) {
       next({
-        name: "ProductInvalidIdError",
+        name: 'ProductInvalidIdError',
         message: `Product ${productId} does not exist`,
       });
       res.status(404);
@@ -97,14 +101,14 @@ productRouter.get("/:productId", async (req, res, next) => {
 });
 
 // GET /api/products/name get product by name
-productRouter.get("/single/:productName", async (req, res, next) => {
+productRouter.get('/single/:productName', async (req, res, next) => {
   try {
     const name = req.params.productName;
 
     const product = await getProductByName(name);
     if (!product) {
       next({
-        name: "ProductInvalidNameError",
+        name: 'ProductInvalidNameError',
         message: `Product ${name} does not exist`,
       });
       res.status(404);

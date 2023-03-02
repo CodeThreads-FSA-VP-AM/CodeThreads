@@ -113,6 +113,7 @@ const Reviews = (props: Props) => {
             <p className="mt-0.5 text-xs text-gray-500">Based on 48 reviews</p>
           </div>
         </div>
+
         {props.reviews
           .filter((r: Review) => r.product_id === props.product_id)
           .map((r: Review) => (

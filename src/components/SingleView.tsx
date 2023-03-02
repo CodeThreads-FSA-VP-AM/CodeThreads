@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { fetchProductById, createOrder } from "../api/api";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { fetchProductById, createOrder, fetchDeleteProduct } from "../api/api";
 import AddReview from "./AddReview";
 import { Product, Review } from "./Interfaces";
 import Reviews from "./Reviews";
@@ -17,6 +17,8 @@ const SingleView: FC<Props> = ({}) => {
   const [token, setToken] = useState("");
   const [productId, setProductId] = useState(0);
   const [reviews, setReviews] = useState<Review[]>([]);
+
+  const navigate = useNavigate();
 
   console.log(productId);
   console.log(product);
@@ -47,6 +49,13 @@ const SingleView: FC<Props> = ({}) => {
     }
   };
 
+  const deleteProduct = async () => {
+    console.log("@frontend sv.js", productId);
+    const deletedProduct = await fetchDeleteProduct(productId);
+    console.log(deletedProduct);
+    navigate(-1);
+  };
+
   useEffect(() => {
     if (productId !== 0) {
       getProduct();
@@ -67,12 +76,12 @@ const SingleView: FC<Props> = ({}) => {
                 src={product?.front_url}
                 className="h-72 w-full rounded-xl object-cover lg:h-[540px]"
               />
-
-              {/* <div className="grid grid-cols-2 gap-4 lg:mt-4">
-                <img alt="Tee" src={product?.back_url} className="h-1 w-full rounded-xl object-cover lg:h-[540px]" />
-              </div> */}
+              <img
+                alt="Tee"
+                src={product?.back_url}
+                className="h-1 w-full rounded-xl object-cover lg:h-[540px]"
+              />
             </div>
-
             <div className="sticky top-0">
               <strong className="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600">
                 Pre Order
@@ -80,13 +89,14 @@ const SingleView: FC<Props> = ({}) => {
               <Link to={`/edit/${product?.id}`}>
                 <button className="mx-2">edit</button>
               </Link>
-
+              <div>
+                <button onClick={deleteProduct}>delete</button>
+              </div>
               <div className="flex justify-between mt-8">
                 <div className="max-w-[35ch] space-y-2">
                   <h1 className="text-xl font-bold sm:text-2xl">
                     {product?.title}
                   </h1>
-
                   <p className="text-sm">Highest Rated Product</p>
 
                   <div className="-ml-0.5 flex">
