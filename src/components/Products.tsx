@@ -30,6 +30,10 @@ const Products: React.FC<Props> = ({ setProductId }) => {
     setProductId(id);
   };
 
+  const handleDelete: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setProductId(e.target.valueAsNumber);
+  };
+
   return (
     <>
       <section>
@@ -45,6 +49,18 @@ const Products: React.FC<Props> = ({ setProductId }) => {
             <Link to="/addproduct" className="flex justify-center">
               <button>add</button>
             </Link>
+
+            {/* select drop down */}
+            <div>
+              <select onChange={handleDelete}>
+                <option value="delete">delete product</option>
+                {products.map((p) => (
+                  <option value={p.id} key={p.id}>
+                    {p.title}
+                  </option>
+                ))}
+              </select>
+            </div>
           </header>
 
           <ul className="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
