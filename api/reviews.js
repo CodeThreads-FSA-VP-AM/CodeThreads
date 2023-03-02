@@ -1,9 +1,20 @@
 const express = require("express");
 const reviewsRouter = express.Router();
 
-const { createReview, deleteReview } = require("../db/models/reviews");
+const {
+  createReview,
+  deleteReview,
+  getAllReviews,
+} = require("../db/models/reviews");
 
-//Create review
+reviewsRouter.get("/", async (req, res, next) => {
+  try {
+    const reviews = await getAllReviews();
+    res.send(reviews);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 reviewsRouter.post("/add", async (req, res, next) => {
   const { product_id, title, description, rating } = req.body;

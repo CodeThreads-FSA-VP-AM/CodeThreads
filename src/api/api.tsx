@@ -263,3 +263,11 @@ export const deleteReview = async (data: DeleteReview) => {
   const json = res.json();
   return json;
 };
+
+//Fetch all reviews
+
+export const getAllReviews = async () => {
+  const res = await fetch(`${APIURL}/reviews/`);
+  const json = await res.json();
+  return json;
+};

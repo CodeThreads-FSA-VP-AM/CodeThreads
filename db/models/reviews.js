@@ -1,5 +1,16 @@
 const client = require("../client");
 
+const getAllReviews = async () => {
+  try {
+    const { rows } = await client.query(`
+      SELECT * FROM reviews 
+    `);
+    return rows;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const createReview = async ({
   product_id,
   user_id,
@@ -7,7 +18,7 @@ const createReview = async ({
   description,
   rating,
 }) => {
-  console.log('got to createReview in models');
+  console.log("got to createReview in models");
   try {
     const {
       rows: [review],
@@ -41,6 +52,7 @@ async function deleteReview(review_id) {
 }
 
 module.exports = {
+  getAllReviews,
   createReview,
   deleteReview,
 };

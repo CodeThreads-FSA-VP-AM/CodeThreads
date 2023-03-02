@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getAllReviews } from "../api/api";
 
 type Props = {};
 
 const Reviews = (props: Props) => {
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    const getReviews = async () => {
+      try {
+        const allReviews = await getAllReviews();
+        console.log(allReviews);
+        setReviews(allReviews);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getReviews();
+  }, []);
   return (
     <section>
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
