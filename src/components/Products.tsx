@@ -11,6 +11,7 @@ const Products: React.FC<Props> = ({ setProductId }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [selectedId, setSelectedId] = useState(0);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -24,7 +25,7 @@ const Products: React.FC<Props> = ({ setProductId }) => {
       }
     };
     loadProducts();
-  }, []);
+  }, [message]);
 
   const idHandle = (id: number) => {
     console.log(id);
@@ -43,6 +44,11 @@ const Products: React.FC<Props> = ({ setProductId }) => {
 
     const filteredOrders = products.filter((p) => p.id !== selectedId);
     setProducts(filteredOrders);
+    setMessage('product deleted');
+
+    setTimeout(() => {
+      setMessage('');
+    }, 3000);
 
     console.log('product removed', deletedProduct);
   };
@@ -77,6 +83,7 @@ const Products: React.FC<Props> = ({ setProductId }) => {
               <button className='px-1' onClick={handleDelete}>
                 delete
               </button>
+              <span>{message}</span>
             </div>
           </header>
 
