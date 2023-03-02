@@ -119,6 +119,7 @@ const Navbar = () => {
               >
                 codeThreads
               </h1>
+
               <ul className="items-center justify-center hidden w-8/12 space-x-8 md:flex">
                 <li>
                   <a
@@ -161,6 +162,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               </ul>
+
               <div className="flex items-center justify-end space-x-4 md:w-2/12 xl:space-x-8">
                 <div className="items-center hidden lg:flex">
                   <button
@@ -261,6 +263,7 @@ const Navbar = () => {
                     </NavLink>
                   </button>
                 </div>
+
                 <div className="flex lg:hidden">
                   <button
                     aria-label="show options"
@@ -339,6 +342,7 @@ const Navbar = () => {
             </div>
           </div>
           {/* For small screen */}
+
           <div
             id="mobile-menu"
             className={`${

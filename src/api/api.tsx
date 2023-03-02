@@ -216,3 +216,50 @@ export const deleteOrder = async (data: Delete) => {
   const json = res.json();
   return json;
 };
+
+type Reviews = {
+  product_id: number;
+  title: string;
+  description: string;
+  rating: number;
+  token: string;
+};
+
+export const createReview = async (data: Reviews) => {
+  const { product_id, title, description, rating, token } = data;
+  const res = await fetch(`${APIURL}/reviews/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      product_id: product_id,
+      title: title,
+      description: description,
+      rating: rating,
+    }),
+  });
+  console.log(data);
+  const json = await res.json();
+
+  return json;
+};
+
+type DeleteReview = {
+  reviewId: number;
+  token: string;
+};
+
+export const deleteReview = async (data: DeleteReview) => {
+  const { reviewId, token } = data;
+  const res = await fetch(`${APIURL}/reviews/${reviewId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = res.json();
+  return json;
+};
