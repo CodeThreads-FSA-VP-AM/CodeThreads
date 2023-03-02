@@ -7,8 +7,7 @@ const { createReview, deleteReview } = require("../db/models/reviews");
 
 reviewsRouter.post("/add", async (req, res, next) => {
   const { product_id, title, description, rating } = req.body;
-  console.log(id, "ID from reviewsRouter");
-  console.log(id, product_id, title, description, rating);
+
   try {
     const user_id = req.user.id;
     console.log(user_id);

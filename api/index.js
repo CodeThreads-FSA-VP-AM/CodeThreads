@@ -62,8 +62,6 @@ apiRouter.use('/orders', ordersRouter);
 const reviewsRouter = require('./reviews');
 apiRouter.use('/reviews', reviewsRouter);
 
-const reviewsRouter = require("./reviews");
-apiRouter.use("/reviews", reviewsRouter);
 apiRouter.use((error, req, res, next) => {
   res.send({
     error: error.name,
