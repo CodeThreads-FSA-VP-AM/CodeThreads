@@ -5,10 +5,11 @@ import { Review, User } from "./Interfaces";
 type Props = {
   product_id: number;
   token: string;
+  reviews: Review[];
+  setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
 };
 
 const Reviews = (props: Props) => {
-  const [reviews, setReviews] = useState<Review[]>([]);
   const [user, setUser] = useState("");
 
   const handleDeleteReview = async (reviewId: number) => {
@@ -16,7 +17,9 @@ const Reviews = (props: Props) => {
     try {
       const res = await deleteReview({ reviewId, token });
       console.log(res);
-      setReviews(reviews.filter((review) => review.id !== reviewId));
+      props.setReviews(
+        props.reviews.filter((review) => review.id !== reviewId)
+      );
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +45,7 @@ const Reviews = (props: Props) => {
       try {
         const allReviews = await getAllReviews();
         console.log(allReviews);
-        setReviews(allReviews);
+        props.setReviews(allReviews);
       } catch (error) {
         console.error(error);
       }
@@ -107,7 +110,7 @@ const Reviews = (props: Props) => {
             <p className="mt-0.5 text-xs text-gray-500">Based on 48 reviews</p>
           </div>
         </div>
-        {reviews
+        {props.reviews
           .filter((r: Review) => r.product_id === props.product_id)
           .map((r: Review) => (
             <div
