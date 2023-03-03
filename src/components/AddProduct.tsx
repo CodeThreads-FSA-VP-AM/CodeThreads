@@ -50,6 +50,8 @@ const AddProduct: React.FC = () => {
         <input className="mx-1 bg-gray-200 border" type="text" value={front_url} onChange={(e) => setFront_url(e.target.value)} />
         <label>back_url</label>
         <input className="mx-1 bg-gray-200 border" type="text" value={back_url} onChange={(e) => setBack_url(e.target.value)} />
+        <label>tags</label>
+        <input className="mx-1 bg-gray-200 border" type="text" value={tags} onChange={(e) => setTags(e.target.value)} />
 
         <button className="bg-slate-500" type="submit">
           create
