@@ -1,5 +1,5 @@
-const APIURL = 'http://localhost:4000/api';
-import { Product, ProductCreate, ProductEdit } from '../components/Interfaces';
+const APIURL = "http://localhost:4000/api";
+import { Product, ProductCreate, ProductEdit } from "../components/Interfaces";
 
 //POST register user
 type Register = {
@@ -10,9 +10,9 @@ type Register = {
 export const fetchRegister = async (data: Register): Promise<any> => {
   const { username, password, email } = data;
   const res = await fetch(`${APIURL}/users/register`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -34,7 +34,7 @@ export const fetchUser = async (data: User) => {
   const { token } = data;
   const res = await fetch(`${APIURL}/users/me`, {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -50,9 +50,9 @@ type Login = {
 export const fetchLogin = async (data: Login): Promise<any> => {
   const { username, password } = data;
   const res = await fetch(`${APIURL}/users/login`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -78,9 +78,9 @@ export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
   try {
     const { title, description, price, front_url, back_url } = data;
     const res = await fetch(`${APIURL}/products/add`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         title: `${title}`,
@@ -103,9 +103,9 @@ export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
   try {
     const { productId, title, description, price, front_url, back_url } = data;
     const res = await fetch(`${APIURL}/products/edit/${productId}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         title: `${title}`,
@@ -130,17 +130,17 @@ export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
 
 // delete product
 export const fetchDeleteProduct = async (productId: number): Promise<any> => {
-  console.log('frontend api', productId);
+  console.log("frontend api", productId);
   try {
     const res = await fetch(`${APIURL}/products/delete/${productId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
     console.log({ res });
     const json = await res.json();
-    console.log('json here', { json });
+    console.log("json here", { json });
     return json;
   } catch (error) {
     console.error(error);
@@ -178,9 +178,9 @@ type Order = {
 export const createOrder = async (data: Order) => {
   const { product_id, quantity, token } = data;
   const res = await fetch(`${APIURL}/orders/add`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -195,7 +195,7 @@ export const createOrder = async (data: Order) => {
 export const fetchOrder = async (userId: number) => {
   const res = await fetch(`${APIURL}/orders/${userId}`, {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
   const json = await res.json();
@@ -213,9 +213,9 @@ type Delete = {
 export const deleteOrder = async (data: Delete) => {
   const { product_id, token } = data;
   const res = await fetch(`${APIURL}/orders/${product_id}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -276,4 +276,36 @@ export const getAllReviews = async () => {
   const res = await fetch(`${APIURL}/reviews/`);
   const json = await res.json();
   return json;
+};
+type EditReviews = {
+  title: string;
+  description: string;
+  rating: number;
+  token: string;
+  reviewId: number;
+};
+
+export const editReview = async (data: EditReviews) => {
+  const { title, description, rating, token, reviewId } = data;
+  console.log(data, "in api.tsx");
+  try {
+    const res = await fetch(`${APIURL}/reviews/edit/${reviewId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title: title,
+        description: description,
+        rating: rating,
+        token: token,
+      }),
+    });
+
+    const json = res.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
 };

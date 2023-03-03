@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllReviews, fetchUser, deleteReview } from "../api/api";
 import { Review, User } from "./Interfaces";
+import { Link } from "react-router-dom";
+import EditReviews from "./EditReviews";
 
 type Props = {
   product_id: number;
@@ -116,10 +118,10 @@ const Reviews = (props: Props) => {
 
         {props.reviews
           .filter((r: Review) => r.product_id === props.product_id)
-          .map((r: Review) => (
+          .map((r: Review, idx) => (
             <div
               className="mt-8 grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-2"
-              key={r.id}
+              key={idx}
             >
               <blockquote>
                 <header className="sm:flex sm:items-center sm:gap-4">
@@ -176,12 +178,25 @@ const Reviews = (props: Props) => {
                   <p className="text-xs text-gray-500">{user}</p>
                 </footer>
                 {r.users_id === userId && (
-                  <button
-                    onClick={() => handleDeleteReview(r.id)}
-                    className="text-red-600 underline"
-                  >
-                    Delete
-                  </button>
+                  <div className="flex gap-6">
+                    <button className="text-blue-400 underline">Edit</button>
+                    <div className="">
+                      <EditReviews
+                        description={r.description}
+                        title={r.title}
+                        rating={r.rating}
+                        reviewId={r.id}
+                        reviews={props.reviews}
+                        setReviews={props.setReviews}
+                      />
+                    </div>
+                    <button
+                      onClick={() => handleDeleteReview(r.id)}
+                      className="text-red-600 underline"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 )}
               </blockquote>
             </div>
