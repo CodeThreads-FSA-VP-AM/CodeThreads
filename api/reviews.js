@@ -49,8 +49,8 @@ reviewsRouter.delete("/:id", async (req, res, next) => {
 
 reviewsRouter.patch("/edit/:reviewId", async (req, res, next) => {
   try {
-    const reviewId = req.params;
-    console.log(reviewId);
+    const reviewId = parseInt(req.params.reviewId);
+    console.log(reviewId, "reviewID in reviews/api");
     const { title, description, rating } = req.body;
     const editReviews = await editReview({
       reviewId,

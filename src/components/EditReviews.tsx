@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editReview } from "../api/api";
 
-type Props = {};
+type Props = {
+  title: string;
+  description: string;
+  rating: number;
+  reviewId: number;
+};
 type EditReviews = {
   title: string;
   description: string;
@@ -12,11 +17,12 @@ type EditReviews = {
 };
 
 const EditReviews = (props: Props) => {
-  const [title, setTitle] = useState("");
-  const [rating, setRating] = useState(0);
-  const [description, setDescription] = useState("");
+  console.log(props);
+  const [title, setTitle] = useState(props.title);
+  const [rating, setRating] = useState(props.rating);
+  const [description, setDescription] = useState(props.description);
   const [token, setToken] = useState("");
-  const [reviewId, setReviewId] = useState(0);
+
   const navigate = useNavigate();
 
   const handleEditReview: React.FormEventHandler<HTMLFormElement> = async (
@@ -28,22 +34,18 @@ const EditReviews = (props: Props) => {
       description,
       rating,
       token,
-      reviewId,
+      reviewId: props.reviewId,
     };
     console.log(data);
     const editReviews = await editReview(data);
-    navigate(-1);
+    // navigate(-1);
     console.log(editReviews);
   };
-  const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     const token = localStorage.getItem("token") ?? "";
     setToken(token);
-    const getId = parseInt(id!);
-    setReviewId(getId);
-  }, [token, reviewId]);
+  }, [token]);
   return (
     <div className="mt-5 md:col-span-2 md:mt-0">
       <form onSubmit={handleEditReview}>

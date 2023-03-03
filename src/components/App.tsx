@@ -77,7 +77,7 @@ const App: React.FC = () => {
                 />
               }
             />
-            <Route path="/editReview/:id" element={<EditReviews />} />
+            {/* <Route path="/editReview" element={<EditReviews />} /> */}
           </Routes>
         </div>
       </Router>

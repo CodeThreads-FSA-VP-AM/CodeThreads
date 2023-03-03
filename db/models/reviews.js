@@ -58,7 +58,7 @@ async function editReview({ reviewId, ...fields }) {
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
 
-  console.log(setString);
+  console.log(setString, "setString");
   if (setString.length === 0) {
     return;
   }
@@ -69,11 +69,12 @@ async function editReview({ reviewId, ...fields }) {
       `
       UPDATE reviews
       SET ${setString}
-      WHERE id=${reviewId.reviewId}
+      WHERE id=${reviewId}
       RETURNING *
     `,
       Object.values(fields)
     );
+    console.log(typeof reviewId);
     console.log(review);
     return review;
   } catch (error) {

@@ -179,12 +179,15 @@ const Reviews = (props: Props) => {
                 </footer>
                 {r.users_id === userId && (
                   <div className="flex gap-6">
-                    <Link to={`/editReview/${r?.id}`}>
-                      <button className="text-blue-400 underline">Edit</button>
-                      <div className="hidden">
-                        <EditReviews />
-                      </div>
-                    </Link>
+                    <button className="text-blue-400 underline">Edit</button>
+                    <div className="">
+                      <EditReviews
+                        description={r.description}
+                        title={r.title}
+                        rating={r.rating}
+                        reviewId={r.id}
+                      />
+                    </div>
                     <button
                       onClick={() => handleDeleteReview(r.id)}
                       className="text-red-600 underline"
