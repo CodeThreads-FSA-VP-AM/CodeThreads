@@ -38,7 +38,7 @@ productRouter.post('/add', async (req, res, next) => {
     console.log({ product });
     if (product) {
       res.send({
-        product: product,
+        product,
         message: `New Product: [${product.title}] Added Successfully`,
       });
     }

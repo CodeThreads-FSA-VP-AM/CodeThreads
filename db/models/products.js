@@ -48,6 +48,24 @@ const getProductById = async (productId) => {
       [productId]
     );
 
+    if (!product) {
+      throw {
+        name: 'ProductNotFoundError',
+        message: `No product exists with id: ${productId}`,
+      };
+    }
+
+    const { rows: tags } = await client.query(
+      `
+    SELECT tags.* FROM tags
+    JOIN product_tags ON tags.id=product_tags."tag_id"
+    WHERE product_tags."product_id"=$1
+    `,
+      [productId]
+    );
+
+    product.tags = tags;
+
     return product;
   } catch (error) {
     console.error(error);
