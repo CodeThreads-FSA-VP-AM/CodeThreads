@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editReview } from "../api/api";
+import { Review } from "./Interfaces";
 
 type Props = {
   title: string;
   description: string;
   rating: number;
   reviewId: number;
+  reviews: Review[];
+  setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
 };
 type EditReviews = {
   title: string;
@@ -17,7 +20,7 @@ type EditReviews = {
 };
 
 const EditReviews = (props: Props) => {
-  console.log(props);
+  // console.log(props);
   const [title, setTitle] = useState(props.title);
   const [rating, setRating] = useState(props.rating);
   const [description, setDescription] = useState(props.description);
@@ -29,17 +32,24 @@ const EditReviews = (props: Props) => {
     e
   ) => {
     e.preventDefault();
-    const data: EditReviews = {
-      title,
-      description,
-      rating,
-      token,
-      reviewId: props.reviewId,
-    };
-    console.log(data);
-    const editReviews = await editReview(data);
-    // navigate(-1);
-    console.log(editReviews);
+    try {
+      const data: EditReviews = {
+        title,
+        description,
+        rating,
+        token,
+        reviewId: props.reviewId,
+      };
+      const editedReview = await editReview(data);
+      const editedReviewIndex = props.reviews.findIndex(
+        (review) => review.id === props.reviewId
+      );
+      const updatedReviews = [...props.reviews];
+      updatedReviews[editedReviewIndex] = editedReview;
+      props.setReviews(updatedReviews);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

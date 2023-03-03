@@ -118,10 +118,10 @@ const Reviews = (props: Props) => {
 
         {props.reviews
           .filter((r: Review) => r.product_id === props.product_id)
-          .map((r: Review) => (
+          .map((r: Review, idx) => (
             <div
               className="mt-8 grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-2"
-              key={r.id}
+              key={idx}
             >
               <blockquote>
                 <header className="sm:flex sm:items-center sm:gap-4">
@@ -186,6 +186,8 @@ const Reviews = (props: Props) => {
                         title={r.title}
                         rating={r.rating}
                         reviewId={r.id}
+                        reviews={props.reviews}
+                        setReviews={props.setReviews}
                       />
                     </div>
                     <button
