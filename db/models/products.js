@@ -133,9 +133,9 @@ const editProduct = async (productId, fields = {}) => {
     await client.query(
       `
     DELETE FROM product_tags
-    WHERE tag_id
+    WHERE 'tag_id'
     NOT IN (${tagListIdString})
-    AND product_id=$1
+    AND 'product_id'=$1
     `,
       [productId]
     );
