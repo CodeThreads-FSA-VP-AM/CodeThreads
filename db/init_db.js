@@ -72,9 +72,9 @@ async function buildTables() {
       );
 
       CREATE TABLE product_tags (
-        "product_id" INTEGER REFERENCES products(id) ON DELETE CASCADE,
-        "tag_id" INTEGER REFERENCES tags(id) ON DELETE CASCADE,
-        UNIQUE ("product_id", "tag_id")
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+        tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE,
+        UNIQUE (product_id, tag_id)
       );
         
       CREATE TABLE reviews (
@@ -240,6 +240,7 @@ const testEdit = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new tag'],
       },
       {
         productId: 2,
@@ -250,6 +251,7 @@ const testEdit = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['testing', 'new', 'tags'],
       },
     ];
     const edit = await Promise.all(productsToEdit.map(editProduct));

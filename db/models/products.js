@@ -1,4 +1,4 @@
-const client = require("../client");
+const client = require('../client');
 
 // get all products
 const getProducts = async () => {
@@ -50,7 +50,7 @@ const getProductById = async (productId) => {
 
     if (!product) {
       throw {
-        name: "ProductNotFoundError",
+        name: 'ProductNotFoundError',
         message: `No product exists with id: ${productId}`,
       };
     }
@@ -91,22 +91,24 @@ const getProductByName = async (name) => {
 };
 
 // edit product
-const editProduct = async (productId, fields = {}) => {
-  console.log({ productId });
-  console.log({ fields });
+const editProduct = async ({ ...fields }) => {
+  console.log(fields);
+
+  const productId = fields.id;
+  console.log({ productId }, 'products db');
 
   const { tags } = fields;
-  console.log({ tags }, "@99");
+  console.log({ tags }, '@99');
   delete fields.tags;
 
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(", ");
+    .join(', ');
 
   console.log({ setString });
-  if (setString.length === 0) {
-    return;
-  }
+  // if (setString.length === 0) {
+  //   return;
+  // }
 
   try {
     if (setString.length > 0) {
@@ -115,7 +117,7 @@ const editProduct = async (productId, fields = {}) => {
       UPDATE products
       SET ${setString}
       WHERE id=${productId}
-      RETURNING *
+      RETURNING *;
     `,
         Object.values(fields)
       );
@@ -125,23 +127,24 @@ const editProduct = async (productId, fields = {}) => {
       return await getProductById(productId);
     }
 
-    console.log({ tags }, "@127");
+    // errors is here
+
+    console.log({ tags }, '@127');
     const tagList = await createTags(tags);
-    console.log({ tagList }, "@129");
-    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
+    console.log({ tagList }, '@129');
+    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(', ');
 
     await client.query(
       `
     DELETE FROM product_tags
-    WHERE 'tag_id'
+    WHERE tag_id
     NOT IN (${tagListIdString})
-    AND 'product_id'=$1
+    AND product_id=$1
     `,
       [productId]
     );
 
     await addTagToProduct(productId, tagList);
-    console.log(product);
     return await getProductById(productId);
   } catch (error) {
     console.error(error);
@@ -150,7 +153,7 @@ const editProduct = async (productId, fields = {}) => {
 
 // delete product
 const deleteProduct = async (productId) => {
-  console.log("@db level delete", productId);
+  console.log('@db level delete', productId);
   try {
     const {
       rows: [product],
@@ -176,8 +179,8 @@ const createTags = async (tagList) => {
     return;
   }
 
-  const insertVal = tagList.map((_, i) => `$${i + 1}`).join("), (");
-  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(", ");
+  const insertVal = tagList.map((_, i) => `$${i + 1}`).join('), (');
+  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(', ');
 
   console.log({ insertVal, selectVal });
 
