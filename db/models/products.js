@@ -4,9 +4,11 @@ const client = require("../client");
 const getProducts = async () => {
   try {
     const { rows: product } = await client.query(`
-    SELECT * FROM products
+    SELECT id FROM products
     `);
-    return product;
+
+    const products = await Promise.all(product.map((p) => getProductById(p.id)));
+    return products;
   } catch (error) {
     console.error(error);
   }
