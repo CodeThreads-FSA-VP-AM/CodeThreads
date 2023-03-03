@@ -52,8 +52,36 @@ async function deleteReview(reviewId) {
   }
 }
 
+async function editReview({ reviewId, ...fields }) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  console.log({ setString });
+  if (setString.length === 0) {
+    return;
+  }
+  try {
+    const {
+      rows: [review],
+    } = await client.query(
+      `
+      UPDATE review
+      SET ${setString}
+      WHERE id=${reviewId}
+      RETURNING *
+    `,
+      Object.values(fields)
+    );
+    console.log(review);
+    return product;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 module.exports = {
   getAllReviews,
   createReview,
   deleteReview,
+  editReview,
 };
