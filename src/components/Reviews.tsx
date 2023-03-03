@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllReviews, fetchUser, deleteReview } from "../api/api";
 import { Review, User } from "./Interfaces";
 import { Link } from "react-router-dom";
+import EditReviews from "./EditReviews";
 
 type Props = {
   product_id: number;
@@ -180,6 +181,9 @@ const Reviews = (props: Props) => {
                   <div className="flex gap-6">
                     <Link to={`/editReview/${r?.id}`}>
                       <button className="text-blue-400 underline">Edit</button>
+                      <div className="hidden">
+                        <EditReviews />
+                      </div>
                     </Link>
                     <button
                       onClick={() => handleDeleteReview(r.id)}

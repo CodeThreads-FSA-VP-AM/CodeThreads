@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { editReview } from "../api/api";
-import { User } from "./Interfaces";
+
 type Props = {};
 type EditReviews = {
-  product_id: number;
   title: string;
   description: string;
   rating: number;
@@ -16,7 +15,6 @@ const EditReviews = (props: Props) => {
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
-  const [product_id, setProductId] = useState(0);
   const [token, setToken] = useState("");
   const [reviewId, setReviewId] = useState(0);
 
@@ -25,7 +23,6 @@ const EditReviews = (props: Props) => {
   ) => {
     e.preventDefault();
     const data: EditReviews = {
-      product_id,
       title,
       description,
       rating,
@@ -37,6 +34,7 @@ const EditReviews = (props: Props) => {
     console.log(editReviews);
   };
   const { id } = useParams();
+  console.log(id);
 
   useEffect(() => {
     const token = localStorage.getItem("token") ?? "";

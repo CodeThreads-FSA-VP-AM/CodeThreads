@@ -47,15 +47,18 @@ reviewsRouter.delete("/:id", async (req, res, next) => {
   }
 });
 
-reviewsRouter.patch("/reviews/:reviewId", async (req, res, next) => {
+reviewsRouter.patch("/edit/:reviewId", async (req, res, next) => {
   try {
     const reviewId = req.params;
-    const { title, description, rating, product_id, user_id } = req.body;
-    const editedReview = await editReview({
-      reviewId: reviewId,
-      ...req.body,
+    console.log(reviewId);
+    const { title, description, rating } = req.body;
+    const editReviews = await editReview({
+      reviewId,
+      title,
+      description,
+      rating,
     });
-    res.send(editedReview);
+    res.send(editReviews);
   } catch (error) {
     console.error(error);
   }

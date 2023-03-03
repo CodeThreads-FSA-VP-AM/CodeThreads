@@ -278,7 +278,6 @@ export const getAllReviews = async () => {
   return json;
 };
 type EditReviews = {
-  product_id: number;
   title: string;
   description: string;
   rating: number;
@@ -287,7 +286,8 @@ type EditReviews = {
 };
 
 export const editReview = async (data: EditReviews) => {
-  const { product_id, title, description, rating, token, reviewId } = data;
+  const { title, description, rating, token, reviewId } = data;
+  console.log(data, "in api.tsx");
   try {
     const res = await fetch(`${APIURL}/reviews/edit/${reviewId}`, {
       method: "PATCH",
@@ -299,9 +299,7 @@ export const editReview = async (data: EditReviews) => {
         title: title,
         description: description,
         rating: rating,
-
         token: token,
-        product_id: product_id,
       }),
     });
 

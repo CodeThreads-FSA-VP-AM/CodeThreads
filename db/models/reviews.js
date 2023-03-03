@@ -53,10 +53,12 @@ async function deleteReview(reviewId) {
 }
 
 async function editReview({ reviewId, ...fields }) {
+  console.log(reviewId, fields);
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
 
+  console.log(setString);
   if (setString.length === 0) {
     return;
   }
@@ -67,7 +69,7 @@ async function editReview({ reviewId, ...fields }) {
       `
       UPDATE reviews
       SET ${setString}
-      WHERE id=${reviewId}
+      WHERE id=${reviewId.reviewId}
       RETURNING *
     `,
       Object.values(fields)
