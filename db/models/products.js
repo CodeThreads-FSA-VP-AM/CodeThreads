@@ -25,7 +25,7 @@ const createProduct = async ({ title, description, price, front_url, back_url, t
     `,
       [title, description, price, front_url, back_url]
     );
-
+    console.log({ tags });
     const tagList = await createTags(tags);
 
     return await addTagToProduct(product.id, tagList);
@@ -146,6 +146,7 @@ const deleteProduct = async (productId) => {
 
 // create tags
 const createTags = async (tagList) => {
+  console.log({ tagList });
   if (tagList === 0) {
     return;
   }
