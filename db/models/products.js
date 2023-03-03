@@ -1,4 +1,4 @@
-const client = require('../client');
+const client = require("../client");
 
 // get all products
 const getProducts = async () => {
@@ -50,7 +50,7 @@ const getProductById = async (productId) => {
 
     if (!product) {
       throw {
-        name: 'ProductNotFoundError',
+        name: "ProductNotFoundError",
         message: `No product exists with id: ${productId}`,
       };
     }
@@ -91,19 +91,21 @@ const getProductByName = async (name) => {
 };
 
 // edit product
-const editProduct = async ({ ...fields }) => {
+const editProduct = async (productId, fields = {}) => {
   console.log(fields);
 
-  const productId = fields.id;
-  console.log({ productId }, 'products db');
+  // const productId = fields.id;
+  console.log({ productId }, "products db");
+  const { title } = fields;
+  console.log(title);
 
   const { tags } = fields;
-  console.log({ tags }, '@99');
+  console.log({ tags }, "@99");
   delete fields.tags;
 
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(', ');
+    .join(", ");
 
   console.log({ setString });
   // if (setString.length === 0) {
@@ -129,10 +131,10 @@ const editProduct = async ({ ...fields }) => {
 
     // errors is here
 
-    console.log({ tags }, '@127');
+    console.log({ tags }, "@127");
     const tagList = await createTags(tags);
-    console.log({ tagList }, '@129');
-    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(', ');
+    console.log({ tagList }, "@129");
+    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
 
     await client.query(
       `
@@ -153,7 +155,7 @@ const editProduct = async ({ ...fields }) => {
 
 // delete product
 const deleteProduct = async (productId) => {
-  console.log('@db level delete', productId);
+  console.log("@db level delete", productId);
   try {
     const {
       rows: [product],
@@ -179,8 +181,8 @@ const createTags = async (tagList) => {
     return;
   }
 
-  const insertVal = tagList.map((_, i) => `$${i + 1}`).join('), (');
-  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(', ');
+  const insertVal = tagList.map((_, i) => `$${i + 1}`).join("), (");
+  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(", ");
 
   console.log({ insertVal, selectVal });
 
