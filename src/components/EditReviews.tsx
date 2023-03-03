@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { editReview } from "../api/api";
 
 type Props = {};
@@ -17,6 +17,7 @@ const EditReviews = (props: Props) => {
   const [description, setDescription] = useState("");
   const [token, setToken] = useState("");
   const [reviewId, setReviewId] = useState(0);
+  const navigate = useNavigate();
 
   const handleEditReview: React.FormEventHandler<HTMLFormElement> = async (
     e
@@ -31,6 +32,7 @@ const EditReviews = (props: Props) => {
     };
     console.log(data);
     const editReviews = await editReview(data);
+    navigate(-1);
     console.log(editReviews);
   };
   const { id } = useParams();
@@ -115,7 +117,7 @@ const EditReviews = (props: Props) => {
               type="submit"
               className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Create
+              Edit
             </button>
           </div>
         </div>
