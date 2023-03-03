@@ -15,6 +15,7 @@ type Product = {
   price: number;
   front_url: string;
   back_url: string;
+  tags: string;
 };
 
 const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
@@ -23,6 +24,7 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
   const [price, setPrice] = useState(product.price);
   const [front_url, setFront_url] = useState(product.front_url);
   const [back_url, setBack_url] = useState(product.back_url);
+  const [tags, setTags] = useState("");
   // const [productId, setProductId] = useState(0);
   // const productId = product.id;
   // get all products
@@ -40,7 +42,7 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
   const handleCreate: React.FormEventHandler<HTMLFormElement> = async (e) => {
     console.log("triggered");
     e.preventDefault();
-    const data: Product = { productId, title, description, price, front_url, back_url };
+    const data: Product = { productId, title, description, price, front_url, back_url, tags };
     console.log(data);
     const edit = await fetchEditProduct(data);
     console.log({ edit });
