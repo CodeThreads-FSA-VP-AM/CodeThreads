@@ -14,6 +14,7 @@ import Orders from "./Orders";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 import { fetchProductById } from "../api/api";
+import EditReviews from "./EditReviews";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -56,11 +57,27 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/products" element={<Products setProductId={setProductId} />} />
-            <Route path="/products/:id" element={<SingleView quantity={quantity} />} />
+            <Route
+              path="/products"
+              element={<Products setProductId={setProductId} />}
+            />
+            <Route
+              path="/products/:id"
+              element={<SingleView quantity={quantity} />}
+            />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
-            <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
+            <Route
+              path="/edit/:id"
+              element={
+                <EditProduct
+                  product={product}
+                  productId={productId}
+                  setProductId={setProductId}
+                />
+              }
+            />
+            <Route path="/editReview/:id" element={<EditReviews />} />
           </Routes>
         </div>
       </Router>

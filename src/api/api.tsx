@@ -289,16 +289,17 @@ type EditReviews = {
 export const editReview = async (data: EditReviews) => {
   const { product_id, title, description, rating, token, reviewId } = data;
   try {
-    const res = await fetch(`${APIURL}/reviews/${reviewId}`, {
+    const res = await fetch(`${APIURL}/reviews/edit/${reviewId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         title: title,
         description: description,
         rating: rating,
-        reviewId: reviewId,
+
         token: token,
         product_id: product_id,
       }),

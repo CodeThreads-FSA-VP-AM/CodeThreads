@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllReviews, fetchUser, deleteReview } from "../api/api";
 import { Review, User } from "./Interfaces";
+import { Link } from "react-router-dom";
 
 type Props = {
   product_id: number;
@@ -176,12 +177,17 @@ const Reviews = (props: Props) => {
                   <p className="text-xs text-gray-500">{user}</p>
                 </footer>
                 {r.users_id === userId && (
-                  <button
-                    onClick={() => handleDeleteReview(r.id)}
-                    className="text-red-600 underline"
-                  >
-                    Delete
-                  </button>
+                  <div className="flex gap-6">
+                    <Link to={`/editReview/${r?.id}`}>
+                      <button className="text-blue-400 underline">Edit</button>
+                    </Link>
+                    <button
+                      onClick={() => handleDeleteReview(r.id)}
+                      className="text-red-600 underline"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 )}
               </blockquote>
             </div>

@@ -56,7 +56,7 @@ async function editReview({ reviewId, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-  console.log({ setString });
+
   if (setString.length === 0) {
     return;
   }
@@ -65,7 +65,7 @@ async function editReview({ reviewId, ...fields }) {
       rows: [review],
     } = await client.query(
       `
-      UPDATE review
+      UPDATE reviews
       SET ${setString}
       WHERE id=${reviewId}
       RETURNING *
@@ -73,7 +73,7 @@ async function editReview({ reviewId, ...fields }) {
       Object.values(fields)
     );
     console.log(review);
-    return product;
+    return review;
   } catch (error) {
     console.error(error);
   }
