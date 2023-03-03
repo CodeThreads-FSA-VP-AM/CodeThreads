@@ -76,7 +76,7 @@ export const fetchProducts = async (): Promise<Product[]> => {
 // create product
 export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
   try {
-    const { title, description, price, front_url, back_url } = data;
+    const { title, description, price, front_url, back_url, tags } = data;
     const res = await fetch(`${APIURL}/products/add`, {
       method: 'POST',
       headers: {
@@ -88,6 +88,7 @@ export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
         price: `${price}`,
         front_url: `${front_url}`,
         back_url: `${back_url}`,
+        tags: `${tags}`,
       }),
     });
 
@@ -101,7 +102,7 @@ export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
 // edit product
 export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
   try {
-    const { productId, title, description, price, front_url, back_url } = data;
+    const { productId, title, description, price, front_url, back_url, tags } = data;
     const res = await fetch(`${APIURL}/products/edit/${productId}`, {
       method: 'PATCH',
       headers: {
@@ -113,6 +114,7 @@ export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
         price: `${price}`,
         front_url: `${front_url}`,
         back_url: `${back_url}`,
+        tags: `${tags}`,
       }),
     });
 
@@ -234,9 +236,9 @@ type Reviews = {
 export const createReview = async (data: Reviews) => {
   const { product_id, title, description, rating, token } = data;
   const res = await fetch(`${APIURL}/reviews/add`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -260,9 +262,9 @@ type DeleteReview = {
 export const deleteReview = async (data: DeleteReview) => {
   const { reviewId, token } = data;
   const res = await fetch(`${APIURL}/reviews/${reviewId}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });

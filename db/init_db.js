@@ -68,13 +68,13 @@ async function buildTables() {
 
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL
+        name VARCHAR(255) UNIQUE NOT NULL
       );
 
       CREATE TABLE product_tags (
-        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
-        tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE,
-        UNIQUE (product_id, tag_id)
+        "product_id" INTEGER REFERENCES products(id) ON DELETE CASCADE,
+        "tag_id" INTEGER REFERENCES tags(id) ON DELETE CASCADE,
+        UNIQUE ("product_id", "tag_id")
       );
         
       CREATE TABLE reviews (
@@ -136,6 +136,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
       {
         title: 'hoodie',
@@ -145,6 +146,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
       {
         title: 'leggings',
@@ -154,6 +156,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
       {
         title: 'tank top',
@@ -163,6 +166,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
       {
         title: 'skinny jeans',
@@ -172,6 +176,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
       {
         title: 'cargo pants',
@@ -181,6 +186,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
       {
         title: 'longsleeve shirt',
@@ -190,6 +196,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
       {
         title: 'button down shirt',
@@ -199,6 +206,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
       {
         title: 'leather jacket',
@@ -208,6 +216,7 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
       },
     ];
     const product = await Promise.all(productsToCreate.map(createProduct));

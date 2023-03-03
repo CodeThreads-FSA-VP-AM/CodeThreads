@@ -1,4 +1,4 @@
-const client = require("../client");
+const client = require('../client');
 
 // get all products
 const getProducts = async () => {
@@ -27,6 +27,8 @@ const createProduct = async ({ title, description, price, front_url, back_url, t
     );
     console.log({ tags });
     const tagList = await createTags(tags);
+    console.log({ tagList });
+    console.log({ product });
 
     return await addTagToProduct(product.id, tagList);
   } catch (error) {
@@ -80,7 +82,7 @@ const editProduct = async ({ productId, ...fields }) => {
 
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(", ");
+    .join(', ');
   console.log({ setString });
   if (setString.length === 0) {
     return;
@@ -103,7 +105,7 @@ const editProduct = async ({ productId, ...fields }) => {
     }
 
     const tagList = await createTags(tags);
-    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
+    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(', ');
 
     await client.query(
       `
@@ -125,7 +127,7 @@ const editProduct = async ({ productId, ...fields }) => {
 
 // delete product
 const deleteProduct = async (productId) => {
-  console.log("@db level delete", productId);
+  console.log('@db level delete', productId);
   try {
     const {
       rows: [product],
@@ -151,15 +153,17 @@ const createTags = async (tagList) => {
     return;
   }
 
-  const insertVal = tagList.map((_, i) => `$${i + 1}`).join("), (");
-  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(", ");
+  const insertVal = tagList.map((_, i) => `$${i + 1}`).join('), (');
+  const selectVal = tagList.map((_, i) => `$${i + 1}`).join(', ');
+
+  console.log({ insertVal, selectVal });
 
   try {
     await client.query(
       `
     INSERT INTO tags(name)
     VALUES (${insertVal})
-    ON CONFLICT (name) DO NOTHING
+    ON CONFLICT (name) DO NOTHING;
     `,
       tagList
     );
@@ -168,11 +172,11 @@ const createTags = async (tagList) => {
       `
     SELECT * FROM tags
     WHERE name 
-    IN (${selectVal})
+    IN (${selectVal});
     `,
       tagList
     );
-
+    console.log({ rows });
     return rows;
   } catch (error) {
     console.error(error);
@@ -181,12 +185,13 @@ const createTags = async (tagList) => {
 
 // create product tags
 const createProductTag = async (product_id, tag_id) => {
+  console.log({ product_id, tag_id });
   try {
     await client.query(
       `
-    INSERT INTO  product_tags(product_id, tag_id)
+    INSERT INTO product_tags("product_id", "tag_id")
     VALUES ($1, $2)
-    ON CONFLICT (product_id, tag_id) DO NOTHING
+    ON CONFLICT ("product_id", "tag_id") DO NOTHING
     `,
       [product_id, tag_id]
     );
@@ -198,9 +203,9 @@ const createProductTag = async (product_id, tag_id) => {
 // add tag to product
 const addTagToProduct = async (product_id, tagList) => {
   try {
-    const createProductTag = tagList.map((t) => createProductTag(product_id, t.id));
+    const createProductTagPromises = tagList.map((t) => createProductTag(product_id, t.id));
 
-    await Promise.all(createProductTag);
+    await Promise.all(createProductTagPromises);
 
     return await getProductById(product_id);
   } catch (error) {

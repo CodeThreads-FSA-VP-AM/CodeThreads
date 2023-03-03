@@ -17,9 +17,25 @@ productRouter.get('/', async (req, res, next) => {
 // POST /api/products/add
 productRouter.post('/add', async (req, res, next) => {
   try {
-    const newProduct = req.body;
+    // const newProduct = req.body;
+    const { title, description, price, front_url, back_url, tags = '' } = req.body;
 
-    const product = await createProduct(newProduct);
+    const tagArray = tags.trim().split(/\s+/);
+    const productData = {};
+    console.log(tagArray);
+
+    if (tagArray.length) {
+      productData.tags = tagArray;
+    }
+
+    productData.title = title;
+    productData.description = description;
+    productData.price = price;
+    productData.front_url = front_url;
+    productData.back_url = back_url;
+
+    const product = await createProduct(productData);
+    console.log({ product });
     if (product) {
       res.send({
         product: product,

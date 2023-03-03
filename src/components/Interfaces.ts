@@ -16,6 +16,7 @@ export interface ProductCreate {
   price: number;
   front_url: string
   back_url: string
+  tags: string
 }
 
 export interface ProductEdit {
@@ -25,6 +26,7 @@ export interface ProductEdit {
   price: number;
   front_url: string
   back_url: string
+  tags: string
 }
 
 export interface OrderData {
