@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 // import { getAPIHealth } from "../axios-services";
-import '../style/App.css';
-import Login from './Login';
-import Navbar from './Navbar';
-import Register from './Register';
-import Products from './Products';
-import SingleView from './SingleView';
-import Orders from './Orders';
-import AddProduct from './AddProduct';
-import EditProduct from './EditProduct';
-import { fetchProductById, fetchUser } from '../api/api';
-import EditReviews from './EditReviews';
-import { User } from './Interfaces';
+import "../style/App.css";
+import Login from "./Login";
+import Navbar from "./Navbar";
+import Register from "./Register";
+import Products from "./Products";
+import SingleView from "./SingleView";
+import Orders from "./Orders";
+import AddProduct from "./AddProduct";
+import EditProduct from "./EditProduct";
+import { fetchProductById, fetchUser } from "../api/api";
+import EditReviews from "./EditReviews";
+import { User } from "./Interfaces";
 
 const App: React.FC = () => {
-  const [APIHealth, setAPIHealth] = useState('');
+  const [APIHealth, setAPIHealth] = useState("");
   const [productId, setProductId] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [product, setProduct] = useState();
-  const [token, setToken] = useState('');
-  const [user, setUser] = useState('');
+  const [token, setToken] = useState("");
+  const [user, setUser] = useState({});
 
   const getProduct = async () => {
     const product = await fetchProductById(productId);
@@ -31,19 +31,23 @@ const App: React.FC = () => {
     setProduct(product);
   };
 
-  const getUser = async (data: User) => {
-    const { token } = data;
-    const user = await fetchUser({ token });
-    setUser(user);
-  };
-
-  console.log(user);
-
   useEffect(() => {
-    const getToken = localStorage.getItem('token') ?? '';
-    setToken(getToken);
+    const getUser = async (data: User) => {
+      const { token } = data;
+      try {
+        const user = await fetchUser({ token });
+        console.log({ user });
+        setUser(user);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const token = localStorage.getItem("token") ?? "";
+    setToken(token);
     getUser({ token });
-  }, []);
+  }, [token]);
+
+  console.log({ user });
 
   useEffect(() => {
     getProduct();
@@ -72,13 +76,13 @@ const App: React.FC = () => {
         <Navbar />
         <div>
           <Routes>
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/products' element={<Products setProductId={setProductId} />} />
-            <Route path='/products/:id' element={<SingleView quantity={quantity} />} />
-            <Route path='/orders' element={<Orders />} />
-            <Route path='/addproduct' element={<AddProduct />} />
-            <Route path='/edit/:id' element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/products" element={<Products setProductId={setProductId} />} />
+            <Route path="/products/:id" element={<SingleView quantity={quantity} />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/addproduct" element={<AddProduct />} />
+            <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
           </Routes>
         </div>
