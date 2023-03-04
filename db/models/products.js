@@ -15,7 +15,7 @@ const getProducts = async () => {
 };
 
 // create product
-const createProduct = async ({ title, description, price, front_url, back_url, tags = [] }) => {
+const createProduct = async ({ title, description, price, front_url, back_url, tags = [], small, medium, large, xlarge }) => {
   try {
     const {
       rows: [product],
@@ -27,6 +27,18 @@ const createProduct = async ({ title, description, price, front_url, back_url, t
     `,
       [title, description, price, front_url, back_url]
     );
+
+    console.log({ small, medium, large, xlarge });
+
+    const { rows: sizes } = await client.query(
+      `
+    INSERT INTO sizes(product_id, small, medium, large, xlarge)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *
+    `,
+      [product.id, small, medium, large, xlarge]
+    );
+    console.log({ sizes });
     console.log({ tags });
     const tagList = await createTags(tags);
     console.log({ tagList });
@@ -57,6 +69,14 @@ const getProductById = async (productId) => {
       };
     }
 
+    const { rows: sizes } = await client.query(
+      `
+    SELECT * FROM sizes
+    WHERE product_id = $1
+    `,
+      [productId]
+    );
+
     const { rows: tags } = await client.query(
       `
     SELECT tags.* FROM tags
@@ -66,6 +86,7 @@ const getProductById = async (productId) => {
       [productId]
     );
 
+    product.sizes = sizes;
     product.tags = tags;
 
     return product;
@@ -99,7 +120,7 @@ const editProduct = async (productId, fields = {}) => {
   // const productId = fields.id;
   console.log({ productId }, "products db");
   const { title } = fields;
-  console.log(title);
+  console.log({ title });
 
   const { tags } = fields;
   console.log({ tags }, "@99");

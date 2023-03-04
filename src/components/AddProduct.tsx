@@ -9,6 +9,10 @@ type Props = {
   front_url: string;
   back_url: string;
   tags: string;
+  small: number;
+  medium: number;
+  large: number;
+  xlarge: number;
 };
 
 const AddProduct: React.FC = () => {
@@ -23,12 +27,17 @@ const AddProduct: React.FC = () => {
   );
   const [tags, setTags] = useState("");
 
+  const [small, setSmall] = useState(0);
+  const [medium, setMedium] = useState(0);
+  const [large, setLarge] = useState(0);
+  const [xlarge, setXlarge] = useState(0);
+
   const history = useNavigate();
 
   const handleCreate: React.FormEventHandler<HTMLFormElement> = async (e) => {
     console.log("triggered");
     e.preventDefault();
-    const data: Props = { title, description, price, front_url, back_url, tags };
+    const data: Props = { title, description, price, front_url, back_url, tags, small, medium, large, xlarge };
     console.log(data);
     const create = await fetchCreateProduct(data);
     console.log({ create });

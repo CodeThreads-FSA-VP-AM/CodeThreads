@@ -2,6 +2,7 @@ const express = require("express");
 const productRouter = express.Router();
 
 const { createProduct, getProducts, editProduct, deleteProduct, getProductById, getProductByName } = require("../db/models/products");
+const { updateQty } = require("../db/models/sizes");
 
 // GET /api/products/
 productRouter.get("/", async (req, res, next) => {
@@ -18,7 +19,9 @@ productRouter.get("/", async (req, res, next) => {
 productRouter.post("/add", async (req, res, next) => {
   try {
     // const newProduct = req.body;
-    const { title, description, price, front_url, back_url, tags = "" } = req.body;
+    const { title, description, price, front_url, back_url, tags = "", small, medium, large, xlarge } = req.body;
+
+    console.log({ small, medium, large, xlarge });
 
     const tagArray = tags.trim().split(/\s+/);
     const productData = {};
@@ -33,6 +36,10 @@ productRouter.post("/add", async (req, res, next) => {
     productData.price = price;
     productData.front_url = front_url;
     productData.back_url = back_url;
+    productData.small = small;
+    productData.medium = medium;
+    productData.large = large;
+    productData.xlarge = xlarge;
 
     const product = await createProduct(productData);
     console.log({ product });
@@ -53,36 +60,15 @@ productRouter.patch("/edit/:productId", async (req, res, next) => {
   try {
     const productId = parseInt(req.params.productId);
     console.log({ productId }, "@55 prod api");
-    const { title, description, price, front_url, back_url, tags = "" } = req.body;
+    const { title, description, price, front_url, back_url, tags = "", small, medium, large, xlarge } = req.body;
 
+    console.log({ small, medium, large, xlarge });
     console.log({ productId });
-
-    // const fields = {};
-
-    // if (productId) {
-    //   fields.id = productId;
-    // }
-    // if (title) {
-    //   fields.title = title;
-    // }
-    // if (description) {
-    //   fields.description = description;
-    // }
-    // if (price) {
-    //   fields.price = price;
-    // }
-    // if (front_url) {
-    //   fields.front_url = front_url;
-    // }
-    // if (back_url) {
-    //   fields.back_url = back_url;
-    // }
-    // if (tags) {
-    //   fields.tags = tags;
-    // }
 
     const tagArray = tags.trim().split(/\s+/);
     const productData = {};
+
+    const sizeQtyData = {};
     console.log(tagArray);
 
     productData.title = title;
@@ -90,15 +76,23 @@ productRouter.patch("/edit/:productId", async (req, res, next) => {
     productData.price = price;
     productData.front_url = front_url;
     productData.back_url = back_url;
+    sizeQtyData.small = small;
+    sizeQtyData.medium = medium;
+    sizeQtyData.large = large;
+    sizeQtyData.xlarge = xlarge;
 
     if (tagArray.length) {
       productData.tags = tagArray;
     }
 
-    console.log({ productData });
+    console.log({ productData, sizeQtyData });
 
-    const updateProduct = await editProduct(productId, productData);
-    console.log({ updateProduct });
+    // const updateProduct = await editProduct(productId, productData);
+    // const updateQtyProduct = await updateQty(productId, sizeQtyData);
+
+    const [updateProduct, updateQtyProduct] = await Promise.all([editProduct(productId, productData), updateQty(productId, sizeQtyData)]);
+
+    console.log({ updateProduct, updateQtyProduct });
     if (updateProduct) {
       res.send({
         product: updateProduct,

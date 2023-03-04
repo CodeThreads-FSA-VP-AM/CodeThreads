@@ -17,6 +17,10 @@ export interface ProductCreate {
   front_url: string
   back_url: string
   tags: string
+  small: number
+  medium: number
+  large: number
+  xlarge: number
 }
 
 export interface ProductEdit {
@@ -27,6 +31,18 @@ export interface ProductEdit {
   front_url: string
   back_url: string
   tags: string
+  small: number
+  medium: number
+  large: number
+  xlarge: number
+}
+
+export interface SizeQTY {
+  productId: number
+  small: number
+  medium: number
+  large: number
+  xlarge: number
 }
 
 export interface OrderData {
