@@ -80,6 +80,15 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
         <input className="mx-1 bg-gray-200 border" type="text" value={back_url} onChange={(e) => setBack_url(e.target.value)} />
         <label>tags</label>
         <input className="mx-1 bg-gray-200 border" type="text" value={tags} onChange={(e) => setTags(e.target.value)} />
+        {/* size quanities */}
+        <label>small</label>
+        <input className="mx-1 bg-gray-200 border" type="number" value={small} onChange={(e) => setSmall(e.target.valueAsNumber)} />
+        <label>medium</label>
+        <input className="mx-1 bg-gray-200 border" type="number" value={medium} onChange={(e) => setMedium(e.target.valueAsNumber)} />
+        <label>large</label>
+        <input className="mx-1 bg-gray-200 border" type="number" value={large} onChange={(e) => setLarge(e.target.valueAsNumber)} />
+        <label>xlarge</label>
+        <input className="mx-1 bg-gray-200 border" type="number" value={xlarge} onChange={(e) => setXlarge(e.target.valueAsNumber)} />
 
         <button className="bg-slate-500" type="submit">
           edit
