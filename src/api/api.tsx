@@ -1,5 +1,7 @@
 const APIURL = "http://localhost:4000/api";
+
 import { Product, ProductCreate, ProductEdit, SizeQTY } from "../components/Interfaces";
+
 
 //POST register user
 type Register = {
@@ -286,7 +288,7 @@ export const deleteReview = async (data: DeleteReview) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  const json = res.json();
+  const json = await res.json();
   return json;
 };
 
@@ -296,4 +298,36 @@ export const getAllReviews = async () => {
   const res = await fetch(`${APIURL}/reviews/`);
   const json = await res.json();
   return json;
+};
+type EditReviews = {
+  title: string;
+  description: string;
+  rating: number;
+  token: string;
+  reviewId: number;
+};
+
+export const editReview = async (data: EditReviews) => {
+  const { title, description, rating, token, reviewId } = data;
+  console.log(data, "in api.tsx");
+  try {
+    const res = await fetch(`${APIURL}/reviews/edit/${reviewId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title: title,
+        description: description,
+        rating: rating,
+        token: token,
+      }),
+    });
+
+    const json = res.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
 };

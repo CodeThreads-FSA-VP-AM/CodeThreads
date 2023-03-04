@@ -37,15 +37,46 @@ const createReview = async ({
   }
 };
 
-async function deleteReview(review_id) {
+async function deleteReview(reviewId) {
   try {
-    await client.query(
+    const deletedReview = await client.query(
       `
       DELETE FROM reviews r 
       WHERE r.id = $1;
     `,
-      [review_id]
+      [reviewId]
     );
+    return deletedReview;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function editReview({ reviewId, ...fields }) {
+  console.log(reviewId, fields);
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+
+  console.log(setString, "setString");
+  if (setString.length === 0) {
+    return;
+  }
+  try {
+    const {
+      rows: [review],
+    } = await client.query(
+      `
+      UPDATE reviews
+      SET ${setString}
+      WHERE id=${reviewId}
+      RETURNING *
+    `,
+      Object.values(fields)
+    );
+    console.log(typeof reviewId);
+    console.log(review);
+    return review;
   } catch (error) {
     console.error(error);
   }
@@ -55,4 +86,5 @@ module.exports = {
   getAllReviews,
   createReview,
   deleteReview,
+  editReview,
 };

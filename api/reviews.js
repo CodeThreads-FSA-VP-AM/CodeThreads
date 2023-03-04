@@ -5,6 +5,7 @@ const {
   createReview,
   deleteReview,
   getAllReviews,
+  editReview,
 } = require("../db/models/reviews");
 
 reviewsRouter.get("/", async (req, res, next) => {
@@ -38,9 +39,26 @@ reviewsRouter.post("/add", async (req, res, next) => {
 
 reviewsRouter.delete("/:id", async (req, res, next) => {
   try {
-    const reviewId = req.params;
+    const reviewId = parseInt(req.params.id); // get the id value from req.params.id and parse it to a number
     const deletedReview = await deleteReview(reviewId);
     res.send(deletedReview);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+reviewsRouter.patch("/edit/:reviewId", async (req, res, next) => {
+  try {
+    const reviewId = parseInt(req.params.reviewId);
+    console.log(reviewId, "reviewID in reviews/api");
+    const { title, description, rating } = req.body;
+    const editReviews = await editReview({
+      reviewId,
+      title,
+      description,
+      rating,
+    });
+    res.send(editReviews);
   } catch (error) {
     console.error(error);
   }
