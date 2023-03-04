@@ -264,48 +264,50 @@ const createInitialProducts = async () => {
   }
 };
 
-const testEdit = async () => {
-  try {
-    const productsToEdit = [
-      {
-        productId: 1,
-        title: 'shorts',
-        description: 'comfy during the hot days',
-        price: 199.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        back_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['new tag'],
-        small: 1,
-        medium: 1,
-        large: 1,
-        xlarge: 1,
-      },
-      {
-        productId: 2,
-        title: 'sweatpants',
-        description: 'comfy when its cold',
-        price: 499.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        back_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['testing', 'new', 'tags'],
-        small: 1,
-        medium: 1,
-        large: 1,
-        xlarge: 1,
-      },
-    ];
-    const edit = await Promise.all(productsToEdit.map(editProduct));
-    console.log('editing products...');
-    console.log(edit);
-    console.log('edit products succesful...');
-  } catch (error) {
-    console.error(error);
-  }
-};
+// const testEdit = async () => {
+//   try {
+//     const productsToEdit = [
+//       {
+//         productId: 1,
+//         data: {
+//           title: 'shorts',
+//           description: 'comfy during the hot days',
+//           price: 199.99,
+//           front_url:
+//             'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+//           back_url:
+//             'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+//           tags: ['new tag'],
+//           small: 1,
+//           medium: 1,
+//           large: 1,
+//           xlarge: 1,
+//         },
+//       },
+//       {
+//         productId: 2,
+//         title: 'sweatpants',
+//         description: 'comfy when its cold',
+//         price: 499.99,
+//         front_url:
+//           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+//         back_url:
+//           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+//         tags: ['testing', 'new', 'tags'],
+//         small: 1,
+//         medium: 1,
+//         large: 1,
+//         xlarge: 1,
+//       },
+//     ];
+//     const edit = await Promise.all(productsToEdit.map(editProduct));
+//     console.log('editing products...');
+//     console.log(edit);
+//     console.log('edit products succesful...');
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 const productToDelete = async () => {
   try {
@@ -335,6 +337,12 @@ const createInitialUsers = async () => {
         email: 'janedoe1@gmail.com',
         is_admin: false,
       },
+      {
+        username: 'admin',
+        password: 'password',
+        email: 'admin@codethreads.com',
+        is_admin: true,
+      },
     ];
     const users = await Promise.all(usersToCreate.map(createUser));
     console.log('Users Created!');
@@ -349,7 +357,7 @@ const createInitialUsers = async () => {
 buildTables()
   .then(createInitialUsers)
   .then(createInitialProducts)
-  .then(testEdit)
+  // .then(testEdit)
   .then(productToDelete)
   .catch(console.error)
   .finally(() => client.end());
