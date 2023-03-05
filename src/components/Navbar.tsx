@@ -1,15 +1,25 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 type Props = {
   user: any;
+  token: string;
+  setToken: (token: string) => void;
 };
 
-const Navbar: React.FC<Props> = ({ user }) => {
+const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
   const [searchInput, setSearchInput] = useState(true);
   const [mdOptionsToggle, setMdOptionsToggle] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const [profile, setProfile] = useState(false);
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/products");
+  };
 
   return (
     <div className="dark:bg-gray-100">
@@ -115,7 +125,14 @@ const Navbar: React.FC<Props> = ({ user }) => {
                     Sign Up
                   </NavLink>
                 </li>
-                <li>👤 {user.username}</li>
+                {token && (
+                  <>
+                    <li>👤 {user.username}</li>
+                    <li>
+                      <button onClick={logout}>logout</button>
+                    </li>
+                  </>
+                )}
               </ul>
 
               <div className="flex items-center justify-end space-x-4 md:w-2/12 xl:space-x-8">

@@ -47,8 +47,6 @@ const App: React.FC = () => {
     getUser({ token });
   }, [token]);
 
-  console.log({ user });
-
   useEffect(() => {
     getProduct();
   }, [productId]);
@@ -73,11 +71,11 @@ const App: React.FC = () => {
   return (
     <>
       <Router>
-        <Navbar user={user} />
+        <Navbar user={user} token={token} setToken={setToken} />
         <div>
           <Routes>
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login setToken={setToken} />} />
             <Route path="/products" element={<Products setProductId={setProductId} user={user} />} />
             <Route path="/products/:id" element={<SingleView quantity={quantity} user={user} />} />
             <Route path="/orders" element={<Orders />} />
