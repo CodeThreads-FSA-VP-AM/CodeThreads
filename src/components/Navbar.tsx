@@ -111,28 +111,40 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                     Womens
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="./login"
-                    className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
-                    Login
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="./register"
-                    className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
-                    Sign Up
-                  </NavLink>
-                </li>
-                {token && (
+                {token ? (
                   <>
                     <li>👤 {user.username}</li>
                     <li>
                       <button onClick={logout}>logout</button>
                     </li>
                   </>
+                ) : (
+                  <>
+                    <li>
+                      <NavLink
+                        to="./login"
+                        className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
+                        Login
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="./register"
+                        className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
+                        Sign Up
+                      </NavLink>
+                    </li>
+                  </>
                 )}
+
+                {/* {token && (
+                  <>
+                    <li>👤 {user.username}</li>
+                    <li>
+                      <button onClick={logout}>logout</button>
+                    </li>
+                  </>
+                )} */}
               </ul>
 
               <div className="flex items-center justify-end space-x-4 md:w-2/12 xl:space-x-8">
