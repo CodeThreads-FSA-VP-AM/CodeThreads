@@ -1,57 +1,70 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
 const Featured = (props: Props) => {
   return (
     <section>
-      <div className="container flex flex-col-reverse mx-auto lg:flex-row">
-        <div className="flex flex-col px-6 py-8 space-y-6 rounded-sm sm:p-8 lg:p-12 lg:w-1/2 xl:w-2/5 dark:bg-violet-400 dark:text-gray-900">
-          <div className="flex space-x-2 sm:space-x-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-            </svg>
-            <div className="space-y-2">
-              <p className="text-lg font-medium leading-snug">Lorem ipsum dolor sit amet</p>
-              <p className="leading-snug">Praesentium ea et neque distinctio quas eius repudiandae quaerat obcaecati voluptatem similique!</p>
-            </div>
-          </div>
-          <div className="flex space-x-2 sm:space-x-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-            </svg>
-            <div className="space-y-2">
-              <p className="text-lg font-medium leading-snug">Lorem ipsum dolor sit amet</p>
-              <p className="leading-snug">Praesentium ea et neque distinctio quas eius repudiandae quaerat obcaecati voluptatem similique!</p>
-            </div>
-          </div>
-          <div className="flex space-x-2 sm:space-x-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-            </svg>
-            <div className="space-y-2">
-              <p className="text-lg font-medium leading-snug">Lorem ipsum dolor sit amet</p>
-              <p className="leading-snug">Praesentium ea et neque distinctio quas eius repudiandae quaerat obcaecati voluptatem similique!</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-1/2 xl:w-3/5">
-          <div className="flex items-center justify-center p-4 md:p-8 lg:p-12">
-            <img src="https://source.unsplash.com/640x480/" alt="" className="rounded-lg shadow-lg dark:bg-gray-500 aspect-video sm:min-h-96" />
-          </div>
-        </div>
+      <div className="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
+        <header className="text-center">
+          <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">New Collection</h2>
+
+          {/* <p className="max-w-md mx-auto mt-4 text-gray-500">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit
+            natus?
+          </p> */}
+        </header>
+
+        <ul className="grid grid-cols-1 gap-4 mt-8 lg:grid-cols-3">
+          <li>
+            <Link to="/products" className="relative block group">
+              <img
+                src="https://images.unsplash.com/photo-1618898909019-010e4e234c55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                alt=""
+                className="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90"
+              />
+
+              <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
+                <h3 className="text-xl font-medium text-white">Casual Trainers</h3>
+
+                <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">Shop Now</span>
+              </div>
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/products" className="relative block group">
+              <img
+                src="https://images.unsplash.com/photo-1624623278313-a930126a11c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                alt=""
+                className="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90"
+              />
+
+              <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
+                <h3 className="text-xl font-medium text-white">Winter Jumpers</h3>
+
+                <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">Shop Now</span>
+              </div>
+            </Link>
+          </li>
+
+          <li className="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <Link to="/products" className="relative block group">
+              <img
+                src="https://images.unsplash.com/photo-1593795899768-947c4929449d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80"
+                alt=""
+                className="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90"
+              />
+
+              <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
+                <h3 className="text-xl font-medium text-white">Skinny Jeans Blue</h3>
+
+                <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">Shop Now</span>
+              </div>
+            </Link>
+          </li>
+        </ul>
       </div>
     </section>
   );

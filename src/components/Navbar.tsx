@@ -22,13 +22,11 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
   };
 
   return (
-    <div className="dark:bg-gray-100">
+    <div className="">
       <div>
         <div className="relative">
           {/* For md screen size */}
-          <div
-            id="md-searchbar"
-            className={`${mdOptionsToggle ? "hidden" : "flex"} bg-black dark:bg-gray-100 lg:hidden py-5 px-6 items-center justify-between`}>
+          <div id="md-searchbar" className={`${mdOptionsToggle ? "hidden" : "flex"} lg:hidden py-5 px-6 items-center justify-between`}>
             <div className="flex items-center space-x-3 text-gray-800 dark:text-black">
               <div>
                 <svg className="fill-stroke" width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,11 +40,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                   <path d="M18.9984 18.9999L14.6484 14.6499" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <input
-                type="text"
-                placeholder="Search products"
-                className="text-sm leading-none text-black dark:text-gray-900 dark:bg-gray-100 focus:outline-none"
-              />
+              <input type="text" placeholder="Search products" className="text-sm leading-none text-black dark:text-gray-900 focus:outline-none" />
             </div>
             <div className="space-x-6">
               <button aria-label="view favourites" className="text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-gray-800">
@@ -212,7 +206,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                     <>
                       <div className="flex items-center gap-x-2">
                         <img
-                          className="object-cover w-8 h-8 rounded-full"
+                          className="object-cover w-12 h-12 rounded-full"
                           src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=faceare&facepad=3&w=688&h=688&q=100"
                           alt="default"
                         />
