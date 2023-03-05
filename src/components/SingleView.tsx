@@ -7,9 +7,10 @@ import Reviews from "./Reviews";
 
 type Props = {
   quantity: number;
+  user: any;
 };
 
-const SingleView: FC<Props> = ({}) => {
+const SingleView: FC<Props> = ({ user }) => {
   // need to pass productId from products component
   // then fetch the product and set the product id
   // then you can render the page with the required information
@@ -20,6 +21,7 @@ const SingleView: FC<Props> = ({}) => {
 
   const navigate = useNavigate();
 
+  console.log({ user });
   console.log(productId);
   console.log(product);
 
@@ -76,12 +78,16 @@ const SingleView: FC<Props> = ({}) => {
               <strong className="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600">
                 Pre Order
               </strong>
-              <Link to={`/edit/${product?.id}`}>
-                <button className="mx-2">edit</button>
-              </Link>
-              <div>
-                <button onClick={deleteProduct}>delete</button>
-              </div>
+              {user.is_admin && (
+                <>
+                  <Link to={`/edit/${product?.id}`}>
+                    <button className="mx-2">edit</button>
+                  </Link>
+                  <div>
+                    <button onClick={deleteProduct}>delete</button>
+                  </div>
+                </>
+              )}
               <div className="flex justify-between mt-8">
                 <div className="max-w-[35ch] space-y-2">
                   <h1 className="text-xl font-bold sm:text-2xl">{product?.title}</h1>
@@ -226,18 +232,8 @@ const SingleView: FC<Props> = ({}) => {
           </div>
         </div>
         <div>
-          <Reviews
-            product_id={productId}
-            token={token}
-            reviews={reviews}
-            setReviews={setReviews}
-          />
-          <AddReview
-            token={token}
-            product_id={productId}
-            reviews={reviews}
-            setReviews={setReviews}
-          />
+          <Reviews product_id={productId} token={token} reviews={reviews} setReviews={setReviews} />
+          <AddReview token={token} product_id={productId} reviews={reviews} setReviews={setReviews} />
         </div>
       </section>
     </>

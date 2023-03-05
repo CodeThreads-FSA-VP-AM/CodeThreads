@@ -78,8 +78,8 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/products" element={<Products setProductId={setProductId} />} />
-            <Route path="/products/:id" element={<SingleView quantity={quantity} />} />
+            <Route path="/products" element={<Products setProductId={setProductId} user={user} />} />
+            <Route path="/products/:id" element={<SingleView quantity={quantity} user={user} />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
             <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
