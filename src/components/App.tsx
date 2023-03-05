@@ -73,7 +73,7 @@ const App: React.FC = () => {
   return (
     <>
       <Router>
-        <Navbar />
+        <Navbar user={user} />
         <div>
           <Routes>
             <Route path="/register" element={<Register />} />
