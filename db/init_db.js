@@ -129,28 +129,26 @@ const createInitialProducts = async () => {
   try {
     const productsToCreate = [
       {
-        title: 'shirt',
+        title: 'yellow shirt',
         description: 'daily drip',
         price: 9.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/1772476/pexels-photo-1772476.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['test', 'tags', 'here'],
+        tags: ['new', 'featured', 'womens'],
         small: 10,
         medium: 10,
         large: 10,
         xlarge: 10,
       },
       {
-        title: 'hoodie',
-        description: 'wear even if its hot outside',
+        title: 'black tank top',
+        description: 'nice to wear on hot days',
         price: 99.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/1772486/pexels-photo-1772486.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['test', 'tags', 'here'],
+        tags: ['new', 'featured', 'womens'],
         small: 10,
         medium: 10,
         large: 10,
@@ -171,70 +169,65 @@ const createInitialProducts = async () => {
         xlarge: 10,
       },
       {
-        title: 'tank top',
-        description: 'so buff',
+        title: 'black hoodie',
+        description: 'wear this even if its hot outside',
         price: 9999.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/2932748/pexels-photo-2932748.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['test', 'tags', 'here'],
+        tags: ['new', 'featured', 'mens'],
         small: 10,
         medium: 10,
         large: 10,
         xlarge: 10,
       },
       {
-        title: 'skinny jeans',
+        title: 'blue jean buttondown',
         description: 'ok',
         price: 99.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/6508416/pexels-photo-6508416.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['test', 'tags', 'here'],
+        tags: ['new', 'featured', 'mens'],
         small: 10,
         medium: 10,
         large: 10,
         xlarge: 10,
       },
       {
-        title: 'cargo pants',
-        description: 'got this in camo?',
+        title: 'purple buttondown shirt',
+        description: 'got crazy drip',
         price: 59.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/2853529/pexels-photo-2853529.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['test', 'tags', 'here'],
+        tags: ['new', 'featured', 'mens'],
         small: 10,
         medium: 10,
         large: 10,
         xlarge: 10,
       },
       {
-        title: 'longsleeve shirt',
+        title: 'red buttondown dress',
         description: 'sometimes it can look nice',
         price: 399.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/8801074/pexels-photo-8801074.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['test', 'tags', 'here'],
+        tags: ['new', 'featured', 'womens'],
         small: 10,
         medium: 10,
         large: 10,
         xlarge: 10,
       },
       {
-        title: 'button down shirt',
+        title: 'pink fluffy jacket',
         description: 'spiffy',
         price: 999.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/10073122/pexels-photo-10073122.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['test', 'tags', 'here'],
+        tags: ['new', 'featured', 'womens'],
         small: 10,
         medium: 10,
         large: 10,
@@ -244,11 +237,10 @@ const createInitialProducts = async () => {
         title: 'leather jacket',
         description: 'punk rock 🤘',
         price: 9999.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/4635407/pexels-photo-4635407.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        tags: ['test', 'tags', 'here'],
+        tags: ['new', 'featured', 'womens'],
         small: 10,
         medium: 10,
         large: 10,
