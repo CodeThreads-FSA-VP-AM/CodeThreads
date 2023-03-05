@@ -13,6 +13,7 @@ import SingleView from "./SingleView";
 import Orders from "./Orders";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
+import Featured from "./Featured";
 import { fetchProductById, fetchUser } from "../api/api";
 import EditReviews from "./EditReviews";
 import { User } from "./Interfaces";
@@ -81,6 +82,7 @@ const App: React.FC = () => {
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
             <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
+            <Route path="/featured" element={<Featured />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
           </Routes>
         </div>

@@ -92,7 +92,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
               <ul className="items-center justify-center hidden w-8/12 space-x-8 md:flex">
                 <li>
                   <NavLink
-                    to="/products"
+                    to="/featured"
                     className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
                     Home
                   </NavLink>
@@ -111,14 +111,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                     Womens
                   </NavLink>
                 </li>
-                {token ? (
-                  <>
-                    <li>👤 {user.username}</li>
-                    <li>
-                      <button onClick={logout}>logout</button>
-                    </li>
-                  </>
-                ) : (
+                {!token && (
                   <>
                     <li>
                       <NavLink
@@ -136,7 +129,6 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                     </li>
                   </>
                 )}
-
                 {/* {token && (
                   <>
                     <li>👤 {user.username}</li>
@@ -216,6 +208,30 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                       </svg>
                     </NavLink>
                   </button>
+                  {token && (
+                    <>
+                      <div className="flex items-center gap-x-2">
+                        <img
+                          className="object-cover w-8 h-8 rounded-full"
+                          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=faceare&facepad=3&w=688&h=688&q=100"
+                          alt="default"
+                        />
+
+                        <div>
+                          <h1 className="text-base font-semibold text-gray-700 capitalize">{user.username}</h1>
+
+                          {/* <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p> */}
+                          <button className="text-xs" onClick={logout}>
+                            logout
+                          </button>
+                        </div>
+                      </div>
+                      {/* <li>👤 {user.username}</li>
+                    <li>
+                      <button onClick={logout}>logout</button>
+                    </li> */}
+                    </>
+                  )}
                 </div>
 
                 <div className="flex lg:hidden">
