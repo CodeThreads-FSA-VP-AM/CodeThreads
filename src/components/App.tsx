@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { Navigate, Route, Routes, BrowserRouter as Router } from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -76,6 +76,7 @@ const App: React.FC = () => {
         <Navbar user={user} token={token} setToken={setToken} />
         <div>
           <Routes>
+            <Route path="/" element={<Navigate to="/featured" />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login setToken={setToken} />} />
