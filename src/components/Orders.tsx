@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { HighlightSpanKind } from "typescript";
 import { fetchOrder, deleteOrder, fetchUser } from "../api/api";
+import Highlights from "./HighLights";
 import { OrderData, Order, User } from "./Interfaces";
 
 const Orders = () => {
@@ -21,7 +23,7 @@ const Orders = () => {
         token: token,
       });
       console.log(res);
-      setOrders(orders.filter(order => order.product_id !== product_id));
+      setOrders(orders.filter((order) => order.product_id !== product_id));
     } catch (error) {
       console.error(error);
     }
@@ -198,6 +200,7 @@ const Orders = () => {
                         Calculated at checkout
                       </p>
                     </div>
+                    <Highlights />
                   </div>
                   <div>
                     <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
