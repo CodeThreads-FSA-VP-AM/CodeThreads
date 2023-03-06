@@ -119,7 +119,7 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                       className="object-cover object-center w-full h-full transition duration-200 group-hover:scale-110"
                     />
 
-                    <div className="absolute left-0 flex gap-2 bottom-2">
+                    <div className="absolute flex gap-2 left-2 bottom-2">
                       {/* <span className="bg-red-500 text-white text-sm font-semibold tracking-wider uppercase rounded-r-lg px-3 py-1.5">-50%</span> */}
                       {p.tags.map((t: any) => {
                         return (
