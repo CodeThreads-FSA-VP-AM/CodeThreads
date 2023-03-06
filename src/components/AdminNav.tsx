@@ -3,7 +3,12 @@ import Home from "./Home";
 import Orders from "./Orders";
 import Performance from "./Performance";
 import Profile from "./Profile";
-const AdminNav = () => {
+import Products from "./Products";
+type Props = {
+  setProductId: (id: number) => void;
+  user: any;
+};
+const AdminNav: React.FC<Props> = ({ setProductId, user }) => {
   const [activeComponent, setActiveComponent] = useState("home");
 
   return (
@@ -292,7 +297,9 @@ const AdminNav = () => {
       </div>
       <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
         {activeComponent === "home" ? <Home /> : null}
-        {/* {activeComponent === 'products' ? <Products /> : null} */}
+        {activeComponent === "products" ? (
+          <Products setProductId={setProductId} user={user} />
+        ) : null}
         {activeComponent === "orders" ? <Orders /> : null}
         {activeComponent === "performance" ? <Performance /> : null}
         {activeComponent === "profile" ? <Profile /> : null}
