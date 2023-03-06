@@ -62,6 +62,15 @@ apiRouter.use('/orders', ordersRouter);
 const reviewsRouter = require('./reviews');
 apiRouter.use('/reviews', reviewsRouter);
 
+// error 404 /unknown
+apiRouter.get('*', async (req, res, next) => {
+  try {
+    res.status(404).json({ message: '404 NOT FOUND' });
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
+
 apiRouter.use((error, req, res, next) => {
   res.send({
     error: error.name,

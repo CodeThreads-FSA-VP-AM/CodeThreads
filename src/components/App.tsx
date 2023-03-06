@@ -13,20 +13,40 @@ import SingleView from "./SingleView";
 import Orders from "./Orders";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
-import { fetchProductById } from "../api/api";
+import Featured from "./Featured";
+import { fetchProductById, fetchUser } from "../api/api";
 import EditReviews from "./EditReviews";
+import { User } from "./Interfaces";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
   const [productId, setProductId] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [product, setProduct] = useState();
+  const [token, setToken] = useState("");
+  const [user, setUser] = useState({});
 
   const getProduct = async () => {
     const product = await fetchProductById(productId);
     console.log(product);
     setProduct(product);
   };
+
+  useEffect(() => {
+    const getUser = async (data: User) => {
+      const { token } = data;
+      try {
+        const user = await fetchUser({ token });
+        console.log({ user });
+        setUser(user);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const token = localStorage.getItem("token") ?? "";
+    setToken(token);
+    getUser({ token });
+  }, [token]);
 
   useEffect(() => {
     getProduct();
@@ -52,31 +72,17 @@ const App: React.FC = () => {
   return (
     <>
       <Router>
-        <Navbar />
+        <Navbar user={user} token={token} setToken={setToken} />
         <div>
           <Routes>
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/products"
-              element={<Products setProductId={setProductId} />}
-            />
-            <Route
-              path="/products/:id"
-              element={<SingleView quantity={quantity} />}
-            />
+            <Route path="/login" element={<Login setToken={setToken} />} />
+            <Route path="/products" element={<Products setProductId={setProductId} user={user} />} />
+            <Route path="/products/:id" element={<SingleView quantity={quantity} user={user} />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
-            <Route
-              path="/edit/:id"
-              element={
-                <EditProduct
-                  product={product}
-                  productId={productId}
-                  setProductId={setProductId}
-                />
-              }
-            />
+            <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
+            <Route path="/featured" element={<Featured />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
           </Routes>
         </div>

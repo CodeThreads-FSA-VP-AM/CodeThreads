@@ -5,7 +5,7 @@ const {
   User,
   Product,
 } = require('./');
-const { createProduct, editProduct, deleteProduct } = require('./models/products');
+const { createProduct, editProduct } = require('./models/products');
 
 const { createUser } = require('./models/user');
 
@@ -18,6 +18,7 @@ async function buildTables() {
       console.log(`Dropping all tables....`);
       await client.query(`
       DROP TABLE IF EXISTS order_products CASCADE;
+      DROP TABLE IF EXISTS product_tags CASCADE;
       DROP TABLE IF EXISTS tags CASCADE;
       DROP TABLE IF EXISTS reviews CASCADE;
       DROP TABLE IF EXISTS sizes CASCADE;
@@ -59,7 +60,7 @@ async function buildTables() {
         
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
-        users_id INTEGER REFERENCES users(id),
+        users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
         is_cart BOOLEAN NOT NULL,
         purchased_at TIMESTAMP DEFAULT NOW()
       );
@@ -67,14 +68,19 @@ async function buildTables() {
 
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
-        product_id INTEGER REFERENCES products(id),
-        name VARCHAR(255) NOT NULL
+        name VARCHAR(255) UNIQUE NOT NULL
+      );
+
+      CREATE TABLE product_tags (
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+        tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE,
+        UNIQUE (product_id, tag_id)
       );
         
       CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
-        product_id INTEGER REFERENCES products(id),
-        users_id INTEGER REFERENCES users(id),
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+        users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
         title VARCHAR(255) NOT NULL,
         description TEXT,
         rating INTEGER NOT NULL
@@ -82,7 +88,7 @@ async function buildTables() {
         
       CREATE TABLE sizes (
         id SERIAL PRIMARY KEY,
-        product_id INTEGER REFERENCES products(id),
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
         small INTEGER, 
         medium INTEGER, 
         large INTEGER, 
@@ -90,13 +96,12 @@ async function buildTables() {
 
         );
 
-        CREATE TABLE order_products (
-          id SERIAL PRIMARY KEY,
-          order_id INTEGER REFERENCES orders(id),
-          status VARCHAR(255) NOT NULL,
-          quantity INTEGER NOT NULL,
-          product_id INTEGER REFERENCES products(id)
-          
+      CREATE TABLE order_products (
+        id SERIAL PRIMARY KEY,
+        order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+        status VARCHAR(255) NOT NULL,
+        quantity INTEGER NOT NULL,
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE
       )
 
       
@@ -124,22 +129,30 @@ const createInitialProducts = async () => {
   try {
     const productsToCreate = [
       {
-        title: 'shirt',
+        title: 'yellow shirt',
         description: 'daily drip',
         price: 9.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/1772476/pexels-photo-1772476.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new', 'featured', 'womens'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
       {
-        title: 'hoodie',
-        description: 'wear even if its hot outside',
+        title: 'black tank top',
+        description: 'nice to wear on hot days',
         price: 99.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/1772486/pexels-photo-1772486.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new', 'featured', 'womens'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
       {
         title: 'leggings',
@@ -149,60 +162,89 @@ const createInitialProducts = async () => {
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['test', 'tags', 'here'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
       {
-        title: 'tank top',
-        description: 'so buff',
+        title: 'black hoodie',
+        description: 'wear this even if its hot outside',
         price: 9999.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/2932748/pexels-photo-2932748.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new', 'featured', 'mens'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
       {
-        title: 'skinny jeans',
+        title: 'blue jean buttondown',
         description: 'ok',
         price: 99.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/6508416/pexels-photo-6508416.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new', 'featured', 'mens'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
       {
-        title: 'cargo pants',
-        description: 'got this in camo?',
+        title: 'purple buttondown shirt',
+        description: 'got crazy drip',
         price: 59.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/2853529/pexels-photo-2853529.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new', 'featured', 'mens'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
       {
-        title: 'longsleeve shirt',
+        title: 'red buttondown dress',
         description: 'sometimes it can look nice',
         price: 399.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/8801074/pexels-photo-8801074.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new', 'featured', 'womens'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
       {
-        title: 'button down shirt',
+        title: 'pink fluffy jacket',
         description: 'spiffy',
         price: 999.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/10073122/pexels-photo-10073122.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new', 'featured', 'womens'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
       {
         title: 'leather jacket',
         description: 'punk rock 🤘',
         price: 9999.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        front_url: 'https://images.pexels.com/photos/4635407/pexels-photo-4635407.jpeg',
         back_url:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        tags: ['new', 'featured', 'womens'],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
       },
     ];
     const product = await Promise.all(productsToCreate.map(createProduct));
@@ -214,38 +256,50 @@ const createInitialProducts = async () => {
   }
 };
 
-const testEdit = async () => {
-  try {
-    const productsToEdit = [
-      {
-        productId: 1,
-        title: 'shorts',
-        description: 'comfy during the hot days',
-        price: 199.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        back_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-      },
-      {
-        productId: 2,
-        title: 'sweatpants',
-        description: 'comfy when its cold',
-        price: 499.99,
-        front_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        back_url:
-          'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-      },
-    ];
-    const edit = await Promise.all(productsToEdit.map(editProduct));
-    console.log('editing products...');
-    console.log(edit);
-    console.log('edit products succesful...');
-  } catch (error) {
-    console.error(error);
-  }
-};
+// const testEdit = async () => {
+//   try {
+//     const productsToEdit = [
+//       {
+//         productId: 1,
+//         data: {
+//           title: 'shorts',
+//           description: 'comfy during the hot days',
+//           price: 199.99,
+//           front_url:
+//             'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+//           back_url:
+//             'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+//           tags: ['new tag'],
+//           small: 1,
+//           medium: 1,
+//           large: 1,
+//           xlarge: 1,
+//         },
+//       },
+//       {
+//         productId: 2,
+//         title: 'sweatpants',
+//         description: 'comfy when its cold',
+//         price: 499.99,
+//         front_url:
+//           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+//         back_url:
+//           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+//         tags: ['testing', 'new', 'tags'],
+//         small: 1,
+//         medium: 1,
+//         large: 1,
+//         xlarge: 1,
+//       },
+//     ];
+//     const edit = await Promise.all(productsToEdit.map(editProduct));
+//     console.log('editing products...');
+//     console.log(edit);
+//     console.log('edit products succesful...');
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 const productToDelete = async () => {
   try {
@@ -275,6 +329,12 @@ const createInitialUsers = async () => {
         email: 'janedoe1@gmail.com',
         is_admin: false,
       },
+      {
+        username: 'admin',
+        password: 'password',
+        email: 'admin@codethreads.com',
+        is_admin: true,
+      },
     ];
     const users = await Promise.all(usersToCreate.map(createUser));
     console.log('Users Created!');
@@ -289,7 +349,7 @@ const createInitialUsers = async () => {
 buildTables()
   .then(createInitialUsers)
   .then(createInitialProducts)
-  .then(testEdit)
+  // .then(testEdit)
   .then(productToDelete)
   .catch(console.error)
   .finally(() => client.end());
