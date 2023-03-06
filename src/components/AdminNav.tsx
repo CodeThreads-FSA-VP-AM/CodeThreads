@@ -1,14 +1,21 @@
-import React from "react";
-function AdminNav() {
+import React, { useState } from "react";
+import Home from "./Home";
+import Orders from "./Orders";
+const AdminNav = () => {
+  const [activeComponent, setActiveComponent] = useState("");
+
   return (
     <div className="flex flex-no-wrap">
       <div className="w-64 absolute sm:relative bg-[#F9FAFB] shadow md:h-full flex-col justify-between hidden sm:flex">
-        <div className="px-8">
+        <div className="px-8 h-screen">
           <div className="h-16 w-full flex items-center">
             <h1>codeThreads</h1>
           </div>
           <ul className="mt-12">
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
+            <li
+              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6"
+              onClick={() => setActiveComponent("home")}
+            >
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -30,11 +37,11 @@ function AdminNav() {
                 </svg>
                 <span className="text-sm  ml-2">Dashboard</span>
               </div>
-              <div className="py-1 px-3 bg-gray-300 rounded text-gray-500 flex items-center justify-center text-xs">
-                5
-              </div>
             </li>
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
+            <li
+              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6"
+              onClick={() => setActiveComponent("products")}
+            >
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -53,33 +60,12 @@ function AdminNav() {
                 </svg>
                 <span className="text-sm  ml-2">Products</span>
               </div>
-              <div className="py-1 px-3 bg-gray-300 rounded text-gray-500 flex items-center justify-center text-xs">
-                8
-              </div>
-            </li>
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
-              <div className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler icon-tabler-compass"
-                  width={18}
-                  height={18}
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" />
-                  <polyline points="8 16 10 10 16 8 14 14 8 16" />
-                  <circle cx={12} cy={12} r={9} />
-                </svg>
-                <span className="text-sm  ml-2">Performance</span>
-              </div>
             </li>
 
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
+            <li
+              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6"
+              onClick={() => setActiveComponent("orders")}
+            >
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -96,10 +82,7 @@ function AdminNav() {
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
                 </svg>
-                <span className="text-sm  ml-2">Invoices</span>
-              </div>
-              <div className="py-1 px-3 bg-gray-300 rounded text-gray-500 flex items-center justify-center text-xs">
-                25
+                <span className="text-sm  ml-2">Orders</span>
               </div>
             </li>
             <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
@@ -184,7 +167,7 @@ function AdminNav() {
             <line x1={18} y1={9} x2={18} y2={20} />
           </svg>
         </div>
-        <div className="px-8">
+        <div className="px-8 h-screen">
           <div className="h-16 w-full flex items-center">
             <h1>codeThreads</h1>
           </div>
@@ -211,9 +194,6 @@ function AdminNav() {
                 </svg>
                 <span className="text-sm  ml-2">Dashboard</span>
               </div>
-              <div className="py-1 px-3 bg-gray-300 rounded text-gray-500 flex items-center justify-center text-xs">
-                5
-              </div>
             </li>
             <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
               <div className="flex items-center">
@@ -234,9 +214,6 @@ function AdminNav() {
                 </svg>
                 <span className="text-sm  ml-2">Products</span>
               </div>
-              <div className="py-1 px-3 bg-gray-300 rounded text-gray-500 flex items-center justify-center text-xs">
-                8
-              </div>
             </li>
 
             <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
@@ -256,10 +233,7 @@ function AdminNav() {
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
                 </svg>
-                <span className="text-sm  ml-2">Invoices</span>
-              </div>
-              <div className="py-1 px-3 bg-gray-300 rounded text-gray-500 flex items-center justify-center text-xs">
-                25
+                <span className="text-sm  ml-2">Orders</span>
               </div>
             </li>
             <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
@@ -308,8 +282,14 @@ function AdminNav() {
           </ul>
         </div>
       </div>
+      <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
+        <div className="w-full h-full"></div>
+        {activeComponent === "home" ? <Home /> : null}
+        {/* {activeComponent === 'products' ? <Products /> : null} */}
+        {activeComponent === "orders" ? <Orders /> : null}
+      </div>
     </div>
   );
-}
+};
 
 export default AdminNav;

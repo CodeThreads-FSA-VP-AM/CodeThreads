@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchDeleteProduct, fetchProducts } from "../api/api";
 import { Product } from "./Interfaces";
+import Loader from "./Loader";
 
 type Props = {
   setProductId: (id: number) => void;
@@ -108,9 +109,10 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-8">
             {/* <!-- product - start --> */}
             {loading ? (
-              <div className="flex">
-                <div className="flex items-center justify-center w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-blue-400"></div>
-              </div>
+              // <div className="flex">
+              //   <div className="flex items-center justify-center w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-blue-400"></div>
+              // </div>
+              <Loader />
             ) : (
               products?.map((p: Product) => (
                 <div key={p.id}>
