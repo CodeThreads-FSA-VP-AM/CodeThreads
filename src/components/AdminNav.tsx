@@ -11,7 +11,7 @@ const AdminNav = () => {
       <div className="w-64 absolute sm:relative bg-[#F9FAFB] shadow md:h-full flex-col justify-between hidden sm:flex">
         <div className="px-8 h-screen">
           <div className="h-16 w-full flex items-center">
-            <h1>codeThreads</h1>
+            <h1>Admin Dashboard</h1>
           </div>
           <ul className="mt-12">
             <li
@@ -177,7 +177,7 @@ const AdminNav = () => {
         </div>
         <div className="px-8 h-screen">
           <div className="h-16 w-full flex items-center">
-            <h1>codeThreads</h1>
+            <h1>Admin Dashboard</h1>
           </div>
           <ul className="mt-12">
             <li className="flex w-full justify-between text-gray-800 hover:text-gray-500 cursor-pointer items-center mb-6">

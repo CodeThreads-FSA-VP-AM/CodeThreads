@@ -271,7 +271,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                     aria-label="go to cart"
                     className="text-gray-800 dark:hover:text-gray-300 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800"
                   >
-                    <NavLink to="/orders">
+                    <NavLink to="/orders" className="flex">
                       <svg
                         className="fill-stroke"
                         width={26}
@@ -302,6 +302,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                           strokeLinejoin="round"
                         />
                       </svg>
+                      <p className="text-[14px]">1</p>
                     </NavLink>
                   </button>
                   {token && (

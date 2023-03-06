@@ -6,7 +6,7 @@ const Profile = () => {
       <div className="my-6 lg:my-12 container px-6 mx-auto flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b border-gray-300">
         <div>
           <h4 className="text-2xl font-bold leading-tight text-gray-800 dark:text-gray-600">
-            User Profile
+            Profile
           </h4>
           <ul className="flex flex-col md:flex-row items-start md:items-center text-gray-600 dark:text-gray-400 text-sm mt-3">
             <li className="flex items-center mr-4">
@@ -106,8 +106,8 @@ const Profile = () => {
                         id="about"
                         name="about"
                         rows={3}
-                        className="mt-1 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                        placeholder="We want to take a moment to appreciate the wonderful person behind the screen. You are a crucial part of this community, and we appreciate all of your hard work and dedication to making this platform the best it can be. Your attention to detail and tireless efforts do not go unnoticed."
+                        className="mt-1 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
+                        placeholder="We want to take a moment to appreciate the wonderful person behind the screen. You are a crucial part of codeThreads, and we appreciate all of your hard work and dedication to making this platform the best it can be. Your attention to detail and tireless efforts do not go unnoticed."
                         defaultValue={""}
                         disabled
                       />
