@@ -77,7 +77,7 @@ const App: React.FC = () => {
         <Navbar user={user} token={token} setToken={setToken} />
         <div>
           <Routes>
-            <Route path="/" element={<Navigate to="/featured" />} />
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login setToken={setToken} />} />
