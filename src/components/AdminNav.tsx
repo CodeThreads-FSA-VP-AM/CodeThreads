@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Home from "./Home";
 import Orders from "./Orders";
 import Performance from "./Performance";
+import Profile from "./Profile";
 const AdminNav = () => {
   const [activeComponent, setActiveComponent] = useState("home");
 
@@ -111,7 +112,10 @@ const AdminNav = () => {
                 <span className="text-sm  ml-2">Stats</span>
               </div>
             </li>
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center">
+            <li
+              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center"
+              onClick={() => setActiveComponent("profile")}
+            >
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -291,6 +295,7 @@ const AdminNav = () => {
         {/* {activeComponent === 'products' ? <Products /> : null} */}
         {activeComponent === "orders" ? <Orders /> : null}
         {activeComponent === "performance" ? <Performance /> : null}
+        {activeComponent === "profile" ? <Profile /> : null}
         {/* <div className="w-full h-full"></div> */}
       </div>
     </div>
