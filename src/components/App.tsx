@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { Navigate, Route, Routes, BrowserRouter as Router } from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -14,9 +14,11 @@ import Orders from "./Orders";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 import Featured from "./Featured";
+import Home from "./Home";
 import { fetchProductById, fetchUser } from "../api/api";
 import EditReviews from "./EditReviews";
 import { User } from "./Interfaces";
+import NotFound from "./NotFound";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -75,6 +77,8 @@ const App: React.FC = () => {
         <Navbar user={user} token={token} setToken={setToken} />
         <div>
           <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="*" element={<NotFound />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login setToken={setToken} />} />
             <Route path="/products" element={<Products setProductId={setProductId} user={user} />} />
@@ -83,6 +87,7 @@ const App: React.FC = () => {
             <Route path="/addproduct" element={<AddProduct />} />
             <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
             <Route path="/featured" element={<Featured />} />
+            <Route path="/home" element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
           </Routes>
         </div>
