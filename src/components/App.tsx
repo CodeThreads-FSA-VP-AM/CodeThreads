@@ -17,6 +17,7 @@ import Featured from "./Featured";
 import { fetchProductById, fetchUser } from "../api/api";
 import EditReviews from "./EditReviews";
 import { User } from "./Interfaces";
+import NotFound from "./NotFound";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -75,6 +76,7 @@ const App: React.FC = () => {
         <Navbar user={user} token={token} setToken={setToken} />
         <div>
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login setToken={setToken} />} />
             <Route path="/products" element={<Products setProductId={setProductId} user={user} />} />
