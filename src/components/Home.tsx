@@ -17,10 +17,11 @@ const Home = (props: Props) => {
           </h1>
 
           <p className="max-w-md leading-relaxed text-gray-500 xl:text-lg">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Praesentium excepturi natus architecto aspernatur neque voluptatem
-            debitis qui facilis deserunt, unde illum dignissimos eligendi fugiat
-            ut suscipit possimus alias, exercitationem dolorum!
+            Welcome to our online clothing store! Browse our collection of
+            stylish and comfortable clothes designed to fit your unique sense of
+            fashion. From trendy tops to cozy sweaters, we have everything you
+            need to create your perfect outfit. Start shopping now and find your
+            next wardrobe essential!
           </p>
         </div>
 
