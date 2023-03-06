@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   front_url?: string
   back_url?: string
+  tags?: any
 }
 
 export interface ProductCreate {
