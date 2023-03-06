@@ -86,9 +86,16 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
               <ul className="items-center justify-center hidden w-8/12 space-x-8 md:flex">
                 <li>
                   <NavLink
-                    to="/featured"
+                    to="/home"
                     className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline">
                     Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/featured"
+                    className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline">
+                    Featured
                   </NavLink>
                 </li>
                 <li>
