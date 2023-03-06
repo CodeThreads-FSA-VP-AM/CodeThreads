@@ -69,9 +69,9 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
             </h2>
 
             <p className="max-w-screen-md mx-auto text-center text-gray-500 md:text-lg">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-              praesentium cumque iure dicta incidunt est ipsam, officia dolor
-              fugit natus?
+              From everyday essentials to statement pieces, our selection
+              features something for every occasion. Start exploring now and
+              find your new favorite outfit!
             </p>
 
             {user.is_admin && (

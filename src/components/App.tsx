@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  BrowserRouter as Router,
+} from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -19,6 +24,7 @@ import { fetchProductById, fetchUser } from "../api/api";
 import EditReviews from "./EditReviews";
 import { User } from "./Interfaces";
 import NotFound from "./NotFound";
+import AdminNav from "./AdminNav";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -81,14 +87,30 @@ const App: React.FC = () => {
             <Route path="*" element={<NotFound />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login setToken={setToken} />} />
-            <Route path="/products" element={<Products setProductId={setProductId} user={user} />} />
-            <Route path="/products/:id" element={<SingleView quantity={quantity} user={user} />} />
+            <Route
+              path="/products"
+              element={<Products setProductId={setProductId} user={user} />}
+            />
+            <Route
+              path="/products/:id"
+              element={<SingleView quantity={quantity} user={user} />}
+            />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
-            <Route path="/edit/:id" element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
+            <Route
+              path="/edit/:id"
+              element={
+                <EditProduct
+                  product={product}
+                  productId={productId}
+                  setProductId={setProductId}
+                />
+              }
+            />
             <Route path="/featured" element={<Featured />} />
             <Route path="/home" element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
+            <Route path="/admin" element={<AdminNav />} />
           </Routes>
         </div>
       </Router>
