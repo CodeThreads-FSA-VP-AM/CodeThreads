@@ -98,8 +98,8 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
 
             {loading ? (
               // <div>Loading...</div>
-              <div className="flex">
-                <div className="flex items-center justify-center w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-blue-400"></div>
+              <div className="flex items-center justify-start h-screen max-w-screen-xl px-4 mx-auto md:px-8">
+                <div className="w-16 h-16 border-4 border-dashed rounded-full  animate-spin dark:border-blue-400"></div>
               </div>
             ) : (
               products?.map((p: Product) => (
