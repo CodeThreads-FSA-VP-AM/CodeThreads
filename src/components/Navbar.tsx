@@ -168,7 +168,12 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/admin">Admin</NavLink>
+                  <NavLink
+                    to="/admin"
+                    className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                  >
+                    Admin
+                  </NavLink>
                 </li>
                 {!token && (
                   <>

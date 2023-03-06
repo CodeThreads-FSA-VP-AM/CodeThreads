@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Home from "./Home";
 import Orders from "./Orders";
+import Performance from "./Performance";
 const AdminNav = () => {
-  const [activeComponent, setActiveComponent] = useState("");
+  const [activeComponent, setActiveComponent] = useState("home");
 
   return (
     <div className="flex flex-no-wrap">
@@ -85,7 +86,10 @@ const AdminNav = () => {
                 <span className="text-sm  ml-2">Orders</span>
               </div>
             </li>
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
+            <li
+              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6"
+              onClick={() => setActiveComponent("performance")}
+            >
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +108,7 @@ const AdminNav = () => {
                   <polyline points="4 12 12 16 20 12" />
                   <polyline points="4 16 12 20 20 16" />
                 </svg>
-                <span className="text-sm  ml-2">Inventory</span>
+                <span className="text-sm  ml-2">Stats</span>
               </div>
             </li>
             <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center">
@@ -255,7 +259,7 @@ const AdminNav = () => {
                   <polyline points="4 12 12 16 20 12" />
                   <polyline points="4 16 12 20 20 16" />
                 </svg>
-                <span className="text-sm  ml-2">Inventory</span>
+                <span className="text-sm  ml-2">Stats</span>
               </div>
             </li>
             <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center">
@@ -283,10 +287,11 @@ const AdminNav = () => {
         </div>
       </div>
       <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
-        <div className="w-full h-full"></div>
         {activeComponent === "home" ? <Home /> : null}
         {/* {activeComponent === 'products' ? <Products /> : null} */}
         {activeComponent === "orders" ? <Orders /> : null}
+        {activeComponent === "performance" ? <Performance /> : null}
+        {/* <div className="w-full h-full"></div> */}
       </div>
     </div>
   );
