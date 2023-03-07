@@ -16,7 +16,7 @@ const Register = () => {
   const [token, setToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [sidebar, setsidebar] = useState();
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [loading, setLoading] = useState<Boolean>(false);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -32,10 +32,12 @@ const Register = () => {
         setUsername("");
         setPassword("");
         setEmail("");
-        setLoading(false);
+        setLoading(true);
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
