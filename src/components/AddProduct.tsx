@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCreateProduct } from "../api/api";
-import Loader from "./Loader";
+
 
 type Props = {
   title: string;
@@ -32,7 +32,6 @@ const AddProduct: React.FC = () => {
   const [medium, setMedium] = useState(1);
   const [large, setLarge] = useState(1);
   const [xlarge, setXlarge] = useState(1);
-  const [loading, setLoading] = useState<Boolean>(true);
 
   const history = useNavigate();
 
@@ -54,15 +53,13 @@ const AddProduct: React.FC = () => {
     console.log(data);
     const create = await fetchCreateProduct(data);
     console.log({ create });
-    setLoading(false);
+
     history(-1);
   };
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
+
         <section className="bg-white ">
           <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
             <h2 className="mb-4 text-xl font-bold">Add a new product</h2>
@@ -235,7 +232,7 @@ const AddProduct: React.FC = () => {
             </form>
           </div>
         </section>
-      )}
+
     </>
   );
 };

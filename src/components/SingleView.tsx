@@ -19,7 +19,7 @@ const SingleView: FC<Props> = ({ user }) => {
   const [token, setToken] = useState("");
   const [productId, setProductId] = useState(0);
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [loading, setLoading] = useState<Boolean>(false);
 
   const navigate = useNavigate();
 

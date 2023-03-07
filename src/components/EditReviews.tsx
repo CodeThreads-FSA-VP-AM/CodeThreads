@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editReview } from "../api/api";
 import { Review } from "./Interfaces";
-import Loader from "./Loader";
 
 type Props = {
   title: string;
@@ -25,7 +24,7 @@ const EditReviews = (props: Props) => {
   const [title, setTitle] = useState(props.title);
   const [rating, setRating] = useState(props.rating);
   const [description, setDescription] = useState(props.description);
-  const [loading, setLoading] = useState<Boolean>(true);
+
 
   const [token, setToken] = useState("");
 
@@ -50,7 +49,7 @@ const EditReviews = (props: Props) => {
       const updatedReviews = [...props.reviews];
       updatedReviews[editedReviewIndex] = editedReview;
       props.setReviews(updatedReviews);
-      setLoading(false);
+
     } catch (error) {
       console.error(error);
     }
@@ -62,9 +61,7 @@ const EditReviews = (props: Props) => {
   }, [token]);
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
+
         <div className="mt-5 md:col-span-2 md:mt-0">
           <form onSubmit={handleEditReview}>
             <div className="overflow-hidden shadow sm:rounded-md">
@@ -143,7 +140,7 @@ const EditReviews = (props: Props) => {
             </div>
           </form>
         </div>
-      )}
+      
     </>
   );
 };

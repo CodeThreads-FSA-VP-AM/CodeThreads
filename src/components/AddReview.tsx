@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createReview } from "../api/api";
 import { Review } from "./Interfaces";
-import Loader from "./Loader";
+
 interface AddReviewProps {
   token: string;
   product_id: number;
@@ -13,7 +13,6 @@ const AddReview = (props: AddReviewProps) => {
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState<Boolean>(true);
 
   const handleCreateReview: React.FormEventHandler<HTMLFormElement> = async (
     e
@@ -34,7 +33,6 @@ const AddReview = (props: AddReviewProps) => {
       setDescription("");
       props.setReviews([...props.reviews, newReview]);
       console.log(newReview);
-      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -107,104 +105,100 @@ const AddReview = (props: AddReviewProps) => {
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            {loading ? (
-              <Loader />
-            ) : (
-              <form onSubmit={handleCreateReview}>
-                <div className="overflow-hidden shadow sm:rounded-md">
-                  <div className="px-4 py-5 bg-white sm:p-6">
-                    <div className="grid grid-cols-6 gap-6">
-                      <div className="col-span-6 sm:col-span-4">
-                        <label
-                          htmlFor="first-name"
-                          className="block text-sm font-medium text-gray-700"
-                          aria-required
-                        >
-                          Username<span className="text-[#F70000]">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="first-name"
-                          id="first-name"
-                          autoComplete="given-name"
-                          disabled
-                          className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        />
-                      </div>
+            <form onSubmit={handleCreateReview}>
+              <div className="overflow-hidden shadow sm:rounded-md">
+                <div className="px-4 py-5 bg-white sm:p-6">
+                  <div className="grid grid-cols-6 gap-6">
+                    <div className="col-span-6 sm:col-span-4">
+                      <label
+                        htmlFor="first-name"
+                        className="block text-sm font-medium text-gray-700"
+                        aria-required
+                      >
+                        Username<span className="text-[#F70000]">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="first-name"
+                        id="first-name"
+                        autoComplete="given-name"
+                        disabled
+                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                    </div>
 
-                      <div className="col-span-6 sm:col-span-3">
-                        <label
-                          htmlFor="title"
-                          className="block text-sm font-medium text-gray-700"
-                          aria-required="true"
-                        >
-                          Title<span className="text-[#F70000]">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="title"
-                          id="title"
-                          autoComplete="title"
-                          className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          value={title}
-                          onChange={(e) => setTitle(e.target.value)}
-                        />
-                      </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label
+                        htmlFor="title"
+                        className="block text-sm font-medium text-gray-700"
+                        aria-required="true"
+                      >
+                        Title<span className="text-[#F70000]">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        autoComplete="title"
+                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                      />
+                    </div>
 
-                      <div className="col-span-6 sm:col-span-1">
-                        <label
-                          htmlFor="country"
-                          className="block text-sm font-medium text-gray-700"
-                          aria-required="true"
-                        >
-                          Rating<span className="text-[#F70000]">*</span>
-                        </label>
-                        <select
-                          id="country"
-                          name="country"
-                          autoComplete="country-name"
-                          className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                          value={rating}
-                          defaultValue={1}
-                          onChange={(e) => setRating(parseInt(e.target.value))}
-                        >
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
+                    <div className="col-span-6 sm:col-span-1">
+                      <label
+                        htmlFor="country"
+                        className="block text-sm font-medium text-gray-700"
+                        aria-required="true"
+                      >
+                        Rating<span className="text-[#F70000]">*</span>
+                      </label>
+                      <select
+                        id="country"
+                        name="country"
+                        autoComplete="country-name"
+                        className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        value={rating}
+                        defaultValue={1}
+                        onChange={(e) => setRating(parseInt(e.target.value))}
+                      >
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
 
-                      <div className="col-span-4">
-                        <label
-                          htmlFor="description"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Description
-                        </label>
-                        <textarea
-                          name="description"
-                          id="description"
-                          autoComplete="description"
-                          className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                        />
-                      </div>
+                    <div className="col-span-4">
+                      <label
+                        htmlFor="description"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Description
+                      </label>
+                      <textarea
+                        name="description"
+                        id="description"
+                        autoComplete="description"
+                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
                     </div>
                   </div>
-                  <div className="px-4 py-3 text-left bg-gray-50 sm:px-6">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      Create
-                    </button>
-                  </div>
                 </div>
-              </form>
-            )}
+                <div className="px-4 py-3 text-left bg-gray-50 sm:px-6">
+                  <button
+                    type="submit"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    Create
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
