@@ -350,7 +350,7 @@ const Orders = () => {
                       <ul className="flex gap-8 flex-col">
                         <li>
                           <NavLink
-                            to="./login"
+                            to="/login"
                             className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
                           >
                             <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
@@ -360,7 +360,7 @@ const Orders = () => {
                         </li>
                         <li>
                           <NavLink
-                            to="./register"
+                            to="/register"
                             className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
                           >
                             <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
