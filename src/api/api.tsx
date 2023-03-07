@@ -65,6 +65,10 @@ export const fetchLogin = async (data: Login): Promise<any> => {
   return json;
 };
 
+// update user
+
+// delete user
+
 // Product fetch requests
 
 // fetch all products

@@ -1,6 +1,6 @@
 // grab our db client connection to use with our adapters
-const client = require("../client");
-const bcrypt = require("bcrypt");
+const client = require('../client');
+const bcrypt = require('bcrypt');
 
 const createUser = async ({ username, password, email, is_admin }) => {
   const SALT_COUNT = 10;
@@ -23,6 +23,10 @@ const createUser = async ({ username, password, email, is_admin }) => {
     console.error(error);
   }
 };
+
+//update user
+
+//delete user
 
 const getUser = async ({ username, password }) => {
   const user = await getUserByUsername(username);
@@ -53,9 +57,7 @@ const getUserByUsername = async (username) => {
   try {
     const {
       rows: [user],
-    } = await client.query(`SELECT * FROM users WHERE username = $1`, [
-      username,
-    ]);
+    } = await client.query(`SELECT * FROM users WHERE username = $1`, [username]);
     return user;
   } catch (error) {
     console.error(error);
