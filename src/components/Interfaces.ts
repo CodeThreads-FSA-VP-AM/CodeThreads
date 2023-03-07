@@ -1,7 +1,12 @@
 // can resuse interfaces in this file for multiple components
 // add export to interface
 
+import { ReactNode } from "react";
+
 export interface Product {
+  product_id(product_id: any): void;
+  status: ReactNode;
+  quantity: string | number | readonly string[] | undefined;
   id: number;
   title: string;
   description: string;
@@ -76,6 +81,7 @@ export interface Order {
 
 }
 
+
 export interface User {
 
   token: string;
@@ -89,4 +95,9 @@ export interface Review {
   title: string;
   description: string;
   users_id: number;
+}
+
+export interface CartItem {
+  id: number;
+  quantity: number;
 }
