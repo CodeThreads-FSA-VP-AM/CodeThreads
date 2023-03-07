@@ -64,7 +64,9 @@ const SingleView: FC<Props> = ({ user }) => {
     try {
       let cart = sessionStorage.getItem("cart") || "[]";
       let cartItems = JSON.parse(cart);
-      const existingItem = cartItems.find((i: { id: number }) => i.id === productId);
+      const existingItem = cartItems.find(
+        (i: { id: number }) => i.id === productId
+      );
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
