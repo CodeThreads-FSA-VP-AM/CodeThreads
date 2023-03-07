@@ -90,3 +90,8 @@ export interface Review {
   description: string;
   users_id: number;
 }
+
+export interface CartItem {
+  id: number;
+  quantity: number;
+}

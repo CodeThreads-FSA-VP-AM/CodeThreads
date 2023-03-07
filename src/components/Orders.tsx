@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HighlightSpanKind } from "typescript";
-import { fetchOrder, deleteOrder, fetchUser } from "../api/api";
+import {
+  fetchOrder,
+  deleteOrder,
+  fetchUser,
+  fetchProductById,
+} from "../api/api";
 import Highlights from "./HighLights";
-import { OrderData, Order, User } from "./Interfaces";
+import { OrderData, Order, User, Product, CartItem } from "./Interfaces";
 import Loader from "./Loader";
 
 const Orders = () => {
@@ -12,12 +17,25 @@ const Orders = () => {
   const [userId, setUserId] = useState(0);
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState<Boolean>(true);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [product, setProduct] = useState<Product[]>();
   let navigate = useNavigate();
   const totalPrice = orders.reduce(
     (total, order) => total + order.price * order.quantity,
     0
   );
+
+  const getProduct = async () => {
+    try {
+      const fetchedProducts = await Promise.all(
+        cart.map((item) => fetchProductById(item.id))
+      );
+      setProduct(fetchedProducts);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // use session storage to track guest users products they add to cart
   //Create a ternary to showcase diff functions that would either add it to the session storage or add it to the cart
@@ -67,12 +85,14 @@ const Orders = () => {
   }, [token, userId]);
 
   useEffect(() => {
+    getProduct();
     const cartData = JSON.parse(sessionStorage.getItem("cart") || "[]");
     setCart(cartData);
   }, []);
   console.log(cart);
   console.log(orders);
   console.log(userId);
+  console.log(product);
   return (
     <>
       {loading ? (
