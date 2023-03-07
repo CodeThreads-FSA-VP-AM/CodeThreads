@@ -110,7 +110,7 @@ const App: React.FC = () => {
             <Route path="/featured" element={<Featured />} />
             <Route path="/home" element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
-            <Route path="/admin" element={<AdminNav />} />
+            <Route path="/admin" element={<AdminNav setProductId={setProductId} user={user}/>} />
           </Routes>
         </div>
       </Router>

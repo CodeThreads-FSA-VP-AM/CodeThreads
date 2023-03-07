@@ -3,12 +3,17 @@ import Home from "./Home";
 import Orders from "./Orders";
 import Performance from "./Performance";
 import Profile from "./Profile";
-const AdminNav = () => {
+import Products from "./Products";
+type Props = {
+  setProductId: (id: number) => void;
+  user: any;
+};
+const AdminNav: React.FC<Props> = ({ setProductId, user }) => {
   const [activeComponent, setActiveComponent] = useState("home");
 
   return (
     <div className="flex flex-no-wrap">
-      <div className="w-64 absolute sm:relative bg-[#F9FAFB] shadow md:h-full flex-col justify-between hidden sm:flex">
+      <div className="w-64 absolute sm:relative bg-white shadow md:h-full flex-col justify-between hidden sm:flex">
         <div className="px-8 h-screen">
           <div className="h-16 w-full flex items-center">
             <h1>Admin Dashboard</h1>
@@ -143,7 +148,7 @@ const AdminNav = () => {
         </div>
       </div>
       <div
-        className="w-64 z-40 absolute bg-[#F9FAFB] shadow md:h-full flex-col justify-between sm:hidden  transition duration-150 ease-in-out"
+        className="w-64 z-40 absolute bg-white shadow md:h-full flex-col justify-between sm:hidden  transition duration-150 ease-in-out"
         id="mobile-nav"
       >
         <div
@@ -292,7 +297,9 @@ const AdminNav = () => {
       </div>
       <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
         {activeComponent === "home" ? <Home /> : null}
-        {/* {activeComponent === 'products' ? <Products /> : null} */}
+        {activeComponent === "products" ? (
+          <Products setProductId={setProductId} user={user} />
+        ) : null}
         {activeComponent === "orders" ? <Orders /> : null}
         {activeComponent === "performance" ? <Performance /> : null}
         {activeComponent === "profile" ? <Profile /> : null}
