@@ -77,21 +77,23 @@ const Orders = () => {
     const cartData = JSON.parse(sessionStorage.getItem("cart") || "[]");
     setCart(cartData);
   }, []);
-  const getProduct = async () => {
-    try {
-      const fetchedProducts = await Promise.all(
-        cart.map((product) => fetchProductById(product.id))
-      );
-      setProduct(fetchedProducts);
-
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
   useEffect(() => {
-    getProduct();
-  }, []);
+    if (cart.length > 0) {
+      const productIds = cart.map((item) => item.id);
+      const fetchProducts = async () => {
+        try {
+          const fetchedProducts = await Promise.all(
+            productIds.map((id) => fetchProductById(id))
+          );
+          setProduct(fetchedProducts);
+          setLoading(false);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchProducts();
+    }
+  }, [cart]);
   console.log(cart);
   console.log(orders);
   console.log(userId);
