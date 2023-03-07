@@ -33,9 +33,13 @@ const SingleView: FC<Props> = ({ user }) => {
   const { id } = useParams<String>();
 
   const getProduct = async () => {
-    const fetchedProduct = await fetchProductById(productId);
-    setProduct(fetchedProduct);
-    setLoading(false);
+    try {
+      const fetchedProduct = await fetchProductById(productId);
+      setProduct(fetchedProduct);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = async (
@@ -51,6 +55,26 @@ const SingleView: FC<Props> = ({ user }) => {
       console.log(res);
     } catch (error) {
       console.error();
+    }
+  };
+  const guestAddToCart: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+    try {
+      let cart = sessionStorage.getItem("cart") || "[]";
+      let cartItems = JSON.parse(cart);
+      const existingItem = cartItems.find((i: { id: number }) => i.id === productId);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cartItems.push({ id: productId, quantity: 1 });
+      }
+      console.log(cartItems);
+      sessionStorage.setItem("cart", JSON.stringify(cartItems));
+      console.log(sessionStorage);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -305,13 +329,23 @@ const SingleView: FC<Props> = ({ user }) => {
                       />
                     </div>
                     {/* remove disabled to use */}
-                    <button
-                      type="submit"
-                      onClick={addProductToCart}
-                      className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
-                    >
-                      Add to Cart
-                    </button>
+                    {token ? (
+                      <button
+                        type="submit"
+                        onClick={addProductToCart}
+                        className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
+                      >
+                        Add to Cart
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        onClick={guestAddToCart}
+                        className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
+                      >
+                        Add to Cart
+                      </button>
+                    )}
                   </div>
                 </form>
               </div>

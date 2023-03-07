@@ -12,11 +12,16 @@ const Orders = () => {
   const [userId, setUserId] = useState(0);
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState<Boolean>(true);
+  const [cart, setCart] = useState([]);
   let navigate = useNavigate();
   const totalPrice = orders.reduce(
     (total, order) => total + order.price * order.quantity,
     0
   );
+
+  // use session storage to track guest users products they add to cart
+  //Create a ternary to showcase diff functions that would either add it to the session storage or add it to the cart
+  //Merge the two carts of the user and guest when they log in
 
   const handleDeleteOrder = async (product_id: number) => {
     try {
@@ -61,6 +66,11 @@ const Orders = () => {
     }
   }, [token, userId]);
 
+  useEffect(() => {
+    const cartData = JSON.parse(sessionStorage.getItem("cart") || "[]");
+    setCart(cartData);
+  }, []);
+  console.log(cart);
   console.log(orders);
   console.log(userId);
   return (
