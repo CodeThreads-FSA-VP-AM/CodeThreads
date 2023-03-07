@@ -41,6 +41,19 @@ const Orders = () => {
       console.error(error);
     }
   };
+  const handleDeleteCartItem = async (productId: number) => {
+    try {
+      const updatedCart = cart.filter((item) => item.id !== productId);
+      sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+      setCart(updatedCart);
+      const updatedProducts = await Promise.all(
+        updatedCart.map((item) => fetchProductById(item.id))
+      );
+      setProduct(updatedProducts);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const getUser = async (data: User) => {
@@ -261,7 +274,7 @@ const Orders = () => {
                               </p>
                               <button
                                 className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"
-                                onClick={() => handleDeleteOrder(p.id)}
+                                onClick={() => handleDeleteCartItem(p.id)}
                               >
                                 Remove
                               </button>
