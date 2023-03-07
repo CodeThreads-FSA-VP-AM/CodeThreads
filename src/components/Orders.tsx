@@ -143,67 +143,129 @@ const Orders = () => {
                   </p>
 
                   {/* Map over the orders here */}
-                  {orders
-                    .filter((o) => o.users_id === userId)
-                    .map((o: Order, idx) => (
-                      <div
-                        className="md:flex items-center mt-14 py-8 border-t border-gray-200"
-                        key={idx}
-                      >
-                        <div className="w-1/4">
-                          <img
-                            src={o.front_url}
-                            alt="..."
-                            className="w-full h-full object-center object-cover"
-                          />
-                        </div>
-                        <div className="md:pl-3 md:w-3/4">
-                          <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">
-                            {1 + idx++}
-                          </p>
-                          <div className="flex items-center justify-between w-full pt-1">
-                            <p className="text-base font-black leading-none text-gray-800 capitalize">
-                              {o.title}
-                            </p>
-                            <label className="p-1 border border-gray-200 focus:outline-none">
-                              <input
-                                type="number"
-                                min="1"
-                                max="10"
-                                defaultValue={o.quantity}
-                                className="border-gray-500 border-2 "
-                              ></input>
-                            </label>
-                          </div>
-
-                          <p className="text-xs leading-3 text-gray-600 pt-2 capitalize">
-                            {o.description}
-                          </p>
-                          <p className="text-xs leading-3 text-gray-600 py-4">
-                            Color: Black
-                          </p>
-                          <p className="w-96 text-xs leading-3 text-gray-600 capitalize">
-                            {o.status}
-                          </p>
-                          <div className="flex items-center justify-between pt-5 pr-6">
-                            <div className="flex itemms-center">
-                              <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
-                                Add to favorites
-                              </p>
-                              <button
-                                className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"
-                                onClick={() => handleDeleteOrder(o.product_id)}
-                              >
-                                Remove
-                              </button>
+                  {token
+                    ? orders
+                        .filter((o) => o.users_id === userId)
+                        .map((o: Order, idx) => (
+                          <div
+                            className="md:flex items-center mt-14 py-8 border-t border-gray-200"
+                            key={idx}
+                          >
+                            <div className="w-1/4">
+                              <img
+                                src={o.front_url}
+                                alt="..."
+                                className="w-full h-full object-center object-cover"
+                              />
                             </div>
-                            <p className="text-base font-black leading-none text-gray-800">
-                              ${o.price * o.quantity}
+                            <div className="md:pl-3 md:w-3/4">
+                              <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">
+                                {1 + idx++}
+                              </p>
+                              <div className="flex items-center justify-between w-full pt-1">
+                                <p className="text-base font-black leading-none text-gray-800 capitalize">
+                                  {o.title}
+                                </p>
+                                <label className="p-1 border border-gray-200 focus:outline-none">
+                                  <input
+                                    type="number"
+                                    min="1"
+                                    max="10"
+                                    defaultValue={o.quantity}
+                                    className="border-gray-500 border-2 "
+                                  ></input>
+                                </label>
+                              </div>
+
+                              <p className="text-xs leading-3 text-gray-600 pt-2 capitalize">
+                                {o.description}
+                              </p>
+                              <p className="text-xs leading-3 text-gray-600 py-4">
+                                Color: Black
+                              </p>
+                              <p className="w-96 text-xs leading-3 text-gray-600 capitalize">
+                                {o.status}
+                              </p>
+                              <div className="flex items-center justify-between pt-5 pr-6">
+                                <div className="flex itemms-center">
+                                  <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
+                                    Add to favorites
+                                  </p>
+                                  <button
+                                    className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"
+                                    onClick={() =>
+                                      handleDeleteOrder(o.product_id)
+                                    }
+                                  >
+                                    Remove
+                                  </button>
+                                </div>
+                                <p className="text-base font-black leading-none text-gray-800">
+                                  ${o.price * o.quantity}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                    : product?.map((p: Product, idx) => (
+                        <div
+                          className="md:flex items-center mt-14 py-8 border-t border-gray-200"
+                          key={idx}
+                        >
+                          <div className="w-1/4">
+                            <img
+                              src={p.front_url}
+                              alt="..."
+                              className="w-full h-full object-center object-cover"
+                            />
+                          </div>
+                          <div className="md:pl-3 md:w-3/4">
+                            <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">
+                              {1 + idx++}
                             </p>
+                            <div className="flex items-center justify-between w-full pt-1">
+                              <p className="text-base font-black leading-none text-gray-800 capitalize">
+                                {p.title}
+                              </p>
+                              <label className="p-1 border border-gray-200 focus:outline-none">
+                                <input
+                                  type="number"
+                                  min="1"
+                                  max="10"
+                                  defaultValue={p.quantity}
+                                  className="border-gray-500 border-2 "
+                                ></input>
+                              </label>
+                            </div>
+
+                            <p className="text-xs leading-3 text-gray-600 pt-2 capitalize">
+                              {p.description}
+                            </p>
+                            <p className="text-xs leading-3 text-gray-600 py-4">
+                              Color: Black
+                            </p>
+                            <p className="w-96 text-xs leading-3 text-gray-600 capitalize">
+                              {p.status}
+                            </p>
+                            <div className="flex items-center justify-between pt-5 pr-6">
+                              <div className="flex itemms-center">
+                                <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
+                                  Add to favorites
+                                </p>
+                                <button
+                                  className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"
+                                  onClick={() => handleDeleteOrder(p.id)}
+                                >
+                                  Remove
+                                </button>
+                              </div>
+                              <p className="text-base font-black leading-none text-gray-800">
+                                ${p.price * Number(p.quantity)}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                 </div>
                 {/* //Summary starts here */}
                 <div className="xl:w-1/2 md:w-1/3 w-full bg-gray-100 h-full">
