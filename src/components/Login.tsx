@@ -17,7 +17,7 @@ const Login: React.FC<Props> = ({ setToken }) => {
   // const [token, setToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [sidebar, setsidebar] = useState();
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [loading, setLoading] = useState<Boolean>(false);
 
   const navigate = useNavigate();
 
@@ -36,10 +36,12 @@ const Login: React.FC<Props> = ({ setToken }) => {
         setUsername("");
         setPassword("");
         navigate("/products");
-        setLoading(false);
+        setLoading(true);
       }
     } catch (error) {
       console.error(error);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -224,7 +226,7 @@ const Login: React.FC<Props> = ({ setToken }) => {
             </div>
           </div>
         </div>
-      )}
+      )} 
     </>
   );
 };
