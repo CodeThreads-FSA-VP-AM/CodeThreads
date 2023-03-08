@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HighlightSpanKind } from "typescript";
-import { fetchOrder, deleteOrder, fetchUser, createOrder } from "../api/api";
+import { fetchOrder, deleteOrder, fetchUser, createOrder, createNewOrder } from "../api/api";
 import Highlights from "./HighLights";
 import { OrderData, Order, User } from "./Interfaces";
 
@@ -41,6 +41,10 @@ const Orders = () => {
     setToken(token);
     getUser({ token });
 
+    // if (orders.length === 0) {
+    //   return;
+    // }
+
     try {
       const fetchOrders = async (userId: number) => {
         const orders = await fetchOrder(userId);
@@ -61,6 +65,9 @@ const Orders = () => {
 
   const checkout = async () => {
     try {
+      const order = await createNewOrder(userId, token);
+      console.log({ order });
+      // const order = await createNewOrder();
       setOrders([]);
     } catch (error) {
       console.error(error);

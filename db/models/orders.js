@@ -111,6 +111,7 @@ const fetchOrder = async (users_id) => {
     console.error(error);
   }
 };
+
 const deleteOrder = async ({ id }) => {
   console.log(id, "in orderjs models");
   try {
@@ -129,8 +130,28 @@ const deleteOrder = async ({ id }) => {
   }
 };
 
+const newOrder = async (user_id) => {
+  try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+    INSERT INTO orders (users_id, is_cart)
+    VALUES ($1, true)
+    RETURNING id
+    `,
+      [user_id]
+    );
+    console.log("neworder", order);
+    return order;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   addProductToCart,
   fetchOrder,
+  newOrder,
   deleteOrder,
 };

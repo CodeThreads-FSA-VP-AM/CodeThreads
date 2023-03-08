@@ -1,11 +1,7 @@
 const express = require("express");
 const ordersRouter = express.Router();
 
-const {
-  addProductToCart,
-  fetchOrder,
-  deleteOrder,
-} = require("../db/models/orders");
+const { addProductToCart, fetchOrder, deleteOrder, newOrder } = require("../db/models/orders");
 
 //Get orders
 
@@ -17,6 +13,17 @@ ordersRouter.post("/add", async (req, res, next) => {
     const user_id = id;
     console.log(user_id);
     const order = await addProductToCart({ user_id, product_id, quantity });
+    res.send(order);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+ordersRouter.post("/create", async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    const order = await newOrder(userId);
     res.send(order);
   } catch (error) {
     console.error(error);
