@@ -82,7 +82,7 @@ const getUserById = async (userId) => {
     const {
       rows: [user],
     } = await client.query(`SELECT * FROM users WHERE id = $1`, [userId]);
-    // user.password = null;
+    delete user.password;
     return user;
   } catch (error) {
     console.error(error);
