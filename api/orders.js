@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const ordersRouter = express.Router();
 
-const { addProductToCart, fetchOrder, deleteOrder, newOrder } = require("../db/models/orders");
+const { addProductToCart, fetchOrder, deleteOrder, newOrder } = require('../db/models/orders');
 
 //Get orders
 
-ordersRouter.post("/add", async (req, res, next) => {
+ordersRouter.post('/add', async (req, res, next) => {
   const { id } = req.user;
   const { product_id, quantity } = req.body;
   console.log(product_id, quantity);
@@ -20,7 +20,7 @@ ordersRouter.post("/add", async (req, res, next) => {
   }
 });
 
-ordersRouter.post("/create", async (req, res, next) => {
+ordersRouter.post('/create', async (req, res, next) => {
   try {
     const { userId } = req.body;
     const order = await newOrder(userId);
@@ -31,7 +31,7 @@ ordersRouter.post("/create", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/:users_id", async (req, res, next) => {
+ordersRouter.get('/:users_id', async (req, res, next) => {
   const users_id = req.params.users_id;
   try {
     const order = await fetchOrder(users_id);
@@ -41,7 +41,8 @@ ordersRouter.get("/:users_id", async (req, res, next) => {
     next(error);
   }
 });
-ordersRouter.delete("/:id", async (req, res, next) => {
+
+ordersRouter.delete('/:id', async (req, res, next) => {
   try {
     const orderId = req.params;
     const deletedOrder = await deleteOrder(orderId);
