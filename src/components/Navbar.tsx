@@ -119,7 +119,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
           </div>
           {/* For md screen size */}
           {/* For large screens */}
-          <div className="px-6 bg-gray-50 py-9">
+          <div className="px-6 bg-white py-9">
             <div className="container flex items-center justify-between mx-auto">
               <h1
                 className="text-2xl text-gray-800 cursor-pointer md:w-2/12 dark:text-black"
@@ -226,7 +226,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                     placeholder="search"
                     className={` ${
                       searchInput ? "hidden" : ""
-                    } text-sm dark:bg-gray-100 dark:placeholder-gray-900 text-black rounded ml-1 border border-transparent focus:outline-none focus:border-gray-400 px-1`}
+                    } text-sm dark:bg-white dark:placeholder-gray-900 text-black rounded ml-1 border border-transparent focus:outline-none focus:border-gray-400 px-1`}
                   />
                 </div>
                 <div className="items-center hidden space-x-4 lg:flex xl:space-x-8">
@@ -401,7 +401,10 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
             id="mobile-menu"
             className={`${
               showMenu ? "flex" : "hidden"
-            } absolute dark:bg-gray-100 z-10 inset-0 md:hidden bg-black flex-col h-screen w-full`}>
+
+            } absolute dark:bg-white z-10 inset-0 md:hidden bg-black flex-col h-screen w-full`}
+          >
+
             <div className="flex items-center justify-between p-4 pb-4 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-3">
                 <div>
@@ -431,7 +434,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                 <input
                   type="text"
                   placeholder="Search products"
-                  className="text-sm text-black placeholder-gray-900 dark:bg-gray-100 dark:placeholder-gray-300 focus:outline-none"
+                  className="text-sm text-black placeholder-gray-900 dark:placeholder-gray-300 focus:outline-none"
                 />
               </div>
               <button
@@ -561,7 +564,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
               </ul>
             </div>
             <div className="flex items-end h-full">
-              <ul className="flex flex-col w-full p-4 py-10 space-y-8 bg-gray-50 dark:bg-gray-300">
+              <ul className="flex flex-col w-full p-4 py-10 space-y-8 bg-white ">
                 <li>
                   <a
                     href="dangerouslySetInnerHTML"
