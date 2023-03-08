@@ -1,6 +1,7 @@
 // grab our db client connection to use with our adapters
-const client = require('../client');
-const bcrypt = require('bcrypt');
+const client = require("../client");
+const bcrypt = require("bcrypt");
+const { useRouteError } = require("react-router-dom");
 
 const createUser = async ({ username, password, email, is_admin }) => {
   const SALT_COUNT = 10;
@@ -17,7 +18,8 @@ const createUser = async ({ username, password, email, is_admin }) => {
     `,
       [username, hashedPassword, email, is_admin]
     );
-    user.password = null;
+    delete user.password;
+
     return user;
   } catch (error) {
     console.error(error);
@@ -25,6 +27,42 @@ const createUser = async ({ username, password, email, is_admin }) => {
 };
 
 //update user
+const editUser = async (userId, fields = {}) => {
+  console.log(userId, fields);
+
+  const SALT_COUNT = 10;
+
+  //update password to hashed
+  const password = fields.password;
+
+  if (password) {
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    fields.password = hashedPassword;
+  }
+
+  const setString = Object.keys(fields)
+    .map((key, i) => `"${key}"=$${i + 1}`)
+    .join(", ");
+
+  console.log(setString);
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+  UPDATE users SET ${setString}
+  WHERE id=${userId}
+  RETURNING *
+  `,
+      Object.values(fields)
+    );
+
+    delete user.password;
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 //delete user
 
@@ -77,11 +115,11 @@ const getUserByEmail = async (email) => {
 const getAllUsers = async () => {
   /* this adapter should fetch a list of users from your db */
   try {
-    const {
-      rows: [user],
-    } = await client.query(`
+    const { rows: user } = await client.query(`
     SELECT * FROM users
     `);
+
+    delete user.password;
     return user;
   } catch (error) {
     console.error(error);
@@ -91,6 +129,7 @@ const getAllUsers = async () => {
 module.exports = {
   // add your database adapter fns here
   createUser,
+  editUser,
   getUser,
   getUserById,
   getUserByUsername,
