@@ -30,15 +30,13 @@ const createUser = async ({ username, password, email, is_admin }) => {
 const editUser = async (userId, fields = {}) => {
   console.log(userId, fields);
 
-  const SALT_COUNT = 10;
-
   //update password to hashed
+  //check if they used the same password?
+  const SALT_COUNT = 10;
   const password = fields.password;
 
-  if (password) {
-    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
-    fields.password = hashedPassword;
-  }
+  const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+  fields.password = hashedPassword;
 
   const setString = Object.keys(fields)
     .map((key, i) => `"${key}"=$${i + 1}`)
@@ -84,7 +82,7 @@ const getUserById = async (userId) => {
     const {
       rows: [user],
     } = await client.query(`SELECT * FROM users WHERE id = $1`, [userId]);
-    user.password = null;
+    // user.password = null;
     return user;
   } catch (error) {
     console.error(error);

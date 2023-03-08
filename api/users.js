@@ -58,18 +58,23 @@ usersRouter.post("/register", async (req, res, next) => {
 });
 
 // patch api/users/me/edit/#
-usersRouter.patch("/me/edit/:userid", async (req, res, next) => {
-  const { password } = req.body;
-  const userId = parseInt(req.params.userid);
+usersRouter.patch("/me/edit/:userid", requireUser, async (req, res, next) => {
+  try {
+    const { password, avatar_url } = req.body;
+    const userId = parseInt(req.params.userid);
 
-  const fields = {};
-  fields.password = password;
+    const fields = {};
+    fields.password = password;
+    fields.avatar_url = avatar_url;
 
-  const userUpdate = await editUser(userId, fields);
-  res.send({
-    userUpdate,
-    message: `You have updated your profile`,
-  });
+    const userUpdate = await editUser(userId, fields);
+    res.send({
+      userUpdate,
+      message: `You have updated your profile`,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 // delete api/users
