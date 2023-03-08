@@ -12,12 +12,13 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
       `,
       [user_id]
     );
+    console.log({ existingOrder }, "existingOrder");
 
     let orderId;
 
     if (existingOrder) {
       orderId = existingOrder.id;
-
+      console.log({ orderId }, "existing order");
       const {
         rows: [existingOrderProduct],
       } = await client.query(
@@ -51,6 +52,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
         );
       }
     } else {
+      console.log("new order");
       const {
         rows: [newOrder],
       } = await client.query(
