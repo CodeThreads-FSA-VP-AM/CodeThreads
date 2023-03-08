@@ -139,7 +139,7 @@ const newOrder = async (user_id) => {
     } = await client.query(
       `
     INSERT INTO orders (users_id, is_cart)
-    VALUES ($1, true)
+    VALUES ($1, false)
     RETURNING id
     `,
       [user_id]

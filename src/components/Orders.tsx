@@ -98,6 +98,8 @@ const Orders = () => {
       console.log({ order });
       // const order = await createNewOrder();
       setOrders([]);
+      setProduct([]);
+      setCart([]);
     } catch (error) {
       console.error(error);
     }
