@@ -14,6 +14,7 @@ const {
   editUser,
   getAllUsers,
   updatePassword,
+  deleteUser,
 } = require("../db/models/user");
 const { requireUser } = require("./utils");
 
@@ -57,7 +58,7 @@ usersRouter.post("/register", async (req, res, next) => {
   }
 });
 
-// patch api/users/me/edit/#
+// PATCH /api/users/me/edit/#
 usersRouter.patch("/me/edit/:userid", requireUser, async (req, res, next) => {
   try {
     const { password, avatar_url } = req.body;
@@ -77,7 +78,18 @@ usersRouter.patch("/me/edit/:userid", requireUser, async (req, res, next) => {
   }
 });
 
-// delete api/users
+// DELETE /api/users/delete
+usersRouter.delete("/delete", async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    await deleteUser(userId);
+    res.send({
+      message: `User: ${userId} has been banned 👀`,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 // POST /api/users/login
 usersRouter.post("/login", async (req, res, next) => {

@@ -450,6 +450,12 @@ const createInitialUsers = async () => {
         is_admin: false,
       },
       {
+        username: "delete",
+        password: "delete",
+        email: "delete@gmail.com",
+        is_admin: false,
+      },
+      {
         username: "admin",
         password: "password",
         email: "admin@codethreads.com",

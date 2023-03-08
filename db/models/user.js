@@ -26,7 +26,6 @@ const createUser = async ({ username, password, email, is_admin }) => {
   }
 };
 
-//update user
 const editUser = async (userId, fields = {}) => {
   console.log(userId, fields);
 
@@ -62,14 +61,29 @@ const editUser = async (userId, fields = {}) => {
   }
 };
 
-//delete user
+const deleteUser = async (userId) => {
+  try {
+    console.log(userId);
+    await client.query(
+      `
+    DELETE FROM users 
+    WHERE id = $1 
+    `,
+      [userId]
+    );
+
+    return;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const getUser = async ({ username, password }) => {
   const user = await getUserByUsername(username);
   const hashedPassword = user.password;
 
   const isValid = await bcrypt.compare(password, hashedPassword);
-  user.password = null;
+  delete user.password;
   if (isValid) {
     return user;
   } else {
@@ -99,6 +113,7 @@ const getUserByUsername = async (username) => {
     console.error(error);
   }
 };
+
 const getUserByEmail = async (email) => {
   try {
     const {
@@ -128,6 +143,7 @@ module.exports = {
   // add your database adapter fns here
   createUser,
   editUser,
+  deleteUser,
   getUser,
   getUserById,
   getUserByUsername,
