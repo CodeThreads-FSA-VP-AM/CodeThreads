@@ -98,8 +98,8 @@ const Orders = () => {
       const order = await checkoutOrder(userId, orderId, token);
       console.log({ order });
       if (order) {
-        // setOrders([]);
-        setOrders(orders.filter((order) => order.status === 'added'));
+        setOrders([]);
+        // setOrders(orders.filter((order) => order.status === 'added'));
         setProduct([]);
         setCart([]);
       }
