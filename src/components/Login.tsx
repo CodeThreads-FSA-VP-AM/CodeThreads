@@ -36,7 +36,7 @@ const Login: React.FC<Props> = ({ setToken }) => {
         updateCart(login.user.id, login.token);
         setUsername("");
         setPassword("");
-        // navigate("/products");
+        navigate("/products");
         setLoading(true);
       }
     } catch (error) {

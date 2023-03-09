@@ -390,10 +390,12 @@ export const editReview = async (data: EditReviews) => {
   }
 };
 
-export const mergeCarts = async (dbCart: any, storageCart: any) => {
+export const mergeCarts = async (
+  dbCart: any,
+  storageCart: any,
+  token: string
+) => {
   const mergedCart = [...dbCart];
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJKb2huRG9lIiwiZW1haWwiOiJqb2huZG9lMUBnbWFpbC5jb20iLCJjcmVhdGVkX2F0IjoiMjAyMy0wMy0wOVQyMDo0NzowOS4yNzFaIiwiaXNfYWRtaW4iOmZhbHNlLCJhdmF0YXJfdXJsIjpudWxsLCJpYXQiOjE2NzgzOTkwNDR9.7htWozYs6_6eU2Vu1e6wL4yd2BzWQHZhgyYFDB3TJ5c";
   for (const cartItem of storageCart) {
     const existingItemIndex = mergedCart.findIndex(
       (item) => item.product_id === cartItem.id
@@ -405,8 +407,6 @@ export const mergeCarts = async (dbCart: any, storageCart: any) => {
         quantity: cartItem.quantity,
         token: token,
       });
-      // const newOrderRow = await fetchProductById(cartItem.id);
-      // console.log(newOrderRow);
       mergedCart.push(addOrder);
       console.log(mergedCart, "mergedCart1");
     } else {
@@ -426,13 +426,10 @@ export const updateCart = async (userId: number, token: string) => {
 
   try {
     const res = await fetchOrder(userId);
-
     const cartFromDb = res;
-    const updatedCart = await mergeCarts(cartFromDb, cartFromStorage);
+    const updatedCart = await mergeCarts(cartFromDb, cartFromStorage, token);
     console.log(cartFromDb, "fromdb");
     console.log(userId, updatedCart, token);
-    // const savedCart = await saveCart({ userId, cart: updatedCart, token });
-    // return savedCart;
     sessionStorage.removeItem("cart");
     return updateCart;
   } catch (error) {
