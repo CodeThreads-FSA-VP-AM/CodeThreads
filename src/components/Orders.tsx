@@ -24,6 +24,8 @@ const Orders = () => {
   //Create a ternary to showcase diff functions that would either add it to the session storage or add it to the cart
   //Merge the two carts of the user and guest when they log in
 
+  console.log({ orderId });
+
   const handleDeleteOrder = async (product_id: number) => {
     try {
       const res = await deleteOrder({
@@ -68,6 +70,14 @@ const Orders = () => {
     const fetchOrders = async (userId: number) => {
       const orders = await fetchOrder(userId);
       console.log(orders);
+      const getorderid = orders.filter((o: { status: string }) => o.status === 'added');
+      console.log(getorderid);
+      // if (orders.status === 'added') {
+      //   console.log('inside');
+      // }
+      // const { order_id } = existingItem;
+      // console.log(order_id);
+      // setOrderId(existingItem.order_id);
       const filteredOrders = orders.filter((order: { users_id: number; status: string }) => order.users_id === userId && order.status === 'added');
       setOrders(filteredOrders);
       setLoading(false);
