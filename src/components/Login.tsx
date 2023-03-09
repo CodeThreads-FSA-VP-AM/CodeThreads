@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { fetchLogin } from "../api/api";
+import { fetchLogin, updateCart } from "../api/api";
 import { NavLink, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 
@@ -33,15 +33,16 @@ const Login: React.FC<Props> = ({ setToken }) => {
         setErrorMsg("");
         localStorage.setItem("token", login.token);
         setToken(login.token);
+        updateCart(login.user.id, login.token);
         setUsername("");
         setPassword("");
-        navigate("/products");
+        // navigate("/products");
         setLoading(true);
       }
     } catch (error) {
       console.error(error);
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -226,7 +227,7 @@ const Login: React.FC<Props> = ({ setToken }) => {
             </div>
           </div>
         </div>
-      )} 
+      )}
     </>
   );
 };
