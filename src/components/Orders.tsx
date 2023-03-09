@@ -7,7 +7,7 @@ import {
   deleteOrder,
   fetchUser,
   createOrder,
-  createNewOrder,
+  checkoutOrder,
   fetchProductById,
 } from "../api/api";
 
@@ -19,6 +19,7 @@ const Orders = () => {
   const [show, setShow] = useState(false);
   const [orders, setOrders] = useState<OrderData[]>([]);
   const [userId, setUserId] = useState(0);
+  const [orderId, setOrderId] = useState(1);
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState<Boolean>(true);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -93,13 +94,15 @@ const Orders = () => {
   //onclick function on the checkout button
 
   const checkout = async () => {
+    // const { id: orderId } = orders;
     try {
-      const order = await createNewOrder(userId, token);
+      const order = await checkoutOrder(userId, orderId, token);
       console.log({ order });
-      // const order = await createNewOrder();
-      setOrders([]);
-      setProduct([]);
-      setCart([]);
+      if (order) {
+        setOrders([]);
+        setProduct([]);
+        setCart([]);
+      }
     } catch (error) {
       console.error(error);
     }

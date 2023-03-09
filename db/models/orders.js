@@ -1,4 +1,4 @@
-const client = require('../client');
+const client = require("../client");
 
 const addProductToCart = async ({ user_id, product_id, quantity }) => {
   try {
@@ -12,13 +12,13 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
       `,
       [user_id]
     );
-    console.log({ existingOrder }, 'existingOrder');
+    console.log({ existingOrder }, "existingOrder");
 
     let orderId;
 
     if (existingOrder) {
       orderId = existingOrder.id;
-      console.log({ orderId }, 'existing order');
+      console.log({ orderId }, "existing order");
       const {
         rows: [existingOrderProduct],
       } = await client.query(
@@ -32,7 +32,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
 
       if (existingOrderProduct) {
         const updatedQuantity = existingOrderProduct.quantity + quantity++;
-        console.log(updatedQuantity, 'updatednumber');
+        console.log(updatedQuantity, "updatednumber");
 
         await client.query(
           `
@@ -52,7 +52,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
         );
       }
     } else {
-      console.log('new order');
+      console.log("new order");
       const {
         rows: [newOrder],
       } = await client.query(
@@ -115,7 +115,7 @@ const fetchOrder = async (users_id) => {
 };
 
 const deleteOrder = async ({ id }) => {
-  console.log(id, 'in orderjs models');
+  console.log(id, "in orderjs models");
   try {
     const {
       rows: [order],
@@ -132,20 +132,30 @@ const deleteOrder = async ({ id }) => {
   }
 };
 
-const updateOrder = async (orderId, fields = {}) => {
+const updateOrder = async (orderId, userId, fields = {}) => {
   console.log(fields, orderId);
-
-  fields.userId = userId;
 
   const setString = Object.keys(fields)
     .map((key, i) => `"${key}"=$${i + 1}`)
-    .join(', ');
+    .join(", ");
 
   console.log(setString);
 
   try {
     const order = await fetchOrder(userId);
-    console.log(order);
+    if (order) {
+      const {
+        rows: [order],
+      } = await client.query(
+        `
+      UPDATE order_products SET ${setString}
+      WHERE order_id = ${orderId}
+      RETURNING *
+      `,
+        Object.values(fields)
+      );
+      return order;
+    }
   } catch (error) {
     console.error(error);
   }
@@ -163,7 +173,7 @@ const newOrder = async (user_id) => {
     `,
       [user_id]
     );
-    console.log('neworder', order);
+    console.log("neworder", order);
     return order;
   } catch (error) {
     console.error(error);
@@ -174,5 +184,6 @@ module.exports = {
   addProductToCart,
   fetchOrder,
   newOrder,
+  updateOrder,
   deleteOrder,
 };
