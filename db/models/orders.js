@@ -1,4 +1,4 @@
-const client = require("../client");
+const client = require('../client');
 
 const addProductToCart = async ({ user_id, product_id, quantity }) => {
   try {
@@ -12,12 +12,13 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
       `,
       [user_id]
     );
+    console.log({ existingOrder }, 'existingOrder');
 
     let orderId;
 
     if (existingOrder) {
       orderId = existingOrder.id;
-
+      console.log({ orderId }, 'existing order');
       const {
         rows: [existingOrderProduct],
       } = await client.query(
@@ -31,7 +32,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
 
       if (existingOrderProduct) {
         const updatedQuantity = existingOrderProduct.quantity + quantity++;
-        console.log(updatedQuantity, "updatednumber");
+        console.log(updatedQuantity, 'updatednumber');
 
         await client.query(
           `
@@ -51,6 +52,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
         );
       }
     } else {
+      console.log('new order');
       const {
         rows: [newOrder],
       } = await client.query(
@@ -111,8 +113,9 @@ const fetchOrder = async (users_id) => {
     console.error(error);
   }
 };
+
 const deleteOrder = async ({ id }) => {
-  console.log(id, "in orderjs models");
+  console.log(id, 'in orderjs models');
   try {
     const {
       rows: [order],
@@ -129,8 +132,73 @@ const deleteOrder = async ({ id }) => {
   }
 };
 
+const updateOrder = async (orderId, userId, fields = {}, cartFields = {}) => {
+  console.log(fields, orderId);
+
+  const setString = Object.keys(fields)
+    .map((key, i) => `"${key}"=$${i + 1}`)
+    .join(', ');
+
+  const setStringCart = Object.keys(cartFields)
+    .map((key, i) => `"${key}"=$${i + 1}`)
+    .join(', ');
+
+  console.log({ setString });
+  console.log({ setStringCart });
+
+  try {
+    const order = await fetchOrder(userId);
+    if (order) {
+      const {
+        rows: [order],
+      } = await client.query(
+        `
+      UPDATE order_products SET ${setString}
+      WHERE order_id = ${orderId}
+      RETURNING *
+      `,
+        Object.values(fields)
+      );
+
+      await client.query(
+        `
+      UPDATE orders SET ${setStringCart}
+      WHERE id = ${orderId}
+      RETURNING *
+      `,
+        Object.values(cartFields)
+      );
+      console.log({ order });
+      return order;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const newOrder = async (user_id) => {
+  try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+    INSERT INTO orders (users_id, is_cart)
+    VALUES ($1, false)
+    RETURNING id
+    `,
+      [user_id]
+    );
+    console.log('neworder', order);
+    return order;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   addProductToCart,
   fetchOrder,
+  newOrder,
+  updateOrder,
   deleteOrder,
 };
