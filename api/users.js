@@ -11,6 +11,10 @@ const {
   getUserByUsername,
   getUserByEmail,
   getUser,
+  editUser,
+  getAllUsers,
+  updatePassword,
+  deleteUser,
 } = require("../db/models/user");
 const { requireUser } = require("./utils");
 
@@ -54,6 +58,39 @@ usersRouter.post("/register", async (req, res, next) => {
   }
 });
 
+// PATCH /api/users/me/edit/#
+usersRouter.patch("/me/edit/:userid", requireUser, async (req, res, next) => {
+  try {
+    const { password, avatar_url } = req.body;
+    const userId = parseInt(req.params.userid);
+
+    const fields = {};
+    fields.password = password;
+    fields.avatar_url = avatar_url;
+
+    const userUpdate = await editUser(userId, fields);
+    res.send({
+      userUpdate,
+      message: `You have updated your profile`,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// DELETE /api/users/delete
+usersRouter.delete("/delete", async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    await deleteUser(userId);
+    res.send({
+      message: `User: ${userId} has been banned 👀`,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 // POST /api/users/login
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -90,6 +127,16 @@ usersRouter.get("/me", requireUser, (req, res, next) => {
     res.send(req.user);
   } catch (error) {
     next(error);
+  }
+});
+
+// GET /api/users
+usersRouter.get("/", async (req, res, next) => {
+  try {
+    const users = await getAllUsers();
+    res.send(users);
+  } catch (error) {
+    console.error(error);
   }
 });
 

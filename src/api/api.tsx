@@ -65,6 +65,10 @@ export const fetchLogin = async (data: Login): Promise<any> => {
   return json;
 };
 
+// update user
+
+// delete user
+
 // Product fetch requests
 
 // fetch all products
@@ -191,8 +195,8 @@ export const fetchProductByName = async (data: Product): Promise<any> => {
 
 //Create order
 type Order = {
-  product_id: number;
-  quantity: number;
+  product_id?: number;
+  quantity?: number;
   token: string;
 };
 
@@ -210,6 +214,28 @@ export const createOrder = async (data: Order) => {
     }),
   });
   const json = await res.json();
+  return json;
+};
+
+export const checkoutOrder = async (userId: number, orderId: number, token: string) => {
+  console.log(userId, orderId);
+  const res = await fetch(`${APIURL}/orders/checkout`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      userId,
+      orderId,
+      status: 'processing',
+      is_cart: false,
+    }),
+  });
+  console.log('got here');
+  const json = await res.json();
+  console.log('after json');
+  console.log(json);
   return json;
 };
 
