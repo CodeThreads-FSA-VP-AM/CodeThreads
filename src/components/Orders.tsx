@@ -72,12 +72,12 @@ const Orders = () => {
       console.log(orders);
       const getorderid = orders.filter((o: { status: string }) => o.status === 'added');
       console.log(getorderid);
-      // if (orders.status === 'added') {
-      //   console.log('inside');
-      // }
-      // const { order_id } = existingItem;
-      // console.log(order_id);
-      // setOrderId(existingItem.order_id);
+
+      const orderid = getorderid[0];
+      if (orderid?.order_id !== undefined) {
+        setOrderId(orderid.order_id);
+      }
+
       const filteredOrders = orders.filter((order: { users_id: number; status: string }) => order.users_id === userId && order.status === 'added');
       setOrders(filteredOrders);
       setLoading(false);
@@ -86,7 +86,7 @@ const Orders = () => {
     if (userId !== undefined) {
       fetchOrders(userId);
     }
-  }, [token, userId]);
+  }, [token, userId, orderId]);
 
   //checkout function
   //needs to close or create a new row in the orders table
