@@ -288,8 +288,11 @@ const Orders = () => {
                       <ul className='flex flex-col gap-8'>
                         <li>
                           <NavLink
-                            to='./login'
-                            className='text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline'
+
+                            to="/login"
+                            className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+
+
                           >
                             <button className='w-full py-5 text-base leading-none text-white bg-gray-800 border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800'>
                               Login
@@ -298,8 +301,11 @@ const Orders = () => {
                         </li>
                         <li>
                           <NavLink
-                            to='./register'
-                            className='text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline'
+
+                            to="/register"
+                            className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+
+             
                           >
                             <button className='w-full py-5 text-base leading-none text-white bg-gray-800 border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800'>
                               Sign Up
