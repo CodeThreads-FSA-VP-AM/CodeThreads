@@ -1,6 +1,7 @@
 const APIURL = "http://localhost:4000/api";
 
 import {
+  CartItem,
   Product,
   ProductCreate,
   ProductEdit,
@@ -389,63 +390,75 @@ export const editReview = async (data: EditReviews) => {
   }
 };
 
-interface SaveCart {
-  userId: number;
-  cart: any[];
-  token: string;
-}
-export const saveCart = async ({ userId, cart, token }: SaveCart) => {
-  console.log(userId, cart, token, "got to saveCart");
-  try {
-    const response = await fetch(`${APIURL}/orders/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ cart }),
-    });
-    const data = await response.json();
-    console.log(data, "data from saveCart");
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
+// interface SaveCart {
+//   userId: number;
+//   cart: CartItem[];
+//   token: string;
+// }
+// export const saveCart = async ({ userId, cart, token }: SaveCart) => {
+//   console.log(userId, cart, token, "got to saveCart");
+//   try {
+//     const response = await fetch(`${APIURL}/orders/${userId}`, {
+//       method: "PATCH",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify({ cart }),
+//     });
+//     const data = await response.json();
+//     console.log(data, "data from saveCart");
+//     return data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-export const mergeCarts = (dbCart: any, storageCart: any) => {
+export const mergeCarts = async (dbCart: any, storageCart: any) => {
   const mergedCart = [...dbCart];
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJKb2huRG9lIiwiZW1haWwiOiJqb2huZG9lMUBnbWFpbC5jb20iLCJjcmVhdGVkX2F0IjoiMjAyMy0wMy0wOVQyMDo0NzowOS4yNzFaIiwiaXNfYWRtaW4iOmZhbHNlLCJhdmF0YXJfdXJsIjpudWxsLCJpYXQiOjE2NzgzOTkwNDR9.7htWozYs6_6eU2Vu1e6wL4yd2BzWQHZhgyYFDB3TJ5c";
   for (const cartItem of storageCart) {
     const existingItemIndex = mergedCart.findIndex(
       (item) => item.product_id === cartItem.id
     );
+    console.log(existingItemIndex);
     if (existingItemIndex === -1) {
-      mergedCart.push(cartItem);
+      const addOrder = await createOrder({
+        product_id: cartItem.id,
+        quantity: cartItem.quantity,
+        token: token,
+      });
+      // const newOrderRow = await fetchProductById(cartItem.id);
+      // console.log(newOrderRow);
+      mergedCart.push(addOrder);
+      console.log(mergedCart, "mergedCart1");
     } else {
       mergedCart[existingItemIndex].quantity += cartItem.quantity;
+      console.log(mergedCart, "mergedCart2");
     }
   }
-  console.log(mergedCart, "mergedCart");
   return mergedCart;
 };
 
 export const updateCart = async (userId: number, token: string) => {
   const cartFromStorage = JSON.parse(sessionStorage.getItem("cart") || "[]");
+  console.log(cartFromStorage, "fromstorage");
   if (cartFromStorage.length === 0) {
     return;
   }
 
   try {
     const res = await fetchOrder(userId);
-    console.log(res, "response from fetching order for that userId");
-    const cartFromDb = res;
-    const updatedCart = mergeCarts(cartFromDb, cartFromStorage);
-    // console.log(cartFromStorage);
-    // console.log(updatedCart, "UpdatedCart from updateCart");
-    console.log(userId, updatedCart, token);
-    await saveCart({ userId, cart: updatedCart, token });
 
+    const cartFromDb = res;
+    const updatedCart = await mergeCarts(cartFromDb, cartFromStorage);
+    console.log(cartFromDb, "fromdb");
+    console.log(userId, updatedCart, token);
+    // const savedCart = await saveCart({ userId, cart: updatedCart, token });
+    // return savedCart;
     sessionStorage.removeItem("cart");
+    return updateCart;
   } catch (error) {
     console.error(error);
   }
