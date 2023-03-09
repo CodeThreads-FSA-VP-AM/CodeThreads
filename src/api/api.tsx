@@ -390,30 +390,6 @@ export const editReview = async (data: EditReviews) => {
   }
 };
 
-// interface SaveCart {
-//   userId: number;
-//   cart: CartItem[];
-//   token: string;
-// }
-// export const saveCart = async ({ userId, cart, token }: SaveCart) => {
-//   console.log(userId, cart, token, "got to saveCart");
-//   try {
-//     const response = await fetch(`${APIURL}/orders/${userId}`, {
-//       method: "PATCH",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({ cart }),
-//     });
-//     const data = await response.json();
-//     console.log(data, "data from saveCart");
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
 export const mergeCarts = async (dbCart: any, storageCart: any) => {
   const mergedCart = [...dbCart];
   const token =
