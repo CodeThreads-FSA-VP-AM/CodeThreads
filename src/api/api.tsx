@@ -1,6 +1,12 @@
-const APIURL = 'http://localhost:4000/api';
+const APIURL = "http://localhost:4000/api";
 
-import { Product, ProductCreate, ProductEdit, SizeQTY } from '../components/Interfaces';
+import {
+  CartItem,
+  Product,
+  ProductCreate,
+  ProductEdit,
+  SizeQTY,
+} from "../components/Interfaces";
 
 //POST register user
 type Register = {
@@ -11,9 +17,9 @@ type Register = {
 export const fetchRegister = async (data: Register): Promise<any> => {
   const { username, password, email } = data;
   const res = await fetch(`${APIURL}/users/register`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -35,7 +41,7 @@ export const fetchUser = async (data: User) => {
   const { token } = data;
   const res = await fetch(`${APIURL}/users/me`, {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -51,9 +57,9 @@ type Login = {
 export const fetchLogin = async (data: Login): Promise<any> => {
   const { username, password } = data;
   const res = await fetch(`${APIURL}/users/login`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       username: `${username}`,
@@ -81,11 +87,22 @@ export const fetchProducts = async (): Promise<Product[]> => {
 // create product
 export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
   try {
-    const { title, description, price, front_url, back_url, tags, small, medium, large, xlarge } = data;
+    const {
+      title,
+      description,
+      price,
+      front_url,
+      back_url,
+      tags,
+      small,
+      medium,
+      large,
+      xlarge,
+    } = data;
     const res = await fetch(`${APIURL}/products/add`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         title: `${title}`,
@@ -111,11 +128,23 @@ export const fetchCreateProduct = async (data: ProductCreate): Promise<any> => {
 // edit product
 export const fetchEditProduct = async (data: ProductEdit): Promise<any> => {
   try {
-    const { productId, title, description, price, front_url, back_url, tags, small, medium, large, xlarge } = data;
+    const {
+      productId,
+      title,
+      description,
+      price,
+      front_url,
+      back_url,
+      tags,
+      small,
+      medium,
+      large,
+      xlarge,
+    } = data;
     const res = await fetch(`${APIURL}/products/edit/${productId}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         title: `${title}`,
@@ -155,17 +184,17 @@ export const fetchUpdateSizeQty = async (data: SizeQTY) => {
 
 // delete product
 export const fetchDeleteProduct = async (productId: number): Promise<any> => {
-  console.log('frontend api', productId);
+  console.log("frontend api", productId);
   try {
     const res = await fetch(`${APIURL}/products/delete/${productId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
     console.log({ res });
     const json = await res.json();
-    console.log('json here', { json });
+    console.log("json here", { json });
     return json;
   } catch (error) {
     console.error(error);
@@ -203,9 +232,9 @@ type Order = {
 export const createOrder = async (data: Order) => {
   const { product_id, quantity, token } = data;
   const res = await fetch(`${APIURL}/orders/add`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -217,24 +246,28 @@ export const createOrder = async (data: Order) => {
   return json;
 };
 
-export const checkoutOrder = async (userId: number, orderId: number, token: string) => {
+export const checkoutOrder = async (
+  userId: number,
+  orderId: number,
+  token: string
+) => {
   console.log(userId, orderId);
   const res = await fetch(`${APIURL}/orders/checkout`, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       userId,
       orderId,
-      status: 'processing',
+      status: "processing",
       is_cart: false,
     }),
   });
-  console.log('got here');
+  console.log("got here");
   const json = await res.json();
-  console.log('after json');
+  console.log("after json");
   console.log(json);
   return json;
 };
@@ -242,7 +275,7 @@ export const checkoutOrder = async (userId: number, orderId: number, token: stri
 export const fetchOrder = async (userId: number) => {
   const res = await fetch(`${APIURL}/orders/${userId}`, {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
   const json = await res.json();
@@ -260,9 +293,9 @@ type Delete = {
 export const deleteOrder = async (data: Delete) => {
   const { product_id, token } = data;
   const res = await fetch(`${APIURL}/orders/${product_id}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -281,9 +314,9 @@ type Reviews = {
 export const createReview = async (data: Reviews) => {
   const { product_id, title, description, rating, token } = data;
   const res = await fetch(`${APIURL}/reviews/add`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -307,9 +340,9 @@ type DeleteReview = {
 export const deleteReview = async (data: DeleteReview) => {
   const { reviewId, token } = data;
   const res = await fetch(`${APIURL}/reviews/${reviewId}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -334,12 +367,12 @@ type EditReviews = {
 
 export const editReview = async (data: EditReviews) => {
   const { title, description, rating, token, reviewId } = data;
-  console.log(data, 'in api.tsx');
+  console.log(data, "in api.tsx");
   try {
     const res = await fetch(`${APIURL}/reviews/edit/${reviewId}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -352,6 +385,53 @@ export const editReview = async (data: EditReviews) => {
 
     const json = res.json();
     return json;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const mergeCarts = async (
+  dbCart: any,
+  storageCart: any,
+  token: string
+) => {
+  const mergedCart = [...dbCart];
+  for (const cartItem of storageCart) {
+    const existingItemIndex = mergedCart.findIndex(
+      (item) => item.product_id === cartItem.id
+    );
+    console.log(existingItemIndex);
+    if (existingItemIndex === -1) {
+      const addOrder = await createOrder({
+        product_id: cartItem.id,
+        quantity: cartItem.quantity,
+        token: token,
+      });
+      mergedCart.push(addOrder);
+      console.log(mergedCart, "mergedCart1");
+    } else {
+      mergedCart[existingItemIndex].quantity += cartItem.quantity;
+      console.log(mergedCart, "mergedCart2");
+    }
+  }
+  return mergedCart;
+};
+
+export const updateCart = async (userId: number, token: string) => {
+  const cartFromStorage = JSON.parse(sessionStorage.getItem("cart") || "[]");
+  console.log(cartFromStorage, "fromstorage");
+  if (cartFromStorage.length === 0) {
+    return;
+  }
+
+  try {
+    const res = await fetchOrder(userId);
+    const cartFromDb = res;
+    const updatedCart = await mergeCarts(cartFromDb, cartFromStorage, token);
+    console.log(cartFromDb, "fromdb");
+    console.log(userId, updatedCart, token);
+    sessionStorage.removeItem("cart");
+    return updateCart;
   } catch (error) {
     console.error(error);
   }
