@@ -5,6 +5,11 @@ import {
   Routes,
   BrowserRouter as Router,
 } from "react-router-dom";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(
+  "pk_test_51MjulLCrdvy0lSlL6cOtaubo6pIIeBbbaaWDilYHCXY4U9kirgxRUQqgWb6Uh2p50TRCnwnzxCIkwWLQUvZrlrlR00uysRVa4o"
+);
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -25,6 +30,7 @@ import EditReviews from "./EditReviews";
 import { User } from "./Interfaces";
 import NotFound from "./NotFound";
 import AdminNav from "./AdminNav";
+import CheckoutForm from "./CheckoutForm";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -33,6 +39,11 @@ const App: React.FC = () => {
   const [product, setProduct] = useState();
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const options = {
+    // passing the client secret obtained from the server
+    clientSecret:
+      "{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}",
+  };
 
   const getProduct = async () => {
     const product = await fetchProductById(productId);
@@ -110,10 +121,16 @@ const App: React.FC = () => {
             <Route path="/featured" element={<Featured />} />
             <Route path="/home" element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
-            <Route path="/admin" element={<AdminNav setProductId={setProductId} user={user}/>} />
+            <Route
+              path="/admin"
+              element={<AdminNav setProductId={setProductId} user={user} />}
+            />
           </Routes>
         </div>
       </Router>
+      <Elements stripe={stripePromise} options={options}>
+        <CheckoutForm />
+      </Elements>
     </>
   );
 };

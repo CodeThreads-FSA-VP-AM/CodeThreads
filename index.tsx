@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 // This is the Web Server
 const express = require("express");
 const server = express();
@@ -26,7 +27,7 @@ server.use(express.static(path.join(__dirname, "build")));
 server.use("/api", require("./api"));
 
 // by default serve up the react app if we don't recognize the route
-server.use((req, res, next) => {
+server.use((req: any, res: { sendFile: (arg0: any) => void }, next: any) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
