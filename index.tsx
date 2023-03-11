@@ -60,7 +60,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST, {
 //   }
 // });
 
-server.post("/create-payment-intent", async (req: any, res: any) => {
+server.post("/create-payment-intent", cors, async (req: any, res: any) => {
   console.log("Stripe");
   res.send({ url: "stripe url" });
   const session = await stripe.checkout.sessions.create({
@@ -75,11 +75,9 @@ server.post("/create-payment-intent", async (req: any, res: any) => {
     cancel_url: `${YOUR_DOMAIN}/completion`,
   });
 
-  res.redirect(303, session.url).send(
-    JSON.stringify({
-      url: session.url,
-    })
-  );
+  res.json({
+    url: session.url,
+  });
 });
 
 // by default serve up the react app if we don't recognize the route

@@ -28,6 +28,7 @@ import AdminNav from "./AdminNav";
 import CheckoutForm from "./CheckoutForm";
 import StripeContainer from "./StripeContainer";
 import Completion from "./Completion";
+import TestStripe from "./TestStripe";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -114,6 +115,7 @@ const App: React.FC = () => {
             <Route path="/admin" element={<AdminNav setProductId={setProductId} user={user} />} />
             <Route path="/checkout" element={<StripeContainer />} />
             <Route path="/success" element={<Completion />} />
+            <Route path="/test" element={<TestStripe />} />
           </Routes>
         </div>
       </Router>
