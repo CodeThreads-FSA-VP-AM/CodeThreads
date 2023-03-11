@@ -1,48 +1,40 @@
-import React, { useState, useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  BrowserRouter as Router,
-} from "react-router-dom";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(
-  "pk_test_51MjulLCrdvy0lSlL6cOtaubo6pIIeBbbaaWDilYHCXY4U9kirgxRUQqgWb6Uh2p50TRCnwnzxCIkwWLQUvZrlrlR00uysRVa4o"
-);
+import React, { useState, useEffect } from 'react';
+import { Navigate, Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe('pk_test_51MjulLCrdvy0lSlL6cOtaubo6pIIeBbbaaWDilYHCXY4U9kirgxRUQqgWb6Uh2p50TRCnwnzxCIkwWLQUvZrlrlR00uysRVa4o');
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 // import { getAPIHealth } from "../axios-services";
-import "../style/App.css";
-import Login from "./Login";
-import Navbar from "./Navbar";
-import Register from "./Register";
-import Products from "./Products";
-import SingleView from "./SingleView";
-import Orders from "./Orders";
-import AddProduct from "./AddProduct";
-import EditProduct from "./EditProduct";
-import Featured from "./Featured";
-import Home from "./Home";
-import { fetchProductById, fetchUser } from "../api/api";
-import EditReviews from "./EditReviews";
-import { User } from "./Interfaces";
-import NotFound from "./NotFound";
-import AdminNav from "./AdminNav";
-import CheckoutForm from "./CheckoutForm";
+import '../style/App.css';
+import Login from './Login';
+import Navbar from './Navbar';
+import Register from './Register';
+import Products from './Products';
+import SingleView from './SingleView';
+import Orders from './Orders';
+import AddProduct from './AddProduct';
+import EditProduct from './EditProduct';
+import Featured from './Featured';
+import Home from './Home';
+import { fetchProductById, fetchUser } from '../api/api';
+import EditReviews from './EditReviews';
+import { User } from './Interfaces';
+import NotFound from './NotFound';
+import AdminNav from './AdminNav';
+import CheckoutForm from './CheckoutForm';
 
 const App: React.FC = () => {
-  const [APIHealth, setAPIHealth] = useState("");
+  const [APIHealth, setAPIHealth] = useState('');
   const [productId, setProductId] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [product, setProduct] = useState();
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
   const [user, setUser] = useState({});
   const options = {
     // passing the client secret obtained from the server
-    clientSecret:
-      "{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}",
+    clientSecret: '{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}',
   };
 
   const getProduct = async () => {
@@ -62,7 +54,7 @@ const App: React.FC = () => {
         console.error(error);
       }
     };
-    const token = localStorage.getItem("token") ?? "";
+    const token = localStorage.getItem('token') ?? '';
     setToken(token);
     getUser({ token });
   }, [token]);
@@ -94,43 +86,25 @@ const App: React.FC = () => {
         <Navbar user={user} token={token} setToken={setToken} />
         <div>
           <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login setToken={setToken} />} />
-            <Route
-              path="/products"
-              element={<Products setProductId={setProductId} user={user} />}
-            />
-            <Route
-              path="/products/:id"
-              element={<SingleView quantity={quantity} user={user} />}
-            />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/addproduct" element={<AddProduct />} />
-            <Route
-              path="/edit/:id"
-              element={
-                <EditProduct
-                  product={product}
-                  productId={productId}
-                  setProductId={setProductId}
-                />
-              }
-            />
-            <Route path="/featured" element={<Featured />} />
-            <Route path="/home" element={<Home />} />
+            <Route path='/' element={<Navigate to='/home' />} />
+            <Route path='*' element={<NotFound />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login setToken={setToken} />} />
+            <Route path='/products' element={<Products setProductId={setProductId} user={user} />} />
+            <Route path='/products/:id' element={<SingleView quantity={quantity} user={user} />} />
+            <Route path='/orders' element={<Orders />} />
+            <Route path='/addproduct' element={<AddProduct />} />
+            <Route path='/edit/:id' element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
+            <Route path='/featured' element={<Featured />} />
+            <Route path='/home' element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
-            <Route
-              path="/admin"
-              element={<AdminNav setProductId={setProductId} user={user} />}
-            />
+            <Route path='/admin' element={<AdminNav setProductId={setProductId} user={user} />} />
           </Routes>
         </div>
       </Router>
-      <Elements stripe={stripePromise} options={options}>
+      {/* <Elements stripe={stripePromise} options={options}>
         <CheckoutForm />
-      </Elements>
+      </Elements> */}
     </>
   );
 };
