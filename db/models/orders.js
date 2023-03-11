@@ -115,6 +115,37 @@ const fetchOrder = async (users_id) => {
   }
 };
 
+const getOrderByUserId = async (userId) => {
+  try {
+    const { rows: orders } = await client.query(
+      `
+    SELECT o.*, op.product_id FROM orders o
+    JOIN order_products op
+    ON o.id = op.order_id
+    WHERE users_id = $1
+    `,
+      [userId]
+    );
+    console.log(orders);
+
+    const { rows: products } = await client.query(`
+    SELECT p.id FROM products p
+    JOIN order_products op
+    ON p.id = op.product_id
+    `);
+    console.log(products);
+
+    // return orders.map((o) => {
+    //   o.products = products.filter((p) => p.id === o.product_id);
+    //   return o;
+    // });
+
+    return orders;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const deleteOrder = async ({ id }) => {
   console.log(id, 'in orderjs models');
   try {
@@ -200,6 +231,7 @@ const newOrder = async (user_id) => {
 module.exports = {
   addProductToCart,
   fetchOrder,
+  getOrderByUserId,
   newOrder,
   updateOrder,
   deleteOrder,
