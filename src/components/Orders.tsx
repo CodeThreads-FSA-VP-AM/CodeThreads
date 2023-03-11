@@ -105,6 +105,21 @@ const Orders = () => {
   //onclick function on the checkout button
 
   const checkout = async () => {
+    await fetch("http://localhost:4000/create-payment-intent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    })
+      .then((r) => {
+        return r.json();
+      })
+      .then((r) => {
+        if (r.url) {
+          window.location.assign(r.url);
+        }
+      });
     // const { id: orderId } = orders;
     try {
       const order = await checkoutOrder(userId, orderId, token);

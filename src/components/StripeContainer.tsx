@@ -12,7 +12,7 @@ const StripeContainer: React.FC = () => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch("/create-payment-intent", {
+    fetch("http://localhost:4000/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({}),

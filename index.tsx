@@ -33,10 +33,9 @@ server.use("/api", require("./api"));
 // stripe
 server.use(express.static("public"));
 
-const YOUR_DOMAIN = "http://localhost:4000";
+const YOUR_DOMAIN = "http://localhost:3000";
 
-const Stripe = require("stripe");
-const stripe = new Stripe(process.env.STRIPE_SECRET_TEST, {
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST, {
   apiVersion: "2022-11-15",
   appInfo: {
     // For sample support and debugging, not required for production:
@@ -47,37 +46,41 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_TEST, {
   typescript: true,
 });
 
-server.post("/create-payment-intent", cors, async (req: any, res: any) => {
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      currency: "USD",
-      amount: 1999,
-      automatic_payment_methods: { enabled: true },
-    });
-    console.log({ paymentIntent });
-    res.send({ clientSecret: paymentIntent.client_secret });
-  } catch (e) {
-    console.error(e);
-  }
-});
-
-// server.post("/create-checkout-session", cors, async (req: any, res: any) => {
-//   res.send({ url: "stripe url" });
-//   const session = await stripe.checkout.sessions.create({
-//     line_items: [
-//       {
-//         // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-//         price: "price_1MkH2rHrkACoVWSGv1DQaKAE",
-//         quantity: 1,
-//       },
-//     ],
-//     mode: "payment",
-//     success_url: `${YOUR_DOMAIN}?success=true`,
-//     cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-//   });
-
-//   res.redirect(303, session.url);
+// server.post("/create-payment-intent", cors, async (req: any, res: any) => {
+//   try {
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       currency: "USD",
+//       amount: 1999,
+//       automatic_payment_methods: { enabled: true },
+//     });
+//     console.log({ paymentIntent });
+//     res.send({ clientSecret: paymentIntent.client_secret });
+//   } catch (e) {
+//     console.error(e);
+//   }
 // });
+
+server.post("/create-payment-intent", async (req: any, res: any) => {
+  console.log("Stripe");
+  res.send({ url: "stripe url" });
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price: "price_1MkH2rHrkACoVWSGv1DQaKAE",
+        quantity: 5,
+      },
+    ],
+    mode: "payment",
+    success_url: `${YOUR_DOMAIN}/completion`,
+    cancel_url: `${YOUR_DOMAIN}/completion`,
+  });
+
+  res.redirect(303, session.url).send(
+    JSON.stringify({
+      url: session.url,
+    })
+  );
+});
 
 // by default serve up the react app if we don't recognize the route
 server.use((req: any, res: { sendFile: (arg0: any) => void }, next: any) => {
