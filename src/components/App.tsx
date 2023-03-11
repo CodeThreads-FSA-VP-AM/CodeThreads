@@ -29,6 +29,7 @@ import CheckoutForm from "./CheckoutForm";
 import StripeContainer from "./StripeContainer";
 import Completion from "./Completion";
 import TestStripe from "./TestStripe";
+import OrderHistroy from "./OrderHistroy";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -116,6 +117,7 @@ const App: React.FC = () => {
             <Route path="/checkout" element={<StripeContainer />} />
             <Route path="/success" element={<Completion />} />
             <Route path="/test" element={<TestStripe />} />
+            <Route path="/orderhistory" element={<OrderHistroy />} />
           </Routes>
         </div>
       </Router>

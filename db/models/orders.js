@@ -1,4 +1,4 @@
-const client = require('../client');
+const client = require("../client");
 
 const addProductToCart = async ({ user_id, product_id, quantity }) => {
   try {
@@ -12,13 +12,13 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
       `,
       [user_id]
     );
-    console.log({ existingOrder }, 'existingOrder');
+    console.log({ existingOrder }, "existingOrder");
 
     let orderId;
 
     if (existingOrder) {
       orderId = existingOrder.id;
-      console.log({ orderId }, 'existing order');
+      console.log({ orderId }, "existing order");
       const {
         rows: [existingOrderProduct],
       } = await client.query(
@@ -32,7 +32,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
 
       if (existingOrderProduct) {
         const updatedQuantity = existingOrderProduct.quantity + quantity++;
-        console.log(updatedQuantity, 'updatednumber');
+        console.log(updatedQuantity, "updatednumber");
 
         await client.query(
           `
@@ -52,7 +52,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
         );
       }
     } else {
-      console.log('new order');
+      console.log("new order");
       const {
         rows: [newOrder],
       } = await client.query(
@@ -119,35 +119,76 @@ const getOrderByUserId = async (userId) => {
   try {
     const { rows: orders } = await client.query(
       `
-    SELECT o.*, op.product_id FROM orders o
-    JOIN order_products op
-    ON o.id = op.order_id
+    SELECT o.*, array_agg(op.product_id) as product_ids
+    FROM orders o
+    JOIN order_products op ON o.id = op.order_id
     WHERE users_id = $1
-    `,
+    GROUP BY o.id
+  `,
       [userId]
     );
     console.log(orders);
 
-    const { rows: products } = await client.query(`
-    SELECT p.id FROM products p
-    JOIN order_products op
-    ON p.id = op.product_id
-    `);
-    console.log(products);
+    const productIds = orders.flatMap((order) => order.product_ids);
+
+    const { rows: products } = await client.query(
+      `
+    SELECT p.* FROM products p
+    WHERE p.id = ANY($1)
+  `,
+      [productIds]
+    );
+
+    const ordersWithProducts = orders.map((order) => {
+      const orderProducts = products.filter((product) => order.product_ids.includes(product.id));
+      return {
+        ...order,
+        products: orderProducts,
+      };
+    });
+
+    ordersWithProducts.forEach((order) => {
+      delete order.product_ids;
+    });
+
+    console.log(ordersWithProducts);
+    return ordersWithProducts;
+    // console.log(products);
+    // return products;
+
+    // const { rows: orders } = await client.query(
+    //   `
+    // SELECT o.*, op.product_id FROM orders o
+    // JOIN order_products op
+    // ON o.id = op.order_id
+    // WHERE users_id = $1
+    // `,
+    //   [userId]
+    // );
+    // console.log(orders);
+
+    // delete orders.product_id;
+
+    // const { rows: products } = await client.query(`
+    // SELECT p.id, p.* FROM products p
+    // JOIN order_products op
+    // ON p.id = op.product_id
+    // `);
+    // console.log(products);
 
     // return orders.map((o) => {
     //   o.products = products.filter((p) => p.id === o.product_id);
     //   return o;
     // });
 
-    return orders;
+    // return orders;
   } catch (error) {
     console.error(error);
   }
 };
 
 const deleteOrder = async ({ id }) => {
-  console.log(id, 'in orderjs models');
+  console.log(id, "in orderjs models");
   try {
     const {
       rows: [order],
@@ -169,11 +210,11 @@ const updateOrder = async (orderId, userId, fields = {}, cartFields = {}) => {
 
   const setString = Object.keys(fields)
     .map((key, i) => `"${key}"=$${i + 1}`)
-    .join(', ');
+    .join(", ");
 
   const setStringCart = Object.keys(cartFields)
     .map((key, i) => `"${key}"=$${i + 1}`)
-    .join(', ');
+    .join(", ");
 
   console.log({ setString });
   console.log({ setStringCart });
@@ -221,7 +262,7 @@ const newOrder = async (user_id) => {
     `,
       [user_id]
     );
-    console.log('neworder', order);
+    console.log("neworder", order);
     return order;
   } catch (error) {
     console.error(error);
