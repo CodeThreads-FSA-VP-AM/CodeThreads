@@ -1,20 +1,19 @@
 require("dotenv").config();
+const bodyParser = require("body-parser");
 
 // This is the Web Server
 const express = require("express");
 const server = express();
 
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
 const cors = require("cors");
-server.use(
-  cors({
-    origin: "http://localhost:4000",
-  })
-);
-
-const bodyParser = require("body-parser");
-server.use(bodyParser.json());
+server.use(cors());
 
 // create logs for everything
 const morgan = require("morgan");
@@ -35,15 +34,29 @@ server.use(express.static("public"));
 
 const YOUR_DOMAIN = "http://localhost:3000";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST, {
-  apiVersion: "2022-11-15",
-  appInfo: {
-    // For sample support and debugging, not required for production:
-    name: "stripe-samples/accept-a-payment",
-    url: "https://github.com/stripe-samples",
-    version: "0.0.2",
-  },
-  typescript: true,
+server.post("/payment", cors(), async (req: any, res: any) => {
+  let { amount, id } = req.body;
+
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "USD",
+      description: "Payment",
+      payment_method: id,
+      confirm: true,
+    });
+    console.log("Payment", payment);
+    res.json({
+      message: "Payment was successful",
+      success: true,
+    });
+  } catch (error) {
+    console.log("Error", error);
+    res.json({
+      message: "Payment failed",
+      success: false,
+    });
+  }
 });
 
 // server.post("/create-payment-intent", cors, async (req: any, res: any) => {
@@ -60,25 +73,25 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST, {
 //   }
 // });
 
-server.post("/create-payment-intent", cors, async (req: any, res: any) => {
-  console.log("Stripe");
-  res.send({ url: "stripe url" });
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price: "price_1MkH2rHrkACoVWSGv1DQaKAE",
-        quantity: 5,
-      },
-    ],
-    mode: "payment",
-    success_url: `${YOUR_DOMAIN}/completion`,
-    cancel_url: `${YOUR_DOMAIN}/completion`,
-  });
+// server.post("/create-payment-intent", cors(), async (req: any, res: any) => {
+//   console.log("Stripe");
+//   res.send({ url: "stripe url" });
+//   const session = await stripe.checkout.sessions.create({
+//     line_items: [
+//       {
+//         price: "price_1MkH2rHrkACoVWSGv1DQaKAE",
+//         quantity: 5,
+//       },
+//     ],
+//     mode: "payment",
+//     success_url: `${YOUR_DOMAIN}/completion`,
+//     cancel_url: `${YOUR_DOMAIN}/completion`,
+//   });
 
-  res.json({
-    url: session.url,
-  });
-});
+//   res.json({
+//     url: session.url,
+//   });
+// });
 
 // by default serve up the react app if we don't recognize the route
 server.use((req: any, res: { sendFile: (arg0: any) => void }, next: any) => {
