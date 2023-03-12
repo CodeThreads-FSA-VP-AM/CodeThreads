@@ -1,64 +1,64 @@
-require("dotenv").config();
-const bodyParser = require("body-parser");
+require('dotenv').config();
+const bodyParser = require('body-parser');
 
 // This is the Web Server
-const express = require("express");
+const express = require('express');
 const server = express();
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_TEST);
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
-const cors = require("cors");
+const cors = require('cors');
 server.use(
   cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   })
 );
 
 // create logs for everything
-const morgan = require("morgan");
-server.use(morgan("dev"));
+const morgan = require('morgan');
+server.use(morgan('dev'));
 
 // handle application/json requests
 server.use(express.json());
 
 // here's our static files
-const path = require("path");
-server.use(express.static(path.join(__dirname, "build")));
+const path = require('path');
+server.use(express.static(path.join(__dirname, 'build')));
 
 // here's our API
-server.use("/api", require("./api"));
+server.use('/api', require('./api'));
 
 // stripe
-server.use(express.static("public"));
+server.use(express.static('public'));
 
-const YOUR_DOMAIN = "http://localhost:3000";
+const YOUR_DOMAIN = 'http://localhost:3000';
 
-server.post("/payment", cors, async (req: any, res: any) => {
+server.post('/payment', cors(), async (req: any, res: any) => {
   let { amount, id } = req.body;
 
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
-      currency: "USD",
-      description: "Payment",
+      currency: 'USD',
+      description: 'Payment',
       payment_method: id,
       confirm: true,
     });
-    console.log("Payment", payment);
+    console.log('Payment', payment);
     res.json({
-      message: "Payment was successful",
+      message: 'Payment was successful',
       success: true,
     });
   } catch (error) {
-    console.log("Error", error);
+    console.log('Error', error);
     res.json({
-      message: "Payment failed",
+      message: 'Payment failed',
       success: false,
     });
   }
@@ -100,11 +100,11 @@ server.post("/payment", cors, async (req: any, res: any) => {
 
 // by default serve up the react app if we don't recognize the route
 server.use((req: any, res: { sendFile: (arg0: any) => void }, next: any) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // bring in the DB connection
-const { client } = require("./db");
+const { client } = require('./db');
 
 // connect to the server
 const PORT = process.env.PORT || 4000;
@@ -115,9 +115,9 @@ const handle = server.listen(PORT, async () => {
 
   try {
     await client.connect();
-    console.log("Database is open for business!");
+    console.log('Database is open for business!');
   } catch (error) {
-    console.error("Database is closed for repairs!\n", error);
+    console.error('Database is closed for repairs!\n', error);
   }
 });
 
