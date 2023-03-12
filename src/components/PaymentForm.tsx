@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -12,7 +12,7 @@ const PaymentForm = () => {
     e.preventDefault();
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
-      card: elements.getElement(CardCvcElement, CardExpiryElement, CardNumberElement),
+      card: elements.getElement(CardElement),
     });
 
     if (!error) {
@@ -37,7 +37,10 @@ const PaymentForm = () => {
     <>
       {!success ? (
         <form onSubmit={handleSubmit}>
-          <fieldset className='FormGroup'>
+          <div>
+            <CardElement />
+          </div>
+          {/* <fieldset className='FormGroup'>
             <div className='FormRow'>
               <CardNumberElement />
             </div>
@@ -51,7 +54,7 @@ const PaymentForm = () => {
             <div className='FormRow'>
               <CardCvcElement />
             </div>
-          </fieldset>
+          </fieldset> */}
           <button>Pay</button>
         </form>
       ) : (
