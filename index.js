@@ -13,16 +13,16 @@ const bodyParser = require('body-parser');
 // This is the Web Server
 const express = require('express');
 const server = express();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_TEST);
+const Stripe = require('stripe');
+const stripe = new Stripe(process.env.STRIPE_SECRET_TEST, {
+    apiVersion: '2022-11-15',
+});
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
 const cors = require('cors');
-server.use(cors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-}));
+server.use(cors());
 // create logs for everything
 const morgan = require('morgan');
 server.use(morgan('dev'));
