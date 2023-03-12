@@ -38,6 +38,7 @@ const App: React.FC = () => {
   const [product, setProduct] = useState();
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const [price, setPrice] = useState(0);
   const options = {
     // passing the client secret obtained from the server
     clientSecret:
