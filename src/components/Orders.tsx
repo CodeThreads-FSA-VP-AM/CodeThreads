@@ -282,21 +282,22 @@ const Orders = () => {
                           <p className='text-2xl leading-normal text-gray-800'>Total</p>
                           <p className='text-2xl font-bold leading-normal text-right text-gray-800'>${totalPrice.toFixed(2)}</p>
                         </div>
-                        {/* <NavLink to="/checkout">
+                        <NavLink to='/checkout'>
                           <button
                             // onClick={() => setShow(!show)}
                             onClick={() => checkout()}
-                            className="w-full py-5 text-base leading-none text-white bg-gray-800 border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
+                            className='w-full py-5 text-base leading-none text-white bg-gray-800 border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800'
+                          >
                             Checkout
                           </button>
-                        </NavLink> */}
-                        <button
+                        </NavLink>
+                        {/* <button
                           // onClick={() => setShow(!show)}
                           onClick={() => checkout()}
                           className='w-full py-5 text-base leading-none text-white bg-gray-800 border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800'
                         >
                           Checkout
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                     {/* might need to get rid of this div */}

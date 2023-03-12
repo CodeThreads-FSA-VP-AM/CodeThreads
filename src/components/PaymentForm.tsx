@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const PaymentForm = () => {
@@ -57,6 +58,9 @@ const PaymentForm = () => {
         <div className='payment-success'>
           <h2>Payment Successful</h2>
           <h3 className='Thank-you'>Thank you for your purchase!</h3>
+          <Link to='/orderhistory'>
+            <button>Order History</button>
+          </Link>
         </div>
       )}
     </>
