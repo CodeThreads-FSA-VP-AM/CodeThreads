@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import CheckoutForm from "./CheckoutForm";
-import PaymentForm from "./PaymentForm";
+import React, { useEffect, useState } from 'react';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import CheckoutForm from './CheckoutForm';
+import PaymentForm from './PaymentForm';
 
-const stripePromise = loadStripe(
-  "pk_test_51MjvX6HrkACoVWSG7ReTXWYU5dpx2WLcOMcgCUIe16DyAzwlR4LIykMqr4opzDdJk67EuGfkgjyQCpNQV1Jf4NK0008hn46WAW"
-);
+const stripePromise = loadStripe('pk_test_51MjvX6HrkACoVWSG7ReTXWYU5dpx2WLcOMcgCUIe16DyAzwlR4LIykMqr4opzDdJk67EuGfkgjyQCpNQV1Jf4NK0008hn46WAW');
 
 const StripeContainer: React.FC = () => {
   // const [clientSecret, setClientSecret] = useState("");
@@ -28,7 +26,7 @@ const StripeContainer: React.FC = () => {
   // };
 
   return (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise} options={{ appearance: { theme: 'stripe' } }}>
       <PaymentForm />
     </Elements>
     // <>

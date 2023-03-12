@@ -22,7 +22,7 @@ server.use(bodyParser.json());
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
 const cors = require('cors');
-server.use(cors());
+server.use(cors({ origin: 'http://localhost:3000' }));
 // create logs for everything
 const morgan = require('morgan');
 server.use(morgan('dev'));
