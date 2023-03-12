@@ -13,7 +13,12 @@ server.use(bodyParser.json());
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
 const cors = require("cors");
-server.use(cors());
+server.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
 
 // create logs for everything
 const morgan = require("morgan");
@@ -34,7 +39,7 @@ server.use(express.static("public"));
 
 const YOUR_DOMAIN = "http://localhost:3000";
 
-server.post("/payment", cors(), async (req: any, res: any) => {
+server.post("/payment", cors, async (req: any, res: any) => {
   let { amount, id } = req.body;
 
   try {

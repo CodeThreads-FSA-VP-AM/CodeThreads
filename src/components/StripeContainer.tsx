@@ -4,10 +4,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import PaymentForm from "./PaymentForm";
 
-const PUBLIC_KEY =
-  "pk_test_51MjvX6HrkACoVWSG7ReTXWYU5dpx2WLcOMcgCUIe16DyAzwlR4LIykMqr4opzDdJk67EuGfkgjyQCpNQV1Jf4NK0008hn46WAW";
-
-const stripeTestPromise = loadStripe(PUBLIC_KEY);
+const stripePromise = loadStripe(
+  "pk_test_51MjvX6HrkACoVWSG7ReTXWYU5dpx2WLcOMcgCUIe16DyAzwlR4LIykMqr4opzDdJk67EuGfkgjyQCpNQV1Jf4NK0008hn46WAW"
+);
 
 const StripeContainer: React.FC = () => {
   // const [clientSecret, setClientSecret] = useState("");
@@ -29,7 +28,7 @@ const StripeContainer: React.FC = () => {
   // };
 
   return (
-    <Elements stripe={stripeTestPromise}>
+    <Elements stripe={stripePromise}>
       <PaymentForm />
     </Elements>
     // <>
