@@ -302,7 +302,9 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      <p className="text-[14px]">1</p>
+                      <p className="text-[14px]">
+                        <div className="animate-ping w-1.5 h-1.5 bg-red-700 rounded-full  m-auto duration-100" />
+                      </p>
                     </NavLink>
                   </button>
                   {token && (
@@ -315,7 +317,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                         >
                           <div className="w-8 h-full flex items-center justify-center border-r cursor-pointer text-gray-600">
                             {profile ? (
-                              <ul className="p-2 w-40 border-r bg-white absolute rounded z-40 left-0 shadow mt-64 ">
+                              <ul className="p-2 w-40 border-r bg-white absolute rounded z-40 left-0 shadow mt-48 ">
                                 <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
                                   <div className="flex items-center">
                                     <svg
@@ -357,9 +359,9 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                                   </svg>
                                   <span className="ml-2">Account Settings</span>
                                 </li>
-                                <li>
-                                  <button className="text-xs" onClick={logout}>
-                                    logout
+                                <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
+                                  <button onClick={logout}>
+                                    <span className="ml-2">Log Out</span>
                                   </button>
                                 </li>
                               </ul>
