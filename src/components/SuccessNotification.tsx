@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   setSuccess: any;
@@ -6,6 +6,14 @@ type Props = {
 };
 
 const SuccessNotification = (props: Props) => {
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      props.setSuccess(false);
+    }, 3000);
+    return () => {
+      clearTimeout(timeId);
+    };
+  }, []);
   return (
     <>
       {props.success && (
