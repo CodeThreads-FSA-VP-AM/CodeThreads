@@ -318,13 +318,16 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                           <div className="w-8 h-full flex items-center justify-center border-r cursor-pointer text-gray-600">
                             {profile ? (
                               <ul className="p-2 w-40 border-r bg-white absolute rounded z-40 left-0 shadow mt-48 ">
-                                <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
+                                <li
+                                  className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none"
+                                  onClick={() => navigate("/userprofile")}
+                                >
                                   <div className="flex items-center">
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
-                                      className="icon icon-tabler icon-tabler-user"
-                                      width={20}
-                                      height={20}
+                                      className="icon icon-tabler icon-tabler-grid"
+                                      width={18}
+                                      height={18}
                                       viewBox="0 0 24 24"
                                       strokeWidth="1.5"
                                       stroke="currentColor"
@@ -333,8 +336,34 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                                       strokeLinejoin="round"
                                     >
                                       <path stroke="none" d="M0 0h24v24H0z" />
-                                      <circle cx={12} cy={7} r={4} />
-                                      <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                      <rect
+                                        x={4}
+                                        y={4}
+                                        width={6}
+                                        height={6}
+                                        rx={1}
+                                      />
+                                      <rect
+                                        x={14}
+                                        y={4}
+                                        width={6}
+                                        height={6}
+                                        rx={1}
+                                      />
+                                      <rect
+                                        x={4}
+                                        y={14}
+                                        width={6}
+                                        height={6}
+                                        rx={1}
+                                      />
+                                      <rect
+                                        x={14}
+                                        y={14}
+                                        width={6}
+                                        height={6}
+                                        rx={1}
+                                      />
                                     </svg>
                                     <span className="ml-2">My Profile</span>
                                   </div>
@@ -359,9 +388,27 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                                   </svg>
                                   <span className="ml-2">Account Settings</span>
                                 </li>
-                                <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
+                                <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-red-700 flex items-center focus:text-indigo-700 focus:outline-none">
                                   <button onClick={logout}>
-                                    <span className="ml-2">Log Out</span>
+                                    <div className="flex items-center">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="icon icon-tabler icon-tabler-user"
+                                        width={20}
+                                        height={20}
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="1.5"
+                                        stroke="currentColor"
+                                        fill="none"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      >
+                                        <path stroke="none" d="M0 0h24v24H0z" />
+                                        <circle cx={12} cy={7} r={4} />
+                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                      </svg>{" "}
+                                      <span className="ml-2">Log Out</span>
+                                    </div>
                                   </button>
                                 </li>
                               </ul>
