@@ -37,6 +37,7 @@ import TestStripe from "./TestStripe";
 import OrderHistroy from "./OrderHistroy";
 import UserProfile from "./UserProfile";
 import AccountSettings from "./AccountSettings";
+import SuccessNotification from "./SuccessNotification";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -46,6 +47,9 @@ const App: React.FC = () => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
   const [price, setPrice] = useState(0);
+  const [success, setSuccess] = useState(false);
+  const [successTitle, setSuccessTitle] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const options = {
     // passing the client secret obtained from the server
     clientSecret:
@@ -78,6 +82,7 @@ const App: React.FC = () => {
     getProduct();
   }, [productId]);
 
+  useEffect(() => {}, [successMsg, successTitle]);
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
   //   // first, create an async function that will wrap your axios service adapter
@@ -99,19 +104,46 @@ const App: React.FC = () => {
     <>
       <Router>
         <Navbar user={user} token={token} setToken={setToken} />
+        {success && (
+          <SuccessNotification
+            success={success}
+            setSuccess={setSuccess}
+            successTitle={successTitle}
+            successMsg={successMsg}
+          />
+        )}
         <div>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login setToken={setToken} />} />
+            <Route
+              path="/login"
+              element={
+                <Login
+                  setToken={setToken}
+                  success={success}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
+            />
             <Route
               path="/products"
               element={<Products setProductId={setProductId} user={user} />}
             />
             <Route
               path="/products/:id"
-              element={<SingleView quantity={quantity} user={user} />}
+              element={
+                <SingleView
+                  quantity={quantity}
+                  user={user}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
             />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />

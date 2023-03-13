@@ -2,16 +2,27 @@ import React, { FC, useState } from "react";
 import { fetchLogin, updateCart } from "../api/api";
 import { NavLink, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
+import SuccessNotification from "./SuccessNotification";
 
 type Props = {
   setToken: (token: string) => void;
+  success: boolean;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
 };
 
 type Login = {
   username: string;
   password: string;
 };
-const Login: React.FC<Props> = ({ setToken }) => {
+const Login: React.FC<Props> = ({
+  setToken,
+  success,
+  setSuccess,
+  setSuccessTitle,
+  setSuccessMsg,
+}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [token, setToken] = useState("");
@@ -36,6 +47,9 @@ const Login: React.FC<Props> = ({ setToken }) => {
         updateCart(login.user.id, login.token);
         setUsername("");
         setPassword("");
+        setSuccess(true);
+        setSuccessTitle("You're logged in!");
+        setSuccessMsg("Lorem ipsum dolor sit amet.");
         navigate("/products");
         setLoading(true);
       }

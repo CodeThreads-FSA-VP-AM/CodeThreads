@@ -9,9 +9,17 @@ import Reviews from "./Reviews";
 type Props = {
   quantity: number;
   user: any;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
 };
 
-const SingleView: FC<Props> = ({ user }) => {
+const SingleView: FC<Props> = ({
+  user,
+  setSuccess,
+  setSuccessMsg,
+  setSuccessTitle,
+}) => {
   // need to pass productId from products component
   // then fetch the product and set the product id
   // then you can render the page with the required information
@@ -52,6 +60,9 @@ const SingleView: FC<Props> = ({ user }) => {
         quantity: 1,
         token: token,
       });
+      setSuccess(true);
+      setSuccessTitle("Success!");
+      setSuccessMsg("Item added to cart!");
       console.log(res);
     } catch (error) {
       console.error();
