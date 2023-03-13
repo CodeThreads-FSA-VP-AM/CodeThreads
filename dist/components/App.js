@@ -46,6 +46,7 @@ const App = () => {
     const [product, setProduct] = (0, react_1.useState)();
     const [token, setToken] = (0, react_1.useState)("");
     const [user, setUser] = (0, react_1.useState)({});
+    const [price, setPrice] = (0, react_1.useState)(0);
     const options = {
         // passing the client secret obtained from the server
         clientSecret: "{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}",

@@ -348,6 +348,7 @@ const Orders = () => {
                           <button
                             // onClick={() => setShow(!show)}
                             onClick={() => checkout()}
+                            disabled={totalPrice === 0 ? true : false}
                             className="w-full py-5 text-base leading-none text-white bg-gray-800 border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
                             Checkout
                           </button>

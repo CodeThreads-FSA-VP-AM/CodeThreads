@@ -45,11 +45,11 @@ const OrderHistroy = (props: Props) => {
                 const formattedDate = date.toLocaleDateString();
 
                 let total = 0;
-                const totalPrice = order.products.forEach((p: any) => {
-                  total += Number(p.price);
+                order.products.forEach((p: any) => {
+                  total += Number(p.price) * Number(p.quantity);
                 });
 
-                console.log(totalPrice);
+                console.log(total);
                 return (
                   <div
                     key={order.id}
@@ -93,11 +93,14 @@ const OrderHistroy = (props: Props) => {
                             </div>
                             <div className="flex-1 ml-6 text-sm">
                               <div className="font-medium text-gray-900 sm:flex sm:justify-between">
-                                <h5>{product.title}</h5>
+                                <h5 className="font-extrabold">{product.title}</h5>
                                 <p className="mt-2 sm:mt-0">{product.price}</p>
                               </div>
                               <p className="hidden text-gray-500 sm:mt-2 sm:block">
                                 {product.description}
+                              </p>
+                              <p className="hidden text-gray-500 sm:mt-2 sm:block">
+                                Quantity: {product.quantity}
                               </p>
                             </div>
                           </div>

@@ -109,6 +109,7 @@ const fetchOrder = async (users_id) => {
     `,
       [users_id]
     );
+    console.log(order);
     return order;
   } catch (error) {
     console.error(error);
@@ -119,7 +120,7 @@ const getOrderByUserId = async (userId) => {
   try {
     const { rows: orders } = await client.query(
       `
-    SELECT o.*, array_agg(op.product_id) as product_ids
+    SELECT o.*, array_agg(op.product_id) as product_ids, array_agg(op.quantity) as quantities
     FROM orders o
     JOIN order_products op ON o.id = op.order_id
     WHERE users_id = $1
@@ -127,7 +128,7 @@ const getOrderByUserId = async (userId) => {
   `,
       [userId]
     );
-    console.log(orders);
+    // console.log(orders);
 
     const productIds = orders.flatMap((order) => order.product_ids);
 
@@ -141,17 +142,24 @@ const getOrderByUserId = async (userId) => {
 
     const ordersWithProducts = orders.map((order) => {
       const orderProducts = products.filter((product) => order.product_ids.includes(product.id));
+      const combinedProducts = orderProducts.map((product, index) => ({
+        ...product,
+        quantity: order.quantities[index],
+      }));
       return {
         ...order,
-        products: orderProducts,
+        products: combinedProducts,
       };
     });
 
+    console.log(ordersWithProducts);
+
     ordersWithProducts.forEach((order) => {
       delete order.product_ids;
+      delete order.quantities;
     });
 
-    console.log(ordersWithProducts);
+    // console.log(ordersWithProducts);
     return ordersWithProducts;
     // console.log(products);
     // return products;
