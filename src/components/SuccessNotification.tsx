@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react";
 type Props = {
   setSuccess: any;
   success: boolean;
+  successMsg: string;
+  successTitle: string;
 };
 
 const SuccessNotification = (props: Props) => {
   useEffect(() => {
     const timeId = setTimeout(() => {
       props.setSuccess(false);
-    }, 3000);
+    }, 2500);
     return () => {
       clearTimeout(timeId);
     };
@@ -37,10 +39,10 @@ const SuccessNotification = (props: Props) => {
                 </span>
                 <div className="ml-2">
                   <h5 className="text-gray-700 font-semibold">
-                    You're logged in!
+                    {props.successTitle}
                   </h5>
                   <span className="text-xs font-medium text-gray-700">
-                    Lorem ipsum dolor sit amet.
+                    {props.successMsg}
                   </span>
                 </div>
               </div>

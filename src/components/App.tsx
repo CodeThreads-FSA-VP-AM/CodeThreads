@@ -48,6 +48,8 @@ const App: React.FC = () => {
   const [user, setUser] = useState({});
   const [price, setPrice] = useState(0);
   const [success, setSuccess] = useState(false);
+  const [successTitle, setSuccessTitle] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const options = {
     // passing the client secret obtained from the server
     clientSecret:
@@ -80,6 +82,7 @@ const App: React.FC = () => {
     getProduct();
   }, [productId]);
 
+  useEffect(() => {}, [successMsg, successTitle]);
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
   //   // first, create an async function that will wrap your axios service adapter
@@ -102,7 +105,12 @@ const App: React.FC = () => {
       <Router>
         <Navbar user={user} token={token} setToken={setToken} />
         {success && (
-          <SuccessNotification success={success} setSuccess={setSuccess} />
+          <SuccessNotification
+            success={success}
+            setSuccess={setSuccess}
+            successTitle={successTitle}
+            successMsg={successMsg}
+          />
         )}
         <div>
           <Routes>
@@ -116,6 +124,8 @@ const App: React.FC = () => {
                   setToken={setToken}
                   success={success}
                   setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
                 />
               }
             />
@@ -125,7 +135,15 @@ const App: React.FC = () => {
             />
             <Route
               path="/products/:id"
-              element={<SingleView quantity={quantity} user={user} />}
+              element={
+                <SingleView
+                  quantity={quantity}
+                  user={user}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
             />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
@@ -157,14 +175,6 @@ const App: React.FC = () => {
                 <AccountSettings user={user} token={token} setUser={setUser} />
               }
             />
-            {/* <Route
-              element={
-                <SuccessNotification
-                  success={success}
-                  setSuccess={setSuccess}
-                />
-              }
-            /> */}
           </Routes>
         </div>
       </Router>

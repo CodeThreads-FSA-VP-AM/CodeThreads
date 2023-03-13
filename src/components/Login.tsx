@@ -6,15 +6,23 @@ import SuccessNotification from "./SuccessNotification";
 
 type Props = {
   setToken: (token: string) => void;
-  setSuccess: any;
   success: boolean;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
 };
 
 type Login = {
   username: string;
   password: string;
 };
-const Login: React.FC<Props> = ({ setToken, setSuccess, success }) => {
+const Login: React.FC<Props> = ({
+  setToken,
+  success,
+  setSuccess,
+  setSuccessTitle,
+  setSuccessMsg,
+}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [token, setToken] = useState("");
@@ -40,6 +48,8 @@ const Login: React.FC<Props> = ({ setToken, setSuccess, success }) => {
         setUsername("");
         setPassword("");
         setSuccess(true);
+        setSuccessTitle("You're logged in!");
+        setSuccessMsg("Lorem ipsum dolor sit amet.");
         navigate("/products");
         setLoading(true);
       }
