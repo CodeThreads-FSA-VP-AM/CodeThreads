@@ -37,6 +37,7 @@ import TestStripe from "./TestStripe";
 import OrderHistroy from "./OrderHistroy";
 import UserProfile from "./UserProfile";
 import AccountSettings from "./AccountSettings";
+import SuccessNotification from "./SuccessNotification";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -46,6 +47,7 @@ const App: React.FC = () => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
   const [price, setPrice] = useState(0);
+  const [success, setSuccess] = useState(false);
   const options = {
     // passing the client secret obtained from the server
     clientSecret:
@@ -99,12 +101,24 @@ const App: React.FC = () => {
     <>
       <Router>
         <Navbar user={user} token={token} setToken={setToken} />
+        {success && (
+          <SuccessNotification success={success} setSuccess={setSuccess} />
+        )}
         <div>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login setToken={setToken} />} />
+            <Route
+              path="/login"
+              element={
+                <Login
+                  setToken={setToken}
+                  success={success}
+                  setSuccess={setSuccess}
+                />
+              }
+            />
             <Route
               path="/products"
               element={<Products setProductId={setProductId} user={user} />}
@@ -143,6 +157,14 @@ const App: React.FC = () => {
                 <AccountSettings user={user} token={token} setUser={setUser} />
               }
             />
+            {/* <Route
+              element={
+                <SuccessNotification
+                  success={success}
+                  setSuccess={setSuccess}
+                />
+              }
+            /> */}
           </Routes>
         </div>
       </Router>

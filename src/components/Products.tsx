@@ -36,7 +36,9 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
     setProductId(id);
   };
 
-  const handleSelect: React.ChangeEventHandler<HTMLSelectElement> = (e: any) => {
+  const handleSelect: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: any
+  ) => {
     setProductId(e.target.value);
     setSelectedId(e.target.value);
   };
@@ -68,8 +70,9 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
             </h2>
 
             <p className="max-w-screen-md mx-auto text-center text-gray-500 md:text-lg">
-              From everyday essentials to statement pieces, our selection features something for
-              every occasion. Start exploring now and find your new favorite outfit!
+              From everyday essentials to statement pieces, our selection
+              features something for every occasion. Start exploring now and
+              find your new favorite outfit!
             </p>
 
             {user.is_admin && (
@@ -92,7 +95,8 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
 
                   <button
                     className="inline-flex items-center px-5 py-2.5 m-4 sm:mt-6 text-sm font-medium text-center bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-blue-800 text-gray-50"
-                    onClick={handleDelete}>
+                    onClick={handleDelete}
+                  >
                     delete
                   </button>
                   <span className="text-red-400">{message}</span>
@@ -115,7 +119,8 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                   <Link
                     to={`/products/${p.id}`}
                     className="relative block mb-2 overflow-hidden bg-gray-100 rounded-lg shadow-lg group h-96 lg:mb-3"
-                    onClick={() => idHandle(p.id)}>
+                    onClick={() => idHandle(p.id)}
+                  >
                     <img
                       src={p.front_url}
                       loading="lazy"
@@ -129,7 +134,8 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                         return (
                           <span
                             key={t.id}
-                            className="bg-white text-gray-800 text-sm font-bold tracking-wider uppercase rounded-lg px-3 py-1.5">
+                            className="bg-white text-gray-800 text-sm font-bold tracking-wider uppercase rounded-lg px-3 py-1.5"
+                          >
                             {t.name}
                           </span>
                         );
@@ -141,14 +147,18 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                     <div className="flex flex-col">
                       <a
                         href="#"
-                        className="text-lg font-bold text-gray-800 capitalize transition duration-100 hover:text-gray-500 lg:text-xl">
+                        className="text-lg font-bold text-gray-800 capitalize transition duration-100 hover:text-gray-500 lg:text-xl"
+                      >
                         {p.title}
                       </a>
                       <span className="text-gray-500">by codeThreads</span>
                     </div>
 
                     <div className="flex flex-col items-end">
-                      <span className="font-bold text-gray-600 lg:text-lg"> £{p.price} GBP </span>
+                      <span className="font-bold text-gray-600 lg:text-lg">
+                        {" "}
+                        £{p.price} GBP{" "}
+                      </span>
                       {/* <span className="text-sm text-red-500 line-through">$39.99</span> */}
                     </div>
                   </div>

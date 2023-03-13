@@ -6,13 +6,15 @@ import SuccessNotification from "./SuccessNotification";
 
 type Props = {
   setToken: (token: string) => void;
+  setSuccess: any;
+  success: boolean;
 };
 
 type Login = {
   username: string;
   password: string;
 };
-const Login: React.FC<Props> = ({ setToken }) => {
+const Login: React.FC<Props> = ({ setToken, setSuccess, success }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [token, setToken] = useState("");
@@ -37,7 +39,8 @@ const Login: React.FC<Props> = ({ setToken }) => {
         updateCart(login.user.id, login.token);
         setUsername("");
         setPassword("");
-        // navigate("/products");
+        setSuccess(true);
+        navigate("/products");
         setLoading(true);
       }
     } catch (error) {
@@ -53,7 +56,6 @@ const Login: React.FC<Props> = ({ setToken }) => {
         <Loader />
       ) : (
         <div className="h-full bg-gradient-to-b from-gray-200 to-white w-full pb-[110px] px-4">
-          <SuccessNotification />
           <div className="flex flex-col items-center justify-center">
             <div className="w-full p-10 mt-16 bg-white rounded shadow lg:w-1/3 md:w-1/2">
               <p
