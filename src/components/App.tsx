@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  BrowserRouter as Router,
+} from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(
@@ -30,6 +35,8 @@ import StripeContainer from "./StripeContainer";
 import Completion from "./Completion";
 import TestStripe from "./TestStripe";
 import OrderHistroy from "./OrderHistroy";
+import UserProfile from "./UserProfile";
+import AccountSettings from "./AccountSettings";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -102,23 +109,40 @@ const App: React.FC = () => {
               path="/products"
               element={<Products setProductId={setProductId} user={user} />}
             />
-            <Route path="/products/:id" element={<SingleView quantity={quantity} user={user} />} />
+            <Route
+              path="/products/:id"
+              element={<SingleView quantity={quantity} user={user} />}
+            />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
             <Route
               path="/edit/:id"
               element={
-                <EditProduct product={product} productId={productId} setProductId={setProductId} />
+                <EditProduct
+                  product={product}
+                  productId={productId}
+                  setProductId={setProductId}
+                />
               }
             />
             <Route path="/featured" element={<Featured />} />
             <Route path="/home" element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
-            <Route path="/admin" element={<AdminNav setProductId={setProductId} user={user} />} />
+            <Route
+              path="/admin"
+              element={<AdminNav setProductId={setProductId} user={user} />}
+            />
             <Route path="/checkout" element={<StripeContainer />} />
             <Route path="/success" element={<Completion />} />
             <Route path="/test" element={<TestStripe />} />
             <Route path="/orderhistory" element={<OrderHistroy />} />
+            <Route path="/userprofile" element={<UserProfile />} />
+            <Route
+              path="/accountsettings"
+              element={
+                <AccountSettings user={user} token={token} setUser={setUser} />
+              }
+            />
           </Routes>
         </div>
       </Router>

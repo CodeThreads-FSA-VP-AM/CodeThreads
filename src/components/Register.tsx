@@ -143,26 +143,28 @@ const Register = () => {
               <form onSubmit={handleSubmit}>
                 <div>
                   <label className="text-sm font-medium leading-none text-gray-800">
-                    Email
+                    Email<span className="text-[#F70000]">*</span>
                   </label>
                   <input
                     aria-label="enter email adress"
                     role="input"
                     type="email"
                     value={email}
+                    required
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full py-3 pl-3 mt-2 text-xs font-medium leading-none text-gray-800 bg-gray-200 border rounded focus:outline-none"
                   />
                 </div>
                 <div className="w-full mt-6">
                   <label className="text-sm font-medium leading-none text-gray-800">
-                    Username
+                    Username<span className="text-[#F70000]">*</span>
                   </label>
                   <div className="relative flex items-center justify-center">
                     <input
                       aria-label="enter Username"
                       role="input"
                       type="text"
+                      required
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       className="w-full py-3 pl-3 mt-2 text-xs font-medium leading-none text-gray-800 bg-gray-200 border rounded focus:outline-none"
@@ -185,12 +187,13 @@ const Register = () => {
                 </div>
                 <div className="w-full mt-6">
                   <label className="text-sm font-medium leading-none text-gray-800">
-                    Password
+                    Password<span className="text-[#F70000]">*</span>
                   </label>
                   <div className="relative flex items-center justify-center">
                     <input
                       aria-label="enter Password"
                       role="input"
+                      required
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
