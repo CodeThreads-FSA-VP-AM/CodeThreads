@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import OrderHistroy from "./OrderHistroy";
 const UserProfile = () => {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Code block starts */}
@@ -77,7 +79,10 @@ const UserProfile = () => {
             </li>
           </ul>
         </div>
-        <div className="mt-6 md:mt-0">
+        <div
+          className="mt-6 md:mt-0"
+          onClick={() => navigate("/accountsettings")}
+        >
           <button className="transition focus:outline-none duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">
             Edit Profile
           </button>

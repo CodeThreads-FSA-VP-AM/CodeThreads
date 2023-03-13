@@ -36,6 +36,7 @@ import Completion from "./Completion";
 import TestStripe from "./TestStripe";
 import OrderHistroy from "./OrderHistroy";
 import UserProfile from "./UserProfile";
+import AccountSettings from "./AccountSettings";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -136,6 +137,7 @@ const App: React.FC = () => {
             <Route path="/test" element={<TestStripe />} />
             <Route path="/orderhistory" element={<OrderHistroy />} />
             <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/accountsettings" element={<AccountSettings />} />
           </Routes>
         </div>
       </Router>

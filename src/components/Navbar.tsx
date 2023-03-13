@@ -369,7 +369,10 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                                   </div>
                                 </li>
 
-                                <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
+                                <li
+                                  className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                                  onClick={() => navigate("/accountsettings")}
+                                >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="icon icon-tabler icon-tabler-settings"
