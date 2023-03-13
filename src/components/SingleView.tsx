@@ -23,7 +23,7 @@ const SingleView: FC<Props> = ({ user }) => {
 
   const navigate = useNavigate();
 
-  console.log({ user });
+  console.log(user.username);
   console.log(productId);
   console.log(product);
 
@@ -365,6 +365,7 @@ const SingleView: FC<Props> = ({ user }) => {
               product_id={productId}
               reviews={reviews}
               setReviews={setReviews}
+              user={user.username}
             />
           </div>
         </section>
