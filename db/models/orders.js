@@ -94,6 +94,7 @@ const addProductToCart = async ({ user_id, product_id, quantity }) => {
   }
 };
 
+// change the array
 const fetchOrder = async (users_id) => {
   try {
     const { rows: order } = await client.query(
@@ -108,7 +109,87 @@ const fetchOrder = async (users_id) => {
     `,
       [users_id]
     );
+    console.log(order);
     return order;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getOrderByUserId = async (userId) => {
+  try {
+    const { rows: orders } = await client.query(
+      `
+    SELECT o.*, array_agg(op.product_id) as product_ids, array_agg(op.quantity) as quantities
+    FROM orders o
+    JOIN order_products op ON o.id = op.order_id
+    WHERE users_id = $1
+    GROUP BY o.id
+  `,
+      [userId]
+    );
+    // console.log(orders);
+
+    const productIds = orders.flatMap((order) => order.product_ids);
+
+    const { rows: products } = await client.query(
+      `
+    SELECT p.* FROM products p
+    WHERE p.id = ANY($1)
+  `,
+      [productIds]
+    );
+
+    const ordersWithProducts = orders.map((order) => {
+      const orderProducts = products.filter((product) => order.product_ids.includes(product.id));
+      const combinedProducts = orderProducts.map((product, index) => ({
+        ...product,
+        quantity: order.quantities[index],
+      }));
+      return {
+        ...order,
+        products: combinedProducts,
+      };
+    });
+
+    console.log(ordersWithProducts);
+
+    ordersWithProducts.forEach((order) => {
+      delete order.product_ids;
+      delete order.quantities;
+    });
+
+    // console.log(ordersWithProducts);
+    return ordersWithProducts;
+    // console.log(products);
+    // return products;
+
+    // const { rows: orders } = await client.query(
+    //   `
+    // SELECT o.*, op.product_id FROM orders o
+    // JOIN order_products op
+    // ON o.id = op.order_id
+    // WHERE users_id = $1
+    // `,
+    //   [userId]
+    // );
+    // console.log(orders);
+
+    // delete orders.product_id;
+
+    // const { rows: products } = await client.query(`
+    // SELECT p.id, p.* FROM products p
+    // JOIN order_products op
+    // ON p.id = op.product_id
+    // `);
+    // console.log(products);
+
+    // return orders.map((o) => {
+    //   o.products = products.filter((p) => p.id === o.product_id);
+    //   return o;
+    // });
+
+    // return orders;
   } catch (error) {
     console.error(error);
   }
@@ -146,6 +227,7 @@ const updateOrder = async (orderId, userId, fields = {}, cartFields = {}) => {
   console.log({ setString });
   console.log({ setStringCart });
 
+  // wont need fetchOrder in this function, not using anything from the call
   try {
     const order = await fetchOrder(userId);
     if (order) {
@@ -198,6 +280,7 @@ const newOrder = async (user_id) => {
 module.exports = {
   addProductToCart,
   fetchOrder,
+  getOrderByUserId,
   newOrder,
   updateOrder,
   deleteOrder,

@@ -7,6 +7,7 @@ const {
   deleteOrder,
   newOrder,
   updateOrder,
+  getOrderByUserId,
 } = require("../db/models/orders");
 
 //Get orders
@@ -63,7 +64,22 @@ ordersRouter.get("/:users_id", async (req, res, next) => {
   const users_id = req.params.users_id;
   try {
     const order = await fetchOrder(users_id);
+
+    //testing call from the frontend productpage ***need to remove
+    // const order = await getOrderByUserId(users_id);
     res.send(order);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+ordersRouter.get("/history/:users_id", async (req, res, next) => {
+  const user_id = req.params.users_id;
+  console.log(user_id);
+  try {
+    const orderHistory = await getOrderByUserId(user_id);
+    res.send(orderHistory);
   } catch (error) {
     console.error(error);
     next(error);

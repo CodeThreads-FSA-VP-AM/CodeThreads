@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { Navigate, Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(
+  "pk_test_51MjulLCrdvy0lSlL6cOtaubo6pIIeBbbaaWDilYHCXY4U9kirgxRUQqgWb6Uh2p50TRCnwnzxCIkwWLQUvZrlrlR00uysRVa4o"
+);
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -25,6 +25,11 @@ import EditReviews from "./EditReviews";
 import { User } from "./Interfaces";
 import NotFound from "./NotFound";
 import AdminNav from "./AdminNav";
+import CheckoutForm from "./CheckoutForm";
+import StripeContainer from "./StripeContainer";
+import Completion from "./Completion";
+import TestStripe from "./TestStripe";
+import OrderHistroy from "./OrderHistroy";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -33,6 +38,12 @@ const App: React.FC = () => {
   const [product, setProduct] = useState();
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const [price, setPrice] = useState(0);
+  const options = {
+    // passing the client secret obtained from the server
+    clientSecret:
+      "{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}",
+  };
 
   const getProduct = async () => {
     const product = await fetchProductById(productId);
@@ -91,26 +102,23 @@ const App: React.FC = () => {
               path="/products"
               element={<Products setProductId={setProductId} user={user} />}
             />
-            <Route
-              path="/products/:id"
-              element={<SingleView quantity={quantity} user={user} />}
-            />
+            <Route path="/products/:id" element={<SingleView quantity={quantity} user={user} />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/addproduct" element={<AddProduct />} />
             <Route
               path="/edit/:id"
               element={
-                <EditProduct
-                  product={product}
-                  productId={productId}
-                  setProductId={setProductId}
-                />
+                <EditProduct product={product} productId={productId} setProductId={setProductId} />
               }
             />
             <Route path="/featured" element={<Featured />} />
             <Route path="/home" element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
-            <Route path="/admin" element={<AdminNav setProductId={setProductId} user={user}/>} />
+            <Route path="/admin" element={<AdminNav setProductId={setProductId} user={user} />} />
+            <Route path="/checkout" element={<StripeContainer />} />
+            <Route path="/success" element={<Completion />} />
+            <Route path="/test" element={<TestStripe />} />
+            <Route path="/orderhistory" element={<OrderHistroy />} />
           </Routes>
         </div>
       </Router>
