@@ -46,21 +46,6 @@ const PaymentForm = (price: any) => {
           <div>
             <CardElement />
           </div>
-          {/* <fieldset className='FormGroup'>
-            <div className='FormRow'>
-              <CardNumberElement />
-            </div>
-          </fieldset>
-          <fieldset className='FormGroup'>
-            <div className='FormRow'>
-              <CardExpiryElement />
-            </div>
-          </fieldset>
-          <fieldset className='FormGroup'>
-            <div className='FormRow'>
-              <CardCvcElement />
-            </div>
-          </fieldset> */}
           <button>Pay</button>
         </form>
       ) : (
