@@ -3,6 +3,7 @@ import { updateProfile } from "../api/api";
 type Props = {
   user: any;
   token: string;
+  setUser: any;
 };
 const AccountSettings: React.FC<Props> = (props) => {
   console.log(props.token, props.user.id, "props from accountsettings");
@@ -30,6 +31,7 @@ const AccountSettings: React.FC<Props> = (props) => {
         setErrorMsg(data.error);
         console.log(data, "error editing profile");
       } else {
+        props.setUser(data.userUpdate);
         console.log(data, "success editing profile");
       }
     } catch (error) {
@@ -118,13 +120,11 @@ const AccountSettings: React.FC<Props> = (props) => {
                     </label>
                     <div className="mt-2 flex items-center">
                       <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-                        <svg
-                          className="h-full w-full text-gray-300"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
+                        <img
+                          className="object-cover w-12 h-12 rounded-full"
+                          src={props.user.avatar_url}
+                          alt="default"
+                        />
                       </span>
                     </div>
                   </div>
@@ -155,22 +155,22 @@ const AccountSettings: React.FC<Props> = (props) => {
                             htmlFor="file-upload"
                             className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-                            <span>Upload a file</span>
+                            <span>Paste a URL link</span>
                             <input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                              className="sr-only"
+                              id="url-input"
+                              name="url-input"
+                              type="text"
+                              className="border-gray-300 rounded-md"
                               value={avatar}
                               onChange={(e) => setAvatar(e.target.value)}
                             />
                           </label>
-                          <p className="pl-1">or drag and drop</p>
+                          {/* <p className="pl-1">or drag and drop</p> */}
                         </div>
 
-                        <p className="text-xs text-gray-500">
+                        {/* <p className="text-xs text-gray-500">
                           PNG, JPG, GIF up to 10MB
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                   </div>

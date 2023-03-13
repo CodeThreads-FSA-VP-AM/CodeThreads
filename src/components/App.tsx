@@ -139,7 +139,9 @@ const App: React.FC = () => {
             <Route path="/userprofile" element={<UserProfile />} />
             <Route
               path="/accountsettings"
-              element={<AccountSettings user={user} token={token} />}
+              element={
+                <AccountSettings user={user} token={token} setUser={setUser} />
+              }
             />
           </Routes>
         </div>
