@@ -137,7 +137,10 @@ const App: React.FC = () => {
             <Route path="/test" element={<TestStripe />} />
             <Route path="/orderhistory" element={<OrderHistroy />} />
             <Route path="/userprofile" element={<UserProfile />} />
-            <Route path="/accountsettings" element={<AccountSettings />} />
+            <Route
+              path="/accountsettings"
+              element={<AccountSettings user={user} token={token} />}
+            />
           </Routes>
         </div>
       </Router>

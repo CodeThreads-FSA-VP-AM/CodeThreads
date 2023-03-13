@@ -1,6 +1,42 @@
-import React from "react";
-
-export default function Example() {
+import React, { useEffect, useState } from "react";
+import { updateProfile } from "../api/api";
+type Props = {
+  user: any;
+  token: string;
+};
+const AccountSettings: React.FC<Props> = (props) => {
+  console.log(props.token, props.user.id, "props from accountsettings");
+  const [username, setUsername] = useState(props.user.username);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(props.user.email);
+  const [avatar, setAvatar] = useState(props.user.avatar_url);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [userId, setUserId] = useState(props.user.id);
+  console.log(username, email, avatar, userId);
+  const handleEditProfile: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+    try {
+      const data = await updateProfile({
+        username,
+        password,
+        email,
+        avatar,
+        userId,
+        token: props.token,
+      });
+      if (data.error) {
+        setErrorMsg(data.error);
+        console.log(data, "error editing profile");
+      } else {
+        console.log(data, "success editing profile");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {}, [props.user, props.token]);
   return (
     <>
       <div className="hidden sm:block" aria-hidden="true">
@@ -21,7 +57,7 @@ export default function Example() {
                 </p>
               </div>
             </div>
-            <form action="#" method="POST">
+            <form onSubmit={handleEditProfile}>
               <div className="shadow sm:overflow-hidden sm:rounded-md">
                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                   <div>
@@ -30,13 +66,32 @@ export default function Example() {
                         htmlFor="first-name"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Username
+                        New username
                       </label>
                       <input
                         type="text"
                         name="first-name"
                         id="first-name"
                         autoComplete="given-name"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label
+                        htmlFor="last-name"
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
+                        New password
+                      </label>
+                      <input
+                        type="password"
+                        name="last-name"
+                        id="last-name"
+                        autoComplete="given-name"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -46,13 +101,15 @@ export default function Example() {
                         htmlFor="email-address"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Email address
+                        New email address
                       </label>
                       <input
-                        type="text"
+                        type="email"
                         name="email-address"
                         id="email-address"
                         autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -74,8 +131,9 @@ export default function Example() {
 
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Profile picture
+                      Change your profile picture
                     </label>
+
                     <div className="mt-2 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                       <div className="space-y-1 text-center">
                         <svg
@@ -103,13 +161,11 @@ export default function Example() {
                               name="file-upload"
                               type="file"
                               className="sr-only"
+                              value={avatar}
+                              onChange={(e) => setAvatar(e.target.value)}
                             />
                           </label>
                           <p className="pl-1">or drag and drop</p>
-                          <p className="pl-1">
-                            {" "}
-                            to change your profile picture
-                          </p>
                         </div>
 
                         <p className="text-xs text-gray-500">
@@ -141,4 +197,6 @@ export default function Example() {
       </div>
     </>
   );
-}
+};
+
+export default AccountSettings;

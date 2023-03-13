@@ -59,14 +59,16 @@ usersRouter.post("/register", async (req, res, next) => {
 });
 
 // PATCH /api/users/me/edit/#
-usersRouter.patch("/me/edit/:userid", requireUser, async (req, res, next) => {
+usersRouter.patch("/edit/:userid", requireUser, async (req, res, next) => {
   try {
-    const { password, avatar_url } = req.body;
+    const { username, password, avatar, email } = req.body;
     const userId = parseInt(req.params.userid);
 
     const fields = {};
+    fields.username = username;
     fields.password = password;
-    fields.avatar_url = avatar_url;
+    fields.avatar_url = avatar;
+    fields.email = email;
 
     const userUpdate = await editUser(userId, fields);
     res.send({
@@ -75,6 +77,7 @@ usersRouter.patch("/me/edit/:userid", requireUser, async (req, res, next) => {
     });
   } catch (error) {
     console.error(error);
+    next(error);
   }
 });
 

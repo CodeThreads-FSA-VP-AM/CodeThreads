@@ -303,7 +303,9 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                         />
                       </svg>
                       <p className="text-[14px]">
-                        <div className="animate-ping w-1.5 h-1.5 bg-red-700 rounded-full  m-auto duration-100" />
+                        {token ? (
+                          <div className="animate-ping w-1.5 h-1.5 bg-red-700 rounded-full  m-auto duration-100" />
+                        ) : null}
                       </p>
                     </NavLink>
                   </button>
