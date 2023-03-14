@@ -94,6 +94,28 @@ const addProductToWishlist = async ({ user_id, product_id, quantity }) => {
   }
 };
 
+const fetchWishlistById = async (users_id) => {
+  try {
+    const { rows: wishlist } = await client.query(
+      `
+      SELECT w.id, users_id, wishlist_id, status, quantity, product_id, title, description, price, front_url, back_url 
+      FROM wishlist w
+      JOIN order_products op
+      ON w.id = op.wishlist_id
+      JOIN products p
+      ON op.product_id = p.id
+      WHERE users_id = $1
+    `,
+      [users_id]
+    );
+    console.log(wishlist);
+    return wishlist;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   addProductToWishlist,
+  fetchWishlistById,
 };

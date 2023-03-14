@@ -1,7 +1,10 @@
 const express = require("express");
 const wishlistRouter = express.Router();
 
-const { addProductToWishlist } = require("../db/models/wishlist");
+const {
+  addProductToWishlist,
+  fetchWishlistById,
+} = require("../db/models/wishlist");
 
 wishlistRouter.post("/add", async (req, res, next) => {
   const { id } = req.user;
@@ -15,6 +18,16 @@ wishlistRouter.post("/add", async (req, res, next) => {
       product_id,
       quantity,
     });
+    res.send(wishlist);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+wishlistRouter.get("/:users_id", async (req, res, next) => {
+  const users_id = req.params.users_id;
+  try {
+    const wishlist = await fetchWishlistById(users_id);
     res.send(wishlist);
   } catch (error) {
     console.error(error);

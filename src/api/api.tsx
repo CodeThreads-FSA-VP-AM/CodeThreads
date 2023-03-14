@@ -550,3 +550,14 @@ export const createWishlist = async (data: Wishlist) => {
   const json = await res.json();
   return json;
 };
+
+export const fetchWishlistByUser = async (userId: number) => {
+  const res = await fetch(`${APIURL}/wishlist/${userId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await res.json();
+  console.log(json);
+  return json;
+};

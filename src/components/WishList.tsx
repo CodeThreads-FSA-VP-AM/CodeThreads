@@ -1,12 +1,53 @@
 import React, { FC, useEffect, useState } from "react";
-import { createWishlist } from "../api/api";
-type Props = {
-  quantity: number;
-  token: string;
-};
-const WishList: FC<Props> = ({ quantity, token }) => {
-  const [show1, setshow1] = useState(true);
+import { fetchUser, fetchWishlistByUser } from "../api/api";
+import { User, WishlistData } from "./Interfaces";
 
+const WishList = () => {
+  const [show1, setshow1] = useState(true);
+  const [wishlist, setWishlist] = useState<WishlistData[]>([]);
+  const [userId, setUserId] = useState(0);
+  const [wishlistId, setWishlistId] = useState(0);
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    const getUser = async (data: User) => {
+      const { token } = data;
+      try {
+        const user = await fetchUser({ token });
+        setUserId(user.id);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const token = localStorage.getItem("token") ?? "";
+    setToken(token);
+    getUser({ token });
+  }, [token]);
+  useEffect(() => {
+    const fetchWishlist = async (userId: number) => {
+      const wishlists = await fetchWishlistByUser(userId);
+      console.log(wishlists);
+      const getorderid = wishlists.filter(
+        (o: { status: string }) => o.status === "added"
+      );
+      console.log(getorderid);
+
+      const orderid = getorderid[0];
+      if (orderid?.order_id !== undefined) {
+        setWishlistId(orderid.order_id);
+      }
+
+      const filteredWishlist = wishlists.filter(
+        (wishlist: { users_id: number; status: string }) =>
+          wishlist.users_id === userId && wishlist.status === "added"
+      );
+      setWishlist(filteredWishlist);
+    };
+
+    if (userId !== undefined) {
+      fetchWishlist(userId);
+    }
+  }, [token, userId, wishlistId]);
   return (
     <>
       <div className="py-5">

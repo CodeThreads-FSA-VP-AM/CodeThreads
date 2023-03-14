@@ -53,6 +53,21 @@ export interface SizeQTY {
   xlarge: number
 }
 
+export interface WishlistData {
+  id: number;
+  order_id: number;
+  product_id: number;
+  users_id: number;
+  price: number;
+  status: string;
+  title: string;
+  description: string;
+  quantity: number;
+  front_url: string;
+  back_url: string;
+
+}
+
 export interface OrderData {
   id: number;
   order_id: number;
