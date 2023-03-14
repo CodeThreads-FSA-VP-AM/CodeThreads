@@ -346,7 +346,12 @@ const Orders = () => {
                       </div>
                     );
                   })}
-                  <WishList />
+                  <WishList
+                    quantity={0}
+                    setSuccess={undefined}
+                    setSuccessTitle={undefined}
+                    setSuccessMsg={undefined}
+                  />
                 </div>
                 {/* //Summary starts here */}
                 {token ? (

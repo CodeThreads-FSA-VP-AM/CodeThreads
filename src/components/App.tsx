@@ -178,7 +178,17 @@ const App: React.FC = () => {
                 <AccountSettings user={user} token={token} setUser={setUser} />
               }
             />
-            <Route path="/wishlist" element={<WishList />} />
+            <Route
+              path="/wishlist"
+              element={
+                <WishList
+                  quantity={quantity}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
+            />
           </Routes>
         </div>
       </Router>

@@ -1,14 +1,53 @@
 import React, { FC, useEffect, useState } from "react";
-import { deleteWishlist, fetchUser, fetchWishlistByUser } from "../api/api";
+import {
+  createOrder,
+  deleteWishlist,
+  fetchUser,
+  fetchWishlistByUser,
+} from "../api/api";
 import { User, WishlistData } from "./Interfaces";
-
-const WishList = () => {
+type Props = {
+  quantity: number;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
+};
+const WishList: FC<Props> = ({
+  setSuccess,
+  setSuccessMsg,
+  setSuccessTitle,
+}) => {
   const [wishlist, setWishlist] = useState<WishlistData[]>([]);
   const [show, setShow] = useState(Array(wishlist.length).fill(false));
   const [userId, setUserId] = useState(0);
   const [wishlistId, setWishlistId] = useState(0);
   const [token, setToken] = useState("");
-
+  const removeItemFromWishlist = (productId: number) => {
+    const updatedWishlist = wishlist.filter(
+      (item) => item.product_id !== productId
+    );
+    setWishlist(updatedWishlist);
+  };
+  const addProductToCart = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    product_id: number
+  ) => {
+    e.preventDefault();
+    try {
+      const res = await createOrder({
+        product_id: product_id,
+        quantity: 1,
+        token: token,
+      });
+      setSuccess(true);
+      setSuccessTitle("Success!");
+      setSuccessMsg("Item added to cart!");
+      removeItemFromWishlist(product_id);
+      console.log(res);
+    } catch (error) {
+      console.error();
+    }
+  };
   const handleDeletewishlist = async (product_id: number) => {
     try {
       const res = await deleteWishlist({
@@ -142,7 +181,12 @@ const WishList = () => {
                       </button>
                     </div>
                     <div className="w-full">
-                      <button className="focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 rounded-md text-white w-full tracking-tight py-2 text-md leading-4  hover:bg-green-600 bg-gray-800 border border-gray-800">
+                      <button
+                        onClick={(e) =>
+                          addProductToCart(e, Number(w.product_id))
+                        }
+                        className="focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 rounded-md text-white w-full tracking-tight py-2 text-md leading-4  hover:bg-green-600 bg-gray-800 border border-gray-800"
+                      >
                         Add to cart
                       </button>
                     </div>
