@@ -59,6 +59,8 @@ apiRouter.use("/orders", ordersRouter);
 const reviewsRouter = require("./reviews");
 apiRouter.use("/reviews", reviewsRouter);
 
+const wishlistRouter = require("./wishlist");
+apiRouter.use("/wishlist", wishlistRouter);
 // error 404 /unknown
 apiRouter.get("*", async (req, res, next) => {
   try {
