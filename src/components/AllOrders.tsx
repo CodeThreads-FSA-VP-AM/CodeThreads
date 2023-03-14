@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchOrders } from "../api/api";
 
-type Props = {};
+type Props = {
+  allOrders: any;
+  setAllOrders: any;
+};
+interface Order {
+  title: string;
+  status: string;
+  price: number;
+  users_id: number;
+}
 
 const AllOrders = (props: Props) => {
   return (
@@ -25,28 +35,32 @@ const AllOrders = (props: Props) => {
         </thead>
 
         <tbody className="divide-y divide-gray-200">
-          <tr>
-            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-              John Doe
-            </td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-              24/05/1995
-            </td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-              Web Developer
-            </td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-              $120,000
-            </td>
-            <td className="whitespace-nowrap px-4 py-2">
-              <a
-                href="#"
-                className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
-              >
-                Edit status
-              </a>
-            </td>
-          </tr>
+          {props.allOrders.map((allOrder: Order) => {
+            return (
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 capitalize">
+                  {allOrder.title}
+                </td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 capitalize">
+                  {allOrder.status}
+                </td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                  {allOrder.price}
+                </td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                  {allOrder.users_id}
+                </td>
+                <td className="whitespace-nowrap px-4 py-2">
+                  <a
+                    href="#"
+                    className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                  >
+                    Edit status
+                  </a>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

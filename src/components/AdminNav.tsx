@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Performance from "./Performance";
 import Profile from "./Profile";
 import Products from "./Products";
 import Users from "./Users";
 import AllOrders from "./AllOrders";
+import { fetchOrders } from "../api/api";
 type Props = {
   setProductId: (id: number) => void;
   user: any;
 };
 const AdminNav: React.FC<Props> = ({ setProductId, user }) => {
   const [activeComponent, setActiveComponent] = useState("home");
+  const [allOrders, setAllOrders] = useState([]);
+  console.log(allOrders);
 
+  useEffect(() => {
+    const getAllOrders = async () => {
+      const orders = await fetchOrders();
+      setAllOrders(orders);
+    };
+    getAllOrders();
+  }, []);
   return (
     <div className="flex flex-no-wrap">
       <div className="w-64 absolute sm:relative bg-white shadow md:h-full flex-col justify-between hidden sm:flex">
@@ -300,7 +310,9 @@ const AdminNav: React.FC<Props> = ({ setProductId, user }) => {
         {activeComponent === "products" ? (
           <Products setProductId={setProductId} user={user} />
         ) : null}
-        {activeComponent === "orders" ? <AllOrders /> : null}
+        {activeComponent === "orders" ? (
+          <AllOrders allOrders={allOrders} setAllOrders={setAllOrders} />
+        ) : null}
         {activeComponent === "performance" ? <Performance /> : null}
         {activeComponent === "profile" ? <Profile /> : null}
         {/* <div className="w-full h-full"></div> */}
