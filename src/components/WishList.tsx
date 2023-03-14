@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
-
-const WishList = () => {
+import React, { FC, useEffect, useState } from "react";
+import { createWishlist } from "../api/api";
+type Props = {
+  quantity: number;
+  token: string;
+};
+const WishList: FC<Props> = ({ quantity, token }) => {
   const [show1, setshow1] = useState(true);
 
   return (

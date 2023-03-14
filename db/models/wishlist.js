@@ -81,13 +81,13 @@ const addProductToWishlist = async ({ user_id, product_id, quantity }) => {
       `
         SELECT w.id, users_id, wishlist_id, status, quantity, product_id, title, description, price, front_url, back_url 
         FROM wishlist w
-        JOIN order_products op ON w.id = op.order_id
+        JOIN order_products op ON w.id = op.wishlist_id
         JOIN products p ON op.product_id = p.id
         WHERE w.id = $1
       `,
       [wishlistId]
     );
-
+    console.log({ wishlist });
     return wishlist;
   } catch (error) {
     console.error(error);

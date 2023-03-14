@@ -1,6 +1,11 @@
 import React, { FC, useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { fetchProductById, createOrder, fetchDeleteProduct } from "../api/api";
+import {
+  fetchProductById,
+  createOrder,
+  fetchDeleteProduct,
+  createWishlist,
+} from "../api/api";
 import AddReview from "./AddReview";
 import { Product, Review } from "./Interfaces";
 import Loader from "./Loader";
@@ -68,6 +73,26 @@ const SingleView: FC<Props> = ({
       console.error();
     }
   };
+  const addProductToWishlist: React.MouseEventHandler<
+    HTMLButtonElement
+  > = async (e) => {
+    e.preventDefault();
+    console.log(productId, token);
+    try {
+      const res = await createWishlist({
+        product_id: productId,
+        quantity: 1,
+        token,
+      });
+      setSuccess(true);
+      setSuccessTitle("Success!");
+      setSuccessMsg("Item added to wishlist!");
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const guestAddToCart: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
@@ -343,13 +368,22 @@ const SingleView: FC<Props> = ({
                     </div>
                     {/* remove disabled to use */}
                     {token ? (
-                      <button
-                        type="submit"
-                        onClick={addProductToCart}
-                        className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
-                      >
-                        Add to Cart
-                      </button>
+                      <>
+                        <button
+                          type="submit"
+                          onClick={addProductToCart}
+                          className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
+                        >
+                          Add to Cart
+                        </button>
+                        <button
+                          type="submit"
+                          onClick={addProductToWishlist}
+                          className="block px-5 py-3 text-xs font-medium text-white bg-indigo-600 rounded hover:bg-green-500"
+                        >
+                          Add to wishlist
+                        </button>
+                      </>
                     ) : (
                       <button
                         type="submit"

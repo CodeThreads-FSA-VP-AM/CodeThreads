@@ -346,7 +346,7 @@ const Orders = () => {
                       </div>
                     );
                   })}
-                  <WishList />
+                  <WishList quantity={0} token={""} />
                 </div>
                 {/* //Summary starts here */}
                 {token ? (
