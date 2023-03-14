@@ -527,3 +527,50 @@ export const updateCart = async (userId: number, token: string) => {
     console.error(error);
   }
 };
+
+type Wishlist = {
+  product_id?: number;
+  quantity?: number;
+  token: string;
+};
+
+export const createWishlist = async (data: Wishlist) => {
+  const { product_id, quantity, token } = data;
+  const res = await fetch(`${APIURL}/wishlist/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      product_id: `${product_id}`,
+      quantity: `${quantity}`,
+    }),
+  });
+  const json = await res.json();
+  return json;
+};
+
+export const fetchWishlistByUser = async (userId: number) => {
+  const res = await fetch(`${APIURL}/wishlist/${userId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await res.json();
+  console.log(json);
+  return json;
+};
+
+export const deleteWishlist = async (data: Delete) => {
+  const { product_id, token } = data;
+  const res = await fetch(`${APIURL}/wishlist/${product_id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = res.json();
+  return json;
+};

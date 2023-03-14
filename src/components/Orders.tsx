@@ -15,6 +15,7 @@ import Highlights from "./HighLights";
 import { OrderData, Order, User, Product, CartItem } from "./Interfaces";
 import Loader from "./Loader";
 import Steps from "./Steps";
+import WishList from "./WishList";
 
 const Orders = () => {
   const [show, setShow] = useState(false);
@@ -345,8 +346,13 @@ const Orders = () => {
                       </div>
                     );
                   })}
+                  <WishList
+                    quantity={0}
+                    setSuccess={undefined}
+                    setSuccessTitle={undefined}
+                    setSuccessMsg={undefined}
+                  />
                 </div>
-
                 {/* //Summary starts here */}
                 {token ? (
                   <div className="w-full h-full bg-gray-100 xl:w-1/2 md:w-1/3">

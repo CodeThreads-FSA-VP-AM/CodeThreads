@@ -39,6 +39,7 @@ import UserProfile from "./UserProfile";
 import AccountSettings from "./AccountSettings";
 import SuccessNotification from "./SuccessNotification";
 import AllOrders from "./AllOrders";
+import WishList from "./WishList";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -177,11 +178,17 @@ const App: React.FC = () => {
                 <AccountSettings user={user} token={token} setUser={setUser} />
               }
             />
-            {/* <Route
+            <Route
+              path="/wishlist"
               element={
-                <AllOrders />
+                <WishList
+                  quantity={quantity}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
               }
-            /> */}
+            />
           </Routes>
         </div>
       </Router>
