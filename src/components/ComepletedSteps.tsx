@@ -2,14 +2,14 @@ import React from "react";
 
 type Props = {};
 
-const Steps = (props: Props) => {
+const CompletedSteps = (props: Props) => {
   return (
     <div className="pt-6">
       <h2 className="sr-only">Steps</h2>
 
       <div className="relative after:absolute after:inset-x-0 after:top-1/2 after:block after:h-0.5 after:-translate-y-1/2 after:rounded-lg after:bg-gray-400">
         <ol className="relative z-10 flex justify-between text-sm font-medium text-gray-500">
-          <li className="flex items-center gap-2 bg-white p-2">
+          <li className="flex items-center gap-1 bg-white p-2">
             <span className="h-6 w-6 rounded-full bg-green-500 text-center text-[10px] font-bold leading-6 text-white">
               1
             </span>
@@ -38,4 +38,4 @@ const Steps = (props: Props) => {
   );
 };
 
-export default Steps;
+export default CompletedSteps;

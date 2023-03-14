@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchOrders } from "../api/api";
+import CompletedSteps from "./ComepletedSteps";
 
 type Props = {
   allOrders: any;
@@ -15,6 +16,7 @@ interface Order {
 const AllOrders = (props: Props) => {
   return (
     <div className="overflow-x-auto">
+      <h1 className="text-xl text-gray-900 pb-2">Order records:</h1>
       <table className="min-w-full divide-y-2 divide-gray-200 text-sm">
         <thead>
           <tr>
@@ -63,6 +65,7 @@ const AllOrders = (props: Props) => {
           })}
         </tbody>
       </table>
+      <CompletedSteps />
     </div>
   );
 };
