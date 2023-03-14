@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Banners from "./Banners";
+import JoinNow from "./JoinNow";
 import Socials from "./Socials";
 
 type Props = {};
@@ -129,6 +130,7 @@ const Home = (props: Props) => {
         </div>
       </div>
       <Banners />
+      <JoinNow />
       <Socials />
     </section>
   );
