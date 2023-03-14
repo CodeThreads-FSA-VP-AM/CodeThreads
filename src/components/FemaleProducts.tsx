@@ -9,7 +9,7 @@ type Props = {
   user: any;
 };
 
-const Products: React.FC<Props> = ({ setProductId, user }) => {
+const FemaleProducts: React.FC<Props> = ({ setProductId, user }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [selectedId, setSelectedId] = useState(0);
@@ -22,8 +22,10 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
     const loadProducts = async () => {
       try {
         const allProducts = await fetchProducts();
-        console.log(allProducts);
-        setProducts(allProducts);
+        const mensProducts = allProducts.filter((product) => product.tags.some((tag: { name: string }) => tag.name === 'womens'));
+        setProducts(mensProducts);
+        // console.log(allProducts);
+        // setProducts(allProducts);
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -99,6 +101,7 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                 </div>
               </>
             )}
+
             <div className='flex items-center justify-center pt-9 '>
               <input
                 className='w-full max-w-xs input input-bordered input-secondary border rounded border-gray-800 p-3'
@@ -177,79 +180,7 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
         </div>
       </section>
     </>
-
-    // <>
-    //   <section>
-    //     <div classNameName="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
-    //       <header>
-    //         <h2 classNameName="text-xl font-bold text-gray-900 sm:text-3xl">Product Collection</h2>
-
-    //         <p classNameName="max-w-md mt-4 text-gray-500">
-    //           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit
-    //           natus?
-    //         </p>
-
-    //         {user.is_admin && (
-    //           <>
-    //             <Link to="/addproduct" classNameName="flex justify-center">
-    //               <button>add</button>
-    //             </Link>
-
-    //             <div>
-    //               <select onChange={handleSelect}>
-    //                 <option value="delete">delete product</option>
-    //                 {products.map((p) => (
-    //                   <option value={p.id} key={p.id}>
-    //                     {p.title}
-    //                   </option>
-    //                 ))}
-    //               </select>
-
-    //               <button classNameName="px-1" onClick={handleDelete}>
-    //                 delete
-    //               </button>
-    //               <span classNameName="text-red-400">{message}</span>
-    //             </div>
-    //           </>
-    //         )}
-    //       </header>
-
-    //       <ul classNameName="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-    //         {/* map over this code */}
-
-    //         {loading ? (
-    //           // <div>Loading...</div>
-    //           <div classNameName="flex">
-    //             <div classNameName="flex items-center justify-center w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-blue-400"></div>
-    //           </div>
-    //         ) : (
-    //           products?.map((p: Product) => (
-    //             <li key={p.id}>
-    //               <Link to={`/products/${p.id}`} classNameName="block overflow-hidden group" onClick={() => idHandle(p.id)}>
-    //                 <img
-    //                   src={p.front_url}
-    //                   alt=""
-    //                   classNameName="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-    //                 />
-
-    //                 <div classNameName="relative pt-3 bg-white">
-    //                   <h3 classNameName="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">{p.title}</h3>
-
-    //                   <p classNameName="mt-2">
-    //                     <span classNameName="sr-only"> Regular Price </span>
-
-    //                     <span classNameName="tracking-wider text-gray-900"> £{p.price} GBP </span>
-    //                   </p>
-    //                 </div>
-    //               </Link>
-    //             </li>
-    //           ))
-    //         )}
-    //       </ul>
-    //     </div>
-    //   </section>
-    // </>
   );
 };
 
-export default Products;
+export default FemaleProducts;

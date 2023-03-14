@@ -1,62 +1,60 @@
-import React, { useState, useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  BrowserRouter as Router,
-} from "react-router-dom";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(
-  "pk_test_51MjulLCrdvy0lSlL6cOtaubo6pIIeBbbaaWDilYHCXY4U9kirgxRUQqgWb6Uh2p50TRCnwnzxCIkwWLQUvZrlrlR00uysRVa4o"
-);
+import React, { useState, useEffect } from 'react';
+import { Navigate, Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe('pk_test_51MjulLCrdvy0lSlL6cOtaubo6pIIeBbbaaWDilYHCXY4U9kirgxRUQqgWb6Uh2p50TRCnwnzxCIkwWLQUvZrlrlR00uysRVa4o');
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 // import { getAPIHealth } from "../axios-services";
-import "../style/App.css";
-import Login from "./Login";
-import Navbar from "./Navbar";
-import Register from "./Register";
-import Products from "./Products";
-import SingleView from "./SingleView";
-import Orders from "./Orders";
-import AddProduct from "./AddProduct";
-import EditProduct from "./EditProduct";
-import Featured from "./Featured";
-import Home from "./Home";
-import { fetchProductById, fetchUser, fetchOrders } from "../api/api";
-import EditReviews from "./EditReviews";
-import { User } from "./Interfaces";
-import NotFound from "./NotFound";
-import AdminNav from "./AdminNav";
-import CheckoutForm from "./CheckoutForm";
-import StripeContainer from "./StripeContainer";
-import Completion from "./Completion";
-import TestStripe from "./TestStripe";
-import OrderHistroy from "./OrderHistroy";
-import UserProfile from "./UserProfile";
-import AccountSettings from "./AccountSettings";
-import SuccessNotification from "./SuccessNotification";
+
+import '../style/App.css';
+import Login from './Login';
+import Navbar from './Navbar';
+import Register from './Register';
+import Products from './Products';
+import SingleView from './SingleView';
+import Orders from './Orders';
+import AddProduct from './AddProduct';
+import EditProduct from './EditProduct';
+import Featured from './Featured';
+import Home from './Home';
+import { fetchProductById, fetchUser } from '../api/api';
+import EditReviews from './EditReviews';
+import { User } from './Interfaces';
+import NotFound from './NotFound';
+import AdminNav from './AdminNav';
+import CheckoutForm from './CheckoutForm';
+import StripeContainer from './StripeContainer';
+import Completion from './Completion';
+import TestStripe from './TestStripe';
+import OrderHistroy from './OrderHistroy';
+import UserProfile from './UserProfile';
+import AccountSettings from './AccountSettings';
+import SuccessNotification from './SuccessNotification';
+import MaleProducts from './MaleProducts';
+import FemaleProducts from './FemaleProducts';
 import AllOrders from "./AllOrders";
 import WishList from "./WishList";
 
 const App: React.FC = () => {
-  const [APIHealth, setAPIHealth] = useState("");
+  const [APIHealth, setAPIHealth] = useState('');
   const [productId, setProductId] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [product, setProduct] = useState();
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
   const [user, setUser] = useState({});
   const [price, setPrice] = useState(0);
   const [success, setSuccess] = useState(false);
-  const [successTitle, setSuccessTitle] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+
+  const [successTitle, setSuccessTitle] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+  const [productsLength, setProductsLength] = useState(0);
+
 
   const options = {
     // passing the client secret obtained from the server
-    clientSecret:
-      "{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}",
+    clientSecret: '{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}',
   };
 
   const getProduct = async () => {
@@ -76,7 +74,7 @@ const App: React.FC = () => {
         console.error(error);
       }
     };
-    const token = localStorage.getItem("token") ?? "";
+    const token = localStorage.getItem('token') ?? '';
     setToken(token);
     getUser({ token });
   }, [token]);
@@ -85,7 +83,7 @@ const App: React.FC = () => {
     getProduct();
   }, [productId]);
 
-  useEffect(() => {}, [successMsg, successTitle]);
+  useEffect(() => {}, [successMsg, successTitle, productsLength]);
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
   //   // first, create an async function that will wrap your axios service adapter
@@ -106,22 +104,15 @@ const App: React.FC = () => {
   return (
     <>
       <Router>
-        <Navbar user={user} token={token} setToken={setToken} />
-        {success && (
-          <SuccessNotification
-            success={success}
-            setSuccess={setSuccess}
-            successTitle={successTitle}
-            successMsg={successMsg}
-          />
-        )}
+        <Navbar user={user} token={token} setToken={setToken} productsLength={productsLength} />
+        {success && <SuccessNotification success={success} setSuccess={setSuccess} successTitle={successTitle} successMsg={successMsg} />}
         <div>
           <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/register" element={<Register />} />
+            <Route path='/' element={<Navigate to='/home' />} />
+            <Route path='*' element={<NotFound />} />
+            <Route path='/register' element={<Register />} />
             <Route
-              path="/login"
+              path='/login'
               element={
                 <Login
                   setToken={setToken}
@@ -132,40 +123,26 @@ const App: React.FC = () => {
                 />
               }
             />
+            <Route path='/products' element={<Products setProductId={setProductId} user={user} />} />
+            <Route path='/mens' element={<MaleProducts setProductId={setProductId} user={user} />} />
+            <Route path='/womens' element={<FemaleProducts setProductId={setProductId} user={user} />} />
+
             <Route
-              path="/products"
-              element={<Products setProductId={setProductId} user={user} />}
-            />
-            <Route
-              path="/products/:id"
+              path='/products/:id'
               element={
-                <SingleView
-                  quantity={quantity}
-                  user={user}
-                  setSuccess={setSuccess}
-                  setSuccessTitle={setSuccessTitle}
-                  setSuccessMsg={setSuccessMsg}
-                />
+                <SingleView quantity={quantity} user={user} setSuccess={setSuccess} setSuccessTitle={setSuccessTitle} setSuccessMsg={setSuccessMsg} />
               }
             />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/addproduct" element={<AddProduct />} />
-            <Route
-              path="/edit/:id"
-              element={
-                <EditProduct
-                  product={product}
-                  productId={productId}
-                  setProductId={setProductId}
-                />
-              }
-            />
-            <Route path="/featured" element={<Featured />} />
-            <Route path="/home" element={<Home />} />
+            <Route path='/orders' element={<Orders setProductsLength={setProductsLength} />} />
+            <Route path='/addproduct' element={<AddProduct />} />
+            <Route path='/edit/:id' element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
+            <Route path='/featured' element={<Featured />} />
+            <Route path='/home' element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
+
             <Route
               path="/admin"
-              element={<AdminNav setProductId={setProductId} user={user} />}
+              element={<AdminNav setProductId={setProductId} user={user} setProductsLength={setProductsLength} />}
             />
             <Route path="/checkout" element={<StripeContainer />} />
             <Route path="/success" element={<Completion />} />
@@ -189,6 +166,7 @@ const App: React.FC = () => {
                 />
               }
             />
+
           </Routes>
         </div>
       </Router>
