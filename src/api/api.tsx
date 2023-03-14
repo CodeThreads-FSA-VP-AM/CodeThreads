@@ -119,7 +119,28 @@ export const updateProfile = async (data: UpdateUser) => {
   }
 };
 // delete user
-
+type DeleteUser = {
+  userId: any;
+};
+export const deleteUser = async (data: DeleteUser) => {
+  const { userId } = data;
+  try {
+    const res = await fetch(`${APIURL}/users/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    });
+    console.log(userId);
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+};
 // Product fetch requests
 
 // fetch all products

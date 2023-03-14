@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllUsers } from "../api/api";
+import { fetchAllUsers, deleteUser } from "../api/api";
 interface User {
   id: number;
   username: string;
@@ -9,6 +9,7 @@ interface User {
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
+
   const getAllUsers = async () => {
     try {
       const res = await fetchAllUsers();
@@ -19,6 +20,19 @@ const Users = () => {
       console.error(error);
     }
   };
+
+  const handleDeleteUser = async (userId: number): Promise<void> => {
+    console.log(userId, "formusers");
+    try {
+      const res = await deleteUser({ userId });
+      console.log(res);
+      setUsers(users.filter((user) => user.id !== userId));
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -64,7 +78,10 @@ const Users = () => {
 
                 <td>{user.created_at}</td>
                 <td>
-                  <button className="border border-red-600 p-1 text-white bg-red-400 rounded-md">
+                  <button
+                    className="border border-red-600 p-1 text-white bg-red-400 rounded-md"
+                    onClick={() => handleDeleteUser(user.id)}
+                  >
                     Delete user
                   </button>
                 </td>

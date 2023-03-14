@@ -85,8 +85,10 @@ usersRouter.patch("/edit/:userid", requireUser, async (req, res, next) => {
 usersRouter.delete("/delete", async (req, res, next) => {
   try {
     const { userId } = req.body;
-    await deleteUser(userId);
+    console.log(userId, "fromDeleteUser");
+    const deletedUser = await deleteUser(userId);
     res.send({
+      deletedUser,
       message: `User: ${userId} has been banned 👀`,
     });
   } catch (error) {

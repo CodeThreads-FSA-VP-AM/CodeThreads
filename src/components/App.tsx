@@ -38,6 +38,7 @@ import OrderHistroy from "./OrderHistroy";
 import UserProfile from "./UserProfile";
 import AccountSettings from "./AccountSettings";
 import SuccessNotification from "./SuccessNotification";
+import Users from "./Users";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
