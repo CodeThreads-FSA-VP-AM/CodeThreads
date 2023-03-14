@@ -22,12 +22,7 @@ const WishList: FC<Props> = ({
   const [userId, setUserId] = useState(0);
   const [wishlistId, setWishlistId] = useState(0);
   const [token, setToken] = useState("");
-  const removeItemFromWishlist = (productId: number) => {
-    const updatedWishlist = wishlist.filter(
-      (item) => item.product_id !== productId
-    );
-    setWishlist(updatedWishlist);
-  };
+
   const addProductToCart = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     product_id: number
@@ -42,12 +37,13 @@ const WishList: FC<Props> = ({
       setSuccess(true);
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to cart!");
-      removeItemFromWishlist(product_id);
       console.log(res);
+      handleDeletewishlist(product_id);
     } catch (error) {
       console.error();
     }
   };
+
   const handleDeletewishlist = async (product_id: number) => {
     try {
       const res = await deleteWishlist({
@@ -79,19 +75,10 @@ const WishList: FC<Props> = ({
     const fetchWishlist = async (userId: number) => {
       const wishlists = await fetchWishlistByUser(userId);
       console.log(wishlists);
-      const getorderid = wishlists.filter(
-        (o: { status: string }) => o.status === "added"
-      );
-      console.log(getorderid);
-
-      const orderid = getorderid[0];
-      if (orderid?.order_id !== undefined) {
-        setWishlistId(orderid.order_id);
-      }
 
       const filteredWishlist = wishlists.filter(
         (wishlist: { users_id: number; status: string }) =>
-          wishlist.users_id === userId && wishlist.status === "added"
+          wishlist.users_id === userId
       );
       setWishlist(filteredWishlist);
     };
@@ -100,6 +87,7 @@ const WishList: FC<Props> = ({
       fetchWishlist(userId);
     }
   }, [token, userId, wishlistId]);
+  useEffect(() => {}, [wishlist]);
   return (
     <>
       <div className="py-5">
