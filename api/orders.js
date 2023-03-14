@@ -8,6 +8,7 @@ const {
   newOrder,
   updateOrder,
   getOrderByUserId,
+  fetchAllOrders,
 } = require("../db/models/orders");
 
 //Get orders
@@ -71,6 +72,15 @@ ordersRouter.get("/:users_id", async (req, res, next) => {
   } catch (error) {
     console.error(error);
     next(error);
+  }
+});
+
+ordersRouter.get("/", async (req, res, next) => {
+  try {
+    const orders = await fetchAllOrders();
+    res.send(orders);
+  } catch (error) {
+    console.error(error);
   }
 });
 

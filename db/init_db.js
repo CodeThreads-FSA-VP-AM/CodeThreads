@@ -22,6 +22,7 @@ async function buildTables() {
       DROP TABLE IF EXISTS tags CASCADE;
       DROP TABLE IF EXISTS reviews CASCADE;
       DROP TABLE IF EXISTS sizes CASCADE;
+      DROP TABLE IF EXISTS wishlist CASCADE;
       DROP TABLE IF EXISTS orders CASCADE;
       DROP TABLE IF EXISTS products CASCADE;
       DROP TABLE IF EXISTS users CASCADE;
@@ -64,6 +65,12 @@ async function buildTables() {
         is_cart BOOLEAN NOT NULL,
         purchased_at TIMESTAMP DEFAULT NOW()
       );
+
+      CREATE TABLE wishlist (
+        id SERIAL PRIMARY KEY,
+        users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        is_wishlist BOOLEAN NOT NULL
+      );
         
 
       CREATE TABLE tags (
@@ -99,6 +106,7 @@ async function buildTables() {
       CREATE TABLE order_products (
         id SERIAL PRIMARY KEY,
         order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+        wishlist_id INTEGER REFERENCES wishlist(id) ON DELETE CASCADE,
         status VARCHAR(255) NOT NULL,
         quantity INTEGER NOT NULL,
         product_id INTEGER REFERENCES products(id) ON DELETE CASCADE
