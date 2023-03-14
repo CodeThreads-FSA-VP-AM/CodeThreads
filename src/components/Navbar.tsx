@@ -119,7 +119,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                 </li>
                 <li>
                   <NavLink
-                    to='/products'
+                    to='/mens'
                     className='text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline'
                   >
                     Mens
@@ -127,7 +127,7 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                 </li>
                 <li>
                   <NavLink
-                    to='/products'
+                    to='/womens'
                     className='text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline'
                   >
                     Womens
