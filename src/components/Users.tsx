@@ -71,7 +71,10 @@ const Users = () => {
         <tbody>
           {users.map((user) => {
             return (
-              <tr className="text-xs bg-blue-50 border-b border-gray-100">
+              <tr
+                className="text-xs bg-blue-50 border-b border-gray-100"
+                key={user.id}
+              >
                 <td className="pl-6 py-6 bg-blue-100">{user.id}</td>
                 <td className="pl-6 capitalize">{user.username}</td>
                 <td>{user.email}</td>
@@ -88,45 +91,6 @@ const Users = () => {
               </tr>
             );
           })}
-          {/* <tr className="text-xs border-b border-gray-100">
-            <td className="pl-6 py-6 bg-blue-50">Cedric Kelly</td>
-            <td className="pl-6">Javascript Developer</td>
-            <td>Edinburgh</td>
-            <td>22</td>
-            <td>22/04/2021</td>
-            <td>
-              {" "}
-              <button className="border border-red-600 p-1 text-white bg-red-400 rounded-md">
-                Delete user
-              </button>
-            </td>
-          </tr> */}
-          {/* <tr className="text-xs bg-blue-50 border-b border-gray-100">
-            <td className="pl-6 py-6 bg-blue-100">Garrett Winters</td>
-            <td className="pl-6">Director</td>
-            <td>San Francisco</td>
-            <td>63</td>
-            <td>22/04/2021</td>
-            <td>
-              {" "}
-              <button className="border border-red-600 p-1 text-white bg-red-400 rounded-md">
-                Delete user
-              </button>
-            </td>
-          </tr>
-          <tr className="text-xs">
-            <td className="pl-6 py-6 bg-blue-50">Tiger Nixon</td>
-            <td className="pl-6">Systen Architect</td>
-            <td>San Francisco</td>
-            <td>61</td>
-            <td>22/04/2021</td>
-            <td>
-              {" "}
-              <button className="border border-red-600 p-1 text-white bg-red-400 rounded-md">
-                Delete user
-              </button>
-            </td>
-          </tr> */}
         </tbody>
       </table>
     </section>
