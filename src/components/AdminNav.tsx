@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Orders from "./Orders";
 import Performance from "./Performance";
 import Profile from "./Profile";
 import Products from "./Products";
 import Users from "./Users";
+import AllOrders from "./AllOrders";
 type Props = {
   setProductId: (id: number) => void;
   user: any;
@@ -300,7 +300,7 @@ const AdminNav: React.FC<Props> = ({ setProductId, user }) => {
         {activeComponent === "products" ? (
           <Products setProductId={setProductId} user={user} />
         ) : null}
-        {activeComponent === "orders" ? <Orders /> : null}
+        {activeComponent === "orders" ? <AllOrders /> : null}
         {activeComponent === "performance" ? <Performance /> : null}
         {activeComponent === "profile" ? <Profile /> : null}
         {/* <div className="w-full h-full"></div> */}
