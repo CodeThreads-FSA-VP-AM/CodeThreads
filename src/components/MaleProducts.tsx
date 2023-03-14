@@ -102,14 +102,16 @@ const MaleProducts: React.FC<Props> = ({ setProductId, user }) => {
               </>
             )}
 
-            <input
-              className='w-full max-w-xs input input-bordered input-secondary'
-              value={search}
-              placeholder='search'
-              onChange={(event) => {
-                setSearch(event.target.value);
-              }}
-            />
+            <div className='flex items-center justify-center pt-9 '>
+              <input
+                className='w-full max-w-xs input input-bordered input-secondary border rounded border-gray-800 p-3'
+                value={search}
+                placeholder='search'
+                onChange={(event) => {
+                  setSearch(event.target.value);
+                }}
+              />
+            </div>
           </header>
           {/* <!-- text - end --> */}
 
