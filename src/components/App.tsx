@@ -25,7 +25,7 @@ import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 import Featured from "./Featured";
 import Home from "./Home";
-import { fetchProductById, fetchUser } from "../api/api";
+import { fetchProductById, fetchUser, fetchOrders } from "../api/api";
 import EditReviews from "./EditReviews";
 import { User } from "./Interfaces";
 import NotFound from "./NotFound";
@@ -38,6 +38,7 @@ import OrderHistroy from "./OrderHistroy";
 import UserProfile from "./UserProfile";
 import AccountSettings from "./AccountSettings";
 import SuccessNotification from "./SuccessNotification";
+import AllOrders from "./AllOrders";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -50,6 +51,7 @@ const App: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const [successTitle, setSuccessTitle] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+
   const options = {
     // passing the client secret obtained from the server
     clientSecret:
@@ -175,6 +177,11 @@ const App: React.FC = () => {
                 <AccountSettings user={user} token={token} setUser={setUser} />
               }
             />
+            {/* <Route
+              element={
+                <AllOrders />
+              }
+            /> */}
           </Routes>
         </div>
       </Router>
