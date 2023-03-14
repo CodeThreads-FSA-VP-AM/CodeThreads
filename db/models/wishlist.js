@@ -114,8 +114,25 @@ const fetchWishlistById = async (users_id) => {
     console.error(error);
   }
 };
+const deleteFromWishlist = async ({ id }) => {
+  try {
+    const {
+      rows: [wishlist],
+    } = await client.query(
+      `
+    DELETE FROM order_products WHERE product_id=$1 
+    RETURNING *
+    `,
+      [id]
+    );
+    return wishlist;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 module.exports = {
   addProductToWishlist,
   fetchWishlistById,
+  deleteFromWishlist,
 };

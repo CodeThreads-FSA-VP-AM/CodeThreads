@@ -4,6 +4,7 @@ const wishlistRouter = express.Router();
 const {
   addProductToWishlist,
   fetchWishlistById,
+  deleteFromWishlist,
 } = require("../db/models/wishlist");
 
 wishlistRouter.post("/add", async (req, res, next) => {
@@ -34,5 +35,14 @@ wishlistRouter.get("/:users_id", async (req, res, next) => {
     next(error);
   }
 });
-
+wishlistRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const wishlistId = req.params;
+    const deletedWishlistItem = await deleteFromWishlist(wishlistId);
+    res.send(deletedWishlistItem);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 module.exports = wishlistRouter;

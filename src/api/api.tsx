@@ -561,3 +561,16 @@ export const fetchWishlistByUser = async (userId: number) => {
   console.log(json);
   return json;
 };
+
+export const deleteWishlist = async (data: Delete) => {
+  const { product_id, token } = data;
+  const res = await fetch(`${APIURL}/wishlist/${product_id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = res.json();
+  return json;
+};
