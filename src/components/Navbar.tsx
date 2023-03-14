@@ -4,14 +4,17 @@ import { NavLink, useNavigate } from 'react-router-dom';
 type Props = {
   user: any;
   token: string;
+  productsLength: number;
   setToken: (token: string) => void;
 };
 
-const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
+const Navbar: React.FC<Props> = ({ user, token, setToken, productsLength }) => {
   const [searchInput, setSearchInput] = useState(true);
   const [mdOptionsToggle, setMdOptionsToggle] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const [profile, setProfile] = useState(false);
+
+  console.log(productsLength);
 
   const navigate = useNavigate();
 
@@ -241,8 +244,19 @@ const Navbar: React.FC<Props> = ({ user, token, setToken }) => {
                           strokeLinejoin='round'
                         />
                       </svg>
-                      <p className='text-[14px]'>
+                      {/* <p className='text-[14px]'>
                         {token ? <div className='animate-ping w-1.5 h-1.5 bg-red-700 rounded-full  m-auto duration-100' /> : null}
+                      </p> */}
+                      <p className='text-[14px]'>
+                        {token ? (
+                          <div
+                            className={`animate-pulse w-4 h-4 bg-red-600 text-sm rounded-full flex justify-center items-center m-auto ${
+                              productsLength > 0 ? 'text-white' : 'hidden'
+                            }`}
+                          >
+                            {productsLength}
+                          </div>
+                        ) : null}
                       </p>
                     </NavLink>
                   </button>

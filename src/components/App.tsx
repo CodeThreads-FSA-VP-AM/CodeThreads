@@ -45,6 +45,8 @@ const App: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const [successTitle, setSuccessTitle] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+  const [productsLength, setProductsLength] = useState(0);
+
   const options = {
     // passing the client secret obtained from the server
     clientSecret: '{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}',
@@ -97,7 +99,7 @@ const App: React.FC = () => {
   return (
     <>
       <Router>
-        <Navbar user={user} token={token} setToken={setToken} />
+        <Navbar user={user} token={token} setToken={setToken} productsLength={productsLength} />
         {success && <SuccessNotification success={success} setSuccess={setSuccess} successTitle={successTitle} successMsg={successMsg} />}
         <div>
           <Routes>
@@ -126,13 +128,13 @@ const App: React.FC = () => {
                 <SingleView quantity={quantity} user={user} setSuccess={setSuccess} setSuccessTitle={setSuccessTitle} setSuccessMsg={setSuccessMsg} />
               }
             />
-            <Route path='/orders' element={<Orders />} />
+            <Route path='/orders' element={<Orders setProductsLength={setProductsLength} />} />
             <Route path='/addproduct' element={<AddProduct />} />
             <Route path='/edit/:id' element={<EditProduct product={product} productId={productId} setProductId={setProductId} />} />
             <Route path='/featured' element={<Featured />} />
             <Route path='/home' element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
-            <Route path='/admin' element={<AdminNav setProductId={setProductId} user={user} />} />
+            <Route path='/admin' element={<AdminNav setProductId={setProductId} user={user} setProductsLength={setProductsLength} />} />
             <Route path='/checkout' element={<StripeContainer />} />
             <Route path='/success' element={<Completion />} />
             <Route path='/test' element={<TestStripe />} />
