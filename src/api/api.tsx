@@ -8,6 +8,22 @@ import {
   SizeQTY,
 } from "../components/Interfaces";
 
+//Fetch all users
+
+export const fetchAllUsers = async () => {
+  try {
+    const res = await fetch(`${APIURL}/users`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 //POST register user
 type Register = {
   username: string;

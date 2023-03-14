@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchAllUsers } from "../api/api";
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  created_at: string;
+}
 
-type Props = {};
+const Users = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const getAllUsers = async () => {
+    try {
+      const res = await fetchAllUsers();
+      console.log(res);
+      setUsers(res);
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
-const Users = (props: Props) => {
   return (
     <section className="bg-gray-50 py-8 px-4">
       <div>
@@ -26,11 +46,7 @@ const Users = (props: Props) => {
                 <p>Email</p>
               </a>
             </th>
-            <th>
-              <a className="flex items-center text-xs text-gray-500" href="#">
-                <p>Password</p>
-              </a>
-            </th>
+
             <th>
               <a className="flex items-center text-xs text-gray-500" href="#">
                 <p>Users since</p>
@@ -39,19 +55,23 @@ const Users = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          <tr className="text-xs bg-blue-50 border-b border-gray-100">
-            <td className="pl-6 py-6 bg-blue-100">Ashton Cox</td>
-            <td className="pl-6">Technical Author</td>
-            <td>San Francisco</td>
-            <td>66</td>
-            <td>22/04/2021</td>
-            <td>
-              <button className="border border-red-600 p-1 text-white bg-red-400 rounded-md">
-                Delete user
-              </button>
-            </td>
-          </tr>
-          <tr className="text-xs border-b border-gray-100">
+          {users.map((user) => {
+            return (
+              <tr className="text-xs bg-blue-50 border-b border-gray-100">
+                <td className="pl-6 py-6 bg-blue-100">{user.id}</td>
+                <td className="pl-6 capitalize">{user.username}</td>
+                <td>{user.email}</td>
+
+                <td>{user.created_at}</td>
+                <td>
+                  <button className="border border-red-600 p-1 text-white bg-red-400 rounded-md">
+                    Delete user
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+          {/* <tr className="text-xs border-b border-gray-100">
             <td className="pl-6 py-6 bg-blue-50">Cedric Kelly</td>
             <td className="pl-6">Javascript Developer</td>
             <td>Edinburgh</td>
@@ -63,8 +83,8 @@ const Users = (props: Props) => {
                 Delete user
               </button>
             </td>
-          </tr>
-          <tr className="text-xs bg-blue-50 border-b border-gray-100">
+          </tr> */}
+          {/* <tr className="text-xs bg-blue-50 border-b border-gray-100">
             <td className="pl-6 py-6 bg-blue-100">Garrett Winters</td>
             <td className="pl-6">Director</td>
             <td>San Francisco</td>
@@ -89,7 +109,7 @@ const Users = (props: Props) => {
                 Delete user
               </button>
             </td>
-          </tr>
+          </tr> */}
         </tbody>
       </table>
     </section>
