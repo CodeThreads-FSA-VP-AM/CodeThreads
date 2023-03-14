@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
-import Home from './Home';
-import Orders from './Orders';
-import Performance from './Performance';
-import Profile from './Profile';
-import Products from './Products';
+
+import React, { useEffect, useState } from "react";
+import Performance from "./Performance";
+import Profile from "./Profile";
+import Products from "./Products";
+import Users from "./Users";
+import AllOrders from "./AllOrders";
+import { fetchOrders } from "../api/api";
+
 type Props = {
   setProductsLength: (products: number) => void;
   setProductId: (id: number) => void;
   user: any;
 };
-const AdminNav: React.FC<Props> = ({ setProductId, user, setProductsLength }) => {
-  const [activeComponent, setActiveComponent] = useState('home');
 
+const AdminNav: React.FC<Props> = ({ setProductId, user }) => {
+  const [activeComponent, setActiveComponent] = useState("home");
+  const [allOrders, setAllOrders] = useState([]);
+  console.log(allOrders);
+
+
+  useEffect(() => {
+    const getAllOrders = async () => {
+      const orders = await fetchOrders();
+      setAllOrders(orders);
+    };
+    getAllOrders();
+  }, []);
   return (
     <div className='flex flex-no-wrap'>
       <div className='w-64 absolute sm:relative bg-white shadow md:h-full flex-col justify-between hidden sm:flex'>
@@ -43,7 +57,9 @@ const AdminNav: React.FC<Props> = ({ setProductId, user, setProductsLength }) =>
                   <rect x={4} y={14} width={6} height={6} rx={1} />
                   <rect x={14} y={14} width={6} height={6} rx={1} />
                 </svg>
-                <span className='text-sm  ml-2'>Dashboard</span>
+
+                <span className="text-sm  ml-2">Users</span>
+
               </div>
             </li>
             <li
@@ -296,12 +312,18 @@ const AdminNav: React.FC<Props> = ({ setProductId, user, setProductsLength }) =>
           </ul>
         </div>
       </div>
-      <div className='container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6'>
-        {activeComponent === 'home' ? <Home /> : null}
-        {activeComponent === 'products' ? <Products setProductId={setProductId} user={user} /> : null}
-        {activeComponent === 'orders' ? <Orders setProductsLength={setProductsLength} /> : null}
-        {activeComponent === 'performance' ? <Performance /> : null}
-        {activeComponent === 'profile' ? <Profile /> : null}
+
+      <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
+        {activeComponent === "home" ? <Users /> : null}
+        {activeComponent === "products" ? (
+          <Products setProductId={setProductId} user={user} />
+        ) : null}
+        {activeComponent === "orders" ? (
+          <AllOrders allOrders={allOrders} setAllOrders={setAllOrders} />
+        ) : null}
+        {activeComponent === "performance" ? <Performance /> : null}
+        {activeComponent === "profile" ? <Profile /> : null}
+
         {/* <div className="w-full h-full"></div> */}
       </div>
     </div>

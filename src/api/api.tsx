@@ -8,6 +8,22 @@ import {
   SizeQTY,
 } from "../components/Interfaces";
 
+//Fetch all users
+
+export const fetchAllUsers = async () => {
+  try {
+    const res = await fetch(`${APIURL}/users`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 //POST register user
 type Register = {
   username: string;
@@ -103,7 +119,28 @@ export const updateProfile = async (data: UpdateUser) => {
   }
 };
 // delete user
-
+type DeleteUser = {
+  userId: any;
+};
+export const deleteUser = async (data: DeleteUser) => {
+  const { userId } = data;
+  try {
+    const res = await fetch(`${APIURL}/users/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    });
+    console.log(userId);
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+};
 // Product fetch requests
 
 // fetch all products
@@ -312,6 +349,21 @@ export const fetchOrder = async (userId: number) => {
   return json;
 };
 
+export const fetchOrders = async () => {
+  try {
+    const res = await fetch(`${APIURL}/orders`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    console.log(json);
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const fetchOrderHistory = async (userId: number) => {
   const res = await fetch(`${APIURL}/orders/history/${userId}`, {
     headers: {
@@ -474,4 +526,51 @@ export const updateCart = async (userId: number, token: string) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+type Wishlist = {
+  product_id?: number;
+  quantity?: number;
+  token: string;
+};
+
+export const createWishlist = async (data: Wishlist) => {
+  const { product_id, quantity, token } = data;
+  const res = await fetch(`${APIURL}/wishlist/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      product_id: `${product_id}`,
+      quantity: `${quantity}`,
+    }),
+  });
+  const json = await res.json();
+  return json;
+};
+
+export const fetchWishlistByUser = async (userId: number) => {
+  const res = await fetch(`${APIURL}/wishlist/${userId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await res.json();
+  console.log(json);
+  return json;
+};
+
+export const deleteWishlist = async (data: Delete) => {
+  const { product_id, token } = data;
+  const res = await fetch(`${APIURL}/wishlist/${product_id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = res.json();
+  return json;
 };

@@ -3,6 +3,8 @@
 
 import { ReactNode } from "react";
 
+
+
 export interface Product {
   product_id(product_id: any): void;
   status: ReactNode;
@@ -49,6 +51,21 @@ export interface SizeQTY {
   medium: number
   large: number
   xlarge: number
+}
+
+export interface WishlistData {
+  id: number;
+  order_id: number;
+  product_id: number;
+  users_id: number;
+  price: number;
+  status: string;
+  title: string;
+  description: string;
+  quantity: number;
+  front_url: string;
+  back_url: string;
+
 }
 
 export interface OrderData {

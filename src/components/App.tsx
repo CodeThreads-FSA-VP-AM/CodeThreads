@@ -7,6 +7,7 @@ const stripePromise = loadStripe('pk_test_51MjulLCrdvy0lSlL6cOtaubo6pIIeBbbaaWDi
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 // import { getAPIHealth } from "../axios-services";
+
 import '../style/App.css';
 import Login from './Login';
 import Navbar from './Navbar';
@@ -33,6 +34,8 @@ import AccountSettings from './AccountSettings';
 import SuccessNotification from './SuccessNotification';
 import MaleProducts from './MaleProducts';
 import FemaleProducts from './FemaleProducts';
+import AllOrders from "./AllOrders";
+import WishList from "./WishList";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState('');
@@ -43,9 +46,11 @@ const App: React.FC = () => {
   const [user, setUser] = useState({});
   const [price, setPrice] = useState(0);
   const [success, setSuccess] = useState(false);
+
   const [successTitle, setSuccessTitle] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [productsLength, setProductsLength] = useState(0);
+
 
   const options = {
     // passing the client secret obtained from the server
@@ -134,13 +139,34 @@ const App: React.FC = () => {
             <Route path='/featured' element={<Featured />} />
             <Route path='/home' element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
-            <Route path='/admin' element={<AdminNav setProductId={setProductId} user={user} setProductsLength={setProductsLength} />} />
-            <Route path='/checkout' element={<StripeContainer />} />
-            <Route path='/success' element={<Completion />} />
-            <Route path='/test' element={<TestStripe />} />
-            <Route path='/orderhistory' element={<OrderHistroy />} />
-            <Route path='/userprofile' element={<UserProfile />} />
-            <Route path='/accountsettings' element={<AccountSettings user={user} token={token} setUser={setUser} />} />
+
+            <Route
+              path="/admin"
+              element={<AdminNav setProductId={setProductId} user={user} setProductsLength={setProductsLength} />}
+            />
+            <Route path="/checkout" element={<StripeContainer />} />
+            <Route path="/success" element={<Completion />} />
+            <Route path="/test" element={<TestStripe />} />
+            <Route path="/orderhistory" element={<OrderHistroy />} />
+            <Route path="/userprofile" element={<UserProfile />} />
+            <Route
+              path="/accountsettings"
+              element={
+                <AccountSettings user={user} token={token} setUser={setUser} />
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <WishList
+                  quantity={quantity}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
+            />
+
           </Routes>
         </div>
       </Router>

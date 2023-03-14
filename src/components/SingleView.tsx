@@ -1,10 +1,16 @@
-import React, { FC, useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { fetchProductById, createOrder, fetchDeleteProduct } from '../api/api';
-import AddReview from './AddReview';
-import { Product, Review } from './Interfaces';
-import Loader from './Loader';
-import Reviews from './Reviews';
+
+import React, { FC, useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import {
+  fetchProductById,
+  createOrder,
+  fetchDeleteProduct,
+  createWishlist,
+} from "../api/api";
+import AddReview from "./AddReview";
+import { Product, Review } from "./Interfaces";
+import Loader from "./Loader";
+import Reviews from "./Reviews";
 
 type Props = {
   quantity: number;
@@ -61,7 +67,31 @@ const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitl
       console.error();
     }
   };
-  const guestAddToCart: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+
+  const addProductToWishlist: React.MouseEventHandler<
+    HTMLButtonElement
+  > = async (e) => {
+    e.preventDefault();
+    console.log(productId, token);
+    try {
+      const res = await createWishlist({
+        product_id: productId,
+        quantity: 1,
+        token,
+      });
+      setSuccess(true);
+      setSuccessTitle("Success!");
+      setSuccessMsg("Item added to wishlist!");
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const guestAddToCart: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+
     e.preventDefault();
     try {
       let cart = sessionStorage.getItem('cart') || '[]';
@@ -255,16 +285,24 @@ const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitl
                     </div>
                     {/* remove disabled to use */}
                     {token ? (
-                      <button
-                        type='submit'
-                        onClick={addProductToCart}
-                        className={`block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500 ${
-                          product?.tags.some((tag: { name: string }) => tag.name === 'soldout') ? 'bg-red-600 hover:bg-red-500' : 'bg-green-600'
-                        }`}
-                        disabled={product?.tags.some((tag: { name: string }) => tag.name === 'soldout')}
-                      >
-                        {product?.tags.some((tag: { name: string }) => tag.name === 'soldout') ? 'Sold Out' : 'Add to Cart'}
-                      </button>
+
+                      <>
+                        <button
+                          type="submit"
+                          onClick={addProductToCart}
+                          className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
+                        >
+                          Add to Cart
+                        </button>
+                        <button
+                          type="submit"
+                          onClick={addProductToWishlist}
+                          className="block px-5 py-3 text-xs font-medium text-white bg-indigo-600 rounded hover:bg-green-500"
+                        >
+                          Add to wishlist
+                        </button>
+                      </>
+
                     ) : (
                       <button
                         type='submit'
