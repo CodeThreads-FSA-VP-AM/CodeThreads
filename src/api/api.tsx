@@ -349,6 +349,21 @@ export const fetchOrder = async (userId: number) => {
   return json;
 };
 
+export const fetchOrders = async () => {
+  try {
+    const res = await fetch(`${APIURL}/orders`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    console.log(json);
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const fetchOrderHistory = async (userId: number) => {
   const res = await fetch(`${APIURL}/orders/history/${userId}`, {
     headers: {

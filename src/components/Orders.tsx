@@ -229,7 +229,7 @@ const Orders = () => {
                           <img
                             src={o.front_url}
                             alt="..."
-                            className="object-cover object-center w-full h-full"
+                            className="object-cover object-center w-full h-full rounded-xl shadow-2xl"
                           />
                         </div>
                         <div className="md:pl-3 md:w-3/4">
