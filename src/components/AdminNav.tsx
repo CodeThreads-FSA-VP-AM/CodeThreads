@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Home from "./Home";
 import Orders from "./Orders";
 import Performance from "./Performance";
 import Profile from "./Profile";
 import Products from "./Products";
+import Users from "./Users";
 type Props = {
   setProductId: (id: number) => void;
   user: any;
@@ -42,7 +42,7 @@ const AdminNav: React.FC<Props> = ({ setProductId, user }) => {
                   <rect x={4} y={14} width={6} height={6} rx={1} />
                   <rect x={14} y={14} width={6} height={6} rx={1} />
                 </svg>
-                <span className="text-sm  ml-2">Dashboard</span>
+                <span className="text-sm  ml-2">Users</span>
               </div>
             </li>
             <li
@@ -296,7 +296,7 @@ const AdminNav: React.FC<Props> = ({ setProductId, user }) => {
         </div>
       </div>
       <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
-        {activeComponent === "home" ? <Home /> : null}
+        {activeComponent === "home" ? <Users /> : null}
         {activeComponent === "products" ? (
           <Products setProductId={setProductId} user={user} />
         ) : null}
