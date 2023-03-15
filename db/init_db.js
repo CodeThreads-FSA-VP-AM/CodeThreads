@@ -382,7 +382,217 @@ const createInitialProducts = async () => {
           "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
         back_url:
           "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-        tags: ["soldout", "featured", "womens"],
+        tags: ["soldout", "womens"],
+        small: 0,
+        medium: 0,
+        large: 0,
+        xlarge: 0,
+      },
+      {
+        title: "fluffy black jacket",
+        description: "fresh 💦",
+        price: 299.99,
+        front_url:
+          "https://images.unsplash.com/photo-1629374029669-aab2f060553b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "womens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "black styled shirt",
+        description: "fresh 💦",
+        price: 399.99,
+        front_url:
+          "https://images.unsplash.com/photo-1626948683848-a20d8b769e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "womens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "dark grey trench coat",
+        description: "stranger danger 👤",
+        price: 1999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1616847220575-31b062a4cd05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["soldout", "womens"],
+        small: 0,
+        medium: 0,
+        large: 0,
+        xlarge: 0,
+      },
+      {
+        title: "white tank top",
+        description: "👀",
+        price: 1999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1611601679655-7c8bc197f0c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["soldout", "womens"],
+        small: 0,
+        medium: 0,
+        large: 0,
+        xlarge: 0,
+      },
+      {
+        title: "black oversized shirt",
+        description: "get this on discount",
+        price: 499.99,
+        front_url:
+          "https://images.unsplash.com/photo-1626948683538-fed29f226292?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "womens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "brown shortsleeve shirt",
+        description: "new and affordable",
+        price: 1999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1531265180709-e9b5fb594ca6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["soldout", "mens"],
+        small: 0,
+        medium: 0,
+        large: 0,
+        xlarge: 0,
+      },
+      {
+        title: "light grey shirt",
+        description: "new and affordable",
+        price: 499.99,
+        front_url:
+          "https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "mens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "lightblue jean jacket",
+        description: "new and affordable",
+        price: 399.99,
+        front_url:
+          "https://images.unsplash.com/photo-1492447273231-0f8fecec1e3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "mens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "light brown jacket",
+        description: "new and affordable",
+        price: 899.99,
+        front_url:
+          "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "mens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "beige pullover",
+        description: "new and affordable",
+        price: 9999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1613053341085-db794820ce43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "mens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "pink sweater",
+        description: "yo check this out",
+        price: 899.99,
+        front_url:
+          "https://images.unsplash.com/photo-1507253831417-37c43a944f51?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["soldout", "mens"],
+        small: 0,
+        medium: 0,
+        large: 0,
+        xlarge: 0,
+      },
+      {
+        title: "floral shirt",
+        description: "new and affordable",
+        price: 19999.99,
+        front_url:
+          "https://images.unsplash.com/photo-1517267367903-519607b9060c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "mens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "grey blazer",
+        description: "nerd",
+        price: 199.99,
+        front_url:
+          "https://images.unsplash.com/photo-1555069519-127aadedf1ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["soldout", "mens"],
+        small: 0,
+        medium: 0,
+        large: 0,
+        xlarge: 0,
+      },
+      {
+        title: "red flannel",
+        description: "new and affordable",
+        price: 99.99,
+        front_url:
+          "https://images.unsplash.com/photo-1434510423563-c7e99bbc5bbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "mens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
+      {
+        title: "black windbreaker",
+        description: "fresh 👀",
+        price: 699.99,
+        front_url:
+          "https://images.unsplash.com/photo-1536321116941-0fd6d4d7a23f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["new", "featured", "mens"],
         small: 10,
         medium: 10,
         large: 10,

@@ -329,11 +329,26 @@ const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitl
                         </button>
                       </>
                     ) : (
+                      // <button
+                      //   type="submit"
+                      //   onClick={guestAddToCart}
+                      //   className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500">
+                      //   Add to Cart
+                      // </button>
                       <button
                         type="submit"
                         onClick={guestAddToCart}
-                        className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500">
-                        Add to Cart
+                        className={`block px-5 py-3 text-xs font-medium text-white rounded hover:bg-green-500 ${
+                          product?.tags.some((tag: { name: string }) => tag.name === "soldout")
+                            ? "bg-red-600 hover:bg-red-500"
+                            : "bg-green-600"
+                        }`}
+                        disabled={product?.tags.some(
+                          (tag: { name: string }) => tag.name === "soldout"
+                        )}>
+                        {product?.tags.some((tag: { name: string }) => tag.name === "soldout")
+                          ? "Sold Out"
+                          : "Add to Cart"}
                       </button>
                     )}
                   </div>

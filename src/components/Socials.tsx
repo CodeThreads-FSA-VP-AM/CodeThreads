@@ -2,38 +2,36 @@ import React from "react";
 
 export default function Socials() {
   return (
-    <div className=" 2xl:container 2xl:mx-auto md:py-12 lg:px-20 md:px-6 py-9 px-4">
-      <div className=" text-center">
-        <h2 className=" font-semibold lg:text-4xl text-3xl lg:leading-9 md:leading-7 leading-9 text-gray-800 md:w-full w-9/12 mx-auto">
+    <div className="px-4 2xl:container 2xl:mx-auto md:py-12 lg:px-20 md:px-6 py-9">
+      <div className="text-center ">
+        <h2 className="w-9/12 mx-auto text-3xl font-semibold leading-9 text-gray-800 lg:text-4xl lg:leading-9 md:leading-7 md:w-full">
           Follow Us on Instagram
         </h2>
-        <p className=" font-normal text-base leading-6 text-gray-600 mt-4 lg:w-5/12 md:w-9/12 mx-auto">
-          Follow us on instagram @
-          <span className="underline cursor-pointer">codeThreads</span> and tag
-          us to get featured on our timeline
+        <p className="mx-auto mt-4 text-base font-normal leading-6 text-gray-600 lg:w-5/12 md:w-9/12">
+          Follow us on instagram @<span className="underline cursor-pointer">codeThreads</span> and
+          tag us to get featured on our timeline
         </p>
       </div>
-      <div className=" grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:grap-8 md:gap-6 gap-4 mt-10">
+      <div className="grid grid-cols-1 gap-4 mt-10 lg:grid-cols-4 sm:grid-cols-2 lg:grap-8 md:gap-6">
         <div className="relative group">
           <img
-            src="https://i.ibb.co/QHS8Ngp/pexels-alana-sousa-3294250-1.png"
+            src="https://images.unsplash.com/photo-1524667857789-4c473936e46c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80"
             alt="A picture of a sitting dog"
-            className=" lg:block hidden w-full  border rounded-xl"
+            className="hidden w-full border lg:block rounded-xl"
           />
           <img
-            src="https://i.ibb.co/mNPBgQN/pexels-alana-sousa-3294250-1-1.png"
+            src="https://images.unsplash.com/photo-1524667857789-4c473936e46c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80"
             alt="A picture of a sitting dog"
-            className="lg:hidden block w-full  border rounded-xl"
+            className="block w-full border lg:hidden rounded-xl"
           />
-          <div className=" flex justify-center items-center opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full" />
-          <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-100">
+          <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50" />
+          <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full opacity-0 hover:opacity-100">
             <svg
               width={64}
               height={64}
               viewBox="0 0 64 64"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M42.6665 10.6665H21.3332C15.4421 10.6665 10.6665 15.4421 10.6665 21.3332V42.6665C10.6665 48.5575 15.4421 53.3332 21.3332 53.3332H42.6665C48.5575 53.3332 53.3332 48.5575 53.3332 42.6665V21.3332C53.3332 15.4421 48.5575 10.6665 42.6665 10.6665Z"
                 stroke="white"
@@ -60,24 +58,23 @@ export default function Socials() {
         </div>
         <div className="relative group">
           <img
-            src="https://i.ibb.co/T8jgRy3/pexels-leah-kelley-1449667-1.png"
+            src="https://images.unsplash.com/photo-1513431215150-81e6895be972?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80"
             alt="Smiling Girl"
-            className=" lg:block hidden w-full border rounded-xl"
+            className="hidden w-full border lg:block rounded-xl"
           />
           <img
-            src="https://i.ibb.co/YD8nNMR/pexels-leah-kelley-1449667-1-1.png"
+            src="https://images.unsplash.com/photo-1513431215150-81e6895be972?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80"
             alt="Smiling Girl"
-            className="lg:hidden block w-full border rounded-xl "
+            className="block w-full border lg:hidden rounded-xl "
           />
-          <div className="opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full" />
-          <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-100">
+          <div className="absolute top-0 left-0 w-full h-full opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50" />
+          <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full opacity-0 hover:opacity-100">
             <svg
               width={64}
               height={64}
               viewBox="0 0 64 64"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M42.6665 10.6665H21.3332C15.4421 10.6665 10.6665 15.4421 10.6665 21.3332V42.6665C10.6665 48.5575 15.4421 53.3332 21.3332 53.3332H42.6665C48.5575 53.3332 53.3332 48.5575 53.3332 42.6665V21.3332C53.3332 15.4421 48.5575 10.6665 42.6665 10.6665Z"
                 stroke="white"
@@ -104,24 +101,23 @@ export default function Socials() {
         </div>
         <div className="relative group">
           <img
-            src="https://i.ibb.co/F3dzNWD/pexels-spencer-selover-775358-1.png"
-            alt="Men Posing"
-            className=" lg:block hidden w-full  border rounded-xl"
+            src="https://images.unsplash.com/photo-1499155286265-79a9dc9c6380?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80"
+            alt="woman Posing"
+            className="hidden w-full border lg:block rounded-xl"
           />
           <img
-            src="https://i.ibb.co/myWxfSm/pexels-spencer-selover-775358-1-1.png"
-            alt="Men Posing"
-            className="lg:hidden block w-full  border rounded-xl"
+            src="https://images.unsplash.com/photo-1499155286265-79a9dc9c6380?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80"
+            alt="woman Posing"
+            className="block w-full border lg:hidden rounded-xl"
           />
-          <div className="opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full" />
-          <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-100">
+          <div className="absolute top-0 left-0 w-full h-full opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50" />
+          <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full opacity-0 hover:opacity-100">
             <svg
               width={64}
               height={64}
               viewBox="0 0 64 64"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M42.6665 10.6665H21.3332C15.4421 10.6665 10.6665 15.4421 10.6665 21.3332V42.6665C10.6665 48.5575 15.4421 53.3332 21.3332 53.3332H42.6665C48.5575 53.3332 53.3332 48.5575 53.3332 42.6665V21.3332C53.3332 15.4421 48.5575 10.6665 42.6665 10.6665Z"
                 stroke="white"
@@ -148,24 +144,23 @@ export default function Socials() {
         </div>
         <div className="relative group">
           <img
-            src="https://i.ibb.co/DwcwgDP/pexels-chevanon-photography-1108099-1.png"
-            alt="2 puppies"
-            className=" lg:block hidden w-full  border rounded-xl"
+            src="https://images.unsplash.com/photo-1535207010348-71e47296838a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80"
+            alt="neon"
+            className="hidden w-full border lg:block rounded-xl"
           />
           <img
-            src="https://i.ibb.co/5cDQZ2r/pexels-chevanon-photography-1108099-1-1.png"
-            alt="2 puppies"
-            className="lg:hidden block w-full  border rounded-xl"
+            src="https://images.unsplash.com/photo-1535207010348-71e47296838a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80"
+            alt="neon"
+            className="block w-full border lg:hidden rounded-xl"
           />
-          <div className="opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full" />
-          <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-100">
+          <div className="absolute top-0 left-0 w-full h-full opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50" />
+          <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full opacity-0 hover:opacity-100">
             <svg
               width={64}
               height={64}
               viewBox="0 0 64 64"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M42.6665 10.6665H21.3332C15.4421 10.6665 10.6665 15.4421 10.6665 21.3332V42.6665C10.6665 48.5575 15.4421 53.3332 21.3332 53.3332H42.6665C48.5575 53.3332 53.3332 48.5575 53.3332 42.6665V21.3332C53.3332 15.4421 48.5575 10.6665 42.6665 10.6665Z"
                 stroke="white"
