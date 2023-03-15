@@ -374,6 +374,20 @@ const createInitialProducts = async () => {
         large: 10,
         xlarge: 10,
       },
+      {
+        title: "yellow gym set",
+        description: "drip 💦",
+        price: 599.99,
+        front_url:
+          "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+        back_url:
+          "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        tags: ["soldout", "featured", "womens"],
+        small: 10,
+        medium: 10,
+        large: 10,
+        xlarge: 10,
+      },
     ];
     const product = await Promise.all(productsToCreate.map(createProduct));
     console.log("creating products...");
