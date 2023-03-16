@@ -15,10 +15,12 @@ const JoinNow = (props: Props) => {
           <div className="flex flex-col md:flex-row items-strech justify-between bg-gray-50 py-6 px-6 md:py-12 lg:px-12 md:w-8/12 lg:w-7/12 xl:w-8/12 2xl:w-[100%] border rounded-xl shadow-md">
             <div className="flex flex-col justify-center md:w-1/2">
               <h1 className="text-3xl lg:text-4xl font-semibold">
-                Become a member
+                {!token ? "Become a member" : "Browse new products"}
               </h1>
               <p className="text-base lg:text-xl mt-2">
-                Sign up for free. Join the community.
+                {!token
+                  ? "Sign up for free. Join the community."
+                  : "New Arrivals"}
               </p>
               {!token ? (
                 <div className="flex gap-4 m-1 mt-4">
