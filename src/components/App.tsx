@@ -43,6 +43,7 @@ import MaleProducts from "./MaleProducts";
 import FemaleProducts from "./FemaleProducts";
 import AllOrders from "./AllOrders";
 import WishList from "./WishList";
+import ErrorNotification from "./ErrorNotification";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -52,10 +53,11 @@ const App: React.FC = () => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
   const [price, setPrice] = useState(0);
+  const [error, setError] = useState(false);
+  const [errorNoti, setErrorNoti] = useState("");
   const [success, setSuccess] = useState(false);
-
-  const [successTitle, setSuccessTitle] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [successTitle, setSuccessTitle] = useState("");
   const [productsLength, setProductsLength] = useState(0);
 
   const options = {
@@ -125,6 +127,13 @@ const App: React.FC = () => {
             successMsg={successMsg}
           />
         )}
+        {error && (
+          <ErrorNotification
+            error={error}
+            setError={setError}
+            errorNoti={errorNoti}
+          />
+        )}
         <div>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
@@ -150,6 +159,8 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  setError={setError}
+                  setErrorNoti={setErrorNoti}
                 />
               }
             />
@@ -195,6 +206,7 @@ const App: React.FC = () => {
                 />
               }
             />
+
             <Route path="/featured" element={<Featured />} />
             <Route path="/home" element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}

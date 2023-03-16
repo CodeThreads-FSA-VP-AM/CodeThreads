@@ -38,7 +38,9 @@ const WishList: FC<Props> = ({
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to cart!");
       console.log(res);
-      handleDeletewishlist(product_id);
+      console.log(wishlist, "before filter upon adding", product_id);
+      setWishlist(wishlist.filter((wish) => wish.product_id !== product_id));
+      console.log(wishlist, "After filter upon adding");
     } catch (error) {
       console.error();
     }
@@ -87,7 +89,9 @@ const WishList: FC<Props> = ({
       fetchWishlist(userId);
     }
   }, [token, userId, wishlistId]);
-  useEffect(() => {}, [wishlist]);
+  useEffect(() => {
+    setWishlist(wishlist);
+  }, [wishlist]);
   return (
     <>
       <div className="py-5">
