@@ -82,6 +82,8 @@ const Login: React.FC<Props> = ({
       if (res.error) {
         console.log(res.error);
         setErrorMsg(res.error);
+        setError(true);
+        setErrorNoti("Incorrect user credentials");
       } else {
         setToken(res.token);
         console.log(res);
