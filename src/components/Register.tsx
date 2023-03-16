@@ -87,8 +87,8 @@ const Register: React.FC<Props> = ({
         console.log(res);
         localStorage.setItem("token", res.token);
         setSuccess(true);
-        setSuccessTitle("You're logged in!");
-        setSuccessMsg("Lorem ipsum dolor sit amet.");
+        setSuccessTitle("Success!");
+        setSuccessMsg("You're signed up!");
         navigate("/products");
         setLoading(true);
       }

@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { fetchLogin, updateCart } from "../api/api";
+import { fetchLogin, updateCart, fetchOAuth } from "../api/api";
 import { NavLink, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import SuccessNotification from "./SuccessNotification";
@@ -60,11 +60,38 @@ const Login: React.FC<Props> = ({
       setLoading(false);
     }
   };
-  function handleCredentialResponse(response: any) {
+  type OAuthLogin = {
+    username: string;
+  };
+  const handleCredentialResponse = async (response: any) => {
     console.log("Encoded JWT ID token: " + response.credential);
-    var userObject = jwt_decode(response.credential);
-    console.log(userObject);
-  }
+    try {
+      const userObject: any = await jwt_decode(response.credential);
+      console.log(userObject);
+      console.log(userObject.name);
+      const data: OAuthLogin = {
+        username: userObject.name,
+      };
+      const res = await fetchOAuth(data);
+      if (res.error) {
+        setErrorMsg(res.error);
+      } else {
+        setToken(res.token);
+        console.log(res);
+        localStorage.setItem("token", res.token);
+        setSuccess(true);
+        setSuccessTitle("Success!");
+        setSuccessMsg("You're logged in!");
+        navigate("/products");
+        setLoading(true);
+      }
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   window.onload = function () {
     google.accounts.id.initialize({
       client_id:

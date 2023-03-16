@@ -42,7 +42,7 @@ export const fetchRegister = async (data: Register): Promise<any> => {
       username: `${username}`,
       password: `${password}`,
       email: `${email}`,
-      avatar_url: `${avatar_url}`
+      avatar_url: `${avatar_url}`,
     }),
   });
   const json = await res.json();
@@ -82,6 +82,25 @@ export const fetchLogin = async (data: Login): Promise<any> => {
     body: JSON.stringify({
       username: `${username}`,
       password: `${password}`,
+    }),
+  });
+  const json = await res.json();
+
+  return json;
+};
+type OAuth = {
+  username: string;
+};
+export const fetchOAuth = async (data: OAuth): Promise<any> => {
+  const { username } = data;
+  console.log(username);
+  const res = await fetch(`${APIURL}/users/oauth`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: `${username}`,
     }),
   });
   const json = await res.json();
