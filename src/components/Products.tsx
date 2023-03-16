@@ -210,14 +210,16 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                     Previous
                   </button>
                   {[...Array(totalPages)].map((_, i) => (
-                    <button>{i + 1}</button>
+                    <button key={i} onClick={() => handlePageClick(i + 1)}>
+                      {i + 1}
+                    </button>
                   ))}
                   <button
                     onClick={() => handlePageClick(currentPage + 1)}
                     className={`px-3 py-1 rounded-md transition duration-150 ease-in-out ${
                       currentPage === totalPages ? 'text-gray-400' : 'text-gray-500 hover:bg-gray-200'
                     }`}
-                    disabled={currentPage === 4}
+                    disabled={currentPage === totalPages}
                   >
                     Next
                   </button>
