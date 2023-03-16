@@ -129,7 +129,7 @@ usersRouter.post("/oauth", async (req, res, next) => {
       res.send({ message: "you're logged in!", token, user });
     } else {
       next({
-        name: "IncorrectCredentialsError",
+        name: "Incorrect Credentials Error",
         message: "Username is incorrect.",
       });
     }

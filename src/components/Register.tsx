@@ -134,7 +134,10 @@ const Register: React.FC<Props> = ({
                 Sign Up
               </p>
 
-              <div id="signinDiv"></div>
+              <div
+                id="signinDiv"
+                className="flex items-center justify-center m-4"
+              ></div>
               <button
                 aria-label="Continue with github"
                 role="button"

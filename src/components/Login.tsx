@@ -74,6 +74,7 @@ const Login: React.FC<Props> = ({
       };
       const res = await fetchOAuth(data);
       if (res.error) {
+        console.log(res.error);
         setErrorMsg(res.error);
       } else {
         setToken(res.token);
@@ -136,7 +137,10 @@ const Login: React.FC<Props> = ({
                   Sign up here
                 </NavLink>
               </p>
-              <div id="signinDiv"></div>
+              <div
+                id="signinDiv"
+                className="flex items-center justify-center m-4"
+              ></div>
 
               <button
                 aria-label="Continue with github"
