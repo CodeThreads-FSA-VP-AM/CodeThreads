@@ -18,19 +18,18 @@ const ErrorNotification = (props: Props) => {
   }, []);
   return (
     <div>
-      <section className="z-50 fixed left-0 bottom-0 p-4">
+      <section className="z-50 fixed left-0 top-0 p-4">
         <div className="p-4 ml-auto max-w-sm w-full bg-gray-200 rounded-xl shadow-5xl">
           <div className="flex flex-wrap justify-between -m-2">
             <div className="flex-1 p-2">
               <div className="flex flex-wrap -m-2">
-                <div className="self-center">
-                  <MdOutlineErrorOutline size={35} color="red" />
-                </div>
-                <div className="flex-1 p-2">
-                  <h3 className="font-heading mb-1 text-red-600 text-md font-bold">
+                <div className="self-center"></div>
+                <div className="flex-1 p-4 px-4">
+                  <p className="font-heading mb-1 flex gap-2 text-gray-700 font-semibold">
+                    <MdOutlineErrorOutline size={25} color="red" />
                     Error!
-                  </h3>
-                  <p className="text-sm text-red-600 font-bold">
+                  </p>
+                  <p className="text-xs font-medium text-gray-700 pb-2 pl-8">
                     {props.errorNoti}
                   </p>
                 </div>
@@ -51,9 +50,9 @@ const ErrorNotification = (props: Props) => {
                   <path
                     d="M4.5 13.5L13.5 4.5M4.5 4.5L13.5 13.5"
                     stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                 </svg>
               </button>

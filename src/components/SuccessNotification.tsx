@@ -19,7 +19,7 @@ const SuccessNotification = (props: Props) => {
   return (
     <>
       {props.success && (
-        <div className="z-50 fixed right-0 bottom-0 p-4">
+        <div className="z-50 fixed right-0 top-0 p-4">
           <div className="w-full max-w-xl p-6 mt-auto ml-auto bg-gray-200 rounded-lg">
             <div className="flex items-start justify-between -mx-2">
               <div className="flex items-start px-2">
