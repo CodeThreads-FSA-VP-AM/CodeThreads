@@ -208,7 +208,9 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                   >
                     Previous
                   </button>
-
+                  {[...Array(totalPages)].map((i) => (
+                    <button>{i + 1}</button>
+                  ))}
                   <button
                     onClick={() => handlePageClick(currentPage + 1)}
                     className={`px-3 py-1 rounded-md transition duration-150 ease-in-out ${
