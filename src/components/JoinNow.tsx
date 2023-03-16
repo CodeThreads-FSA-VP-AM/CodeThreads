@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 type Props = {};
 
 const JoinNow = (props: Props) => {
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setToken(localStorage.getItem("token") ?? "");
+  }, []);
   return (
     <div className="container mx-auto py-9 md:py-12 px-4 md:px-6 text-black ">
       <NavLink to="/register">
@@ -16,18 +20,33 @@ const JoinNow = (props: Props) => {
               <p className="text-base lg:text-xl mt-2">
                 Sign up for free. Join the community.
               </p>
-              <div className="flex gap-4 m-1 mt-4">
-                <NavLink to="/login">
-                  <button className="border border-white p-2 rounded-lg bg-white text-black hover:text-white hover:bg-black font-semibold shadow-md">
-                    Login
-                  </button>
-                </NavLink>
-                <NavLink to="/register">
-                  <button className="border border-white p-2 rounded-lg bg-white text-black hover:text-white hover:bg-black font-semibold shadow-md">
-                    Signup
-                  </button>
-                </NavLink>
-              </div>
+              {!token ? (
+                <div className="flex gap-4 m-1 mt-4">
+                  <NavLink to="/login">
+                    <button className="border border-white p-2 rounded-lg bg-white text-black hover:text-white hover:bg-black font-semibold shadow-md">
+                      Login
+                    </button>
+                  </NavLink>
+                  <NavLink to="/register">
+                    <button className="border border-white p-2 rounded-lg bg-white text-black hover:text-white hover:bg-black font-semibold shadow-md">
+                      Signup
+                    </button>
+                  </NavLink>
+                </div>
+              ) : (
+                <div className="flex gap-4 m-1 mt-4">
+                  <NavLink to="/mens">
+                    <button className="border border-white p-2 rounded-lg bg-white text-black hover:text-white hover:bg-black font-semibold shadow-md">
+                      Men
+                    </button>
+                  </NavLink>
+                  <NavLink to="/womens">
+                    <button className="border border-white p-2 rounded-lg bg-white text-black hover:text-white hover:bg-black font-semibold shadow-md">
+                      Women
+                    </button>
+                  </NavLink>
+                </div>
+              )}
             </div>
             <div className="md:w-[22%] mt-8 md:mt-0 flex items-center justify-center md:justify-end ">
               <p className="text-6xl font-bold text-gray-900">codeThreads</p>
