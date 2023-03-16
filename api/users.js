@@ -31,13 +31,7 @@ usersRouter.post("/register", async (req, res, next) => {
         message: `User ${newUser.username} is already taken.`,
       });
       res.status(401);
-    } else if (newUser.password.length < 8) {
-      res.status(401);
-      next({
-        name: "PasswordTooShortError",
-        message: `Password Too Short!`,
-      });
-    } else if (_email) {
+    }else if (_email) {
       next({
         name: "EmailExistsError",
         message: `Email ${newUser.email} is already taken.`,

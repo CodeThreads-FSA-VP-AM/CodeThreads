@@ -41,7 +41,7 @@ const Register = () => {
       setLoading(false);
     }
   };
-  function handleCredentialResponse(response: any) {
+  const handleCredentialResponse = async (response: any) => {
     console.log("Encoded JWT ID token: " + response.credential);
     try {
       const userObject = jwt_decode(response.credential);
@@ -52,7 +52,7 @@ const Register = () => {
     } catch (error) {
       console.error("Error decoding JWT:", error);
     }
-  }
+  };
   window.onload = function () {
     google.accounts.id.initialize({
       client_id:
