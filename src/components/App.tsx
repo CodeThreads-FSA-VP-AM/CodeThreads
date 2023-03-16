@@ -206,6 +206,7 @@ const App: React.FC = () => {
                 />
               }
             />
+
             <Route path="/featured" element={<Featured />} />
             <Route path="/home" element={<Home />} />
             {/* <Route path="/editReview" element={<EditReviews />} /> */}
