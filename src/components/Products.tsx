@@ -210,7 +210,13 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                     Previous
                   </button>
                   {[...Array(totalPages)].map((_, i) => (
-                    <button key={i} onClick={() => handlePageClick(i + 1)}>
+                    <button
+                      key={i}
+                      onClick={() => handlePageClick(i + 1)}
+                      className={`px-3 py-1 rounded-md transition duration-150 ease-in-out ${
+                        i + 1 === currentPage ? 'bg-blue-500 text-gray-50' : 'text-gray-500 hover:bg-gray-200'
+                      }`}
+                    >
                       {i + 1}
                     </button>
                   ))}
