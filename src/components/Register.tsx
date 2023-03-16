@@ -2,6 +2,7 @@ import React, { useState, FormEvent } from "react";
 import { fetchRegister } from "../api/api";
 import Loader from "./Loader";
 import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 // type Props = {};
 
 type Register = {
@@ -10,17 +11,30 @@ type Register = {
   email: string;
   avatar_url: string;
 };
-const Register = () => {
+type Props = {
+  setToken: (token: string) => void;
+  success: boolean;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
+};
+const Register: React.FC<Props> = ({
+  setToken,
+  success,
+  setSuccess,
+  setSuccessTitle,
+  setSuccessMsg,
+}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [avatar_url, setAvatarUrl] = useState("");
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [sidebar, setsidebar] = useState();
   const [loading, setLoading] = useState<Boolean>(false);
   const [user, setUser] = useState<any>({});
-
+  const navigate = useNavigate();
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const data: Register = { username, password, email, avatar_url };
@@ -30,6 +44,7 @@ const Register = () => {
         setErrorMsg(register.error);
       } else {
         console.log(register);
+        setToken(register.token);
         setErrorMsg("");
         localStorage.setItem("token", register.token);
         setUsername("");
@@ -65,11 +80,22 @@ const Register = () => {
         password: "",
       };
       const res = await fetchRegister(data);
-      if (res) {
+      if (res.error) {
+        setErrorMsg(res.error);
+      } else {
+        setToken(res.token);
         console.log(res);
+        localStorage.setItem("token", res.token);
+        setSuccess(true);
+        setSuccessTitle("You're logged in!");
+        setSuccessMsg("Lorem ipsum dolor sit amet.");
+        navigate("/products");
+        setLoading(true);
       }
     } catch (error) {
       console.error("Error decoding JWT:", error);
+    } finally {
+      setLoading(false);
     }
   };
   window.onload = function () {
@@ -112,7 +138,7 @@ const Register = () => {
                 data-type="standard"
                 data-shape="rectangular"
                 data-theme="outline"
-                data-text="signin_with"
+                data-text="continue_with"
                 data-size="large"
                 data-logo_alignment="left"
               ></div>

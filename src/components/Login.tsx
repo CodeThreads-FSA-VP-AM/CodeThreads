@@ -51,7 +51,7 @@ const Login: React.FC<Props> = ({
         setSuccess(true);
         setSuccessTitle("You're logged in!");
         setSuccessMsg("Lorem ipsum dolor sit amet.");
-        // navigate("/products");
+        navigate("/products");
         setLoading(true);
       }
     } catch (error) {
