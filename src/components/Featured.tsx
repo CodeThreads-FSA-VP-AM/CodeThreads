@@ -18,15 +18,15 @@ const Featured = (props: Props) => {
 
         <ul className='grid grid-cols-1 gap-4 mt-8 lg:grid-cols-3'>
           <li>
-            <Link to='/products' className='relative block group'>
+            <Link to='/mens' className='relative block group'>
               <img
-                src='https://images.unsplash.com/photo-1618898909019-010e4e234c55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
+                src='https://images.pexels.com/photos/1046425/pexels-photo-1046425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
                 alt=''
                 className='object-cover w-full transition duration-500 aspect-square group-hover:opacity-90 rounded-lg'
               />
 
               <div className='absolute inset-0 flex flex-col items-start justify-end p-6'>
-                <h3 className='text-xl font-medium text-white'>Casual Trainers</h3>
+                <h3 className='text-xl font-medium text-white'>Trendy Mens Fashion</h3>
 
                 <span className='mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white'>Shop Now</span>
               </div>
@@ -36,13 +36,13 @@ const Featured = (props: Props) => {
           <li>
             <Link to='/products' className='relative block group'>
               <img
-                src='https://images.unsplash.com/photo-1624623278313-a930126a11c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
+                src='https://images.pexels.com/photos/2752045/pexels-photo-2752045.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
                 alt=''
                 className='object-cover w-full transition duration-500 aspect-square group-hover:opacity-90 rounded-lg'
               />
 
               <div className='absolute inset-0 flex flex-col items-start justify-end p-6'>
-                <h3 className='text-xl font-medium text-white'>Winter Jumpers</h3>
+                <h3 className='text-xl font-medium text-white'>Social Outfits</h3>
 
                 <span className='mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white'>Shop Now</span>
               </div>
@@ -50,15 +50,15 @@ const Featured = (props: Props) => {
           </li>
 
           <li className='lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1'>
-            <Link to='/products' className='relative block group'>
+            <Link to='/womens' className='relative block group'>
               <img
-                src='https://images.unsplash.com/photo-1593795899768-947c4929449d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80'
+                src='https://images.pexels.com/photos/2584279/pexels-photo-2584279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
                 alt=''
                 className='object-cover w-full transition duration-500 aspect-square group-hover:opacity-90 rounded-lg'
               />
 
               <div className='absolute inset-0 flex flex-col items-start justify-end p-6'>
-                <h3 className='text-xl font-medium text-white'>Skinny Jeans Blue</h3>
+                <h3 className='text-xl font-medium text-white'>Trendy Womens Fashion</h3>
 
                 <span className='mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white'>Shop Now</span>
               </div>
