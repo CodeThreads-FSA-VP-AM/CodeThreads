@@ -41,6 +41,7 @@
     "react-google-login": "^5.2.2",
     "react-google-one-tap-login": "^0.1.1",
     "react-hook-form": "^7.43.2",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^6.8.1",
     "react-scripts": "^5.0.1",
     "stripe": "^11.14.0",

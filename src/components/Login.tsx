@@ -11,6 +11,8 @@ type Props = {
   setSuccess: any;
   setSuccessTitle: any;
   setSuccessMsg: any;
+  setError: any;
+  setErrorNoti: any;
 };
 
 type Login = {
@@ -23,11 +25,13 @@ const Login: React.FC<Props> = ({
   setSuccess,
   setSuccessTitle,
   setSuccessMsg,
+  setError,
+  setErrorNoti,
 }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [token, setToken] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsgs, setErrorMsg] = useState("");
   const [sidebar, setsidebar] = useState();
   const [loading, setLoading] = useState<Boolean>(false);
 
@@ -40,6 +44,8 @@ const Login: React.FC<Props> = ({
       const login = await fetchLogin(data);
       if (login.error) {
         setErrorMsg(login.error);
+        setError(true);
+        setErrorNoti("Incorrect user credentials");
       } else {
         console.log(login);
         setErrorMsg("");
