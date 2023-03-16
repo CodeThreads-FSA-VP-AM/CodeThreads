@@ -31,12 +31,6 @@ usersRouter.post("/register", async (req, res, next) => {
         message: `User ${newUser.username} is already taken.`,
       });
       res.status(401);
-    } else if (newUser.password.length < 8) {
-      res.status(401);
-      next({
-        name: "PasswordTooShortError",
-        message: `Password Too Short!`,
-      });
     } else if (_email) {
       next({
         name: "EmailExistsError",
@@ -118,6 +112,25 @@ usersRouter.post("/login", async (req, res, next) => {
       next({
         name: "IncorrectCredentialsError",
         message: "Username or password is incorrect.",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+usersRouter.post("/oauth", async (req, res, next) => {
+  const { username } = req.body;
+  console.log(username, "inoauth");
+  try {
+    const user = await getUserByUsername(username);
+    console.log(user, "Users HEREE");
+    if (user) {
+      const token = jwt.sign(user, JWT_SECRET);
+      res.send({ message: "you're logged in!", token, user });
+    } else {
+      next({
+        name: "Incorrect Credentials Error",
+        message: "Username is incorrect.",
       });
     }
   } catch (error) {
