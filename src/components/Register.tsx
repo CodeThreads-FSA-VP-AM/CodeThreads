@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { fetchRegister } from "../api/api";
 import Loader from "./Loader";
 import jwt_decode from "jwt-decode";
@@ -98,16 +98,25 @@ const Register: React.FC<Props> = ({
       setLoading(false);
     }
   };
-  window.onload = function () {
+  function onClickHandler() {
+    console.log("Sign in with Google button clicked...");
+  }
+  useEffect(() => {
     google.accounts.id.initialize({
       client_id:
         "137794005516-kiiplu4qkptolsv7oga14rts43ecjfbb.apps.googleusercontent.com",
       callback: handleCredentialResponse,
     });
-
-    google.accounts.id.prompt(); // also display the One Tap dialog
-  };
-
+    google.accounts.id.renderButton(
+      document.getElementById("signinDiv") as HTMLButtonElement,
+      {
+        theme: "outline",
+        size: "large",
+        click_listener: onClickHandler,
+        type: "standard",
+      }
+    );
+  }, []);
   return (
     <>
       {loading ? (
@@ -125,23 +134,7 @@ const Register: React.FC<Props> = ({
                 Sign Up
               </p>
 
-              <div
-                id="g_id_onload"
-                data-client_id="137794005516-kiiplu4qkptolsv7oga14rts43ecjfbb.apps.googleusercontent.com"
-                data-context="signup"
-                data-ux_mode="popup"
-                data-login_uri="http://localhost:3000"
-                data-auto_prompt="false"
-              ></div>
-              <div
-                className="g_id_signin"
-                data-type="standard"
-                data-shape="rectangular"
-                data-theme="outline"
-                data-text="continue_with"
-                data-size="large"
-                data-logo_alignment="left"
-              ></div>
+              <div id="signinDiv"></div>
               <button
                 aria-label="Continue with github"
                 role="button"
