@@ -29,9 +29,10 @@ type Register = {
   username: string;
   password: string;
   email: string;
+  avatar_url: string;
 };
 export const fetchRegister = async (data: Register): Promise<any> => {
-  const { username, password, email } = data;
+  const { username, password, email, avatar_url } = data;
   const res = await fetch(`${APIURL}/users/register`, {
     method: "POST",
     headers: {
@@ -41,6 +42,7 @@ export const fetchRegister = async (data: Register): Promise<any> => {
       username: `${username}`,
       password: `${password}`,
       email: `${email}`,
+      avatar_url: `${avatar_url}`
     }),
   });
   const json = await res.json();

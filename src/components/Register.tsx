@@ -8,20 +8,22 @@ type Register = {
   username: string;
   password: string;
   email: string;
+  avatar_url: string;
 };
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [avatar_url, setAvatarUrl] = useState("");
   const [token, setToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [sidebar, setsidebar] = useState();
   const [loading, setLoading] = useState<Boolean>(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<any>({});
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    const data: Register = { username, password, email };
+    const data: Register = { username, password, email, avatar_url };
     try {
       const register = await fetchRegister(data);
       if (register.error) {
@@ -41,13 +43,30 @@ const Register = () => {
       setLoading(false);
     }
   };
+
+  type OAuthRegister = {
+    username: string;
+    password: string;
+    email: string;
+    avatar_url: string;
+  };
   const handleCredentialResponse = async (response: any) => {
     console.log("Encoded JWT ID token: " + response.credential);
     try {
-      const userObject = jwt_decode(response.credential);
+      const userObject: any = await jwt_decode(response.credential);
       console.log(userObject);
       if (userObject) {
         setUser(userObject);
+      }
+      const data: OAuthRegister = {
+        username: userObject.name,
+        email: userObject.email,
+        avatar_url: userObject.picture,
+        password: "",
+      };
+      const res = await fetchRegister(data);
+      if (res) {
+        console.log(res);
       }
     } catch (error) {
       console.error("Error decoding JWT:", error);
