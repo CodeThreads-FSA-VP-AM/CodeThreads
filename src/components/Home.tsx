@@ -5,9 +5,7 @@ import JoinNow from "./JoinNow";
 import Socials from "./Socials";
 import { FaGithub } from "react-icons/fa";
 
-type Props = {};
-
-const Home = (props: Props) => {
+const Home = () => {
   return (
     <section className="px-4 mx-auto max-w-screen-2xl md:px-8">
       <div className="flex flex-wrap justify-between mb-8 md:mb-16">
@@ -28,7 +26,7 @@ const Home = (props: Props) => {
         </div>
 
         <div className="flex w-full mb-12 lg:w-2/3 md:mb-16">
-          <div className="relative z-10 -ml-12 overflow-hidden bg-gray-100 rounded-lg shadow-lg top-12 md:top-16 left-12 md:left-16 lg:ml-0">
+          <div className="relative overflow-hidden bg-gray-100 rounded-lg shadow-lg top-12 md:top-16 left-12 md:left-16 lg:ml-0">
             <img
               src="https://images.unsplash.com/photo-1542340916-951bb72c8f74?auto=format&q=75&fit=crop&w=550&h=550"
               loading="lazy"
