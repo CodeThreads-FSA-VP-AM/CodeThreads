@@ -21,7 +21,7 @@ const Banners = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-strech justify-between bg-gray-50 py-6 px-6 md:py-12 lg:px-12 md:w-8/12 lg:w-7/12 xl:w-8/12 2xl:w-9/12 border rounded-full shadow-md">
+        <div className="flex flex-col md:flex-row items-strech justify-between bg-gray-50 py-6 px-6 md:py-12 lg:px-12 md:w-8/12 lg:w-7/12 xl:w-8/12 2xl:w-9/12 border rounded-xl md:rounded-full shadow-md">
           <div className="flex flex-col justify-center md:w-1/2">
             <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800">
               Best Deal
