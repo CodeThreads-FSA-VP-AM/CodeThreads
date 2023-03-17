@@ -35,14 +35,14 @@ const Footer = () => {
               target="_blank"
               className="hover:text-gray-500 text-base leading-4 mt-6 text-gray-800 cursor-pointer flex flex-row gap-2"
             >
-              <FaLinkedin /> LinkedIn
+              <FaLinkedin color="blue" /> LinkedIn
             </a>
             <a
               href="mailto: vincentpalomo@yahoo.com"
               target="_blank"
               className="hover:text-gray-500 text-base leading-4 mt-6 text-gray-800 cursor-pointer flex flex-row gap-2"
             >
-              <HiOutlineMail /> Mail
+              <HiOutlineMail color="red" /> Mail
             </a>
           </div>
           <div>
@@ -61,14 +61,14 @@ const Footer = () => {
               target="_blank"
               className="hover:text-gray-500 text-base leading-4 mt-6 text-gray-800 cursor-pointer flex flex-row gap-2"
             >
-              <FaLinkedin /> LinkedIn
+              <FaLinkedin color="blue" /> LinkedIn
             </a>
             <a
               href="mailto: aswinmalla12@gmail.com"
               target="_blank"
               className="hover:text-gray-500 text-base leading-4 mt-6 text-gray-800 cursor-pointer flex flex-row gap-2"
             >
-              <HiOutlineMail /> Mail
+              <HiOutlineMail color="red" /> Mail
             </a>
           </div>
         </div>
