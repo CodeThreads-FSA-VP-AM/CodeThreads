@@ -106,6 +106,13 @@ async function buildTables() {
       CREATE TABLE order_products (
         id SERIAL PRIMARY KEY,
         order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+        status VARCHAR(255) NOT NULL,
+        quantity INTEGER NOT NULL,
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE
+      );
+
+      CREATE TABLE wishlist_products (
+        id SERIAL PRIMARY KEY,
         wishlist_id INTEGER REFERENCES wishlist(id) ON DELETE CASCADE,
         status VARCHAR(255) NOT NULL,
         quantity INTEGER NOT NULL,
