@@ -92,8 +92,10 @@ const App: React.FC = () => {
   useEffect(() => {
     getProduct();
   }, [productId]);
-
-  useEffect(() => {}, [successMsg, successTitle, productsLength]);
+  useEffect(() => {
+    setWishlist(wishlist);
+  }, [wishlist]);
+  useEffect(() => {}, [successMsg, successTitle, productsLength, wishlist]);
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
   //   // first, create an async function that will wrap your axios service adapter

@@ -186,9 +186,7 @@ const Orders: React.FC<Props> = ({
   // console.log(orders);
   // console.log(userId);
   // console.log(product);
-  useEffect(() => {
-    setWishlist(wishlist);
-  }, [wishlist]);
+
   return (
     <>
       {loading ? (
@@ -284,12 +282,9 @@ const Orders: React.FC<Props> = ({
                             {o.status}
                           </p>
                           <div className="flex items-center justify-between pt-5 pr-6">
-                            <div className="flex itemms-center">
-                              <p className="text-xs leading-3 text-gray-800 underline cursor-pointer">
-                                Add to favorites
-                              </p>
+                            <div className="">
                               <button
-                                className="pl-5 text-xs leading-3 text-red-500 underline cursor-pointer"
+                                className=" text-xs leading-3 text-red-500 underline cursor-pointer"
                                 onClick={() => handleDeleteOrder(o.product_id)}
                               >
                                 Remove
@@ -350,9 +345,6 @@ const Orders: React.FC<Props> = ({
                           </p>
                           <div className="flex items-center justify-between pt-5 pr-6">
                             <div className="flex itemms-center">
-                              <p className="text-xs leading-3 text-gray-800 underline cursor-pointer">
-                                Add to favorites
-                              </p>
                               <button
                                 className="pl-5 text-xs leading-3 text-red-500 underline cursor-pointer"
                                 onClick={() => handleDeleteCartItem(p.id)}
@@ -368,7 +360,7 @@ const Orders: React.FC<Props> = ({
                       </div>
                     );
                   })}
-                  {wishlist.length ? (
+                  {wishlist ? (
                     <WishList
                       quantity={0}
                       setSuccess={undefined}

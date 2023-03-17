@@ -37,9 +37,7 @@ const WishList: FC<Props> = ({
         quantity: 1,
         token: token,
       });
-      setSuccess(true);
-      setSuccessTitle("Success!");
-      setSuccessMsg("Item added to cart!");
+      console.log("got here from orders adding to cart");
       console.log(res);
       console.log(wishlist, "before filter upon adding", product_id);
       setWishlist(
@@ -49,6 +47,10 @@ const WishList: FC<Props> = ({
       );
       console.log(wishlist, "After filter upon adding");
       handleDeletewishlist(product_id);
+      console.log("got here from orders adding to cart");
+      setSuccess(true);
+      setSuccessTitle("Success!");
+      setSuccessMsg("Item added to cart!");
     } catch (error) {
       console.error();
     }
