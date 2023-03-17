@@ -28,7 +28,7 @@ import Featured from "./Featured";
 import Home from "./Home";
 import { fetchProductById, fetchUser } from "../api/api";
 import EditReviews from "./EditReviews";
-import { User } from "./Interfaces";
+import { User, WishlistData } from "./Interfaces";
 import NotFound from "./NotFound";
 import AdminNav from "./AdminNav";
 import CheckoutForm from "./CheckoutForm";
@@ -59,6 +59,7 @@ const App: React.FC = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [successTitle, setSuccessTitle] = useState("");
   const [productsLength, setProductsLength] = useState(0);
+  const [wishlist, setWishlist] = useState<WishlistData[]>([]);
 
   const options = {
     // passing the client secret obtained from the server
@@ -193,7 +194,13 @@ const App: React.FC = () => {
             />
             <Route
               path="/orders"
-              element={<Orders setProductsLength={setProductsLength} />}
+              element={
+                <Orders
+                  setProductsLength={setProductsLength}
+                  wishlist={wishlist}
+                  setWishlist={setWishlist}
+                />
+              }
             />
             <Route path="/addproduct" element={<AddProduct />} />
             <Route
@@ -240,6 +247,8 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  wishlist={wishlist}
+                  setWishlist={setWishlist}
                 />
               }
             />

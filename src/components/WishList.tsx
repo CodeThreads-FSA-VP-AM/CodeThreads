@@ -11,13 +11,16 @@ type Props = {
   setSuccess: any;
   setSuccessTitle: any;
   setSuccessMsg: any;
+  wishlist: any;
+  setWishlist: any;
 };
 const WishList: FC<Props> = ({
   setSuccess,
   setSuccessMsg,
   setSuccessTitle,
+  wishlist,
+  setWishlist,
 }) => {
-  const [wishlist, setWishlist] = useState<WishlistData[]>([]);
   const [show, setShow] = useState(Array(wishlist.length).fill(false));
   const [userId, setUserId] = useState(0);
   const [wishlistId, setWishlistId] = useState(0);
@@ -54,7 +57,11 @@ const WishList: FC<Props> = ({
         token: token,
       });
       console.log(res);
-      setWishlist(wishlist.filter((wish) => wish.product_id !== product_id));
+      setWishlist(
+        wishlist.filter(
+          (wish: { product_id: number }) => wish.product_id !== product_id
+        )
+      );
     } catch (error) {
       console.error(error);
     }
@@ -104,7 +111,7 @@ const WishList: FC<Props> = ({
         </h1>
         <div className="mx-auto container gap-6 flex-wrap px-4 md:px-6 2xl:px-0 py-12 flex ">
           <div className="flex flex-row jusitfy-start items-start"></div>
-          {wishlist.map((w: WishlistData, idx) => (
+          {wishlist.map((w: WishlistData, idx: any) => (
             <div
               className="mt-10 lg:mt-12 w-auto h-full flex flex-row lg:flex-col gap-x-8 gap-y-10 lg:gap-y-0"
               key={idx}
