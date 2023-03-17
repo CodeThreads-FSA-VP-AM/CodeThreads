@@ -41,9 +41,13 @@ const WishList: FC<Props> = ({
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to cart!");
       console.log(res);
-      // console.log(wishlist, "before filter upon adding", product_id);
-      // setWishlist(wishlist.filter((wish) => wish.product_id !== product_id));
-      // console.log(wishlist, "After filter upon adding");
+      console.log(wishlist, "before filter upon adding", product_id);
+      setWishlist(
+        wishlist.filter(
+          (wish: { product_id: number }) => wish.product_id !== product_id
+        )
+      );
+      console.log(wishlist, "After filter upon adding");
       handleDeletewishlist(product_id);
     } catch (error) {
       console.error();

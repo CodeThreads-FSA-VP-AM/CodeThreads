@@ -186,6 +186,9 @@ const Orders: React.FC<Props> = ({
   // console.log(orders);
   // console.log(userId);
   // console.log(product);
+  useEffect(() => {
+    setWishlist(wishlist);
+  }, [wishlist]);
   return (
     <>
       {loading ? (
@@ -365,14 +368,16 @@ const Orders: React.FC<Props> = ({
                       </div>
                     );
                   })}
-                  <WishList
-                    quantity={0}
-                    setSuccess={undefined}
-                    setSuccessTitle={undefined}
-                    setSuccessMsg={undefined}
-                    wishlist={wishlist}
-                    setWishlist={setWishlist}
-                  />
+                  {wishlist.length ? (
+                    <WishList
+                      quantity={0}
+                      setSuccess={undefined}
+                      setSuccessTitle={undefined}
+                      setSuccessMsg={undefined}
+                      wishlist={wishlist}
+                      setWishlist={setWishlist}
+                    />
+                  ) : null}
                 </div>
                 {/* //Summary starts here */}
                 {token ? (
