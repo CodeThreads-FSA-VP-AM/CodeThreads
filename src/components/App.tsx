@@ -44,6 +44,7 @@ import FemaleProducts from "./FemaleProducts";
 import AllOrders from "./AllOrders";
 import WishList from "./WishList";
 import ErrorNotification from "./ErrorNotification";
+import Footer from "./Footer";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -257,6 +258,7 @@ const App: React.FC = () => {
             />
           </Routes>
         </div>
+        <Footer />
       </Router>
     </>
   );
