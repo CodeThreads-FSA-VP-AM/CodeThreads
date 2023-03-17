@@ -12,8 +12,8 @@ const JoinNow = (props: Props) => {
     <div className="container mx-auto py-9 md:py-12 px-4 md:px-6 text-black ">
       <NavLink to="/register">
         <div className="flex items-strech justify-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 border rounded-xl shadow-2xl">
-          <div className="flex flex-col md:flex-row items-strech justify-between bg-gray-50 py-6 px-6 md:py-12 lg:px-12 md:w-8/12 lg:w-7/12 xl:w-8/12 2xl:w-[100%] border rounded-xl shadow-md">
-            <div className="flex flex-col justify-center md:w-1/2">
+          <div className="flex flex-col md:flex-row items-strech justify-between bg-gray-50 py-6 px-6 md:py-12 lg:px-12 w-[100%] border rounded-xl shadow-md">
+            <div className="flex flex-col justify-center w-auto">
               <h1 className="text-3xl lg:text-4xl font-semibold">
                 {!token ? "Become a member" : "Browse new products"}
               </h1>
@@ -23,7 +23,7 @@ const JoinNow = (props: Props) => {
                   : "New Arrivals"}
               </p>
               {!token ? (
-                <div className="flex gap-4 m-1 mt-4">
+                <div className="flex gap-4 m-1 mt-4 lg:text-xl md:text-md sm:text-sm">
                   <NavLink to="/login">
                     <button className="border border-white p-2 rounded-lg bg-white text-black hover:text-white hover:bg-black font-semibold shadow-md">
                       Login
@@ -36,7 +36,7 @@ const JoinNow = (props: Props) => {
                   </NavLink>
                 </div>
               ) : (
-                <div className="flex gap-4 m-1 mt-4">
+                <div className="flex gap-4 m-1 mt-4 lg:text-xl md:text-md sm:text-sm">
                   <NavLink to="/mens">
                     <button className="border border-white p-2 rounded-lg bg-white text-black hover:text-white hover:bg-black font-semibold shadow-md">
                       Men
@@ -51,7 +51,9 @@ const JoinNow = (props: Props) => {
               )}
             </div>
             <div className="md:w-[22%] mt-8 md:mt-0 flex items-center justify-center md:justify-end ">
-              <p className="text-6xl font-bold text-gray-900">codeThreads</p>
+              <p className=" lg:text-6xl md:text-3xl font-bold text-gray-900">
+                codeThreads
+              </p>
             </div>
           </div>
         </div>
