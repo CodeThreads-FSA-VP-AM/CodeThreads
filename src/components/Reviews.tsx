@@ -11,6 +11,9 @@ type Props = {
   token: string;
   reviews: Review[];
   setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
 };
 
 const Reviews = (props: Props) => {
@@ -30,6 +33,9 @@ const Reviews = (props: Props) => {
         props.reviews.filter((review) => review.id !== reviewId)
       );
       setShowModal(false);
+      props.setSuccess(true);
+      props.setSuccessTitle("Success!");
+      props.setSuccessMsg("Review deleted!");
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -200,6 +206,9 @@ const Reviews = (props: Props) => {
                           reviewId={r.id}
                           reviews={props.reviews}
                           setReviews={props.setReviews}
+                          setSuccess={props.setSuccess}
+                          setSuccessTitle={props.setSuccessTitle}
+                          setSuccessMsg={props.setSuccessMsg}
                         />
                       </div>
                       <Modal

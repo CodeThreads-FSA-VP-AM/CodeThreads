@@ -168,16 +168,38 @@ const App: React.FC = () => {
             />
             <Route
               path="/products"
-              element={<Products setProductId={setProductId} user={user} />}
+              element={
+                <Products
+                  setProductId={setProductId}
+                  user={user}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
             />
             <Route
               path="/mens"
-              element={<MaleProducts setProductId={setProductId} user={user} />}
+              element={
+                <MaleProducts
+                  setProductId={setProductId}
+                  user={user}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
             />
             <Route
               path="/womens"
               element={
-                <FemaleProducts setProductId={setProductId} user={user} />
+                <FemaleProducts
+                  setProductId={setProductId}
+                  user={user}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
               }
             />
 
@@ -206,7 +228,16 @@ const App: React.FC = () => {
                 />
               }
             />
-            <Route path="/addproduct" element={<AddProduct />} />
+            <Route
+              path="/addproduct"
+              element={
+                <AddProduct
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
+            />
             <Route
               path="/edit/:id"
               element={
@@ -229,6 +260,9 @@ const App: React.FC = () => {
                   setProductId={setProductId}
                   user={user}
                   setProductsLength={setProductsLength}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
                 />
               }
             />

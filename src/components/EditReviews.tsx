@@ -11,6 +11,9 @@ type Props = {
   reviewId: number;
   reviews: Review[];
   setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
 };
 type EditReviews = {
   title: string;
@@ -50,6 +53,9 @@ const EditReviews = (props: Props) => {
       const updatedReviews = [...props.reviews];
       updatedReviews[editedReviewIndex] = editedReview;
       props.setReviews(updatedReviews);
+      props.setSuccess(true);
+      props.setSuccessTitle("Success!");
+      props.setSuccessMsg("Review has been edited!");
       setShowModal(false);
     } catch (error) {
       console.error(error);

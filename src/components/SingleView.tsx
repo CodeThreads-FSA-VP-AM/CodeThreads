@@ -453,6 +453,9 @@ const SingleView: FC<Props> = ({
               token={token}
               reviews={reviews}
               setReviews={setReviews}
+              setSuccess={setSuccess}
+              setSuccessTitle={setSuccessTitle}
+              setSuccessMsg={setSuccessMsg}
             />
           </div>
         </section>

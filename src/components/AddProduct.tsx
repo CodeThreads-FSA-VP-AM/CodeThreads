@@ -15,8 +15,13 @@ type Props = {
   large: number;
   xlarge: number;
 };
+interface ProductProps {
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
+}
 
-const AddProduct: React.FC = () => {
+const AddProduct = (props: ProductProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(2999.99);
@@ -54,7 +59,9 @@ const AddProduct: React.FC = () => {
     console.log(data);
     const create = await fetchCreateProduct(data);
     console.log({ create });
-
+    props.setSuccess(true);
+    props.setSuccessTitle("Success!");
+    props.setSuccessMsg("Product created!");
     history(-1);
   };
 

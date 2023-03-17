@@ -9,9 +9,18 @@ import Modal from "./Modal";
 type Props = {
   setProductId: (id: number) => void;
   user: any;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
 };
 
-const MaleProducts: React.FC<Props> = ({ setProductId, user }) => {
+const MaleProducts: React.FC<Props> = ({
+  setProductId,
+  user,
+  setSuccess,
+  setSuccessMsg,
+  setSuccessTitle,
+}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [selectedId, setSelectedId] = useState(0);
@@ -78,7 +87,10 @@ const MaleProducts: React.FC<Props> = ({ setProductId, user }) => {
     const filteredOrders = products.filter((p) => p.id !== selectedId);
     setProducts(filteredOrders);
     setMessage("product deleted");
-
+    setSuccess(true);
+    setSuccessTitle("Success!");
+    setSuccessMsg("Product deleted!");
+    setShowModal(false);
     setTimeout(() => {
       setMessage("");
     }, 3000);
@@ -110,7 +122,11 @@ const MaleProducts: React.FC<Props> = ({ setProductId, user }) => {
                       add
                     </button>
                   </Link> */}
-                  <AddProduct />
+                  <AddProduct
+                    setSuccess={setSuccess}
+                    setSuccessTitle={setSuccessTitle}
+                    setSuccessMsg={setSuccessMsg}
+                  />
                   <select className="rounded" onChange={handleSelect}>
                     <option value="delete">delete product</option>
                     {products.map((p) => (
