@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createReview } from "../api/api";
 import { Review } from "./Interfaces";
+import Modal from "./Modal";
 
 interface AddReviewProps {
   token: string;
@@ -14,6 +15,7 @@ const AddReview = (props: AddReviewProps) => {
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleCreateReview: React.FormEventHandler<HTMLFormElement> = async (
     e
@@ -33,6 +35,7 @@ const AddReview = (props: AddReviewProps) => {
       setRating(0);
       setDescription("");
       props.setReviews([...props.reviews, newReview]);
+      setShowModal(false);
       console.log(newReview);
     } catch (error) {
       console.error(error);
@@ -40,7 +43,14 @@ const AddReview = (props: AddReviewProps) => {
   };
 
   return (
-    <>
+    <Modal
+      showModal={showModal}
+      setShowModal={setShowModal}
+      handleSubmit={handleCreateReview}
+      modalTitle={"Add review"}
+      modalTxt={"Add review"}
+      submitBtnText={"Create"}
+    >
       <div className="hidden sm:block" aria-hidden="true">
         <div className="py-5">
           <div className="border-t border-gray-200" />
@@ -48,7 +58,7 @@ const AddReview = (props: AddReviewProps) => {
       </div>
 
       <div className="mt-10 sm:mt-0">
-        <div className="md:grid md:grid-cols-3 md:gap-6">
+        <div className="flex flex-col md:gap-6">
           <div className="md:col-span-1">
             <div className="px-4 sm:px-0">
               <div className="-ml-0.5 flex">
@@ -106,7 +116,7 @@ const AddReview = (props: AddReviewProps) => {
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <form onSubmit={handleCreateReview}>
+            <form>
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -139,6 +149,7 @@ const AddReview = (props: AddReviewProps) => {
                       </label>
                       <input
                         type="text"
+                        required
                         name="title"
                         id="title"
                         autoComplete="title"
@@ -160,6 +171,7 @@ const AddReview = (props: AddReviewProps) => {
                         id="country"
                         name="country"
                         autoComplete="country-name"
+                        required
                         className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         value={rating}
                         defaultValue={1}
@@ -191,14 +203,6 @@ const AddReview = (props: AddReviewProps) => {
                     </div>
                   </div>
                 </div>
-                <div className="px-4 py-3 text-left bg-gray-50 sm:px-6">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Create
-                  </button>
-                </div>
               </div>
             </form>
           </div>
@@ -210,7 +214,7 @@ const AddReview = (props: AddReviewProps) => {
           <div className="border-t border-gray-200" />
         </div>
       </div>
-    </>
+    </Modal>
   );
 };
 
