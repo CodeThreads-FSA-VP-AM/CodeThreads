@@ -204,8 +204,6 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
-                  setError={setError}
-                  setErrorNoti={setErrorNoti}
                 />
               }
             />

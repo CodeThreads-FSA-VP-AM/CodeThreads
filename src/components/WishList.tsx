@@ -68,6 +68,8 @@ const WishList: FC<Props> = ({
           (wish: { product_id: number }) => wish.product_id !== product_id
         )
       );
+      setSuccess(true);
+      setSuccessMsg("Item removed.");
     } catch (error) {
       console.error(error);
     }

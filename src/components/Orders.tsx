@@ -24,8 +24,6 @@ type Props = {
   setSuccess: any;
   setSuccessTitle: any;
   setSuccessMsg: any;
-  setError: any;
-  setErrorNoti: any;
 };
 
 const Orders: React.FC<Props> = ({
@@ -35,8 +33,6 @@ const Orders: React.FC<Props> = ({
   setSuccess,
   setSuccessMsg,
   setSuccessTitle,
-  setError,
-  setErrorNoti,
 }) => {
   const [show, setShow] = useState(false);
   const [orders, setOrders] = useState<OrderData[]>([]);
@@ -66,7 +62,9 @@ const Orders: React.FC<Props> = ({
       });
       console.log(res);
       setOrders(orders.filter((order) => order.product_id !== product_id));
-
+      setSuccess(true);
+      setSuccessTitle("Success!");
+      setSuccessMsg("Item removed.");
       // Update productsLength
       const updatedOrders = await fetchOrder(userId);
       const addedOrders = updatedOrders.filter(
@@ -86,6 +84,8 @@ const Orders: React.FC<Props> = ({
         updatedCart.map((item) => fetchProductById(item.id))
       );
       setProduct(updatedProducts);
+      setSuccess(true);
+      setSuccessMsg("Item removed.");
     } catch (error) {
       console.error(error);
     }
