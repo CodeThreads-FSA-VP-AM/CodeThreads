@@ -113,7 +113,7 @@ const WishList: FC<Props> = ({
       <div className="py-5">
         <div className="border-t border-gray-900" />
       </div>
-      <div className="mt-3 ">
+      <div className="mt-3 h-screen">
         <h1 className="text-3xl lg:text-4xl flex justify-center items-center tracking-tight font-semibold leading-8 lg:leading-9 text-gray-800">
           Wishlist
         </h1>

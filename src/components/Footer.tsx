@@ -5,7 +5,7 @@ import { HiOutlineMail } from "react-icons/hi";
 const Footer = () => {
   return (
     <>
-      <div className="mx-auto container py-16 xl:px-20 lg:px-12 sm:px-6 px-4">
+      <div className="mx-auto container pt-16 pb-2 xl:px-20 lg:px-12 sm:px-6 px-4 z-50 ">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 gap-4">
           <div className="flex flex-col flex-shrink-0">
             <div>
@@ -72,26 +72,28 @@ const Footer = () => {
             </a>
           </div>
         </div>
+        <div className="pt-6">
+          <ul className="flex flex-wrap justify-start gap-4 text-xs lg:justify-center">
+            <li>
+              <p className="text-gray-500 transition hover:opacity-75 cursor-pointer">
+                Terms & Conditions
+              </p>
+            </li>
+
+            <li>
+              <p className="text-gray-500 transition hover:opacity-75 cursor-pointer">
+                Privacy Policy
+              </p>
+            </li>
+
+            <li>
+              <p className="text-gray-500 transition hover:opacity-75 cursor-pointer">
+                Cookies
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
-      <ul className="flex flex-wrap justify-start gap-4 text-xs lg:justify-center">
-        <li>
-          <p className="text-gray-500 transition hover:opacity-75 cursor-pointer">
-            Terms & Conditions
-          </p>
-        </li>
-
-        <li>
-          <p className="text-gray-500 transition hover:opacity-75 cursor-pointer">
-            Privacy Policy
-          </p>
-        </li>
-
-        <li>
-          <p className="text-gray-500 transition hover:opacity-75 cursor-pointer">
-            Cookies
-          </p>
-        </li>
-      </ul>
     </>
   );
 };
