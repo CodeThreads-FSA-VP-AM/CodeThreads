@@ -11,16 +11,8 @@ const OrderHistroy: React.FC = (props: Props) => {
   const [userId, setUserId] = useState(0);
   const [token, setToken] = useState('');
 
-  useEffect(() => {
-    const orderHistory = async (userId: number) => {
-      const order = await fetchOrderHistory(userId);
-      setOrders(order);
-    };
-
-    if (userId !== undefined) {
-      orderHistory(userId);
-    }
-  }, [userId]);
+  console.log(token);
+  console.log(userId);
 
   useEffect(() => {
     const getUser = async (data: User) => {
@@ -36,8 +28,23 @@ const OrderHistroy: React.FC = (props: Props) => {
     const token = localStorage.getItem('token') ?? '';
     setToken(token);
     getUser({ token });
-  }, [token]);
-  console.log(orders);
+  }, []);
+
+  useEffect(() => {
+    console.log('line 18');
+    const orderHistory = async (userId: number) => {
+      const order = await fetchOrderHistory(userId);
+      console.log(order);
+      const processingOrders = order.filter((o: { is_cart: boolean }) => !o.is_cart);
+      console.log(processingOrders);
+      setOrders(processingOrders);
+    };
+
+    if (userId !== 0) {
+      console.log('got here', userId);
+      orderHistory(userId);
+    }
+  }, [userId]);
 
   return (
     <div className='bg-white'>
