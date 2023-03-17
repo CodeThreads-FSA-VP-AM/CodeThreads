@@ -209,7 +209,7 @@ const FemaleProducts: React.FC<Props> = ({ setProductId, user }) => {
                       <div className="flex flex-col items-end">
                         <span className="font-bold text-gray-600 lg:text-lg">
                           {" "}
-                          £{p.price} GBP{" "}
+                          ${p.price} USD{" "}
                         </span>
                         {/* <span className="text-sm text-red-500 line-through">$39.99</span> */}
                       </div>
