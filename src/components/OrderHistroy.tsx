@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchOrderHistory } from '../api/api';
+import { fetchOrderHistory, fetchUser } from '../api/api';
+import { User } from './Interfaces';
 import Products from './Products';
 
 type Props = {};
 
-const OrderHistroy = (props: Props) => {
+const OrderHistroy: React.FC = (props: Props) => {
   const [orders, setOrders] = useState([]);
-  const [userId, setUserId] = useState(4);
+  const [userId, setUserId] = useState(0);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
     const orderHistory = async (userId: number) => {
@@ -18,8 +20,23 @@ const OrderHistroy = (props: Props) => {
     if (userId !== undefined) {
       orderHistory(userId);
     }
-  }, []);
+  }, [userId]);
 
+  useEffect(() => {
+    const getUser = async (data: User) => {
+      const { token } = data;
+      try {
+        const user = await fetchUser({ token });
+        setUserId(user.id);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const token = localStorage.getItem('token') ?? '';
+    setToken(token);
+    getUser({ token });
+  }, [token]);
   console.log(orders);
 
   return (
