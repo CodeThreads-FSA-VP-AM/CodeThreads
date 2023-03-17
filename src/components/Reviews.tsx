@@ -29,6 +29,7 @@ const Reviews = (props: Props) => {
       props.setReviews(
         props.reviews.filter((review) => review.id !== reviewId)
       );
+      setShowModal(false);
       setLoading(false);
     } catch (error) {
       console.error(error);
