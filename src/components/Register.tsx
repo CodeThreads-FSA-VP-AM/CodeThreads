@@ -114,7 +114,7 @@ const Register: React.FC<Props> = ({
         size: "large",
         click_listener: onClickHandler,
         type: "standard",
-        width: "400",
+        width: "250",
       }
     );
   }, []);

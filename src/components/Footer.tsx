@@ -5,8 +5,8 @@ import { HiOutlineMail } from "react-icons/hi";
 const Footer = () => {
   return (
     <>
-      <div className="mx-auto container pt-16 pb-2 xl:px-20 lg:px-12 sm:px-6 px-4 z-50 ">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 gap-4">
+      <div className="mx-auto container pt-16 pb-2 xl:px-20 lg:px-12 sm:px-6 px-4 z-50 justify-center items-center grid">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center md:gap-8 gap-4">
           <div className="flex flex-col">
             <div>
               <p className="font-bold text-xl">codeThreads</p>
