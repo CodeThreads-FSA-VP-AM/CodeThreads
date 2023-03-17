@@ -9,6 +9,9 @@ interface AddReviewProps {
   reviews: Review[];
   setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
   user: any;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
 }
 
 const AddReview = (props: AddReviewProps) => {
@@ -22,6 +25,7 @@ const AddReview = (props: AddReviewProps) => {
   ) => {
     e.preventDefault();
     console.log(title, description, "rating", rating);
+
     try {
       console.log("got here");
       const newReview = await createReview({
@@ -35,6 +39,9 @@ const AddReview = (props: AddReviewProps) => {
       setRating(0);
       setDescription("");
       props.setReviews([...props.reviews, newReview]);
+      props.setSuccess(true);
+      props.setSuccessTitle("Success!");
+      props.setSuccessMsg("You created a review!");
       setShowModal(false);
       console.log(newReview);
     } catch (error) {
@@ -129,12 +136,11 @@ const AddReview = (props: AddReviewProps) => {
                         Username<span className="text-[#F70000]">*</span>
                       </label>
                       <input
+                        required
                         type="text"
                         name="first-name"
                         id="first-name"
                         autoComplete="given-name"
-                        disabled
-                        defaultValue={props.user}
                         className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
@@ -148,6 +154,7 @@ const AddReview = (props: AddReviewProps) => {
                         Title<span className="text-[#F70000]">*</span>
                       </label>
                       <input
+                        minLength={10}
                         type="text"
                         required
                         name="title"

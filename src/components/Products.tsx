@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchDeleteProduct, fetchProducts } from "../api/api";
+import AddProduct from "./AddProduct";
 import { Product } from "./Interfaces";
 import Loader from "./Loader";
+import Modal from "./Modal";
 
 type Props = {
   setProductId: (id: number) => void;
@@ -16,6 +18,7 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
   const [message, setMessage] = useState("");
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
 
   const productsPerPage = 8; // set how many products to display on the page
 
@@ -104,11 +107,12 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
             {user.is_admin && (
               <>
                 <div className="flex items-center justify-center py-1">
-                  <Link to="/addproduct" className="pr-52">
+                  {/* <Link to="/addproduct" className="pr-52">
                     <button className="inline-flex items-center px-5 py-2.5 m-4 sm:mt-6 text-sm font-medium text-center bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-blue-800 text-gray-50">
                       add
                     </button>
-                  </Link>
+                  </Link> */}
+                  <AddProduct />
 
                   <select className="rounded" onChange={handleSelect}>
                     <option value="delete">delete product</option>
@@ -118,13 +122,24 @@ const Products: React.FC<Props> = ({ setProductId, user }) => {
                       </option>
                     ))}
                   </select>
-
-                  <button
+                  <Modal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    handleSubmit={handleDelete}
+                    modalTitle={"Delete product"}
+                    modalTxt={"Delete product"}
+                    submitBtnText="Delete"
+                  >
+                    <div>
+                      <h1>Are you sure you want to delete this product?</h1>
+                    </div>
+                  </Modal>
+                  {/* <button
                     className="inline-flex items-center px-5 py-2.5 m-4 sm:mt-6 text-sm font-medium text-center bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-blue-800 text-gray-50"
                     onClick={handleDelete}
                   >
                     delete
-                  </button>
+                  </button> */}
                   <span className="text-red-400">{message}</span>
                 </div>
               </>
