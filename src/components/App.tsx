@@ -92,9 +92,7 @@ const App: React.FC = () => {
   useEffect(() => {
     getProduct();
   }, [productId]);
-  useEffect(() => {
-    setWishlist(wishlist);
-  }, [wishlist]);
+
   useEffect(() => {}, [successMsg, successTitle, productsLength, wishlist]);
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:

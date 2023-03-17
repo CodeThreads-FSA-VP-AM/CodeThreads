@@ -63,7 +63,6 @@ const Orders: React.FC<Props> = ({
       console.log(res);
       setOrders(orders.filter((order) => order.product_id !== product_id));
       setSuccess(true);
-      setSuccessTitle("Success!");
       setSuccessMsg("Item removed.");
       // Update productsLength
       const updatedOrders = await fetchOrder(userId);
@@ -192,10 +191,6 @@ const Orders: React.FC<Props> = ({
       fetchProducts();
     }
   }, [cart]);
-  // console.log(cart);
-  // console.log(orders);
-  // console.log(userId);
-  // console.log(product);
 
   return (
     <>
