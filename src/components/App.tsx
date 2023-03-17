@@ -201,6 +201,11 @@ const App: React.FC = () => {
                   setProductsLength={setProductsLength}
                   wishlist={wishlist}
                   setWishlist={setWishlist}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                  setError={setError}
+                  setErrorNoti={setErrorNoti}
                 />
               }
             />

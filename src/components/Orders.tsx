@@ -21,12 +21,22 @@ type Props = {
   setProductsLength: (products: number) => void;
   wishlist: any;
   setWishlist: any;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
+  setError: any;
+  setErrorNoti: any;
 };
 
 const Orders: React.FC<Props> = ({
   setProductsLength,
   wishlist,
   setWishlist,
+  setSuccess,
+  setSuccessMsg,
+  setSuccessTitle,
+  setError,
+  setErrorNoti,
 }) => {
   const [show, setShow] = useState(false);
   const [orders, setOrders] = useState<OrderData[]>([]);
@@ -363,9 +373,9 @@ const Orders: React.FC<Props> = ({
                   {wishlist ? (
                     <WishList
                       quantity={0}
-                      setSuccess={undefined}
-                      setSuccessTitle={undefined}
-                      setSuccessMsg={undefined}
+                      setSuccess={setSuccess}
+                      setSuccessTitle={setSuccessTitle}
+                      setSuccessMsg={setSuccessMsg}
                       wishlist={wishlist}
                       setWishlist={setWishlist}
                     />
