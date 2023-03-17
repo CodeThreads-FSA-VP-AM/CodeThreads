@@ -12,7 +12,7 @@ const Home = (props: Props) => {
     <section className="px-4 mx-auto max-w-screen-2xl md:px-8">
       <div className="flex flex-wrap justify-between mb-8 md:mb-16">
         <div className="flex flex-col justify-center w-full mb-6 lg:w-1/3 lg:pt-48 lg:pb-24 sm:mb-12 lg:mb-0">
-          <h1 className="mb-4 text-4xl font-bold text-black-800 sm:text-5xl md:text-6xl md:mb-8">
+          <h1 className="mb-4 xl:text-7xl font-bold text-black-800 sm:text-5xl md:text-6xl text-4xl md:mb-8 self-start">
             Find your
             <br />
             style online
