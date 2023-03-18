@@ -139,29 +139,29 @@ const SingleView: FC<Props> = ({
       ) : (
         <section>
           <div className="relative max-w-screen-xl px-4 py-8 mx-auto">
-              <div className="flex m-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler icon-tabler-chevron-left"
-                  width={16}
-                  height={16}
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <polyline points="15 6 9 12 15 18" />
-                </svg>
-                <button
-                  className="pl-2 text-sm leading-none hover:underline text-indigo-600"
-                  onClick={() => navigate(-1)}
-                >
-                  Return
-                </button>
-              </div>
+            <div className="flex m-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-chevron-left"
+                width={16}
+                height={16}
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <polyline points="15 6 9 12 15 18" />
+              </svg>
+              <button
+                className="pl-2 text-sm leading-none hover:underline text-indigo-600"
+                onClick={() => navigate(-1)}
+              >
+                Back
+              </button>
+            </div>
             <div className="grid items-start grid-cols-1 gap-8 md:grid-cols-2">
               <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
                 <img
