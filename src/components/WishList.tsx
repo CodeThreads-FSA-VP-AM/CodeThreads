@@ -1,5 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
-import { createOrder, deleteWishlist, fetchUser, fetchWishlistByUser } from "../api/api";
+import {
+  createOrder,
+  deleteWishlist,
+  fetchUser,
+  fetchWishlistByUser,
+} from "../api/api";
 import { User, WishlistData } from "./Interfaces";
 
 type Props = {
@@ -21,7 +26,6 @@ const WishList: FC<Props> = ({
   const [userId, setUserId] = useState(0);
   const [wishlistId, setWishlistId] = useState(0);
   const [token, setToken] = useState("");
-
   const addProductToCart = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     product_id: number
@@ -37,7 +41,9 @@ const WishList: FC<Props> = ({
       console.log(res);
       console.log(wishlist, "before filter upon adding", product_id);
       setWishlist(
-        wishlist.filter((wish: { product_id: number }) => wish.product_id !== product_id)
+        wishlist.filter(
+          (wish: { product_id: number }) => wish.product_id !== product_id
+        )
       );
       console.log(wishlist, "After filter upon adding");
       handleDeletewishlist(product_id);
@@ -45,6 +51,7 @@ const WishList: FC<Props> = ({
       setSuccess(true);
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to cart!");
+      location.reload();
     } catch (error) {
       console.error();
     }
@@ -58,7 +65,9 @@ const WishList: FC<Props> = ({
       });
       console.log(res);
       setWishlist(
-        wishlist.filter((wish: { product_id: number }) => wish.product_id !== product_id)
+        wishlist.filter(
+          (wish: { product_id: number }) => wish.product_id !== product_id
+        )
       );
       setSuccess(true);
       setSuccessMsg("Item removed.");
@@ -87,7 +96,8 @@ const WishList: FC<Props> = ({
       console.log(wishlists);
 
       const filteredWishlist = wishlists.filter(
-        (wishlist: { users_id: number; status: string }) => wishlist.users_id === userId
+        (wishlist: { users_id: number; status: string }) =>
+          wishlist.users_id === userId
       );
       setWishlist(filteredWishlist);
     };
@@ -113,7 +123,8 @@ const WishList: FC<Props> = ({
           {wishlist.map((w: WishlistData, idx: any) => (
             <div
               className="flex flex-row w-auto h-full mt-10 lg:mt-12 lg:flex-col gap-x-8 gap-y-10 lg:gap-y-0"
-              key={idx}>
+              key={idx}
+            >
               <div className="flex flex-col h-full">
                 <div className="relative block mb-2 overflow-hidden bg-gray-100 rounded-lg shadow-lg group h-[20rem] lg:mb-3">
                   <img
@@ -126,7 +137,11 @@ const WishList: FC<Props> = ({
                     src={w.front_url}
                     alt="product"
                   />
-                  <img className="w-full h-full  sm:hidden" src={w.front_url} alt="product" />
+                  <img
+                    className="w-full h-full  sm:hidden"
+                    src={w.front_url}
+                    alt="product"
+                  />
                 </div>
                 <div className="flex items-center justify-between mt-6">
                   <div className="flex items-center justify-center">
@@ -142,7 +157,8 @@ const WishList: FC<Props> = ({
                         newShow[idx] = !newShow[idx];
                         setShow(newShow);
                       }}
-                      className="px-1 py-1 text-xs text-white bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 hover:text-gray-400">
+                      className="px-1 py-1 text-xs text-white bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 hover:text-gray-400"
+                    >
                       {show[idx] ? "Hide" : "Show"}
                     </button>
                   </div>
@@ -151,7 +167,8 @@ const WishList: FC<Props> = ({
                   id={`menu${idx}`}
                   className={` flex-col jusitfy-start items-start mt-12 ${
                     show[idx] ? "flex" : "hidden"
-                  }`}>
+                  }`}
+                >
                   <div>
                     <p className="text-xs leading-3 tracking-tight text-gray-800 capitalize">
                       {w.description}
@@ -167,14 +184,18 @@ const WishList: FC<Props> = ({
                     <div className="w-full">
                       <button
                         onClick={() => handleDeletewishlist(w.product_id)}
-                        className="w-full py-2 leading-4 tracking-tight text-black bg-gray-400 border border-gray-800 rounded-md  focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 text-md hover:bg-red-600 hover:text-white">
+                        className="w-full py-2 leading-4 tracking-tight text-black bg-gray-400 border border-gray-800 rounded-md  focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 text-md hover:bg-red-600 hover:text-white"
+                      >
                         Remove
                       </button>
                     </div>
                     <div className="w-full">
                       <button
-                        onClick={(e) => addProductToCart(e, Number(w.product_id))}
-                        className="w-full py-2 leading-4 tracking-tight text-white bg-gray-800 border border-gray-800 rounded-md focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 text-md hover:bg-green-600">
+                        onClick={(e) =>
+                          addProductToCart(e, Number(w.product_id))
+                        }
+                        className="w-full py-2 leading-4 tracking-tight text-white bg-gray-800 border border-gray-800 rounded-md focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 text-md hover:bg-green-600"
+                      >
                         Add to cart
                       </button>
                     </div>
