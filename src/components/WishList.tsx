@@ -1,11 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
-import {
-  createOrder,
-  deleteWishlist,
-  fetchUser,
-  fetchWishlistByUser,
-} from "../api/api";
+import { createOrder, deleteWishlist, fetchUser, fetchWishlistByUser } from "../api/api";
 import { User, WishlistData } from "./Interfaces";
+
 type Props = {
   quantity: number;
   setSuccess: any;
@@ -41,9 +37,7 @@ const WishList: FC<Props> = ({
       console.log(res);
       console.log(wishlist, "before filter upon adding", product_id);
       setWishlist(
-        wishlist.filter(
-          (wish: { product_id: number }) => wish.product_id !== product_id
-        )
+        wishlist.filter((wish: { product_id: number }) => wish.product_id !== product_id)
       );
       console.log(wishlist, "After filter upon adding");
       handleDeletewishlist(product_id);
@@ -64,9 +58,7 @@ const WishList: FC<Props> = ({
       });
       console.log(res);
       setWishlist(
-        wishlist.filter(
-          (wish: { product_id: number }) => wish.product_id !== product_id
-        )
+        wishlist.filter((wish: { product_id: number }) => wish.product_id !== product_id)
       );
       setSuccess(true);
       setSuccessMsg("Item removed.");
@@ -95,8 +87,7 @@ const WishList: FC<Props> = ({
       console.log(wishlists);
 
       const filteredWishlist = wishlists.filter(
-        (wishlist: { users_id: number; status: string }) =>
-          wishlist.users_id === userId
+        (wishlist: { users_id: number; status: string }) => wishlist.users_id === userId
       );
       setWishlist(filteredWishlist);
     };
@@ -113,42 +104,37 @@ const WishList: FC<Props> = ({
       <div className="py-5">
         <div className="border-t border-gray-900" />
       </div>
-      <div className="mt-3 h-screen">
-        <h1 className="text-3xl lg:text-4xl flex justify-center items-center tracking-tight font-semibold leading-8 lg:leading-9 text-gray-800">
+      <div className="h-screen mt-3">
+        <h1 className="flex items-center justify-center text-3xl font-semibold leading-8 tracking-tight text-gray-800 lg:text-4xl lg:leading-9">
           Wishlist
         </h1>
-        <div className="mx-auto container gap-6 flex-wrap px-4 md:px-6 2xl:px-0 py-12 flex ">
-          <div className="flex flex-row jusitfy-start items-start"></div>
+        <div className="container flex flex-wrap gap-6 px-4 py-12 mx-auto md:px-6 2xl:px-0 ">
+          <div className="flex flex-row items-start jusitfy-start"></div>
           {wishlist.map((w: WishlistData, idx: any) => (
             <div
-              className="mt-10 lg:mt-12 w-auto h-full flex flex-row lg:flex-col gap-x-8 gap-y-10 lg:gap-y-0"
-              key={idx}
-            >
+              className="flex flex-row w-auto h-full mt-10 lg:mt-12 lg:flex-col gap-x-8 gap-y-10 lg:gap-y-0"
+              key={idx}>
               <div className="flex flex-col h-full">
                 <div className="relative block mb-2 overflow-hidden bg-gray-100 rounded-lg shadow-lg group h-[20rem] lg:mb-3">
                   <img
-                    className="hidden lg:block rounded-xl shadow-2xl h-full "
+                    className="hidden h-full shadow-2xl lg:block rounded-xl "
                     src={w.front_url}
                     alt="product"
                   />
                   <img
-                    className="hidden sm:block lg:hidden w-full h-full"
+                    className="hidden w-full h-full sm:block lg:hidden"
                     src={w.front_url}
                     alt="product"
                   />
-                  <img
-                    className=" sm:hidden h-full w-full"
-                    src={w.front_url}
-                    alt="product"
-                  />
+                  <img className="w-full h-full  sm:hidden" src={w.front_url} alt="product" />
                 </div>
-                <div className="mt-6 flex justify-between items-center">
-                  <div className="flex justify-center items-center">
-                    <p className="tracking-tight text-md font-semibold leading-6 text-gray-800 capitalize">
+                <div className="flex items-center justify-between mt-6">
+                  <div className="flex items-center justify-center">
+                    <p className="font-semibold leading-6 tracking-tight text-gray-800 capitalize text-md">
                       {w.title}
                     </p>
                   </div>
-                  <div className="flex justify-center items-center">
+                  <div className="flex items-center justify-center">
                     <button
                       aria-label="show menu"
                       onClick={() => {
@@ -156,8 +142,7 @@ const WishList: FC<Props> = ({
                         newShow[idx] = !newShow[idx];
                         setShow(newShow);
                       }}
-                      className="focus:outline-none text-xs focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-1 px-1 rounded-md bg-gray-800 text-white hover:text-gray-400"
-                    >
+                      className="px-1 py-1 text-xs text-white bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 hover:text-gray-400">
                       {show[idx] ? "Hide" : "Show"}
                     </button>
                   </div>
@@ -166,35 +151,30 @@ const WishList: FC<Props> = ({
                   id={`menu${idx}`}
                   className={` flex-col jusitfy-start items-start mt-12 ${
                     show[idx] ? "flex" : "hidden"
-                  }`}
-                >
+                  }`}>
                   <div>
-                    <p className="tracking-tight text-xs leading-3 text-gray-800 capitalize">
+                    <p className="text-xs leading-3 tracking-tight text-gray-800 capitalize">
                       {w.description}
                     </p>
                   </div>
 
                   <div className="mt-6">
-                    <p className="tracking-tight text-xs font-medium leading-4 text-gray-800">
+                    <p className="text-xs font-medium leading-4 tracking-tight text-gray-800">
                       ${w.price}
                     </p>
                   </div>
-                  <div className="flex jusitfy-between flex-col lg:flex-row items-center mt-10 w-full  space-y-4 lg:space-y-0 lg:space-x-4 xl:space-x-8">
+                  <div className="flex flex-col items-center w-full mt-10 space-y-4 jusitfy-between lg:flex-row lg:space-y-0 lg:space-x-4 xl:space-x-8">
                     <div className="w-full">
                       <button
                         onClick={() => handleDeletewishlist(w.product_id)}
-                        className=" focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 rounded-md text-black w-full tracking-tight py-2 text-md leading-4 hover:bg-red-600 hover:text-white bg-gray-400 border border-gray-800"
-                      >
+                        className="w-full py-2 leading-4 tracking-tight text-black bg-gray-400 border border-gray-800 rounded-md  focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 text-md hover:bg-red-600 hover:text-white">
                         Remove
                       </button>
                     </div>
                     <div className="w-full">
                       <button
-                        onClick={(e) =>
-                          addProductToCart(e, Number(w.product_id))
-                        }
-                        className="focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 rounded-md text-white w-full tracking-tight py-2 text-md leading-4  hover:bg-green-600 bg-gray-800 border border-gray-800"
-                      >
+                        onClick={(e) => addProductToCart(e, Number(w.product_id))}
+                        className="w-full py-2 leading-4 tracking-tight text-white bg-gray-800 border border-gray-800 rounded-md focus:outline-none focus:ring-gray-800 focus:ring-offset-2 focus:ring-2 text-md hover:bg-green-600">
                         Add to cart
                       </button>
                     </div>
