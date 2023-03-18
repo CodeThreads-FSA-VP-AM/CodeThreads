@@ -24,7 +24,6 @@ const AdminNav: React.FC<Props> = ({
 }) => {
   const [activeComponent, setActiveComponent] = useState("home");
   const [allOrders, setAllOrders] = useState([]);
-  console.log(allOrders);
 
   useEffect(() => {
     const getAllOrders = async () => {
@@ -35,16 +34,15 @@ const AdminNav: React.FC<Props> = ({
   }, []);
   return (
     <div className="flex flex-no-wrap">
-      <div className="w-64 absolute sm:relative bg-white shadow md:h-full flex-col justify-between hidden sm:flex">
-        <div className="px-8 h-screen">
-          <div className="h-16 w-full flex items-center">
+      <div className="absolute flex-col justify-between hidden w-64 bg-white shadow sm:relative md:h-full sm:flex">
+        <div className="h-screen px-8">
+          <div className="flex items-center w-full h-16">
             <h1>Admin Dashboard</h1>
           </div>
           <ul className="mt-12">
             <li
-              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6"
-              onClick={() => setActiveComponent("home")}
-            >
+              className="flex items-center justify-between w-full mb-6 text-gray-600 cursor-pointer hover:text-gray-500"
+              onClick={() => setActiveComponent("home")}>
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +54,7 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <rect x={4} y={4} width={6} height={6} rx={1} />
                   <rect x={14} y={4} width={6} height={6} rx={1} />
@@ -65,13 +62,12 @@ const AdminNav: React.FC<Props> = ({
                   <rect x={14} y={14} width={6} height={6} rx={1} />
                 </svg>
 
-                <span className="text-sm  ml-2">Users</span>
+                <span className="ml-2 text-sm">Users</span>
               </div>
             </li>
             <li
-              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6"
-              onClick={() => setActiveComponent("products")}
-            >
+              className="flex items-center justify-between w-full mb-6 text-gray-600 cursor-pointer hover:text-gray-500"
+              onClick={() => setActiveComponent("products")}>
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -83,19 +79,17 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
                 </svg>
-                <span className="text-sm  ml-2">Products</span>
+                <span className="ml-2 text-sm">Products</span>
               </div>
             </li>
 
             <li
-              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6"
-              onClick={() => setActiveComponent("orders")}
-            >
+              className="flex items-center justify-between w-full mb-6 text-gray-600 cursor-pointer hover:text-gray-500"
+              onClick={() => setActiveComponent("orders")}>
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -107,18 +101,16 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
                 </svg>
-                <span className="text-sm  ml-2">Orders</span>
+                <span className="ml-2 text-sm">Orders</span>
               </div>
             </li>
             <li
-              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6"
-              onClick={() => setActiveComponent("performance")}
-            >
+              className="flex items-center justify-between w-full mb-6 text-gray-600 cursor-pointer hover:text-gray-500"
+              onClick={() => setActiveComponent("performance")}>
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -130,20 +122,18 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <polyline points="12 4 4 8 12 12 20 8 12 4" />
                   <polyline points="4 12 12 16 20 12" />
                   <polyline points="4 16 12 20 20 16" />
                 </svg>
-                <span className="text-sm  ml-2">Stats</span>
+                <span className="ml-2 text-sm">Stats</span>
               </div>
             </li>
             <li
-              className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center"
-              onClick={() => setActiveComponent("profile")}
-            >
+              className="flex items-center justify-between w-full text-gray-600 cursor-pointer hover:text-gray-500"
+              onClick={() => setActiveComponent("profile")}>
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -155,13 +145,12 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                   <circle cx={12} cy={12} r={3} />
                 </svg>
-                <span className="text-sm  ml-2">Settings</span>
+                <span className="ml-2 text-sm">Settings</span>
               </div>
             </li>
           </ul>
@@ -171,11 +160,10 @@ const AdminNav: React.FC<Props> = ({
         </div>
       </div>
       <div
-        className="w-64 z-40 absolute bg-white shadow md:h-full flex-col justify-between sm:hidden  transition duration-150 ease-in-out"
-        id="mobile-nav"
-      >
+        className="absolute z-40 flex-col justify-between w-64 transition duration-150 ease-in-out bg-white shadow md:h-full sm:hidden"
+        id="mobile-nav">
         <div
-          className="h-10 w-10 bg-gray-600 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer"
+          className="absolute right-0 flex items-center justify-center w-10 h-10 mt-16 -mr-10 bg-gray-600 rounded-tr rounded-br shadow cursor-pointer"
           id="mobile-toggler"
           // onclick="sidebarHandler()"
         >
@@ -189,8 +177,7 @@ const AdminNav: React.FC<Props> = ({
             stroke="#FFFFFF"
             fill="none"
             strokeLinecap="round"
-            strokeLinejoin="round"
-          >
+            strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" />
             <circle cx={6} cy={10} r={2} />
             <line x1={6} y1={4} x2={6} y2={8} />
@@ -203,12 +190,12 @@ const AdminNav: React.FC<Props> = ({
             <line x1={18} y1={9} x2={18} y2={20} />
           </svg>
         </div>
-        <div className="px-8 h-screen">
-          <div className="h-16 w-full flex items-center">
+        <div className="h-screen px-8">
+          <div className="flex items-center w-full h-16">
             <h1>Admin Dashboard</h1>
           </div>
           <ul className="mt-12">
-            <li className="flex w-full justify-between text-gray-800 hover:text-gray-500 cursor-pointer items-center mb-6">
+            <li className="flex items-center justify-between w-full mb-6 text-gray-800 cursor-pointer hover:text-gray-500">
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -220,18 +207,17 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <rect x={4} y={4} width={6} height={6} rx={1} />
                   <rect x={14} y={4} width={6} height={6} rx={1} />
                   <rect x={4} y={14} width={6} height={6} rx={1} />
                   <rect x={14} y={14} width={6} height={6} rx={1} />
                 </svg>
-                <span className="text-sm  ml-2">Dashboard</span>
+                <span className="ml-2 text-sm">Dashboard</span>
               </div>
             </li>
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
+            <li className="flex items-center justify-between w-full mb-6 text-gray-600 cursor-pointer hover:text-gray-500">
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -243,16 +229,15 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
                 </svg>
-                <span className="text-sm  ml-2">Products</span>
+                <span className="ml-2 text-sm">Products</span>
               </div>
             </li>
 
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
+            <li className="flex items-center justify-between w-full mb-6 text-gray-600 cursor-pointer hover:text-gray-500">
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -264,15 +249,14 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
                 </svg>
-                <span className="text-sm  ml-2">Orders</span>
+                <span className="ml-2 text-sm">Orders</span>
               </div>
             </li>
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center mb-6">
+            <li className="flex items-center justify-between w-full mb-6 text-gray-600 cursor-pointer hover:text-gray-500">
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -284,17 +268,16 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <polyline points="12 4 4 8 12 12 20 8 12 4" />
                   <polyline points="4 12 12 16 20 12" />
                   <polyline points="4 16 12 20 20 16" />
                 </svg>
-                <span className="text-sm  ml-2">Stats</span>
+                <span className="ml-2 text-sm">Stats</span>
               </div>
             </li>
-            <li className="flex w-full justify-between text-gray-600 hover:text-gray-500 cursor-pointer items-center">
+            <li className="flex items-center justify-between w-full text-gray-600 cursor-pointer hover:text-gray-500">
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -306,20 +289,19 @@ const AdminNav: React.FC<Props> = ({
                   stroke="currentColor"
                   fill="none"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                  strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                   <circle cx={12} cy={12} r={3} />
                 </svg>
-                <span className="text-sm  ml-2">Settings</span>
+                <span className="ml-2 text-sm">Settings</span>
               </div>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
+      <div className="container w-11/12 h-64 px-6 py-10 mx-auto md:w-4/5">
         {activeComponent === "home" ? <Users /> : null}
         {activeComponent === "products" ? (
           <Products
@@ -335,8 +317,6 @@ const AdminNav: React.FC<Props> = ({
         ) : null}
         {activeComponent === "performance" ? <Performance /> : null}
         {activeComponent === "profile" ? <Profile /> : null}
-
-        {/* <div className="w-full h-full"></div> */}
       </div>
     </div>
   );
