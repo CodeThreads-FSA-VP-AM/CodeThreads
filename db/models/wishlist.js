@@ -24,7 +24,7 @@ const addProductToWishlist = async ({ user_id, product_id, quantity }) => {
       } = await client.query(
         `
           SELECT *
-          FROM order_products
+          FROM wishlist_products
           WHERE wishlist_id = $1 AND product_id = $2
         `,
         [wishlistId, product_id]
@@ -36,7 +36,7 @@ const addProductToWishlist = async ({ user_id, product_id, quantity }) => {
 
         await client.query(
           `
-            UPDATE order_products 
+            UPDATE wishlist_products 
             SET quantity = $1
             WHERE wishlist_id = $2 AND product_id = $3
           `,
@@ -45,7 +45,7 @@ const addProductToWishlist = async ({ user_id, product_id, quantity }) => {
       } else {
         await client.query(
           `
-            INSERT INTO order_products (wishlist_id, status, quantity, product_id)
+            INSERT INTO wishlist_products (wishlist_id, status, quantity, product_id)
             VALUES ($1, 'added', $2, $3)
           `,
           [wishlistId, quantity, product_id]
@@ -68,7 +68,7 @@ const addProductToWishlist = async ({ user_id, product_id, quantity }) => {
 
       await client.query(
         `
-          INSERT INTO order_products (wishlist_id, status, quantity, product_id)
+          INSERT INTO wishlist_products (wishlist_id, status, quantity, product_id)
           VALUES ($1, 'added', $2, $3)
         `,
         [wishlistId, quantity, product_id]
@@ -81,8 +81,8 @@ const addProductToWishlist = async ({ user_id, product_id, quantity }) => {
       `
         SELECT w.id, users_id, wishlist_id, status, quantity, product_id, title, description, price, front_url, back_url 
         FROM wishlist w
-        JOIN order_products op ON w.id = op.wishlist_id
-        JOIN products p ON op.product_id = p.id
+        JOIN wishlist_products wp ON w.id = wp.wishlist_id
+        JOIN products p ON wp.product_id = p.id
         WHERE w.id = $1
       `,
       [wishlistId]
@@ -100,10 +100,10 @@ const fetchWishlistById = async (users_id) => {
       `
       SELECT w.id, users_id, wishlist_id, status, quantity, product_id, title, description, price, front_url, back_url 
       FROM wishlist w
-      JOIN order_products op
-      ON w.id = op.wishlist_id
+      JOIN wishlist_products wp
+      ON w.id = wp.wishlist_id
       JOIN products p
-      ON op.product_id = p.id
+      ON wp.product_id = p.id
       WHERE users_id = $1
     `,
       [users_id]
@@ -120,8 +120,8 @@ const deleteFromWishlist = async ({ id }) => {
       rows: [wishlist],
     } = await client.query(
       `
-    DELETE FROM order_products WHERE product_id=$1 
-    RETURNING *
+      DELETE FROM wishlist_products WHERE product_id=$1 
+      RETURNING *
     `,
       [id]
     );

@@ -28,7 +28,7 @@ import Featured from "./Featured";
 import Home from "./Home";
 import { fetchProductById, fetchUser } from "../api/api";
 import EditReviews from "./EditReviews";
-import { User } from "./Interfaces";
+import { User, WishlistData } from "./Interfaces";
 import NotFound from "./NotFound";
 import AdminNav from "./AdminNav";
 import CheckoutForm from "./CheckoutForm";
@@ -44,6 +44,7 @@ import FemaleProducts from "./FemaleProducts";
 import AllOrders from "./AllOrders";
 import WishList from "./WishList";
 import ErrorNotification from "./ErrorNotification";
+import Footer from "./Footer";
 
 const App: React.FC = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -59,6 +60,7 @@ const App: React.FC = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [successTitle, setSuccessTitle] = useState("");
   const [productsLength, setProductsLength] = useState(0);
+  const [wishlist, setWishlist] = useState<WishlistData[]>([]);
 
   const options = {
     // passing the client secret obtained from the server
@@ -92,7 +94,7 @@ const App: React.FC = () => {
     getProduct();
   }, [productId]);
 
-  useEffect(() => {}, [successMsg, successTitle, productsLength]);
+  useEffect(() => {}, [successMsg, successTitle, productsLength, wishlist]);
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
   //   // first, create an async function that will wrap your axios service adapter
@@ -166,16 +168,38 @@ const App: React.FC = () => {
             />
             <Route
               path="/products"
-              element={<Products setProductId={setProductId} user={user} />}
+              element={
+                <Products
+                  setProductId={setProductId}
+                  user={user}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
             />
             <Route
               path="/mens"
-              element={<MaleProducts setProductId={setProductId} user={user} />}
+              element={
+                <MaleProducts
+                  setProductId={setProductId}
+                  user={user}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
             />
             <Route
               path="/womens"
               element={
-                <FemaleProducts setProductId={setProductId} user={user} />
+                <FemaleProducts
+                  setProductId={setProductId}
+                  user={user}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
               }
             />
 
@@ -193,9 +217,27 @@ const App: React.FC = () => {
             />
             <Route
               path="/orders"
-              element={<Orders setProductsLength={setProductsLength} />}
+              element={
+                <Orders
+                  setProductsLength={setProductsLength}
+                  wishlist={wishlist}
+                  setWishlist={setWishlist}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
             />
-            <Route path="/addproduct" element={<AddProduct />} />
+            <Route
+              path="/addproduct"
+              element={
+                <AddProduct
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
+                />
+              }
+            />
             <Route
               path="/edit/:id"
               element={
@@ -218,6 +260,9 @@ const App: React.FC = () => {
                   setProductId={setProductId}
                   user={user}
                   setProductsLength={setProductsLength}
+                  setSuccess={setSuccess}
+                  setSuccessTitle={setSuccessTitle}
+                  setSuccessMsg={setSuccessMsg}
                 />
               }
             />
@@ -240,10 +285,13 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  wishlist={wishlist}
+                  setWishlist={setWishlist}
                 />
               }
             />
           </Routes>
+          <Footer />
         </div>
       </Router>
     </>

@@ -4,18 +4,23 @@ import { Review, User } from "./Interfaces";
 import { Link } from "react-router-dom";
 import EditReviews from "./EditReviews";
 import Loader from "./Loader";
+import Modal from "./Modal";
 
 type Props = {
   product_id: number;
   token: string;
   reviews: Review[];
   setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
+  setSuccess: any;
+  setSuccessTitle: any;
+  setSuccessMsg: any;
 };
 
 const Reviews = (props: Props) => {
   const [user, setUser] = useState("");
   const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState<Boolean>(true);
+  const [showModal, setShowModal] = useState(false);
 
   console.log(userId);
 
@@ -27,6 +32,10 @@ const Reviews = (props: Props) => {
       props.setReviews(
         props.reviews.filter((review) => review.id !== reviewId)
       );
+      setShowModal(false);
+      props.setSuccess(true);
+      props.setSuccessTitle("Success!");
+      props.setSuccessMsg("Review deleted!");
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -189,7 +198,6 @@ const Reviews = (props: Props) => {
                   </footer>
                   {r.users_id === userId && (
                     <div className="flex gap-6">
-                      <button className="text-blue-400 underline">Edit</button>
                       <div className="">
                         <EditReviews
                           description={r.description}
@@ -198,14 +206,23 @@ const Reviews = (props: Props) => {
                           reviewId={r.id}
                           reviews={props.reviews}
                           setReviews={props.setReviews}
+                          setSuccess={props.setSuccess}
+                          setSuccessTitle={props.setSuccessTitle}
+                          setSuccessMsg={props.setSuccessMsg}
                         />
                       </div>
-                      <button
-                        onClick={() => handleDeleteReview(r.id)}
-                        className="text-red-600 underline"
+                      <Modal
+                        showModal={showModal}
+                        setShowModal={setShowModal}
+                        handleSubmit={() => handleDeleteReview(r.id)}
+                        modalTitle={"Delete review"}
+                        modalTxt={"Delete review"}
+                        submitBtnText="Delete"
                       >
-                        Delete
-                      </button>
+                        <div>
+                          <h1>Are you sure you want to delete this review?</h1>
+                        </div>
+                      </Modal>
                     </div>
                   )}
                 </blockquote>
