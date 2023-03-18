@@ -7,12 +7,12 @@ const Footer: React.FC = () => {
     <>
       <div className='container z-50 flex flex-col items-center justify-center px-4 pt-16 pb-2 mx-auto xl:px-20 lg:px-12 sm:px-6'>
         <div className='flex flex-wrap gap-4 md:justify-start'>
-          <div className='flex flex-col'>
+          <div className='flex flex-col mx-5'>
             <p className='text-xl font-bold'>codeThreads</p>
             <p className='mt-4 text-sm leading-none text-gray-800'>Copyright © 2023 codeThreads</p>
             <p className='mt-4 text-sm leading-none text-gray-800'>All rights reserved</p>
           </div>
-          <div className='flex flex-wrap gap-2 md:gap-12 justify-center items-center'>
+          <div className='flex flex-wrap gap-2 md:gap-12 justify-center items-center mx-5'>
             <div>
               <h2 className='text-base font-bold leading-4 text-gray-800'>Vincent Palomo</h2>
               <a
