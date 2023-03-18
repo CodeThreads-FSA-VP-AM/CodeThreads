@@ -71,8 +71,11 @@ const Users: React.FC = () => {
         <tbody>
           {users.map((user) => {
             return (
-              <tr className="text-xs border-b border-gray-100 bg-blue-50" key={user.id}>
-                <td className="py-6 pl-6 bg-blue-100">{user.id}</td>
+              <tr
+                className="text-xs border-b border-gray-100 odd:bg-blue-50 even:bg-blue-300"
+                key={user.id}
+              >
+                <td className="py-6 pl-6 bg-indigo-300">{user.id}</td>
                 <td className="pl-6 capitalize">{user.username}</td>
                 <td>{user.email}</td>
 
@@ -80,7 +83,8 @@ const Users: React.FC = () => {
                 <td>
                   <button
                     className="p-1 text-white bg-red-400 border border-red-600 rounded-md"
-                    onClick={() => handleDeleteUser(user.id)}>
+                    onClick={() => handleDeleteUser(user.id)}
+                  >
                     Delete user
                   </button>
                 </td>
