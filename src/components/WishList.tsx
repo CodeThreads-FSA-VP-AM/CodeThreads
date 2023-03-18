@@ -52,7 +52,6 @@ const WishList: FC<Props> = ({
       setSuccess(true);
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to cart!");
-      location.reload();
     } catch (error) {
       console.error();
     }
@@ -76,37 +75,7 @@ const WishList: FC<Props> = ({
       console.error(error);
     }
   };
-  useEffect(() => {
-    const getUser = async (data: User) => {
-      const { token } = data;
-      try {
-        const user = await fetchUser({ token });
-        setUserId(user.id);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    const token = localStorage.getItem("token") ?? "";
-    setToken(token);
-    getUser({ token });
-  }, [token]);
-  useEffect(() => {
-    const fetchWishlist = async (userId: number) => {
-      const wishlists = await fetchWishlistByUser(userId);
-      console.log(wishlists);
-
-      const filteredWishlist = wishlists.filter(
-        (wishlist: { users_id: number; status: string }) =>
-          wishlist.users_id === userId
-      );
-      setWishlist(filteredWishlist);
-    };
-
-    if (userId !== undefined) {
-      fetchWishlist(userId);
-    }
-  }, [token, userId, wishlistId]);
   useEffect(() => {
     setWishlist(wishlist);
   }, [wishlist]);

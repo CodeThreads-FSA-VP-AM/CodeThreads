@@ -179,16 +179,18 @@ const SingleView: FC<Props> = ({
                 <strong className="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600">
                   Pre Order
                 </strong>
-                \
+
                 {user.is_admin && (
-                  <>
+                  <div className="flex">
                     <Link to={`/edit/${product?.id}`}>
-                      <button className="mx-2">edit</button>
+                      <button className="capitalize mx-2 hover:underline text-indigo-600">
+                        edit
+                      </button>
                     </Link>
                     <div>
-                      <button onClick={deleteProduct}>delete</button>
+                      <button onClick={deleteProduct} className="capitalize hover:underline text-red-600">delete</button>
                     </div>
-                  </>
+                  </div>
                 )}
                 <div className="flex justify-between mt-8">
                   <div className="max-w-[35ch] space-y-2">

@@ -17,8 +17,13 @@ import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 import Featured from "./Featured";
 import Home from "./Home";
-import { fetchProductById, fetchUser, fetchWishlistByUser } from "../api/api";
-import { User, WishlistData } from "./Interfaces";
+import {
+  fetchOrder,
+  fetchProductById,
+  fetchUser,
+  fetchWishlistByUser,
+} from "../api/api";
+import { OrderData, User, WishlistData } from "./Interfaces";
 import NotFound from "./NotFound";
 import AdminNav from "./AdminNav";
 import StripeContainer from "./StripeContainer";
@@ -48,6 +53,8 @@ const App: React.FC = () => {
   const [successTitle, setSuccessTitle] = useState("");
   const [productsLength, setProductsLength] = useState(0);
   const [wishlist, setWishlist] = useState<WishlistData[]>([]);
+  const [orders, setOrders] = useState<OrderData[]>([]);
+  const [orderId, setOrderId] = useState(2);
   useEffect(() => {
     const getUser = async (data: User) => {
       const { token } = data;
@@ -72,6 +79,31 @@ const App: React.FC = () => {
 
     if (userId !== undefined) {
       fetchWishlist(userId);
+    }
+    const fetchOrders = async (userId: number) => {
+      const orders = await fetchOrder(userId);
+      console.log(orders);
+
+      const getorderid = orders.filter(
+        (o: { status: string }) => o.status === "added"
+      );
+      console.log(getorderid.length);
+      setProductsLength(getorderid.length);
+
+      const orderid = getorderid[0];
+      if (orderid?.order_id !== undefined) {
+        setOrderId(orderid.order_id);
+      }
+
+      const filteredOrders = orders.filter(
+        (order: { users_id: number; status: string }) =>
+          order.users_id === userId && order.status === "added"
+      );
+      setOrders(filteredOrders);
+    };
+
+    if (userId !== undefined) {
+      fetchOrders(userId);
     }
   }, [token, userId]);
 
