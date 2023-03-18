@@ -26,7 +26,7 @@ body {
 #navBar .active{
 color:rgb(67, 59, 189);
 padding-bottom: 2px;
-border-bottom: 1px solid rgb(67, 59, 189);
+border-bottom: 3px solid rgb(67, 59, 189);
 
 }
 /* form {
