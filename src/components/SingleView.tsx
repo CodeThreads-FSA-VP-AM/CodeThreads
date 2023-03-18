@@ -15,9 +15,6 @@ type Props = {
 };
 
 const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitle }) => {
-  // need to pass productId from products component
-  // then fetch the product and set the product id
-  // then you can render the page with the required information
   const [product, setProduct] = useState<Product>();
   const [token, setToken] = useState("");
   const [productId, setProductId] = useState(0);
@@ -25,10 +22,6 @@ const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitl
   const [loading, setLoading] = useState<Boolean>(false);
 
   const navigate = useNavigate();
-
-  console.log(user.username);
-  console.log(productId);
-  console.log(product);
 
   type String = {
     id: string;
@@ -91,16 +84,13 @@ const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitl
       } else {
         cartItems.push({ id: productId, quantity: 1 });
       }
-      console.log(cartItems);
       sessionStorage.setItem("cart", JSON.stringify(cartItems));
-      console.log(sessionStorage);
     } catch (error) {
       console.error(error);
     }
   };
 
   const deleteProduct = async () => {
-    console.log("@frontend sv.js", productId);
     const deletedProduct = await fetchDeleteProduct(productId);
     console.log(deletedProduct);
     navigate(-1);
@@ -212,56 +202,9 @@ const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitl
                   <div className="prose max-w-none">
                     <p>{product?.description}</p>
                   </div>
-
-                  {/* <button className="mt-2 text-sm font-medium underline">Read More</button> */}
                 </div>
 
                 <form className="mt-8">
-                  {/* <fieldset>
-                    <legend className="mb-1 text-sm font-medium">Color</legend>
-
-                    <div className="flex flex-wrap gap-1">
-                      <label htmlFor="color_tt" className="cursor-pointer">
-                        <input
-                          type="radio"
-                          name="color"
-                          id="color_tt"
-                          className="sr-only peer"
-                        />
-
-                        <span className="inline-block px-3 py-1 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                          Texas Tea
-                        </span>
-                      </label>
-
-                      <label htmlFor="color_fr" className="cursor-pointer">
-                        <input
-                          type="radio"
-                          name="color"
-                          id="color_fr"
-                          className="sr-only peer"
-                        />
-
-                        <span className="inline-block px-3 py-1 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                          Fiesta Red
-                        </span>
-                      </label>
-
-                      <label htmlFor="color_cb" className="cursor-pointer">
-                        <input
-                          type="radio"
-                          name="color"
-                          id="color_cb"
-                          className="sr-only peer"
-                        />
-
-                        <span className="inline-block px-3 py-1 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                          Cobalt Blue
-                        </span>
-                      </label>
-                    </div>
-                  </fieldset> */}
-
                   <fieldset className="mt-4">
                     <legend className="mb-1 text-sm font-medium">Size</legend>
 
@@ -325,13 +268,6 @@ const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitl
                     {/* remove disabled to use */}
                     {token ? (
                       <>
-                        {/* <button
-                          type="submit"
-                          onClick={addProductToCart}
-                          className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
-                        >
-                          Add to Cart
-                        </button> */}
                         <button
                           type="submit"
                           onClick={addProductToCart}
@@ -355,12 +291,6 @@ const SingleView: FC<Props> = ({ user, setSuccess, setSuccessMsg, setSuccessTitl
                         </button>
                       </>
                     ) : (
-                      // <button
-                      //   type="submit"
-                      //   onClick={guestAddToCart}
-                      //   className="block px-5 py-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500">
-                      //   Add to Cart
-                      // </button>
                       <button
                         type="submit"
                         onClick={guestAddToCart}
