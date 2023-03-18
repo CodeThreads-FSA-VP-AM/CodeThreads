@@ -450,12 +450,13 @@ const Navbar: React.FC<Props> = ({
               <div className="p-4 mt-6">
                 <ul
                   className="flex flex-col space-y-6"
+                  id="navBar"
                   onClick={() => setShowMenu(false)}
                 >
                   <li>
                     <NavLink
                       to="/home"
-                      className="text-base text-gray-800 dark:text-black hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Home
                     </NavLink>
@@ -463,7 +464,7 @@ const Navbar: React.FC<Props> = ({
                   <li>
                     <NavLink
                       to="/featured"
-                      className="text-base text-gray-800 dark:text-black hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Featured
                     </NavLink>
@@ -471,7 +472,7 @@ const Navbar: React.FC<Props> = ({
                   <li>
                     <NavLink
                       to="/mens"
-                      className="text-base text-gray-800 dark:text-black hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Mens
                     </NavLink>
@@ -479,7 +480,7 @@ const Navbar: React.FC<Props> = ({
                   <li>
                     <NavLink
                       to="/womens"
-                      className="text-base text-gray-800 dark:text-black hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Womens
                     </NavLink>
@@ -488,14 +489,14 @@ const Navbar: React.FC<Props> = ({
                     <li>
                       <NavLink
                         to="/admin"
-                        className="text-base text-gray-800 dark:text-black hover:underline"
+                        className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                       >
                         Admin
                       </NavLink>
                     </li>
                   )}
                   {!token ? (
-                    <>
+                    <ul id="navBar">
                       <li>
                         <NavLink
                           to="./login"
@@ -512,9 +513,9 @@ const Navbar: React.FC<Props> = ({
                           Sign Up
                         </NavLink>
                       </li>
-                    </>
+                    </ul>
                   ) : (
-                    <>
+                    <ul id="navBar">
                       {" "}
                       <li className="" onClick={() => navigate("/userprofile")}>
                         <div className="flex items-center">
@@ -584,7 +585,7 @@ const Navbar: React.FC<Props> = ({
                           </div>
                         </button>
                       </li>
-                    </>
+                    </ul>
                   )}
                 </ul>
               </div>

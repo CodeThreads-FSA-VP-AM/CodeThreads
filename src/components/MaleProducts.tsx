@@ -73,7 +73,9 @@ const MaleProducts: React.FC<Props> = ({
     setProductId(id);
   };
 
-  const handleSelect: React.ChangeEventHandler<HTMLSelectElement> = (e: any) => {
+  const handleSelect: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: any
+  ) => {
     setProductId(e.target.value);
     setSelectedId(e.target.value);
   };
@@ -108,8 +110,9 @@ const MaleProducts: React.FC<Props> = ({
             </h2>
 
             <p className="max-w-screen-md mx-auto text-center text-gray-500 md:text-lg">
-              From everyday essentials to statement pieces, our selection features something for
-              every occasion. Start exploring now and find your new favorite outfit!
+              From everyday essentials to statement pieces, our selection
+              features something for every occasion. Start exploring now and
+              find your new favorite outfit!
             </p>
 
             {user.is_admin && (
@@ -134,7 +137,8 @@ const MaleProducts: React.FC<Props> = ({
                     handleSubmit={handleDelete}
                     modalTitle={"Delete product"}
                     modalTxt={"Delete product"}
-                    submitBtnText="Delete">
+                    submitBtnText="Delete"
+                  >
                     <div>
                       <h1>Are you sure you want to delete this product?</h1>
                     </div>
@@ -149,7 +153,8 @@ const MaleProducts: React.FC<Props> = ({
                 <svg
                   className="absolute text-slate-800 h-6 w-6 ml-[5px]"
                   viewBox="0 0 20 20"
-                  fill="currentColor">
+                  fill="currentColor"
+                >
                   <path
                     fillRule="evenodd"
                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
@@ -158,7 +163,7 @@ const MaleProducts: React.FC<Props> = ({
                 </svg>
               </div>
               <input
-                className="w-full max-w-xs p-3 pl-8 border border-gray-800 rounded input input-bordered input-secondary"
+                className="w-full max-w-xs p-3 pl-8 border border-gray-800 rounded input input-bordered input-secondary capitalize"
                 value={search}
                 placeholder="Search"
                 onChange={(event) => {
@@ -174,48 +179,56 @@ const MaleProducts: React.FC<Props> = ({
             {loading ? (
               <Loader />
             ) : (
-              filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)?.map((p: Product) => (
-                <div key={p.id}>
-                  <Link
-                    to={`/products/${p.id}`}
-                    className="relative block mb-2 overflow-hidden bg-gray-100 rounded-lg shadow-lg group h-96 lg:mb-3"
-                    onClick={() => idHandle(p.id)}>
-                    <img
-                      src={p.front_url}
-                      loading="lazy"
-                      alt=""
-                      className="object-cover object-center w-full h-full transition duration-200 group-hover:scale-110"
-                    />
+              filteredProducts
+                .slice(indexOfFirstProduct, indexOfLastProduct)
+                ?.map((p: Product) => (
+                  <div key={p.id}>
+                    <Link
+                      to={`/products/${p.id}`}
+                      className="relative block mb-2 overflow-hidden bg-gray-100 rounded-lg shadow-lg group h-96 lg:mb-3"
+                      onClick={() => idHandle(p.id)}
+                    >
+                      <img
+                        src={p.front_url}
+                        loading="lazy"
+                        alt=""
+                        className="object-cover object-center w-full h-full transition duration-200 group-hover:scale-110"
+                      />
 
-                    <div className="absolute flex gap-2 left-2 bottom-2">
-                      {p.tags?.map((t: any) => {
-                        return (
-                          <span
-                            key={t.id}
-                            className="bg-white text-gray-800 text-sm font-bold tracking-wider uppercase rounded-lg px-3 py-1.5">
-                            {t.name}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </Link>
+                      <div className="absolute flex gap-2 left-2 bottom-2">
+                        {p.tags?.map((t: any) => {
+                          return (
+                            <span
+                              key={t.id}
+                              className="bg-white text-gray-800 text-sm font-bold tracking-wider uppercase rounded-lg px-3 py-1.5"
+                            >
+                              {t.name}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </Link>
 
-                  <div className="flex items-start justify-between gap-2 px-2">
-                    <div className="flex flex-col">
-                      <a
-                        href="#"
-                        className="text-lg font-bold text-gray-800 capitalize transition duration-100 hover:text-gray-500 lg:text-xl">
-                        {p.title}
-                      </a>
-                      <span className="text-gray-500">by codeThreads</span>
-                    </div>
+                    <div className="flex items-start justify-between gap-2 px-2">
+                      <div className="flex flex-col">
+                        <a
+                          href="#"
+                          className="text-lg font-bold text-gray-800 capitalize transition duration-100 hover:text-gray-500 lg:text-xl"
+                        >
+                          {p.title}
+                        </a>
+                        <span className="text-gray-500">by codeThreads</span>
+                      </div>
 
-                    <div className="flex flex-col items-end">
-                      <span className="font-bold text-gray-600 lg:text-lg"> ${p.price} USD </span>
+                      <div className="flex flex-col items-end">
+                        <span className="font-bold text-gray-600 lg:text-lg">
+                          {" "}
+                          ${p.price} USD{" "}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
+                ))
             )}
             {/* <!-- product - end --> */}
           </div>
@@ -223,12 +236,18 @@ const MaleProducts: React.FC<Props> = ({
           {totalProducts > 0 && (
             <nav
               className="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6"
-              aria-label="Pagination">
+              aria-label="Pagination"
+            >
               <div className="hidden sm:block">
                 <p className="text-sm text-gray-700">
-                  Showing <span className="font-medium">{indexOfFirstProduct + 1}</span> to{" "}
-                  <span className="font-medium">{Math.min(indexOfLastProduct, totalProducts)}</span>{" "}
-                  of <span className="font-medium">{totalProducts}</span> products
+                  Showing{" "}
+                  <span className="font-medium">{indexOfFirstProduct + 1}</span>{" "}
+                  to{" "}
+                  <span className="font-medium">
+                    {Math.min(indexOfLastProduct, totalProducts)}
+                  </span>{" "}
+                  of <span className="font-medium">{totalProducts}</span>{" "}
+                  products
                 </p>
               </div>
               <div className="flex justify-center flex-1 sm:justify-end">
@@ -236,9 +255,12 @@ const MaleProducts: React.FC<Props> = ({
                   <button
                     onClick={() => handlePageClick(currentPage - 1)}
                     className={`px-3 py-1 rounded-md transition duration-150 ease-in-out ${
-                      currentPage === 1 ? "text-gray-400" : "text-gray-500 hover:bg-gray-200"
+                      currentPage === 1
+                        ? "text-gray-400"
+                        : "text-gray-500 hover:bg-gray-200"
                     }`}
-                    disabled={currentPage === 1}>
+                    disabled={currentPage === 1}
+                  >
                     Previous
                   </button>
                   {[...Array(totalPages)].map((_, i) => (
@@ -249,7 +271,8 @@ const MaleProducts: React.FC<Props> = ({
                         i + 1 === currentPage
                           ? "bg-blue-500 text-gray-50"
                           : "text-gray-500 hover:bg-gray-200"
-                      }`}>
+                      }`}
+                    >
                       {i + 1}
                     </button>
                   ))}
@@ -260,7 +283,8 @@ const MaleProducts: React.FC<Props> = ({
                         ? "text-gray-400"
                         : "text-gray-500 hover:bg-gray-200"
                     }`}
-                    disabled={currentPage === totalPages}>
+                    disabled={currentPage === totalPages}
+                  >
                     Next
                   </button>
                 </nav>
@@ -270,7 +294,6 @@ const MaleProducts: React.FC<Props> = ({
         </div>
       </section>
       <Footer />
-
     </>
   );
 };
