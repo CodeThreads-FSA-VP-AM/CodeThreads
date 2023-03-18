@@ -4,17 +4,17 @@ import { NavLink, useNavigate } from "react-router-dom";
 type Props = {
   user: any;
   token: string;
-  productsLength: number;
   setToken: (token: string) => void;
   wishListLength: number;
+  ordersLength: number;
 };
 
 const Navbar: React.FC<Props> = ({
   user,
   token,
   setToken,
-  productsLength,
   wishListLength,
+  ordersLength,
 }) => {
   const [mdOptionsToggle, setMdOptionsToggle] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
@@ -28,7 +28,7 @@ const Navbar: React.FC<Props> = ({
     navigate("/home");
   };
 
-  useEffect(() => {}, [wishListLength]);
+  useEffect(() => {}, [wishListLength, ordersLength]);
   return (
     <>
       <div>
@@ -182,13 +182,13 @@ const Navbar: React.FC<Props> = ({
                         />
                       </svg>
                       <p className="text-[14px]">
-                        {token ? (
+                        {ordersLength ? (
                           <div
                             className={`animate-pulse w-4 h-4 bg-red-600 text-sm rounded-full flex justify-center items-center m-auto ${
-                              productsLength > 0 ? "text-white" : "hidden"
+                              ordersLength > 0 ? "text-white" : "hidden"
                             }`}
                           >
-                            {productsLength}
+                            {ordersLength}
                           </div>
                         ) : null}
                       </p>
@@ -647,16 +647,16 @@ const Navbar: React.FC<Props> = ({
                             />
                           </svg>
                           <p className="text-[14px]">
-                          {wishListLength ? (
-                            <div
-                              className={`animate-pulse w-4 h-4 bg-red-600 text-sm rounded-full flex justify-center items-center m-auto ${
-                                wishListLength > 0 ? "text-white" : "hidden"
-                              }`}
-                            >
-                              {wishListLength}
-                            </div>
-                          ) : null}
-                        </p>
+                            {wishListLength ? (
+                              <div
+                                className={`animate-pulse w-4 h-4 bg-red-600 text-sm rounded-full flex justify-center items-center m-auto ${
+                                  wishListLength > 0 ? "text-white" : "hidden"
+                                }`}
+                              >
+                                {wishListLength}
+                              </div>
+                            ) : null}
+                          </p>
                         </div>
                         <p className="text-base">Wishlist</p>
                       </NavLink>

@@ -23,6 +23,8 @@ type Props = {
   setSuccess: any;
   setSuccessTitle: any;
   setSuccessMsg: any;
+  orders: any;
+  setOrders: any;
 };
 
 const Orders: React.FC<Props> = ({
@@ -32,9 +34,11 @@ const Orders: React.FC<Props> = ({
   setSuccess,
   setSuccessMsg,
   setSuccessTitle,
+  orders,
+  setOrders,
 }) => {
   const [show, setShow] = useState(false);
-  const [orders, setOrders] = useState<OrderData[]>([]);
+
   const [userId, setUserId] = useState(0);
   const [orderId, setOrderId] = useState(2);
   const [token, setToken] = useState("");
@@ -43,7 +47,8 @@ const Orders: React.FC<Props> = ({
   const [product, setProduct] = useState<Product[]>();
   let navigate = useNavigate();
   const totalPrice = orders.reduce(
-    (total, order) => total + order.price * order.quantity,
+    (total: number, order: { price: number; quantity: number }) =>
+      total + order.price * order.quantity,
     0
   );
 
@@ -54,7 +59,11 @@ const Orders: React.FC<Props> = ({
         token: token,
       });
       console.log(res);
-      setOrders(orders.filter((order) => order.product_id !== product_id));
+      setOrders(
+        orders.filter(
+          (order: { product_id: number }) => order.product_id !== product_id
+        )
+      );
       setSuccess(true);
       setSuccessMsg("Item removed.");
       // Update productsLength
@@ -216,9 +225,10 @@ const Orders: React.FC<Props> = ({
                   {/* Map over the orders here */}
                   {orders
                     .filter(
-                      (o) => o.users_id === userId && o.status === "added"
+                      (o: { users_id: number; status: string }) =>
+                        o.users_id === userId && o.status === "added"
                     )
-                    .map((o: Order, idx) => (
+                    .map((o: Order, idx: any) => (
                       <div
                         className="items-center py-8 border-t border-gray-200 md:flex mt-14"
                         key={idx}

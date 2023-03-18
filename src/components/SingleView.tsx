@@ -20,6 +20,8 @@ type Props = {
   setSuccessMsg: any;
   setWishlist: any;
   wishlist: any;
+  setOrders: any;
+  orders: any;
 };
 
 const SingleView: FC<Props> = ({
@@ -29,6 +31,8 @@ const SingleView: FC<Props> = ({
   setSuccessTitle,
   setWishlist,
   wishlist,
+  orders,
+  setOrders,
 }) => {
   const [product, setProduct] = useState<Product>();
   const [token, setToken] = useState("");
@@ -67,6 +71,7 @@ const SingleView: FC<Props> = ({
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to cart!");
       console.log(res);
+      setOrders([...orders, res]);
     } catch (error) {
       console.error();
     }
@@ -188,7 +193,12 @@ const SingleView: FC<Props> = ({
                       </button>
                     </Link>
                     <div>
-                      <button onClick={deleteProduct} className="capitalize hover:underline text-red-600">delete</button>
+                      <button
+                        onClick={deleteProduct}
+                        className="capitalize hover:underline text-red-600"
+                      >
+                        delete
+                      </button>
                     </div>
                   </div>
                 )}

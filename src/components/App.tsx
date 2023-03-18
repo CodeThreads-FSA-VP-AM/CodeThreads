@@ -37,7 +37,6 @@ import MaleProducts from "./MaleProducts";
 import FemaleProducts from "./FemaleProducts";
 import WishList from "./WishList";
 import ErrorNotification from "./ErrorNotification";
-import Footer from "./Footer";
 
 const App: React.FC = () => {
   const [productId, setProductId] = useState(0);
@@ -105,12 +104,14 @@ const App: React.FC = () => {
     if (userId !== undefined) {
       fetchOrders(userId);
     }
-  }, [token, userId]);
+  }, [token, userId, orderId]);
 
   useEffect(() => {
     setWishlist(wishlist);
-  }, [wishlist]);
+    setOrders(orders);
+  }, [wishlist, orders]);
   console.log(wishlist.length, "length here of wl");
+  console.log(orders.length, "length here of orders");
 
   const getProduct = async () => {
     const product = await fetchProductById(productId);
@@ -152,8 +153,8 @@ const App: React.FC = () => {
           user={user}
           token={token}
           setToken={setToken}
-          productsLength={productsLength}
           wishListLength={wishlist.length}
+          ordersLength={orders.length}
         />
         {success && (
           <SuccessNotification
@@ -248,6 +249,8 @@ const App: React.FC = () => {
                   setSuccessMsg={setSuccessMsg}
                   wishlist={wishlist}
                   setWishlist={setWishlist}
+                  orders={orders}
+                  setOrders={setOrders}
                 />
               }
             />
@@ -261,6 +264,8 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  orders={orders}
+                  setOrders={setOrders}
                 />
               }
             />
