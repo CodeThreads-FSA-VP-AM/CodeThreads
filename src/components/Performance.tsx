@@ -1,20 +1,17 @@
 import React from "react";
 
-type Props = {};
-
-const Performance = (props: Props) => {
+const Performance: React.FC = () => {
   return (
     <>
-      <article className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white p-6">
-        <span className="rounded-full bg-blue-100 p-3 text-blue-600">
+      <article className="flex items-center gap-4 p-6 bg-white border border-gray-100 rounded-lg">
+        <span className="p-3 text-blue-600 bg-blue-100 rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
+            className="w-8 h-8"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            stroke-width="2"
-          >
+            stroke-width="2">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -30,16 +27,15 @@ const Performance = (props: Props) => {
         </div>
       </article>
 
-      <article className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white p-6 sm:justify-between">
-        <span className="rounded-full bg-blue-100 p-3 text-blue-600 sm:order-last">
+      <article className="flex items-center gap-4 p-6 bg-white border border-gray-100 rounded-lg sm:justify-between">
+        <span className="p-3 text-blue-600 bg-blue-100 rounded-full sm:order-last">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
+            className="w-8 h-8"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            stroke-width="2"
-          >
+            stroke-width="2">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { editReview } from "../api/api";
 import { Review } from "./Interfaces";
 import Modal from "./Modal";
@@ -24,7 +23,6 @@ type EditReviews = {
 };
 
 const EditReviews = (props: Props) => {
-  // console.log(props);
   const [title, setTitle] = useState(props.title);
   const [rating, setRating] = useState(props.rating);
   const [description, setDescription] = useState(props.description);
@@ -32,11 +30,7 @@ const EditReviews = (props: Props) => {
 
   const [token, setToken] = useState("");
 
-  const navigate = useNavigate();
-
-  const handleEditReview: React.FormEventHandler<HTMLFormElement> = async (
-    e
-  ) => {
+  const handleEditReview: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     try {
       const data: EditReviews = {
@@ -47,9 +41,7 @@ const EditReviews = (props: Props) => {
         reviewId: props.reviewId,
       };
       const editedReview = await editReview(data);
-      const editedReviewIndex = props.reviews.findIndex(
-        (review) => review.id === props.reviewId
-      );
+      const editedReviewIndex = props.reviews.findIndex((review) => review.id === props.reviewId);
       const updatedReviews = [...props.reviews];
       updatedReviews[editedReviewIndex] = editedReview;
       props.setReviews(updatedReviews);
@@ -73,19 +65,17 @@ const EditReviews = (props: Props) => {
       handleSubmit={handleEditReview}
       modalTitle={"Edit review"}
       modalTxt={"Edit review"}
-      submitBtnText={"Edit"}
-    >
+      submitBtnText={"Edit"}>
       <div className="mt-5 md:col-span-2 md:mt-0">
         <form>
           <div className="overflow-hidden shadow sm:rounded-md">
-            <div className="bg-white px-4 py-5 sm:p-6">
+            <div className="px-4 py-5 bg-white sm:p-6">
               <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="title"
                     className="block text-sm font-medium text-gray-700"
-                    aria-required="true"
-                  >
+                    aria-required="true">
                     Title<span className="text-[#F70000]">*</span>
                   </label>
                   <input
@@ -93,7 +83,7 @@ const EditReviews = (props: Props) => {
                     name="title"
                     id="title"
                     autoComplete="title"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
@@ -103,19 +93,17 @@ const EditReviews = (props: Props) => {
                   <label
                     htmlFor="country"
                     className="block text-sm font-medium text-gray-700"
-                    aria-required="true"
-                  >
+                    aria-required="true">
                     Rating<span className="text-[#F70000]">*</span>
                   </label>
                   <select
                     id="country"
                     name="country"
                     autoComplete="country-name"
-                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     value={rating}
                     defaultValue={1}
-                    onChange={(e) => setRating(parseInt(e.target.value))}
-                  >
+                    onChange={(e) => setRating(parseInt(e.target.value))}>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -125,17 +113,14 @@ const EditReviews = (props: Props) => {
                 </div>
 
                 <div className="col-span-4">
-                  <label
-                    htmlFor="description"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label htmlFor="description" className="block text-sm font-medium text-gray-700">
                     Description
                   </label>
                   <textarea
                     name="description"
                     id="description"
                     autoComplete="description"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
