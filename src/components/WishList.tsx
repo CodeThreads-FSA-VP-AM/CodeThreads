@@ -26,6 +26,7 @@ const WishList: FC<Props> = ({
   const [userId, setUserId] = useState(0);
   const [wishlistId, setWishlistId] = useState(0);
   const [token, setToken] = useState("");
+  console.log(wishlist.length, "length here of wl");
   const addProductToCart = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     product_id: number

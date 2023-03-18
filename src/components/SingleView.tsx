@@ -7,6 +7,7 @@ import {
   createWishlist,
 } from "../api/api";
 import AddReview from "./AddReview";
+import Footer from "./Footer";
 import { Product, Review } from "./Interfaces";
 import Loader from "./Loader";
 import Reviews from "./Reviews";
@@ -138,6 +139,29 @@ const SingleView: FC<Props> = ({
       ) : (
         <section>
           <div className="relative max-w-screen-xl px-4 py-8 mx-auto">
+              <div className="flex m-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="icon icon-tabler icon-tabler-chevron-left"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <polyline points="15 6 9 12 15 18" />
+                </svg>
+                <button
+                  className="pl-2 text-sm leading-none hover:underline text-indigo-600"
+                  onClick={() => navigate(-1)}
+                >
+                  Return
+                </button>
+              </div>
             <div className="grid items-start grid-cols-1 gap-8 md:grid-cols-2">
               <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
                 <img
@@ -155,6 +179,7 @@ const SingleView: FC<Props> = ({
                 <strong className="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600">
                   Pre Order
                 </strong>
+                \
                 {user.is_admin && (
                   <>
                     <Link to={`/edit/${product?.id}`}>
@@ -234,13 +259,11 @@ const SingleView: FC<Props> = ({
 
                   <p className="text-lg font-bold">${product?.price} USD</p>
                 </div>
-
                 <div className="mt-4">
-                  <div className="prose max-w-none">
+                  <div className="prose max-w-none capitalize">
                     <p>{product?.description}</p>
                   </div>
                 </div>
-
                 <form className="mt-8">
                   <fieldset className="mt-4">
                     <legend className="mb-1 text-sm font-medium">Size</legend>
@@ -398,6 +421,7 @@ const SingleView: FC<Props> = ({
           </div>
         </section>
       )}
+      <Footer />
     </>
   );
 };

@@ -4,6 +4,7 @@ import Banners from "./Banners";
 import JoinNow from "./JoinNow";
 import Socials from "./Socials";
 import { FaGithub } from "react-icons/fa";
+import Footer from "./Footer";
 
 const Home: React.FC = () => {
   return (
@@ -88,6 +89,7 @@ const Home: React.FC = () => {
       <JoinNow />
       <Banners />
       <Socials />
+      <Footer />
     </section>
   );
 };

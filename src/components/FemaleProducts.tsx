@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchDeleteProduct, fetchProducts } from "../api/api";
 import AddProduct from "./AddProduct";
+import Footer from "./Footer";
 import { Product } from "./Interfaces";
 import Loader from "./Loader";
 import Modal from "./Modal";
@@ -266,6 +267,8 @@ const FemaleProducts: React.FC<Props> = ({
           )}
         </div>
       </section>
+      <Footer />
+
     </>
   );
 };
