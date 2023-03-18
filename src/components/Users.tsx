@@ -7,7 +7,7 @@ interface User {
   created_at: string;
 }
 
-const Users = () => {
+const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
 
   const getAllUsers = async () => {
@@ -38,14 +38,14 @@ const Users = () => {
   }, []);
 
   return (
-    <section className="bg-gray-50 py-8 px-4">
+    <section className="px-4 py-8 bg-gray-50">
       <div>
-        <h1 className="text-xl text-gray-900 pb-2">Users:</h1>
+        <h1 className="pb-2 text-xl text-gray-900">Users:</h1>
       </div>
-      <table className="table-auto w-full bg-white shadow rounded">
+      <table className="w-full bg-white rounded shadow table-auto">
         <thead className="border-b border-gray-100">
           <tr>
-            <th className="pl-6 py-6">
+            <th className="py-6 pl-6">
               <a className="flex items-center text-xs text-gray-500" href="#">
                 <p>ID</p>
               </a>
@@ -71,20 +71,16 @@ const Users = () => {
         <tbody>
           {users.map((user) => {
             return (
-              <tr
-                className="text-xs bg-blue-50 border-b border-gray-100"
-                key={user.id}
-              >
-                <td className="pl-6 py-6 bg-blue-100">{user.id}</td>
+              <tr className="text-xs border-b border-gray-100 bg-blue-50" key={user.id}>
+                <td className="py-6 pl-6 bg-blue-100">{user.id}</td>
                 <td className="pl-6 capitalize">{user.username}</td>
                 <td>{user.email}</td>
 
                 <td>{user.created_at}</td>
                 <td>
                   <button
-                    className="border border-red-600 p-1 text-white bg-red-400 rounded-md"
-                    onClick={() => handleDeleteUser(user.id)}
-                  >
+                    className="p-1 text-white bg-red-400 border border-red-600 rounded-md"
+                    onClick={() => handleDeleteUser(user.id)}>
                     Delete user
                   </button>
                 </td>

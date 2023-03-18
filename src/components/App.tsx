@@ -1,19 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  BrowserRouter as Router,
-} from "react-router-dom";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(
-  "pk_test_51MjulLCrdvy0lSlL6cOtaubo6pIIeBbbaaWDilYHCXY4U9kirgxRUQqgWb6Uh2p50TRCnwnzxCIkwWLQUvZrlrlR00uysRVa4o"
-);
-// getAPIHealth is defined in our axios-services directory index.js
-// you can think of that directory as a collection of api adapters
-// where each adapter fetches specific info from our express server's /api route
-// import { getAPIHealth } from "../axios-services";
+import { Navigate, Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 import "../style/App.css";
 import Login from "./Login";
@@ -27,11 +13,9 @@ import EditProduct from "./EditProduct";
 import Featured from "./Featured";
 import Home from "./Home";
 import { fetchProductById, fetchUser } from "../api/api";
-import EditReviews from "./EditReviews";
 import { User, WishlistData } from "./Interfaces";
 import NotFound from "./NotFound";
 import AdminNav from "./AdminNav";
-import CheckoutForm from "./CheckoutForm";
 import StripeContainer from "./StripeContainer";
 import Completion from "./Completion";
 import TestStripe from "./TestStripe";
@@ -41,19 +25,16 @@ import AccountSettings from "./AccountSettings";
 import SuccessNotification from "./SuccessNotification";
 import MaleProducts from "./MaleProducts";
 import FemaleProducts from "./FemaleProducts";
-import AllOrders from "./AllOrders";
 import WishList from "./WishList";
 import ErrorNotification from "./ErrorNotification";
 import Footer from "./Footer";
 
 const App: React.FC = () => {
-  const [APIHealth, setAPIHealth] = useState("");
   const [productId, setProductId] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [product, setProduct] = useState();
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
-  const [price, setPrice] = useState(0);
   const [error, setError] = useState(false);
   const [errorNoti, setErrorNoti] = useState("");
   const [success, setSuccess] = useState(false);
@@ -62,15 +43,8 @@ const App: React.FC = () => {
   const [productsLength, setProductsLength] = useState(0);
   const [wishlist, setWishlist] = useState<WishlistData[]>([]);
 
-  const options = {
-    // passing the client secret obtained from the server
-    clientSecret:
-      "{{sk_test_51MjulLCrdvy0lSlLe1XvAr0xF9ZFyr8OpWitXvDBlrwsmBMa1HlmSDcpO0JmDj4mEjWuVGXojR8Yqb55clcLPwvK00U6GZFdtz}}",
-  };
-
   const getProduct = async () => {
     const product = await fetchProductById(productId);
-    console.log(product);
     setProduct(product);
   };
 
@@ -95,32 +69,11 @@ const App: React.FC = () => {
   }, [productId]);
 
   useEffect(() => {}, [successMsg, successTitle, productsLength, wishlist]);
-  // useEffect(() => {
-  //   // follow this pattern inside your useEffect calls:
-  //   // first, create an async function that will wrap your axios service adapter
-  //   // invoke the adapter, await the response, and set the data
-  //   const getAPIStatus = async () => {
-  //     const { healthy } = await getAPIHealth();
-  //     setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
-  //   };
-
-  //   // second, after you've defined your getter above
-  //   // invoke it immediately after its declaration, inside the useEffect callback
-  //   getAPIStatus();
-  // }, []);
-  {
-    /* <p>API Status: {APIHealth}</p> */
-  }
 
   return (
     <>
       <Router>
-        <Navbar
-          user={user}
-          token={token}
-          setToken={setToken}
-          productsLength={productsLength}
-        />
+        <Navbar user={user} token={token} setToken={setToken} productsLength={productsLength} />
         {success && (
           <SuccessNotification
             success={success}
@@ -129,13 +82,7 @@ const App: React.FC = () => {
             successMsg={successMsg}
           />
         )}
-        {error && (
-          <ErrorNotification
-            error={error}
-            setError={setError}
-            errorNoti={errorNoti}
-          />
-        )}
+        {error && <ErrorNotification error={error} setError={setError} errorNoti={errorNoti} />}
         <div>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
@@ -241,17 +188,12 @@ const App: React.FC = () => {
             <Route
               path="/edit/:id"
               element={
-                <EditProduct
-                  product={product}
-                  productId={productId}
-                  setProductId={setProductId}
-                />
+                <EditProduct product={product} productId={productId} setProductId={setProductId} />
               }
             />
 
             <Route path="/featured" element={<Featured />} />
             <Route path="/home" element={<Home />} />
-            {/* <Route path="/editReview" element={<EditReviews />} /> */}
 
             <Route
               path="/admin"
@@ -273,9 +215,7 @@ const App: React.FC = () => {
             <Route path="/userprofile" element={<UserProfile />} />
             <Route
               path="/accountsettings"
-              element={
-                <AccountSettings user={user} token={token} setUser={setUser} />
-              }
+              element={<AccountSettings user={user} token={token} setUser={setUser} />}
             />
             <Route
               path="/wishlist"

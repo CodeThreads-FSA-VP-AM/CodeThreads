@@ -42,7 +42,6 @@ const AddProduct = (props: ProductProps) => {
   const history = useNavigate();
 
   const handleCreate: React.FormEventHandler<HTMLFormElement> = async (e) => {
-    console.log("triggered");
     e.preventDefault();
     const data: Props = {
       title,
@@ -56,7 +55,6 @@ const AddProduct = (props: ProductProps) => {
       large,
       xlarge,
     };
-    console.log(data);
     const create = await fetchCreateProduct(data);
     console.log({ create });
     props.setSuccess(true);
@@ -72,17 +70,14 @@ const AddProduct = (props: ProductProps) => {
       handleSubmit={handleCreate}
       modalTitle={"Add product"}
       modalTxt={"Add product"}
-      submitBtnText={"Add"}
-    >
+      submitBtnText={"Add"}>
       <section className="bg-white ">
         <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
           <h2 className="mb-4 text-xl font-bold">Add a new product</h2>
           <form onSubmit={handleCreate}>
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
               <div className="sm:col-span-2">
-                <label className="block mb-2 text-sm font-medium">
-                  Product Name
-                </label>
+                <label className="block mb-2 text-sm font-medium">Product Name</label>
                 <input
                   type="text"
                   name="name"
@@ -121,9 +116,7 @@ const AddProduct = (props: ProductProps) => {
                 />
               </div>
               <div className="w-full">
-                <label className="block mb-2 text-sm font-medium">
-                  Front Image URL
-                </label>
+                <label className="block mb-2 text-sm font-medium">Front Image URL</label>
                 <input
                   type="text"
                   name="front_url"
@@ -136,9 +129,7 @@ const AddProduct = (props: ProductProps) => {
                 />
               </div>
               <div className="w-full">
-                <label className="block mb-2 text-sm font-medium">
-                  Back Image URL
-                </label>
+                <label className="block mb-2 text-sm font-medium">Back Image URL</label>
                 <input
                   type="text"
                   name="back_url"
@@ -153,9 +144,7 @@ const AddProduct = (props: ProductProps) => {
               <div className="sm:col-span-2">
                 <div className="flex justify-between space-x-4">
                   <div className="w-40">
-                    <label className="block mb-2 text-sm font-medium">
-                      Small
-                    </label>
+                    <label className="block mb-2 text-sm font-medium">Small</label>
                     <input
                       type="number"
                       name="small"
@@ -168,9 +157,7 @@ const AddProduct = (props: ProductProps) => {
                     />
                   </div>
                   <div className="w-40">
-                    <label className="block mb-2 text-sm font-medium">
-                      Medium
-                    </label>
+                    <label className="block mb-2 text-sm font-medium">Medium</label>
                     <input
                       type="number"
                       name="medium"
@@ -183,9 +170,7 @@ const AddProduct = (props: ProductProps) => {
                     />
                   </div>
                   <div className="w-40">
-                    <label className="block mb-2 text-sm font-medium">
-                      Large
-                    </label>
+                    <label className="block mb-2 text-sm font-medium">Large</label>
                     <input
                       type="number"
                       name="large"
@@ -198,9 +183,7 @@ const AddProduct = (props: ProductProps) => {
                     />
                   </div>
                   <div className="w-40">
-                    <label className="block mb-2 text-sm font-medium">
-                      X-Large
-                    </label>
+                    <label className="block mb-2 text-sm font-medium">X-Large</label>
                     <input
                       type="number"
                       name="xlarge"
@@ -215,9 +198,7 @@ const AddProduct = (props: ProductProps) => {
                 </div>
               </div>
               <div className="sm:col-span-2">
-                <label className="block mb-2 text-sm font-medium">
-                  Description
-                </label>
+                <label className="block mb-2 text-sm font-medium">Description</label>
                 <textarea
                   id="description"
                   rows={8}
@@ -228,19 +209,6 @@ const AddProduct = (props: ProductProps) => {
                 />
               </div>
             </div>
-            {/* <button
-              type="submit"
-              className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-blue-800 text-gray-50"
-            >
-              Add product
-            </button>
-            <button
-              type="button"
-              className="inline-flex items-center px-5 py-2.5 m-4 sm:mt-6 text-sm font-medium text-center bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-blue-800 text-gray-50"
-              onClick={() => history(-1)}
-            >
-              go back
-            </button> */}
           </form>
         </div>
       </section>
