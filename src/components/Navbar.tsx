@@ -622,6 +622,17 @@ const Navbar: React.FC<Props> = ({
                             strokeLinejoin="round"
                           />
                         </svg>
+                        <p className="text-[14px]">
+                        {ordersLength ? (
+                          <div
+                            className={`animate-pulse w-4 h-4 bg-red-600 text-sm rounded-full flex justify-center items-center m-auto ${
+                              ordersLength > 0 ? "text-white" : "hidden"
+                            }`}
+                          >
+                            {ordersLength}
+                          </div>
+                        ) : null}
+                      </p>
                       </div>
                       <p className="text-base">Cart</p>
                     </NavLink>
