@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 import "../style/App.css";
 import Login from "./Login";
@@ -12,8 +17,13 @@ import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 import Featured from "./Featured";
 import Home from "./Home";
-import { fetchProductById, fetchUser } from "../api/api";
-import { User, WishlistData } from "./Interfaces";
+import {
+  fetchOrder,
+  fetchProductById,
+  fetchUser,
+  fetchWishlistByUser,
+} from "../api/api";
+import { OrderData, User, WishlistData } from "./Interfaces";
 import NotFound from "./NotFound";
 import AdminNav from "./AdminNav";
 import StripeContainer from "./StripeContainer";
@@ -27,7 +37,6 @@ import MaleProducts from "./MaleProducts";
 import FemaleProducts from "./FemaleProducts";
 import WishList from "./WishList";
 import ErrorNotification from "./ErrorNotification";
-import Footer from "./Footer";
 
 const App: React.FC = () => {
   const [productId, setProductId] = useState(0);
@@ -35,6 +44,7 @@ const App: React.FC = () => {
   const [product, setProduct] = useState();
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const [userId, setUserId] = useState(0);
   const [error, setError] = useState(false);
   const [errorNoti, setErrorNoti] = useState("");
   const [success, setSuccess] = useState(false);
@@ -42,6 +52,66 @@ const App: React.FC = () => {
   const [successTitle, setSuccessTitle] = useState("");
   const [productsLength, setProductsLength] = useState(0);
   const [wishlist, setWishlist] = useState<WishlistData[]>([]);
+  const [orders, setOrders] = useState<OrderData[]>([]);
+  const [orderId, setOrderId] = useState(2);
+  useEffect(() => {
+    const getUser = async (data: User) => {
+      const { token } = data;
+      try {
+        const user = await fetchUser({ token });
+        setUserId(user.id);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUser({ token });
+    const fetchWishlist = async (userId: number) => {
+      const wishlists = await fetchWishlistByUser(userId);
+      console.log(wishlists);
+
+      const filteredWishlist = wishlists.filter(
+        (wishlist: { users_id: number; status: string }) =>
+          wishlist.users_id === userId
+      );
+      setWishlist(filteredWishlist);
+    };
+
+    if (userId !== undefined) {
+      fetchWishlist(userId);
+    }
+    const fetchOrders = async (userId: number) => {
+      const orders = await fetchOrder(userId);
+      console.log(orders);
+
+      const getorderid = orders.filter(
+        (o: { status: string }) => o.status === "added"
+      );
+      console.log(getorderid.length);
+      setProductsLength(getorderid.length);
+
+      const orderid = getorderid[0];
+      if (orderid?.order_id !== undefined) {
+        setOrderId(orderid.order_id);
+      }
+
+      const filteredOrders = orders.filter(
+        (order: { users_id: number; status: string }) =>
+          order.users_id === userId && order.status === "added"
+      );
+      setOrders(filteredOrders);
+    };
+
+    if (userId !== undefined) {
+      fetchOrders(userId);
+    }
+  }, [token, userId, orderId]);
+
+  useEffect(() => {
+    setWishlist(wishlist);
+    setOrders(orders);
+  }, [wishlist, orders]);
+  console.log(wishlist.length, "length here of wl");
+  console.log(orders.length, "length here of orders");
 
   const getProduct = async () => {
     const product = await fetchProductById(productId);
@@ -68,12 +138,24 @@ const App: React.FC = () => {
     getProduct();
   }, [productId]);
 
-  useEffect(() => {}, [successMsg, successTitle, productsLength, wishlist]);
+  useEffect(() => {}, [
+    successMsg,
+    successTitle,
+    productsLength,
+    wishlist,
+    wishlist.length,
+  ]);
 
   return (
     <>
       <Router>
-        <Navbar user={user} token={token} setToken={setToken} productsLength={productsLength} />
+        <Navbar
+          user={user}
+          token={token}
+          setToken={setToken}
+          wishListLength={wishlist.length}
+          ordersLength={orders.length}
+        />
         {success && (
           <SuccessNotification
             success={success}
@@ -82,7 +164,13 @@ const App: React.FC = () => {
             successMsg={successMsg}
           />
         )}
-        {error && <ErrorNotification error={error} setError={setError} errorNoti={errorNoti} />}
+        {error && (
+          <ErrorNotification
+            error={error}
+            setError={setError}
+            errorNoti={errorNoti}
+          />
+        )}
         <div>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
@@ -159,6 +247,10 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  wishlist={wishlist}
+                  setWishlist={setWishlist}
+                  orders={orders}
+                  setOrders={setOrders}
                 />
               }
             />
@@ -172,6 +264,8 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  orders={orders}
+                  setOrders={setOrders}
                 />
               }
             />
@@ -188,7 +282,11 @@ const App: React.FC = () => {
             <Route
               path="/edit/:id"
               element={
-                <EditProduct product={product} productId={productId} setProductId={setProductId} />
+                <EditProduct
+                  product={product}
+                  productId={productId}
+                  setProductId={setProductId}
+                />
               }
             />
 
@@ -215,7 +313,9 @@ const App: React.FC = () => {
             <Route path="/userprofile" element={<UserProfile />} />
             <Route
               path="/accountsettings"
-              element={<AccountSettings user={user} token={token} setUser={setUser} />}
+              element={
+                <AccountSettings user={user} token={token} setUser={setUser} />
+              }
             />
             <Route
               path="/wishlist"
@@ -231,7 +331,6 @@ const App: React.FC = () => {
               }
             />
           </Routes>
-          <Footer />
         </div>
       </Router>
     </>
