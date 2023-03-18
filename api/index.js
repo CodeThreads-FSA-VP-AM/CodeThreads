@@ -64,7 +64,7 @@ apiRouter.use("/wishlist", wishlistRouter);
 // error 404 /unknown
 apiRouter.get("*", async (req, res, next) => {
   try {
-    res.status(404).json({ message: "404 NOT FOUND" });
+    res.status(404).send({ message: "404 NOT FOUND" });
   } catch ({ name, message }) {
     next({ name, message });
   }

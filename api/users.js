@@ -13,7 +13,6 @@ const {
   getUser,
   editUser,
   getAllUsers,
-  updatePassword,
   deleteUser,
 } = require("../db/models/user");
 const { requireUser } = require("./utils");
