@@ -36,18 +36,23 @@ const Navbar: React.FC<Props> = ({
           {/* For large screens */}
           <div className="px-6 bg-white py-9">
             <div className="container flex items-center justify-between mx-auto">
-              <h1
-                className="text-2xl text-gray-800 cursor-pointer md:w-2/12 dark:text-black"
-                aria-label="code Threads."
-              >
-                codeThreads
-              </h1>
+              <NavLink to="/">
+                <h1
+                  className="text-2xl text-gray-800 cursor-pointer md:w-2/12 dark:text-black"
+                  aria-label="code Threads."
+                >
+                  codeThreads
+                </h1>
+              </NavLink>
 
-              <ul className="items-center justify-center hidden w-8/12 space-x-8 md:flex">
+              <ul
+                className="items-center justify-center hidden w-8/12 space-x-8 md:flex"
+                id="navBar"
+              >
                 <li>
                   <NavLink
                     to="/home"
-                    className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                    className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                   >
                     Home
                   </NavLink>
@@ -55,7 +60,7 @@ const Navbar: React.FC<Props> = ({
                 <li>
                   <NavLink
                     to="/featured"
-                    className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                    className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                   >
                     Featured
                   </NavLink>
@@ -63,7 +68,7 @@ const Navbar: React.FC<Props> = ({
                 <li>
                   <NavLink
                     to="/mens"
-                    className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                    className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                   >
                     Mens
                   </NavLink>
@@ -71,7 +76,7 @@ const Navbar: React.FC<Props> = ({
                 <li>
                   <NavLink
                     to="/womens"
-                    className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                    className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                   >
                     Womens
                   </NavLink>
@@ -80,7 +85,7 @@ const Navbar: React.FC<Props> = ({
                   <li>
                     <NavLink
                       to="/admin"
-                      className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Admin
                     </NavLink>
@@ -91,7 +96,7 @@ const Navbar: React.FC<Props> = ({
                     <li>
                       <NavLink
                         to="./login"
-                        className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                        className="text-base text-gray-800 dark:text-black hover:underline"
                       >
                         Login
                       </NavLink>
@@ -99,7 +104,7 @@ const Navbar: React.FC<Props> = ({
                     <li>
                       <NavLink
                         to="./register"
-                        className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                        className="text-base text-gray-800 dark:text-black hover:underline"
                       >
                         Sign Up
                       </NavLink>
@@ -113,7 +118,7 @@ const Navbar: React.FC<Props> = ({
                   {token && (
                     <button
                       aria-label="view favourites"
-                      className="text-gray-800 dark:hover:text-gray-900 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800"
+                      className="text-gray-800 dark:hover:text-gray-900 dark:text-black"
                     >
                       <NavLink to="/wishlist" className="flex">
                         <svg
@@ -148,7 +153,7 @@ const Navbar: React.FC<Props> = ({
                   )}
                   <button
                     aria-label="go to cart"
-                    className="text-gray-800 dark:hover:text-gray-300 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800"
+                    className="text-gray-800 dark:hover:text-gray-300 dark:text-black"
                   >
                     <NavLink to="/orders" className="flex">
                       <svg
@@ -445,12 +450,13 @@ const Navbar: React.FC<Props> = ({
               <div className="p-4 mt-6">
                 <ul
                   className="flex flex-col space-y-6"
+                  id="navBar"
                   onClick={() => setShowMenu(false)}
                 >
                   <li>
                     <NavLink
                       to="/home"
-                      className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Home
                     </NavLink>
@@ -458,7 +464,7 @@ const Navbar: React.FC<Props> = ({
                   <li>
                     <NavLink
                       to="/featured"
-                      className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Featured
                     </NavLink>
@@ -466,7 +472,7 @@ const Navbar: React.FC<Props> = ({
                   <li>
                     <NavLink
                       to="/mens"
-                      className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Mens
                     </NavLink>
@@ -474,7 +480,7 @@ const Navbar: React.FC<Props> = ({
                   <li>
                     <NavLink
                       to="/womens"
-                      className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                      className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
                       Womens
                     </NavLink>
@@ -483,18 +489,18 @@ const Navbar: React.FC<Props> = ({
                     <li>
                       <NavLink
                         to="/admin"
-                        className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                        className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                       >
                         Admin
                       </NavLink>
                     </li>
                   )}
                   {!token ? (
-                    <>
+                    <ul id="navBar">
                       <li>
                         <NavLink
                           to="./login"
-                          className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                          className="text-base text-gray-800 dark:text-black hover:underline"
                         >
                           Login
                         </NavLink>
@@ -502,14 +508,14 @@ const Navbar: React.FC<Props> = ({
                       <li>
                         <NavLink
                           to="./register"
-                          className="text-base text-gray-800 dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-gray-800 hover:underline"
+                          className="text-base text-gray-800 dark:text-black hover:underline"
                         >
                           Sign Up
                         </NavLink>
                       </li>
-                    </>
+                    </ul>
                   ) : (
-                    <>
+                    <ul id="navBar">
                       {" "}
                       <li className="" onClick={() => navigate("/userprofile")}>
                         <div className="flex items-center">
@@ -579,7 +585,7 @@ const Navbar: React.FC<Props> = ({
                           </div>
                         </button>
                       </li>
-                    </>
+                    </ul>
                   )}
                 </ul>
               </div>

@@ -23,7 +23,12 @@ body {
   width: 100vw;
   overflow-x: hidden;
 }
+#navBar .active{
+color:rgb(67, 59, 189);
+padding-bottom: 2px;
+border-bottom: 1px solid rgb(67, 59, 189);
 
+}
 /* form {
   width: 30vw;
   min-width: 500px;
