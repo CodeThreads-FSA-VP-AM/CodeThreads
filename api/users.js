@@ -103,7 +103,7 @@ usersRouter.post("/login", async (req, res, next) => {
 
   try {
     const user = await getUser({ username, password });
-    console.log(user, "Users HEREE");
+    // console.log(user, "Users HEREE");
     if (user) {
       const token = jwt.sign(user, JWT_SECRET);
       res.send({ message: "you're logged in!", token, user });
