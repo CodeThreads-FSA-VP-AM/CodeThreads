@@ -20,7 +20,7 @@ describe("/api/ API Under Construction endpoint", () => {
 });
 
 describe("/api/nowhere Error 404 endpoint", () => {
-  // close db connection and supertest server tcp connection
+  // // close db connection and supertest server tcp connection
   afterAll(async () => {
     await client.end();
     handle.close();
