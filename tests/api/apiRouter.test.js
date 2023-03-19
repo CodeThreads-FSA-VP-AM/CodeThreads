@@ -1,5 +1,5 @@
-const { server, handle } = require("../index");
-const { client } = require("../db");
+const { server, handle } = require("../../index");
+const { client } = require("../../db");
 const supertest = require("supertest");
 const request = supertest(server);
 
@@ -21,10 +21,10 @@ describe("/api/ API Under Construction endpoint", () => {
 
 describe("/api/nowhere Error 404 endpoint", () => {
   // // close db connection and supertest server tcp connection
-  afterAll(async () => {
-    await client.end();
-    handle.close();
-  });
+  // afterAll(async () => {
+  //   await client.end();
+  //   handle.close();
+  // });
 
   it("should return a 404", async () => {
     const response = await request.get("/api/unknown");

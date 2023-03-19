@@ -1,13 +1,18 @@
-const { server, handle } = require("../index");
-const { client } = require("../db");
+const { server, handle } = require("../../index");
+const { client } = require("../../db");
 const { faker } = require("@faker-js/faker");
 const request = require("supertest");
 
 const { objectContaining } = expect;
 
-const { createUser } = require("../db/models/user");
+const { createUser } = require("../../db/models/user");
+const { createFakeUserWithToken } = require("../helpers");
 
 describe("/api/users", () => {
+  afterAll(async () => {
+    await client.end();
+    handle.close();
+  });
   describe("POST /api/users/register", () => {
     it("create user", async () => {
       // create fake user
@@ -15,8 +20,8 @@ describe("/api/users", () => {
         username: faker.internet.userName(),
         password: faker.internet.password(),
         email: faker.internet.email(),
+        avatar_url: faker.internet.avatar(),
       };
-      console.log(fakeUserData);
       // register fake user
       const response = await request(server).post("/api/users/register").send(fakeUserData);
       expect(response.status).toBe(200);
@@ -24,11 +29,6 @@ describe("/api/users", () => {
   });
 
   describe("POST /api/users/login", () => {
-    afterAll(async () => {
-      await client.end();
-      handle.close();
-    });
-
     it("Logs in the user. Requires username and password.", async () => {
       // create fake user
       const userData = {
@@ -60,6 +60,18 @@ describe("/api/users", () => {
         message: "Please supply both a username and password",
         name: "MissingCredentialsError",
       });
+    });
+  });
+
+  describe("GET /api/users/me", () => {
+    it("send back users data", async () => {
+      const { fakeUser, token } = await createFakeUserWithToken();
+
+      const response = await request(server)
+        .get("/api/users/me")
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(response.body).toEqual(objectContaining(fakeUser));
     });
   });
 });
