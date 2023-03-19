@@ -70,7 +70,7 @@ const Navbar: React.FC<Props> = ({
                     to="/mens"
                     className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                   >
-                    Mens
+                    Men
                   </NavLink>
                 </li>
                 <li>
@@ -78,7 +78,7 @@ const Navbar: React.FC<Props> = ({
                     to="/womens"
                     className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                   >
-                    Womens
+                    Women
                   </NavLink>
                 </li>
                 {user.is_admin && (
@@ -474,7 +474,7 @@ const Navbar: React.FC<Props> = ({
                       to="/mens"
                       className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
-                      Mens
+                      Men
                     </NavLink>
                   </li>
                   <li>
@@ -482,7 +482,7 @@ const Navbar: React.FC<Props> = ({
                       to="/womens"
                       className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
-                      Womens
+                      Women
                     </NavLink>
                   </li>
                   {user.is_admin && (

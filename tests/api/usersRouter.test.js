@@ -71,23 +71,24 @@ describe("/api/users", () => {
     });
   });
 
-  // describe("GET /api/users/me", () => {
-  //   it("send back users data", async () => {
-  //     const { fakeUser, token } = await createFakeUserWithToken();
-  //     console.log({ token });
-  //     const response = await request(server)
-  //       .get("/api/users/me")
-  //       .set("Authorization", `Bearer ${token}`);
+  describe("GET /api/users/me", () => {
+    it("send back users data", async () => {
+      const { fakeUser, token } = await createFakeUserWithToken();
+      console.log({ token });
+      const response = await request(server)
+        .get("/api/users/me")
+        .set("Authorization", `Bearer ${token}`);
 
-  //     expect(response.body).toEqual({
-  //       avatar_url: expect.any(String),
-  //       created_at: expect.any(String),
-  //       email: expect.any(String),
-  //       id: expect.any(Number),
-  //       username: expect.any(String),
-  //     });
-  //   });
-  // });
+      expect(response.body).toEqual({
+        avatar_url: expect.any(String),
+        created_at: expect.any(String),
+        email: expect.any(String),
+        id: expect.any(Number),
+        username: expect.any(String),
+        is_admin: expect.any(Object)
+      });
+    });
+  });
 
   // afterAll(async () => {
   //   await client.end();

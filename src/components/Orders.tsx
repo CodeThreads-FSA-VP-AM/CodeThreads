@@ -349,6 +349,7 @@ const Orders: React.FC<Props> = ({
                   })}
                   {wishlist ? (
                     <WishList
+                      token={token}
                       quantity={0}
                       setSuccess={setSuccess}
                       setSuccessTitle={setSuccessTitle}

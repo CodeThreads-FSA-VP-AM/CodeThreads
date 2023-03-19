@@ -7,7 +7,6 @@ import {
   createWishlist,
 } from "../api/api";
 import AddReview from "./AddReview";
-import Footer from "./Footer";
 import { Product, Review } from "./Interfaces";
 import Loader from "./Loader";
 import Reviews from "./Reviews";
@@ -433,7 +432,7 @@ const SingleView: FC<Props> = ({
           </div>
         </section>
       )}
-      <Footer />
+
     </>
   );
 };

@@ -327,6 +327,7 @@ const App: React.FC = () => {
                   setSuccessMsg={setSuccessMsg}
                   wishlist={wishlist}
                   setWishlist={setWishlist}
+                  token={token}
                 />
               }
             />
