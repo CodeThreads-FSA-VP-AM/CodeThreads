@@ -21,10 +21,13 @@ const createFakeUser = async (username = faker.internet.userName()) => {
 
 const createFakeUserWithToken = async (username) => {
   const fakeUser = await createFakeUser(username);
+  console.log(fakeUser);
 
   const token = jwt.sign({ id: fakeUser.id, username: fakeUser.username }, JWT_SECRET, {
     expiresIn: "1w",
   });
+
+  console.log(token);
 
   return {
     fakeUser,
