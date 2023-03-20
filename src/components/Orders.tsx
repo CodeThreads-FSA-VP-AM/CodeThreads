@@ -348,17 +348,19 @@ const Orders: React.FC<Props> = ({
                       </div>
                     );
                   })}
-                  {wishlist ? (
-                    <WishList
-                      token={token}
-                      quantity={0}
-                      setSuccess={setSuccess}
-                      setSuccessTitle={setSuccessTitle}
-                      setSuccessMsg={setSuccessMsg}
-                      wishlist={wishlist}
-                      setWishlist={setWishlist}
-                    />
-                  ) : null}
+                  <div className="hidden sm:block">
+                    {wishlist ? (
+                      <WishList
+                        token={token}
+                        quantity={0}
+                        setSuccess={setSuccess}
+                        setSuccessTitle={setSuccessTitle}
+                        setSuccessMsg={setSuccessMsg}
+                        wishlist={wishlist}
+                        setWishlist={setWishlist}
+                      />
+                    ) : null}
+                  </div>
                 </div>
                 {/* //Summary starts here */}
                 {token ? (
