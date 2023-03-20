@@ -41,7 +41,7 @@ const Navbar: React.FC<Props> = ({
                   <img
                     src={logoBlack}
                     alt="websiteLogo"
-                    className="cursor-pointer md:w-3/12 "
+                    className="cursor-pointer w-5/12 md:w-3/12 "
                   />
                 </NavLink>
               </div>
