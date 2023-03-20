@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchRegister } from "../api/api";
+import { fetchRegister, updateCart } from "../api/api";
 import Loader from "./Loader";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -42,9 +42,10 @@ const Register: React.FC<Props> = ({
         setErrorMsg(register.error);
       } else {
         console.log(register);
-        setToken(register.token);
         setErrorMsg("");
         localStorage.setItem("token", register.token);
+        setToken(register.token);
+        updateCart(register.user.id, register.token);
         setUsername("");
         setPassword("");
         setEmail("");
@@ -81,9 +82,10 @@ const Register: React.FC<Props> = ({
       if (res.error) {
         setErrorMsg(res.error);
       } else {
-        setToken(res.token);
         console.log(res);
         localStorage.setItem("token", res.token);
+        setToken(res.token);
+        updateCart(res.user.id, res.token);
         setSuccess(true);
         setSuccessTitle("Success!");
         setSuccessMsg("You're signed up!");
@@ -101,16 +103,20 @@ const Register: React.FC<Props> = ({
   }
   useEffect(() => {
     google.accounts.id.initialize({
-      client_id: "137794005516-kiiplu4qkptolsv7oga14rts43ecjfbb.apps.googleusercontent.com",
+      client_id:
+        "137794005516-kiiplu4qkptolsv7oga14rts43ecjfbb.apps.googleusercontent.com",
       callback: handleCredentialResponse,
     });
-    google.accounts.id.renderButton(document.getElementById("signinDiv") as HTMLButtonElement, {
-      theme: "outline",
-      size: "large",
-      click_listener: onClickHandler,
-      type: "standard",
-      width: "250",
-    });
+    google.accounts.id.renderButton(
+      document.getElementById("signinDiv") as HTMLButtonElement,
+      {
+        theme: "outline",
+        size: "large",
+        click_listener: onClickHandler,
+        type: "standard",
+        width: "250",
+      }
+    );
   }, []);
   return (
     <>
@@ -124,17 +130,21 @@ const Register: React.FC<Props> = ({
                 tabIndex={0}
                 role="heading"
                 aria-label="Sign Up"
-                className="text-2xl font-extrabold leading-6 text-gray-800">
+                className="text-2xl font-extrabold leading-6 text-gray-800"
+              >
                 Sign Up
               </p>
 
               <div
                 id="signinDiv"
-                className=" border border-black p-4 border-x-[transparent] flex items-center justify-center m-4"></div>
+                className=" border border-black p-4 border-x-[transparent] flex items-center justify-center m-4"
+              ></div>
 
               <div className="flex items-center justify-between w-full py-5">
                 <hr className="w-full bg-gray-400" />
-                <p className="text-base font-medium leading-4 px-2.5 text-gray-400">OR</p>
+                <p className="text-base font-medium leading-4 px-2.5 text-gray-400">
+                  OR
+                </p>
                 <hr className="w-full bg-gray-400 " />
               </div>
               <form onSubmit={handleSubmit}>
@@ -189,7 +199,8 @@ const Register: React.FC<Props> = ({
                     role="button"
                     type="submit"
                     aria-label="create my account"
-                    className="w-full py-4 text-sm font-semibold leading-none text-white bg-indigo-700 border rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:outline-none hover:bg-indigo-600">
+                    className="w-full py-4 text-sm font-semibold leading-none text-white bg-indigo-700 border rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:outline-none hover:bg-indigo-600"
+                  >
                     Create my account
                   </button>
                 </div>
