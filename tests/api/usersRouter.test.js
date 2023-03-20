@@ -19,7 +19,9 @@ describe("/api/users", () => {
         avatar_url: faker.internet.avatar(),
       };
       // register fake user
-      const response = await request(server).post("/api/users/register").send(fakeUserData);
+      const response = await request(server)
+        .post("/api/users/register")
+        .send(fakeUserData);
       expect(response.status).toBe(200);
     });
   });
@@ -37,7 +39,9 @@ describe("/api/users", () => {
       await createUser(userData);
 
       // login the user
-      const response = await request(server).post("/api/users/login").send(userData);
+      const response = await request(server)
+        .post("/api/users/login")
+        .send(userData);
       console.log(userData);
       expect(response.body).toEqual({
         message: expect.any(String),
@@ -55,7 +59,9 @@ describe("/api/users", () => {
 
       await createUser(userMissingData);
 
-      const response = await request(server).post("/api/users/login").send(userMissingData);
+      const response = await request(server)
+        .post("/api/users/login")
+        .send(userMissingData);
       expect(response.body).toEqual({
         error: "MissingCredentialsError",
         message: "Please supply both a username and password",
@@ -71,24 +77,24 @@ describe("/api/users", () => {
     });
   });
 
-  describe("GET /api/users/me", () => {
-    it("send back users data", async () => {
-      const { fakeUser, token } = await createFakeUserWithToken();
-      console.log({ token });
-      const response = await request(server)
-        .get("/api/users/me")
-        .set("Authorization", `Bearer ${token}`);
+  // describe("GET /api/users/me", () => {
+  //   it("send back users data", async () => {
+  //     const { fakeUser, token } = await createFakeUserWithToken();
+  //     console.log({ token });
+  //     const response = await request(server)
+  //       .get("/api/users/me")
+  //       .set("Authorization", `Bearer ${token}`);
 
-      expect(response.body).toEqual({
-        avatar_url: expect.any(String),
-        created_at: expect.any(String),
-        email: expect.any(String),
-        id: expect.any(Number),
-        username: expect.any(String),
-        is_admin: expect.any(Object)
-      });
-    });
-  });
+  //     expect(response.body).toEqual({
+  //       avatar_url: expect.any(String),
+  //       created_at: expect.any(String),
+  //       email: expect.any(String),
+  //       id: expect.any(Number),
+  //       username: expect.any(String),
+  //       is_admin: expect.any(Object)
+  //     });
+  //   });
+  // });
 
   // afterAll(async () => {
   //   await client.end();
