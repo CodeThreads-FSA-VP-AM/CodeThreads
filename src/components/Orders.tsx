@@ -253,6 +253,7 @@ const Orders: React.FC<Props> = ({
                                 type="number"
                                 min="1"
                                 max="10"
+                                disabled
                                 defaultValue={o.quantity}
                                 className="border-2 border-gray-500 "
                               ></input>

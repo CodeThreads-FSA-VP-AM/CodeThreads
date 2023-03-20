@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { editReview } from "../api/api";
 import { Review } from "./Interfaces";
+import Loader from "./Loader";
 import Modal from "./Modal";
 
 type Props = {
@@ -27,10 +28,12 @@ const EditReviews = (props: Props) => {
   const [rating, setRating] = useState(props.rating);
   const [description, setDescription] = useState(props.description);
   const [showModal, setShowModal] = useState(false);
-
+  const [loading, setLoading] = useState<Boolean>(false);
   const [token, setToken] = useState("");
 
-  const handleEditReview: React.FormEventHandler<HTMLFormElement> = async (e) => {
+  const handleEditReview: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
     e.preventDefault();
     try {
       const data: EditReviews = {
@@ -41,16 +44,21 @@ const EditReviews = (props: Props) => {
         reviewId: props.reviewId,
       };
       const editedReview = await editReview(data);
-      const editedReviewIndex = props.reviews.findIndex((review) => review.id === props.reviewId);
+      const editedReviewIndex = props.reviews.findIndex(
+        (review) => review.id === props.reviewId
+      );
       const updatedReviews = [...props.reviews];
       updatedReviews[editedReviewIndex] = editedReview;
       props.setReviews(updatedReviews);
+      setLoading(true);
       props.setSuccess(true);
       props.setSuccessTitle("Success!");
       props.setSuccessMsg("Review has been edited!");
       setShowModal(false);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,7 +73,8 @@ const EditReviews = (props: Props) => {
       handleSubmit={handleEditReview}
       modalTitle={"Edit review"}
       modalTxt={"Edit review"}
-      submitBtnText={"Edit"}>
+      submitBtnText={"Edit"}
+    >
       <div className="mt-5 md:col-span-2 md:mt-0">
         <form>
           <div className="overflow-hidden shadow sm:rounded-md">
@@ -75,7 +84,8 @@ const EditReviews = (props: Props) => {
                   <label
                     htmlFor="title"
                     className="block text-sm font-medium text-gray-700"
-                    aria-required="true">
+                    aria-required="true"
+                  >
                     Title<span className="text-[#F70000]">*</span>
                   </label>
                   <input
@@ -93,17 +103,19 @@ const EditReviews = (props: Props) => {
                   <label
                     htmlFor="country"
                     className="block text-sm font-medium text-gray-700"
-                    aria-required="true">
+                    aria-required="true"
+                  >
                     Rating<span className="text-[#F70000]">*</span>
                   </label>
                   <select
                     id="country"
                     name="country"
                     autoComplete="country-name"
-                    className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="block w-[44px] px-1 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     value={rating}
                     defaultValue={1}
-                    onChange={(e) => setRating(parseInt(e.target.value))}>
+                    onChange={(e) => setRating(parseInt(e.target.value))}
+                  >
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -113,7 +125,10 @@ const EditReviews = (props: Props) => {
                 </div>
 
                 <div className="col-span-4">
-                  <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="description"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Description
                   </label>
                   <textarea
