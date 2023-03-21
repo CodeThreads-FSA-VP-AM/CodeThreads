@@ -174,11 +174,11 @@ const SingleView: FC<Props> = ({
                   src={product?.front_url}
                   className="h-72 w-full rounded-xl object-cover lg:h-[540px]"
                 />
-                <img
+                {/* <img
                   alt="Tee"
                   src={product?.back_url}
                   className="h-20 max-w-full rounded-lg"
-                />
+                /> */}
               </div>
               <div className="sticky top-0">
                 <strong className="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600">

@@ -1,4 +1,4 @@
-const APIURL = "http://localhost:4000/api";
+const APIURL = "https://codethreads.onrender.com/api";
 
 import {
   CartItem,

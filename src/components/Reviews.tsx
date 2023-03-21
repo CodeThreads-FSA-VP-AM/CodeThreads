@@ -141,7 +141,7 @@ const Reviews = (props: Props) => {
                 <blockquote>
                   <header className="sm:flex sm:items-center sm:gap-4">
                     <div className="flex">
-                      {r.rating}
+                      {r.rating}/5
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={`w-5 h-5 ${
@@ -199,9 +199,6 @@ const Reviews = (props: Props) => {
 
                   <p className="mt-2 text-gray-700">{r.description}</p>
 
-                  <footer className="mt-4">
-                    <p className="text-xs text-gray-500">{user}</p>
-                  </footer>
                   {r.users_id === userId && (
                     <div className="flex gap-6">
                       <div className="">
