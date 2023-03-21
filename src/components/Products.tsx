@@ -52,19 +52,19 @@ const Products: React.FC<Props> = ({
     setCurrentPage(page);
   };
 
+  const loadProducts = async () => {
+    try {
+      const allProducts = await fetchProducts();
+      console.log(allProducts);
+      setProducts(allProducts);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const allProducts = await fetchProducts();
-        console.log(allProducts);
-        setProducts(allProducts);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     loadProducts();
-  }, [message]);
+  }, []);
 
   const idHandle = (id: number) => {
     console.log(id);

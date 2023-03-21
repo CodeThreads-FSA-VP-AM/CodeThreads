@@ -51,21 +51,21 @@ const MaleProducts: React.FC<Props> = ({
     setCurrentPage(page);
   };
 
+  const loadProducts = async () => {
+    try {
+      const allProducts = await fetchProducts();
+      const mensProducts = allProducts.filter((product) =>
+        product.tags.some((tag: { name: string }) => tag.name === "mens")
+      );
+      setProducts(mensProducts);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const allProducts = await fetchProducts();
-        const mensProducts = allProducts.filter((product) =>
-          product.tags.some((tag: { name: string }) => tag.name === "mens")
-        );
-        setProducts(mensProducts);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     loadProducts();
-  }, [message]);
+  }, []);
 
   const idHandle = (id: number) => {
     console.log(id);
@@ -297,7 +297,6 @@ const MaleProducts: React.FC<Props> = ({
           )}
         </div>
       </section>
-
     </>
   );
 };
