@@ -60,7 +60,7 @@ const AddProduct = (props: ProductProps) => {
     props.setSuccess(true);
     props.setSuccessTitle("Success!");
     props.setSuccessMsg("Product created!");
-    history(-1);
+    setShowModal(false);
   };
 
   return (
@@ -70,14 +70,17 @@ const AddProduct = (props: ProductProps) => {
       handleSubmit={handleCreate}
       modalTitle={"Add product"}
       modalTxt={"Add product"}
-      submitBtnText={"Add"}>
+      submitBtnText={"Add"}
+    >
       <section className="bg-white ">
         <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
           <h2 className="mb-4 text-xl font-bold">Add a new product</h2>
           <form onSubmit={handleCreate}>
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
               <div className="sm:col-span-2">
-                <label className="block mb-2 text-sm font-medium">Product Name</label>
+                <label className="block mb-2 text-sm font-medium">
+                  Product Name
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -116,7 +119,9 @@ const AddProduct = (props: ProductProps) => {
                 />
               </div>
               <div className="w-full">
-                <label className="block mb-2 text-sm font-medium">Front Image URL</label>
+                <label className="block mb-2 text-sm font-medium">
+                  Front Image URL
+                </label>
                 <input
                   type="text"
                   name="front_url"
@@ -129,7 +134,9 @@ const AddProduct = (props: ProductProps) => {
                 />
               </div>
               <div className="w-full">
-                <label className="block mb-2 text-sm font-medium">Back Image URL</label>
+                <label className="block mb-2 text-sm font-medium">
+                  Back Image URL
+                </label>
                 <input
                   type="text"
                   name="back_url"
@@ -144,7 +151,9 @@ const AddProduct = (props: ProductProps) => {
               <div className="sm:col-span-2">
                 <div className="flex justify-between space-x-4">
                   <div className="w-40">
-                    <label className="block mb-2 text-sm font-medium">Small</label>
+                    <label className="block mb-2 text-sm font-medium">
+                      Small
+                    </label>
                     <input
                       type="number"
                       name="small"
@@ -157,7 +166,9 @@ const AddProduct = (props: ProductProps) => {
                     />
                   </div>
                   <div className="w-40">
-                    <label className="block mb-2 text-sm font-medium">Medium</label>
+                    <label className="block mb-2 text-sm font-medium">
+                      Medium
+                    </label>
                     <input
                       type="number"
                       name="medium"
@@ -170,7 +181,9 @@ const AddProduct = (props: ProductProps) => {
                     />
                   </div>
                   <div className="w-40">
-                    <label className="block mb-2 text-sm font-medium">Large</label>
+                    <label className="block mb-2 text-sm font-medium">
+                      Large
+                    </label>
                     <input
                       type="number"
                       name="large"
@@ -183,7 +196,9 @@ const AddProduct = (props: ProductProps) => {
                     />
                   </div>
                   <div className="w-40">
-                    <label className="block mb-2 text-sm font-medium">X-Large</label>
+                    <label className="block mb-2 text-sm font-medium">
+                      X-Large
+                    </label>
                     <input
                       type="number"
                       name="xlarge"
@@ -198,7 +213,9 @@ const AddProduct = (props: ProductProps) => {
                 </div>
               </div>
               <div className="sm:col-span-2">
-                <label className="block mb-2 text-sm font-medium">Description</label>
+                <label className="block mb-2 text-sm font-medium">
+                  Description
+                </label>
                 <textarea
                   id="description"
                   rows={8}

@@ -7,7 +7,6 @@ import {
   createWishlist,
 } from "../api/api";
 import AddReview from "./AddReview";
-import Footer from "./Footer";
 import { Product, Review } from "./Interfaces";
 import Loader from "./Loader";
 import Reviews from "./Reviews";
@@ -39,6 +38,7 @@ const SingleView: FC<Props> = ({
   const [productId, setProductId] = useState(0);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<Boolean>(false);
+  const [quantity, setQuantity] = useState(1);
 
   const navigate = useNavigate();
 
@@ -64,7 +64,7 @@ const SingleView: FC<Props> = ({
     try {
       const res = await createOrder({
         product_id: productId,
-        quantity: 1,
+        quantity: quantity,
         token: token,
       });
       setSuccess(true);
@@ -161,7 +161,7 @@ const SingleView: FC<Props> = ({
                 <polyline points="15 6 9 12 15 18" />
               </svg>
               <button
-                className="pl-2 text-sm leading-none hover:underline text-indigo-600"
+                className="pl-2 text-sm leading-none hover:underline text-indigo-900"
                 onClick={() => navigate(-1)}
               >
                 Back
@@ -247,7 +247,7 @@ const SingleView: FC<Props> = ({
                       </svg>
 
                       <svg
-                        className="w-5 h-5 text-gray-200"
+                        className="w-5 h-5 text-yellow-400"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
@@ -350,25 +350,36 @@ const SingleView: FC<Props> = ({
 
                   <div className="flex gap-4 mt-8">
                     <div>
-                      <label htmlFor="quantity" className="sr-only">
-                        Qty
+                      <label
+                        htmlFor="quantity"
+                        className="block text-sm font-medium text-gray-700"
+                        aria-required="true"
+                      >
+                        Quantity
                       </label>
-
-                      <input
-                        type="number"
+                      <select
                         id="quantity"
-                        min="1"
-                        value="1"
-                        className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
-                      />
+                        name="quantity"
+                        className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        value={quantity}
+                        defaultValue={1}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
+                      >
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
                     </div>
                     {/* remove disabled to use */}
+
                     {token ? (
                       <>
                         <button
                           type="submit"
                           onClick={addProductToCart}
-                          className={`block px-5 py-3 text-xs font-medium text-white rounded hover:bg-green-500 ${
+                          className={`block px-5 py-3 text-sm font-medium text-white rounded hover:bg-green-500 ${
                             product?.tags.some(
                               (tag: { name: string }) => tag.name === "soldout"
                             )
@@ -433,7 +444,6 @@ const SingleView: FC<Props> = ({
           </div>
         </section>
       )}
-      <Footer />
     </>
   );
 };

@@ -19,7 +19,9 @@ describe("/api/users", () => {
         avatar_url: faker.internet.avatar(),
       };
       // register fake user
-      const response = await request(server).post("/api/users/register").send(fakeUserData);
+      const response = await request(server)
+        .post("/api/users/register")
+        .send(fakeUserData);
       expect(response.status).toBe(200);
     });
   });
@@ -37,7 +39,9 @@ describe("/api/users", () => {
       await createUser(userData);
 
       // login the user
-      const response = await request(server).post("/api/users/login").send(userData);
+      const response = await request(server)
+        .post("/api/users/login")
+        .send(userData);
       console.log(userData);
       expect(response.body).toEqual({
         message: expect.any(String),
@@ -55,7 +59,9 @@ describe("/api/users", () => {
 
       await createUser(userMissingData);
 
-      const response = await request(server).post("/api/users/login").send(userMissingData);
+      const response = await request(server)
+        .post("/api/users/login")
+        .send(userMissingData);
       expect(response.body).toEqual({
         error: "MissingCredentialsError",
         message: "Please supply both a username and password",
@@ -85,6 +91,7 @@ describe("/api/users", () => {
   //       email: expect.any(String),
   //       id: expect.any(Number),
   //       username: expect.any(String),
+  //       is_admin: expect.any(Object)
   //     });
   //   });
   // });

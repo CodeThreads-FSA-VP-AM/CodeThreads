@@ -14,6 +14,7 @@ type Props = {
   setSuccessMsg: any;
   wishlist: any;
   setWishlist: any;
+  token: string;
 };
 const WishList: FC<Props> = ({
   setSuccess,
@@ -21,11 +22,12 @@ const WishList: FC<Props> = ({
   setSuccessTitle,
   wishlist,
   setWishlist,
+  token,
 }) => {
   const [show, setShow] = useState(Array(wishlist.length).fill(false));
   const [userId, setUserId] = useState(0);
   const [wishlistId, setWishlistId] = useState(0);
-  const [token, setToken] = useState("");
+
   console.log(wishlist.length, "length here of wl");
   const addProductToCart = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

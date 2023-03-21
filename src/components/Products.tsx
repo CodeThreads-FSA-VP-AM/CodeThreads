@@ -115,14 +115,11 @@ const Products: React.FC<Props> = ({
 
             {user.is_admin && (
               <>
-                <div className="flex items-center justify-center py-1">
-                  <AddProduct
-                    setSuccess={setSuccess}
-                    setSuccessTitle={setSuccessTitle}
-                    setSuccessMsg={setSuccessMsg}
-                  />
-
-                  <select className="rounded" onChange={handleSelect}>
+                <div className="flex items-center flex-col justify-center py-1">
+                  <select
+                    className="rounded-md mr-1 capitalize"
+                    onChange={handleSelect}
+                  >
                     <option value="delete">delete product</option>
                     {products.map((p) => (
                       <option value={p.id} key={p.id}>
@@ -130,18 +127,25 @@ const Products: React.FC<Props> = ({
                       </option>
                     ))}
                   </select>
-                  <Modal
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    handleSubmit={handleDelete}
-                    modalTitle={"Delete product"}
-                    modalTxt={"Delete product"}
-                    submitBtnText="Delete"
-                  >
-                    <div>
-                      <h1>Are you sure you want to delete this product?</h1>
-                    </div>
-                  </Modal>
+                  <div className="p-2">
+                    <AddProduct
+                      setSuccess={setSuccess}
+                      setSuccessTitle={setSuccessTitle}
+                      setSuccessMsg={setSuccessMsg}
+                    />
+                    <Modal
+                      showModal={showModal}
+                      setShowModal={setShowModal}
+                      handleSubmit={handleDelete}
+                      modalTitle={"Delete product"}
+                      modalTxt={"Delete product"}
+                      submitBtnText="Delete"
+                    >
+                      <div>
+                        <h1>Are you sure you want to delete this product?</h1>
+                      </div>
+                    </Modal>
+                  </div>
                   <span className="text-red-400">{message}</span>
                 </div>
               </>

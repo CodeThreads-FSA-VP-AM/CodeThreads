@@ -253,6 +253,7 @@ const Orders: React.FC<Props> = ({
                                 type="number"
                                 min="1"
                                 max="10"
+                                disabled
                                 defaultValue={o.quantity}
                                 className="border-2 border-gray-500 "
                               ></input>
@@ -347,16 +348,19 @@ const Orders: React.FC<Props> = ({
                       </div>
                     );
                   })}
-                  {wishlist ? (
-                    <WishList
-                      quantity={0}
-                      setSuccess={setSuccess}
-                      setSuccessTitle={setSuccessTitle}
-                      setSuccessMsg={setSuccessMsg}
-                      wishlist={wishlist}
-                      setWishlist={setWishlist}
-                    />
-                  ) : null}
+                  <div className="hidden sm:block">
+                    {wishlist ? (
+                      <WishList
+                        token={token}
+                        quantity={0}
+                        setSuccess={setSuccess}
+                        setSuccessTitle={setSuccessTitle}
+                        setSuccessMsg={setSuccessMsg}
+                        wishlist={wishlist}
+                        setWishlist={setWishlist}
+                      />
+                    ) : null}
+                  </div>
                 </div>
                 {/* //Summary starts here */}
                 {token ? (

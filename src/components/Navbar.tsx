@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-
+const logoBlack = require("../assets/logo-black.png");
 type Props = {
   user: any;
   token: string;
@@ -34,19 +34,20 @@ const Navbar: React.FC<Props> = ({
       <div>
         <div className="relative">
           {/* For large screens */}
-          <div className="px-6 bg-white py-9">
+          <div className="px-6 bg-white pb-9 ">
             <div className="container flex items-center justify-between mx-auto">
-              <NavLink to="/">
-                <h1
-                  className="text-2xl text-gray-800 cursor-pointer md:w-2/12 dark:text-black"
-                  aria-label="code Threads."
-                >
-                  codeThreads
-                </h1>
-              </NavLink>
+              <div className="flex items-start justify-start">
+                <NavLink to="/">
+                  <img
+                    src={logoBlack}
+                    alt="websiteLogo"
+                    className="cursor-pointer w-5/12 md:w-3/12 "
+                  />
+                </NavLink>
+              </div>
 
               <ul
-                className="items-center justify-center hidden w-8/12 space-x-8 md:flex"
+                className="items-center hidden w-[100%] space-x-8 md:flex"
                 id="navBar"
               >
                 <li>
@@ -70,7 +71,7 @@ const Navbar: React.FC<Props> = ({
                     to="/mens"
                     className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                   >
-                    Mens
+                    Men
                   </NavLink>
                 </li>
                 <li>
@@ -78,7 +79,7 @@ const Navbar: React.FC<Props> = ({
                     to="/womens"
                     className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                   >
-                    Womens
+                    Women
                   </NavLink>
                 </li>
                 {user.is_admin && (
@@ -474,7 +475,7 @@ const Navbar: React.FC<Props> = ({
                       to="/mens"
                       className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
-                      Mens
+                      Men
                     </NavLink>
                   </li>
                   <li>
@@ -482,7 +483,7 @@ const Navbar: React.FC<Props> = ({
                       to="/womens"
                       className="text-base text-gray-800 dark:text-black hover:text-[#433BBD]"
                     >
-                      Womens
+                      Women
                     </NavLink>
                   </li>
                   {user.is_admin && (
@@ -629,16 +630,16 @@ const Navbar: React.FC<Props> = ({
                           />
                         </svg>
                         <p className="text-[14px]">
-                        {ordersLength ? (
-                          <div
-                            className={`animate-pulse w-4 h-4 bg-red-600 text-sm rounded-full flex justify-center items-center m-auto ${
-                              ordersLength > 0 ? "text-white" : "hidden"
-                            }`}
-                          >
-                            {ordersLength}
-                          </div>
-                        ) : null}
-                      </p>
+                          {ordersLength ? (
+                            <div
+                              className={`animate-pulse w-4 h-4 bg-red-600 text-sm rounded-full flex justify-center items-center m-auto ${
+                                ordersLength > 0 ? "text-white" : "hidden"
+                              }`}
+                            >
+                              {ordersLength}
+                            </div>
+                          ) : null}
+                        </p>
                       </div>
                       <p className="text-base">Cart</p>
                     </NavLink>
