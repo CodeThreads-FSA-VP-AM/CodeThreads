@@ -60,6 +60,7 @@ const App: React.FC = () => {
       try {
         const user = await fetchUser({ token });
         setUserId(user.id);
+        setUser(user);
       } catch (error) {
         console.error(error);
       }
@@ -107,32 +108,19 @@ const App: React.FC = () => {
   }, [token, userId, orderId]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token") ?? "";
+    setToken(token);
+  }, []);
+
+  useEffect(() => {
     setWishlist(wishlist);
     setOrders(orders);
   }, [wishlist, orders]);
-  console.log(wishlist.length, "length here of wl");
-  console.log(orders.length, "length here of orders");
 
   const getProduct = async () => {
     const product = await fetchProductById(productId);
     setProduct(product);
   };
-
-  useEffect(() => {
-    const getUser = async (data: User) => {
-      const { token } = data;
-      try {
-        const user = await fetchUser({ token });
-        console.log({ user });
-        setUser(user);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    const token = localStorage.getItem("token") ?? "";
-    setToken(token);
-    getUser({ token });
-  }, [token]);
 
   useEffect(() => {
     getProduct();
