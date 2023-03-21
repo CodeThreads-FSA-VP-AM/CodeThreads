@@ -26,22 +26,26 @@ const AddReview = (props: AddReviewProps) => {
     e.preventDefault();
 
     try {
-      const newReview = await createReview({
-        product_id: props.product_id,
-        token: props.token,
-        title,
-        description,
-        rating,
-      });
-      setTitle("");
-      setRating(0);
-      setDescription("");
-      props.setReviews([...props.reviews, newReview]);
-      props.setSuccess(true);
-      props.setSuccessTitle("Success!");
-      props.setSuccessMsg("You created a review!");
-      setShowModal(false);
-      console.log(newReview);
+      if (title.length > 0 && description.length > 0) {
+        const newReview = await createReview({
+          product_id: props.product_id,
+          token: props.token,
+          title,
+          description,
+          rating,
+        });
+        if (newReview) {
+          setShowModal(false);
+        }
+        setTitle("");
+        setRating(0);
+        setDescription("");
+        props.setReviews([...props.reviews, newReview]);
+        props.setSuccess(true);
+        props.setSuccessTitle("Success!");
+        props.setSuccessMsg("You created a review!");
+        console.log(newReview);
+      }
     } catch (error) {
       console.error(error);
     }
