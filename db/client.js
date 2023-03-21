@@ -20,9 +20,7 @@ if (process.env.CI) {
   });
 } else {
   // local / heroku client config
-  client = new Client({
-    DB_URL,
-  });
+  client = new Client(DB_URL);
 }
 
 module.exports = client;
