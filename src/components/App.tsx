@@ -20,10 +20,11 @@ import Home from "./Home";
 import {
   fetchOrder,
   fetchProductById,
+  fetchProducts,
   fetchUser,
   fetchWishlistByUser,
 } from "../api/api";
-import { OrderData, User, WishlistData } from "./Interfaces";
+import { OrderData, User, WishlistData, Product } from "./Interfaces";
 import NotFound from "./NotFound";
 import AdminNav from "./AdminNav";
 import StripeContainer from "./StripeContainer";
@@ -54,6 +55,30 @@ const App: React.FC = () => {
   const [wishlist, setWishlist] = useState<WishlistData[]>([]);
   const [orders, setOrders] = useState<OrderData[]>([]);
   const [orderId, setOrderId] = useState(2);
+  const [mensProducts, setMensProducts] = useState<Product[]>([]);
+  const [womensProducts, setWomensProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    const productsAll = async () => {
+      try {
+        const products = await fetchProducts();
+        if (products) {
+          const mensProducts = products.filter((product) =>
+            product.tags.some((tag: { name: string }) => tag.name === "mens")
+          );
+          setMensProducts(mensProducts);
+        }
+        const womensProducts = products.filter((product) =>
+          product.tags.some((tag: { name: string }) => tag.name === "womens")
+        );
+        setWomensProducts(womensProducts);
+        setProducts(products);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    productsAll();
+  }, []);
   useEffect(() => {
     const getUser = async (data: User) => {
       const { token } = data;
@@ -210,6 +235,7 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  mensProducts={mensProducts}
                 />
               }
             />

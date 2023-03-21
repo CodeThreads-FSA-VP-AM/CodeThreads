@@ -12,6 +12,7 @@ type Props = {
   setSuccess: any;
   setSuccessTitle: any;
   setSuccessMsg: any;
+  mensProducts: any;
 };
 
 const MaleProducts: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const MaleProducts: React.FC<Props> = ({
   setSuccess,
   setSuccessMsg,
   setSuccessTitle,
+  mensProducts,
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
@@ -34,15 +36,17 @@ const MaleProducts: React.FC<Props> = ({
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-  const filteredProducts = products.filter((p) => {
-    if (search === "") {
-      return p;
-    } else if (p.title.toLowerCase().includes(search)) {
-      return p.title;
-    } else if (p.tags.some((t: any) => t.name.toLowerCase() === search)) {
-      return p;
+  const filteredProducts = mensProducts.filter(
+    (p: { title: string; tags: any[] }) => {
+      if (search === "") {
+        return p;
+      } else if (p.title.toLowerCase().includes(search)) {
+        return p.title;
+      } else if (p.tags.some((t: any) => t.name.toLowerCase() === search)) {
+        return p;
+      }
     }
-  });
+  );
 
   const totalProducts = filteredProducts.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
@@ -51,21 +55,21 @@ const MaleProducts: React.FC<Props> = ({
     setCurrentPage(page);
   };
 
-  const loadProducts = async () => {
-    try {
-      const allProducts = await fetchProducts();
-      const mensProducts = allProducts.filter((product) =>
-        product.tags.some((tag: { name: string }) => tag.name === "mens")
-      );
-      setProducts(mensProducts);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    loadProducts();
-  }, []);
+  // const loadProducts = async () => {
+  //   try {
+  //     const allProducts = await fetchProducts();
+  //     const mensProducts = allProducts.filter((product) =>
+  //       product.tags.some((tag: { name: string }) => tag.name === "mens")
+  //     );
+  //     setProducts(mensProducts);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   loadProducts();
+  // }, []);
 
   const idHandle = (id: number) => {
     console.log(id);
@@ -84,7 +88,9 @@ const MaleProducts: React.FC<Props> = ({
     console.log("delete me");
     const deletedProduct = await fetchDeleteProduct(selectedId);
 
-    const filteredOrders = products.filter((p) => p.id !== selectedId);
+    const filteredOrders = mensProducts.filter(
+      (p: { id: number }) => p.id !== selectedId
+    );
     setProducts(filteredOrders);
     setMessage("product deleted");
     setSuccess(true);
@@ -121,7 +127,7 @@ const MaleProducts: React.FC<Props> = ({
                     onChange={handleSelect}
                   >
                     <option value="delete">delete product</option>
-                    {products.map((p) => (
+                    {mensProducts.map((p: any) => (
                       <option value={p.id} key={p.id}>
                         {p.title}
                       </option>
