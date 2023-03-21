@@ -12,7 +12,7 @@ let client;
 // github actions client config
 if (process.env.CI) {
   client = new Client({
-    host: "localhost",
+    host: db.bit.io,
     port: 5432,
     user: "postgres",
     password: "postgres",
@@ -22,10 +22,6 @@ if (process.env.CI) {
   // local / heroku client config
   client = new Client({
     DB_URL,
-    ssl:
-      process.env.NODE_ENV === "production"
-        ? { rejectUnauthorized: false }
-        : undefined,
   });
 }
 
