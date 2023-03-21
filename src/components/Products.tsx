@@ -13,6 +13,7 @@ type Props = {
   setSuccess: any;
   setSuccessTitle: any;
   setSuccessMsg: any;
+  products: any;
 };
 
 const Products: React.FC<Props> = ({
@@ -21,8 +22,9 @@ const Products: React.FC<Props> = ({
   setSuccess,
   setSuccessMsg,
   setSuccessTitle,
+  products,
 }) => {
-  const [products, setProducts] = useState<Product[]>([]);
+  // const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [selectedId, setSelectedId] = useState(0);
   const [message, setMessage] = useState("");
@@ -35,7 +37,7 @@ const Products: React.FC<Props> = ({
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-  const filteredProducts = products.filter((p) => {
+  const filteredProducts = products.filter((p: any) => {
     if (search === "") {
       return p;
     } else if (p.title.toLowerCase().includes(search)) {
@@ -52,19 +54,19 @@ const Products: React.FC<Props> = ({
     setCurrentPage(page);
   };
 
-  const loadProducts = async () => {
-    try {
-      const allProducts = await fetchProducts();
-      console.log(allProducts);
-      setProducts(allProducts);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    loadProducts();
-  }, []);
+  // const loadProducts = async () => {
+  //   try {
+  //     const allProducts = await fetchProducts();
+  //     console.log(allProducts);
+  //     setProducts(allProducts);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   loadProducts();
+  // }, []);
 
   const idHandle = (id: number) => {
     console.log(id);
@@ -83,8 +85,8 @@ const Products: React.FC<Props> = ({
     console.log("delete me");
     const deletedProduct = await fetchDeleteProduct(selectedId);
 
-    const filteredOrders = products.filter((p) => p.id !== selectedId);
-    setProducts(filteredOrders);
+    const filteredOrders = products.filter((p: any) => p.id !== selectedId);
+    // setProducts(filteredOrders);
     setMessage("product deleted");
     setSuccess(true);
     setSuccessTitle("Success!");
@@ -121,7 +123,7 @@ const Products: React.FC<Props> = ({
                     onChange={handleSelect}
                   >
                     <option value="delete">delete product</option>
-                    {products.map((p) => (
+                    {products.map((p: any) => (
                       <option value={p.id} key={p.id}>
                         {p.title}
                       </option>

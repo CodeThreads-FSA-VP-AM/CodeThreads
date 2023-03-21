@@ -24,13 +24,14 @@ const MaleProducts: React.FC<Props> = ({
   mensProducts,
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [loading, setLoading] = useState<Boolean>(false);
   const [selectedId, setSelectedId] = useState(0);
   const [message, setMessage] = useState("");
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
 
+  console.log(mensProducts);
   const productsPerPage = 8;
 
   const indexOfLastProduct = currentPage * productsPerPage;

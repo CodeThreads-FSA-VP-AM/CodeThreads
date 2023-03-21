@@ -62,12 +62,14 @@ const App: React.FC = () => {
     const productsAll = async () => {
       try {
         const products = await fetchProducts();
+        // console.log(products);
         if (products) {
           const mensProducts = products.filter((product) =>
             product.tags.some((tag: { name: string }) => tag.name === "mens")
           );
           setMensProducts(mensProducts);
         }
+        console.log(mensProducts);
         const womensProducts = products.filter((product) =>
           product.tags.some((tag: { name: string }) => tag.name === "womens")
         );
@@ -223,6 +225,7 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  products={products}
                 />
               }
             />
@@ -248,6 +251,7 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  womensProducts={womensProducts}
                 />
               }
             />
@@ -317,6 +321,7 @@ const App: React.FC = () => {
                   setSuccess={setSuccess}
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
+                  products={products}
                 />
               }
             />
