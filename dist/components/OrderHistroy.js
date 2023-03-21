@@ -13,19 +13,40 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const react_router_dom_1 = require("react-router-dom");
 const api_1 = require("../api/api");
-const OrderHistroy = (props) => {
+const OrderHistroy = () => {
     const [orders, setOrders] = (0, react_1.useState)([]);
-    const [userId, setUserId] = (0, react_1.useState)(3);
+    const [userId, setUserId] = (0, react_1.useState)(0);
+    const [token, setToken] = (0, react_1.useState)("");
     (0, react_1.useEffect)(() => {
+        var _a;
+        const getUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
+            const { token } = data;
+            try {
+                const user = yield (0, api_1.fetchUser)({ token });
+                setUserId(user.id);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        });
+        const token = (_a = localStorage.getItem("token")) !== null && _a !== void 0 ? _a : "";
+        setToken(token);
+        getUser({ token });
+    }, []);
+    (0, react_1.useEffect)(() => {
+        console.log("line 18");
         const orderHistory = (userId) => __awaiter(void 0, void 0, void 0, function* () {
             const order = yield (0, api_1.fetchOrderHistory)(userId);
-            setOrders(order);
+            console.log(order);
+            const processingOrders = order.filter((o) => !o.is_cart);
+            console.log(processingOrders);
+            setOrders(processingOrders);
         });
-        if (userId !== undefined) {
+        if (userId !== 0) {
+            console.log("got here", userId);
             orderHistory(userId);
         }
-    }, []);
-    console.log(orders);
+    }, [userId]);
     return ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: "bg-white" }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "py-16 sm:py-24" }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: "mx-auto max-w-7xl sm:px-2 lg:px-8" }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "max-w-2xl px-4 mx-auto lg:max-w-4xl lg:px-0" }, { children: [(0, jsx_runtime_1.jsx)("h1", Object.assign({ className: "text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl" }, { children: "Order history" })), (0, jsx_runtime_1.jsx)("p", Object.assign({ className: "mt-2 text-sm text-gray-500" }, { children: "Check the status of recent orders, manage returns, and discover similar products." }))] })) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "mt-16" }, { children: [(0, jsx_runtime_1.jsx)("h2", Object.assign({ className: "sr-only" }, { children: "Recent orders" })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: "mx-auto max-w-7xl sm:px-2 lg:px-8" }, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ className: "max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-4xl lg:px-0" }, { children: orders.map((order) => {
                                     const date = new Date(order.purchased_at);
                                     const formattedDate = date.toLocaleDateString();

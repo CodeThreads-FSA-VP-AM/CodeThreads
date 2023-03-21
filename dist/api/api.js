@@ -9,10 +9,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateCart = exports.mergeCarts = exports.editReview = exports.getAllReviews = exports.deleteReview = exports.createReview = exports.deleteOrder = exports.fetchOrderHistory = exports.fetchOrder = exports.checkoutOrder = exports.createOrder = exports.fetchProductByName = exports.fetchProductById = exports.fetchDeleteProduct = exports.fetchUpdateSizeQty = exports.fetchEditProduct = exports.fetchCreateProduct = exports.fetchProducts = exports.fetchLogin = exports.fetchUser = exports.fetchRegister = void 0;
-const APIURL = "http://localhost:4000/api";
+exports.deleteWishlist = exports.fetchWishlistByUser = exports.createWishlist = exports.updateCart = exports.mergeCarts = exports.editReview = exports.getAllReviews = exports.deleteReview = exports.createReview = exports.deleteOrder = exports.fetchOrderHistory = exports.fetchOrders = exports.fetchOrder = exports.checkoutOrder = exports.createOrder = exports.fetchProductByName = exports.fetchProductById = exports.fetchDeleteProduct = exports.fetchUpdateSizeQty = exports.fetchEditProduct = exports.fetchCreateProduct = exports.fetchProducts = exports.deleteUser = exports.updateProfile = exports.fetchOAuth = exports.fetchLogin = exports.fetchUser = exports.fetchRegister = exports.fetchAllUsers = void 0;
+const APIURL = "https://codethreads.onrender.com/api";
+//Fetch all users
+const fetchAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield fetch(`${APIURL}/users`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const json = yield res.json();
+        return json;
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
+exports.fetchAllUsers = fetchAllUsers;
 const fetchRegister = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password, email } = data;
+    const { username, password, email, avatar_url } = data;
     const res = yield fetch(`${APIURL}/users/register`, {
         method: "POST",
         headers: {
@@ -22,6 +38,7 @@ const fetchRegister = (data) => __awaiter(void 0, void 0, void 0, function* () {
             username: `${username}`,
             password: `${password}`,
             email: `${email}`,
+            avatar_url: `${avatar_url}`,
         }),
     });
     const json = yield res.json();
@@ -56,8 +73,68 @@ const fetchLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
     return json;
 });
 exports.fetchLogin = fetchLogin;
+const fetchOAuth = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username } = data;
+    console.log(username);
+    const res = yield fetch(`${APIURL}/users/oauth`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: `${username}`,
+        }),
+    });
+    const json = yield res.json();
+    return json;
+});
+exports.fetchOAuth = fetchOAuth;
 // update user
-// delete user
+const updateProfile = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password, email, avatar, token, userId } = data;
+    try {
+        const res = yield fetch(`${APIURL}/users/edit/${userId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+                email: email,
+                avatar: avatar,
+            }),
+        });
+        const json = yield res.json();
+        return json;
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
+exports.updateProfile = updateProfile;
+const deleteUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = data;
+    try {
+        const res = yield fetch(`${APIURL}/users/delete`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userId: userId,
+            }),
+        });
+        console.log(userId);
+        const json = yield res.json();
+        return json;
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
+exports.deleteUser = deleteUser;
 // Product fetch requests
 // fetch all products
 const fetchProducts = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -69,7 +146,7 @@ exports.fetchProducts = fetchProducts;
 // create product
 const fetchCreateProduct = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { title, description, price, front_url, back_url, tags, small, medium, large, xlarge } = data;
+        const { title, description, price, front_url, back_url, tags, small, medium, large, xlarge, } = data;
         const res = yield fetch(`${APIURL}/products/add`, {
             method: "POST",
             headers: {
@@ -231,6 +308,22 @@ const fetchOrder = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     return json;
 });
 exports.fetchOrder = fetchOrder;
+const fetchOrders = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield fetch(`${APIURL}/orders`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const json = yield res.json();
+        console.log(json);
+        return json;
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
+exports.fetchOrders = fetchOrders;
 const fetchOrderHistory = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield fetch(`${APIURL}/orders/history/${userId}`, {
         headers: {
@@ -361,3 +454,44 @@ const updateCart = (userId, token) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.updateCart = updateCart;
+const createWishlist = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const { product_id, quantity, token } = data;
+    const res = yield fetch(`${APIURL}/wishlist/add`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            product_id: `${product_id}`,
+            quantity: `${quantity}`,
+        }),
+    });
+    const json = yield res.json();
+    return json;
+});
+exports.createWishlist = createWishlist;
+const fetchWishlistByUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield fetch(`${APIURL}/wishlist/${userId}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const json = yield res.json();
+    console.log(json);
+    return json;
+});
+exports.fetchWishlistByUser = fetchWishlistByUser;
+const deleteWishlist = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const { product_id, token } = data;
+    const res = yield fetch(`${APIURL}/wishlist/${product_id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    const json = res.json();
+    return json;
+});
+exports.deleteWishlist = deleteWishlist;

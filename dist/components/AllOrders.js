@@ -1,0 +1,13 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const jsx_runtime_1 = require("react/jsx-runtime");
+const ComepletedSteps_1 = __importDefault(require("./ComepletedSteps"));
+const AllOrders = (props) => {
+    return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "overflow-x-auto" }, { children: [(0, jsx_runtime_1.jsx)("h1", Object.assign({ className: "text-xl text-gray-900 pb-2" }, { children: "Order records:" })), (0, jsx_runtime_1.jsxs)("table", Object.assign({ className: "min-w-full divide-y-2 divide-gray-200 text-sm" }, { children: [(0, jsx_runtime_1.jsx)("thead", { children: (0, jsx_runtime_1.jsxs)("tr", { children: [(0, jsx_runtime_1.jsx)("th", Object.assign({ className: "whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900" }, { children: "Product name" })), (0, jsx_runtime_1.jsx)("th", Object.assign({ className: "whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900" }, { children: "Status" })), (0, jsx_runtime_1.jsx)("th", Object.assign({ className: "whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900" }, { children: "Price" })), (0, jsx_runtime_1.jsx)("th", Object.assign({ className: "whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900" }, { children: "UserId" })), (0, jsx_runtime_1.jsx)("th", { className: "px-4 py-2" })] }) }), (0, jsx_runtime_1.jsx)("tbody", Object.assign({ className: "divide-y divide-gray-200" }, { children: props.allOrders.map((allOrder) => {
+                            return ((0, jsx_runtime_1.jsxs)("tr", { children: [(0, jsx_runtime_1.jsx)("td", Object.assign({ className: "whitespace-nowrap px-4 py-2 font-medium text-gray-900 capitalize" }, { children: allOrder.title })), (0, jsx_runtime_1.jsx)("td", Object.assign({ className: "whitespace-nowrap px-4 py-2 text-gray-700 capitalize" }, { children: allOrder.status })), (0, jsx_runtime_1.jsxs)("td", Object.assign({ className: "whitespace-nowrap px-4 py-2 text-gray-700" }, { children: ["$", allOrder.price] })), (0, jsx_runtime_1.jsx)("td", Object.assign({ className: "whitespace-nowrap px-4 py-2 text-gray-700" }, { children: allOrder.users_id })), (0, jsx_runtime_1.jsx)("td", Object.assign({ className: "whitespace-nowrap px-4 py-2" }, { children: (0, jsx_runtime_1.jsx)("a", Object.assign({ href: "#", className: "inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700" }, { children: "Edit status" })) }))] }));
+                        }) }))] })), (0, jsx_runtime_1.jsx)(ComepletedSteps_1.default, {})] })));
+};
+exports.default = AllOrders;
