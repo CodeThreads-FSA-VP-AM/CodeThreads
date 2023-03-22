@@ -50,6 +50,7 @@ const Register: React.FC<Props> = ({
         setPassword("");
         setEmail("");
         setLoading(true);
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
@@ -89,7 +90,7 @@ const Register: React.FC<Props> = ({
         setSuccess(true);
         setSuccessTitle("Success!");
         setSuccessMsg("You're signed up!");
-        navigate("/products");
+        navigate("/");
         setLoading(true);
       }
     } catch (error) {

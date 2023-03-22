@@ -91,7 +91,7 @@ const Login: React.FC<Props> = ({
         setSuccess(true);
         setSuccessTitle("Success!");
         setSuccessMsg("You're logged in!");
-        navigate("/products");
+        navigate("/");
         setLoading(true);
       }
     } catch (error) {

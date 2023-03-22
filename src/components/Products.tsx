@@ -25,7 +25,7 @@ const Products: React.FC<Props> = ({
   products,
 }) => {
   // const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [loading, setLoading] = useState<Boolean>(false);
   const [selectedId, setSelectedId] = useState(0);
   const [message, setMessage] = useState("");
   const [search, setSearch] = useState("");
