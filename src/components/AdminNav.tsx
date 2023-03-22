@@ -14,6 +14,7 @@ type Props = {
   setSuccessTitle: any;
   setSuccessMsg: any;
   products: any;
+  setProducts: any;
 };
 
 const AdminNav: React.FC<Props> = ({
@@ -23,6 +24,7 @@ const AdminNav: React.FC<Props> = ({
   setSuccessMsg,
   setSuccessTitle,
   products,
+  setProducts,
 }) => {
   const [activeComponent, setActiveComponent] = useState("home");
   const [allOrders, setAllOrders] = useState([]);
@@ -330,6 +332,7 @@ const AdminNav: React.FC<Props> = ({
             setSuccessTitle={setSuccessTitle}
             setSuccessMsg={setSuccessMsg}
             products={products}
+            setProducts={setProducts}
           />
         ) : null}
         {activeComponent === "orders" ? (

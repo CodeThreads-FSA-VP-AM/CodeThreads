@@ -226,6 +226,7 @@ const App: React.FC = () => {
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
                   products={products}
+                  setProducts={setProducts}
                 />
               }
             />
@@ -239,6 +240,7 @@ const App: React.FC = () => {
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
                   mensProducts={mensProducts}
+                  setMensProducts={setMensProducts}
                 />
               }
             />
@@ -252,6 +254,7 @@ const App: React.FC = () => {
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
                   womensProducts={womensProducts}
+                  setWomensProducts={setWomensProducts}
                 />
               }
             />
@@ -322,6 +325,7 @@ const App: React.FC = () => {
                   setSuccessTitle={setSuccessTitle}
                   setSuccessMsg={setSuccessMsg}
                   products={products}
+                  setProducts={setProducts}
                 />
               }
             />

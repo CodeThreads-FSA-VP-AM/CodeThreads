@@ -14,6 +14,7 @@ type Props = {
   setSuccessTitle: any;
   setSuccessMsg: any;
   products: any;
+  setProducts: any;
 };
 
 const Products: React.FC<Props> = ({
@@ -23,6 +24,7 @@ const Products: React.FC<Props> = ({
   setSuccessMsg,
   setSuccessTitle,
   products,
+  setProducts,
 }) => {
   // const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(false);
@@ -86,7 +88,7 @@ const Products: React.FC<Props> = ({
     const deletedProduct = await fetchDeleteProduct(selectedId);
 
     const filteredOrders = products.filter((p: any) => p.id !== selectedId);
-    // setProducts(filteredOrders);
+    setProducts(filteredOrders);
     setMessage("product deleted");
     setSuccess(true);
     setSuccessTitle("Success!");

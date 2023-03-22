@@ -13,6 +13,7 @@ type Props = {
   setSuccessTitle: any;
   setSuccessMsg: any;
   womensProducts: any;
+  setWomensProducts: any;
 };
 
 const FemaleProducts: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const FemaleProducts: React.FC<Props> = ({
   setSuccessMsg,
   setSuccessTitle,
   womensProducts,
+  setWomensProducts,
 }) => {
   // const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<Boolean>(false);
@@ -86,7 +88,7 @@ const FemaleProducts: React.FC<Props> = ({
     const filteredOrders = womensProducts.filter(
       (p: any) => p.id !== selectedId
     );
-    // setProducts(filteredOrders);
+    setWomensProducts(filteredOrders);
     setMessage("product deleted");
     setSuccess(true);
     setSuccessTitle("Success!");
