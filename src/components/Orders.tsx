@@ -58,7 +58,7 @@ const Orders: React.FC<Props> = ({
         product_id,
         token: token,
       });
-      console.log(res);
+
       setOrders(
         orders.filter(
           (order: { product_id: number }) => order.product_id !== product_id
@@ -111,12 +111,11 @@ const Orders: React.FC<Props> = ({
   useEffect(() => {
     const fetchOrders = async (userId: number) => {
       const orders = await fetchOrder(userId);
-      console.log(orders);
 
       const getorderid = orders.filter(
         (o: { status: string }) => o.status === "added"
       );
-      console.log(getorderid.length);
+
       setProductsLength(getorderid.length);
 
       const orderid = getorderid[0];
@@ -140,7 +139,7 @@ const Orders: React.FC<Props> = ({
   const checkout = async () => {
     try {
       const order = await checkoutOrder(userId, orderId, token);
-      console.log({ order });
+
       if (order) {
         setOrders([]);
         setProduct([]);

@@ -28,7 +28,6 @@ const WishList: FC<Props> = ({
   const [userId, setUserId] = useState(0);
   const [wishlistId, setWishlistId] = useState(0);
 
-  console.log(wishlist.length, "length here of wl");
   const addProductToCart = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     product_id: number
@@ -40,17 +39,15 @@ const WishList: FC<Props> = ({
         quantity: 1,
         token: token,
       });
-      console.log("got here from orders adding to cart");
-      console.log(res);
-      console.log(wishlist, "before filter upon adding", product_id);
+
       setWishlist(
         wishlist.filter(
           (wish: { product_id: number }) => wish.product_id !== product_id
         )
       );
-      console.log(wishlist, "After filter upon adding");
+
       handleDeletewishlist(product_id);
-      console.log("got here from orders adding to cart");
+
       setSuccess(true);
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to cart!");
@@ -65,7 +62,7 @@ const WishList: FC<Props> = ({
         product_id,
         token: token,
       });
-      console.log(res);
+
       setWishlist(
         wishlist.filter(
           (wish: { product_id: number }) => wish.product_id !== product_id

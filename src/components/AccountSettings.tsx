@@ -6,15 +6,16 @@ type Props = {
   setUser: any;
 };
 const AccountSettings: React.FC<Props> = (props) => {
-  console.log(props.token, props.user.id, "props from accountsettings");
   const [username, setUsername] = useState(props.user.username);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState(props.user.email);
   const [avatar, setAvatar] = useState(props.user.avatar_url);
   const [errorMsg, setErrorMsg] = useState("");
   const [userId, setUserId] = useState(props.user.id);
-  console.log(username, email, avatar, userId);
-  const handleEditProfile: React.FormEventHandler<HTMLFormElement> = async (e) => {
+
+  const handleEditProfile: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
     e.preventDefault();
     try {
       const data = await updateProfile({
@@ -27,10 +28,8 @@ const AccountSettings: React.FC<Props> = (props) => {
       });
       if (data.error) {
         setErrorMsg(data.error);
-        console.log(data, "error editing profile");
       } else {
         props.setUser(data.userUpdate);
-        console.log(data, "success editing profile");
       }
     } catch (error) {
       console.error(error);
@@ -49,8 +48,12 @@ const AccountSettings: React.FC<Props> = (props) => {
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               <div className="px-4 sm:px-0">
-                <h3 className="text-base font-semibold leading-6 text-gray-900">Profile</h3>
-                <p className="mt-1 text-sm text-gray-600">Welcome to your profile settings</p>
+                <h3 className="text-base font-semibold leading-6 text-gray-900">
+                  Profile
+                </h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  Welcome to your profile settings
+                </p>
               </div>
             </div>
             <form onSubmit={handleEditProfile}>
@@ -60,7 +63,8 @@ const AccountSettings: React.FC<Props> = (props) => {
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="first-name"
-                        className="block text-sm font-medium leading-6 text-gray-900">
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
                         New username<span className="text-[#F70000]">*</span>
                       </label>
                       <input
@@ -77,7 +81,8 @@ const AccountSettings: React.FC<Props> = (props) => {
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="last-name"
-                        className="block text-sm font-medium leading-6 text-gray-900">
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
                         New password<span className="text-[#F70000]">*</span>
                       </label>
                       <input
@@ -96,7 +101,8 @@ const AccountSettings: React.FC<Props> = (props) => {
                     <div className="col-span-6 sm:col-span-4">
                       <label
                         htmlFor="email-address"
-                        className="block text-sm font-medium leading-6 text-gray-900">
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
                         New email address
                         <span className="text-[#F70000]">*</span>
                       </label>
@@ -137,7 +143,8 @@ const AccountSettings: React.FC<Props> = (props) => {
                           stroke="currentColor"
                           fill="none"
                           viewBox="0 0 48 48"
-                          aria-hidden="true">
+                          aria-hidden="true"
+                        >
                           <path
                             d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
                             strokeWidth={2}
@@ -148,7 +155,8 @@ const AccountSettings: React.FC<Props> = (props) => {
                         <div className="flex text-sm text-gray-600">
                           <label
                             htmlFor="file-upload"
-                            className="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
+                            className="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                          >
                             <span>Paste a URL link</span>
                             <input
                               id="url-input"
@@ -168,7 +176,8 @@ const AccountSettings: React.FC<Props> = (props) => {
                 <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                    className="inline-flex justify-center px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  >
                     Change
                   </button>
                 </div>

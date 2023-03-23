@@ -81,8 +81,6 @@ const FemaleProducts: React.FC<Props> = ({
     setTimeout(() => {
       setMessage("");
     }, 3000);
-
-    console.log("product removed", deletedProduct);
   };
 
   return (

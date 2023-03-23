@@ -41,7 +41,6 @@ const Register: React.FC<Props> = ({
       if (register.error) {
         setErrorMsg(register.error);
       } else {
-        console.log(register);
         setErrorMsg("");
         localStorage.setItem("token", register.token);
         setToken(register.token);
@@ -66,10 +65,9 @@ const Register: React.FC<Props> = ({
     avatar_url: string;
   };
   const handleCredentialResponse = async (response: any) => {
-    console.log("Encoded JWT ID token: " + response.credential);
     try {
       const userObject: any = await jwt_decode(response.credential);
-      console.log(userObject);
+
       if (userObject) {
         setUser(userObject);
       }
@@ -83,7 +81,6 @@ const Register: React.FC<Props> = ({
       if (res.error) {
         setErrorMsg(res.error);
       } else {
-        console.log(res);
         localStorage.setItem("token", res.token);
         setToken(res.token);
         updateCart(res.user.id, res.token);
@@ -100,7 +97,7 @@ const Register: React.FC<Props> = ({
     }
   };
   function onClickHandler() {
-    console.log("Sign in with Google button clicked...");
+    console.log("Sign up with Google button clicked...");
   }
   useEffect(() => {
     google.accounts.id.initialize({

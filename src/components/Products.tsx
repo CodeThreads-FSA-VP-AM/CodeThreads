@@ -56,22 +56,7 @@ const Products: React.FC<Props> = ({
     setCurrentPage(page);
   };
 
-  // const loadProducts = async () => {
-  //   try {
-  //     const allProducts = await fetchProducts();
-  //     console.log(allProducts);
-  //     setProducts(allProducts);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   loadProducts();
-  // }, []);
-
   const idHandle = (id: number) => {
-    console.log(id);
     setProductId(id);
   };
 
@@ -83,8 +68,6 @@ const Products: React.FC<Props> = ({
   };
 
   const handleDelete = async () => {
-    console.log(selectedId);
-    console.log("delete me");
     const deletedProduct = await fetchDeleteProduct(selectedId);
 
     const filteredOrders = products.filter((p: any) => p.id !== selectedId);
@@ -97,8 +80,6 @@ const Products: React.FC<Props> = ({
     setTimeout(() => {
       setMessage("");
     }, 3000);
-
-    console.log("product removed", deletedProduct);
   };
 
   return (

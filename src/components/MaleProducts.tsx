@@ -56,7 +56,6 @@ const MaleProducts: React.FC<Props> = ({
     setCurrentPage(page);
   };
   const idHandle = (id: number) => {
-    console.log(id);
     setProductId(id);
   };
 
@@ -68,8 +67,6 @@ const MaleProducts: React.FC<Props> = ({
   };
 
   const handleDelete = async () => {
-    console.log(selectedId);
-    console.log("delete me");
     const deletedProduct = await fetchDeleteProduct(selectedId);
 
     const filteredOrders = mensProducts.filter(
@@ -84,8 +81,6 @@ const MaleProducts: React.FC<Props> = ({
     setTimeout(() => {
       setMessage("");
     }, 3000);
-
-    console.log("product removed", deletedProduct);
   };
 
   return (

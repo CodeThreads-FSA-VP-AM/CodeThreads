@@ -44,7 +44,6 @@ const AddReview = (props: AddReviewProps) => {
         props.setSuccess(true);
         props.setSuccessTitle("Success!");
         props.setSuccessMsg("You created a review!");
-        console.log(newReview);
       }
     } catch (error) {
       console.error(error);

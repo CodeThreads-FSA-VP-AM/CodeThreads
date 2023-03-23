@@ -25,7 +25,7 @@ const Reviews = (props: Props) => {
     const token = props.token;
     try {
       const res = await deleteReview({ reviewId, token });
-      console.log(res);
+
       props.setReviews(
         props.reviews.filter((review) => review.id !== reviewId)
       );
@@ -58,7 +58,7 @@ const Reviews = (props: Props) => {
     const getReviews = async () => {
       try {
         const allReviews = await getAllReviews();
-        console.log(allReviews);
+
         props.setReviews(allReviews);
         setLoading(false);
       } catch (error) {

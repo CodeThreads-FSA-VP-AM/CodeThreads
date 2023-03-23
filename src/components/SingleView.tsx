@@ -70,7 +70,7 @@ const SingleView: FC<Props> = ({
       setSuccess(true);
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to cart!");
-      console.log(res);
+
       setOrders([...orders, res]);
     } catch (error) {
       console.error();
@@ -81,7 +81,7 @@ const SingleView: FC<Props> = ({
     HTMLButtonElement
   > = async (e) => {
     e.preventDefault();
-    console.log(productId, token);
+
     try {
       const res = await createWishlist({
         product_id: productId,
@@ -91,7 +91,7 @@ const SingleView: FC<Props> = ({
       setSuccess(true);
       setSuccessTitle("Success!");
       setSuccessMsg("Item added to wishlist!");
-      console.log(res);
+
       setWishlist([...wishlist, res]);
     } catch (error) {
       console.error(error);
@@ -124,7 +124,7 @@ const SingleView: FC<Props> = ({
 
   const deleteProduct = async () => {
     const deletedProduct = await fetchDeleteProduct(productId);
-    console.log(deletedProduct);
+
     navigate(-1);
   };
 

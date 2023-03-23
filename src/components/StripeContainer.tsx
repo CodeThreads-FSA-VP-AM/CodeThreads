@@ -11,12 +11,14 @@ const stripePromise = loadStripe(
 const StripeContainer: React.FC = () => {
   const location = useLocation();
   const { state } = location;
-  console.log(state.totalPrice);
 
   const convertNumber: number = Math.ceil(state.totalPrice * 100);
 
   return (
-    <Elements stripe={stripePromise} options={{ appearance: { theme: "stripe" } }}>
+    <Elements
+      stripe={stripePromise}
+      options={{ appearance: { theme: "stripe" } }}
+    >
       <PaymentForm price={convertNumber} />
     </Elements>
   );

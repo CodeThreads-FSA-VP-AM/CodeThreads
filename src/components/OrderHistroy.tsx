@@ -25,17 +25,17 @@ const OrderHistroy: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log("line 18");
     const orderHistory = async (userId: number) => {
       const order = await fetchOrderHistory(userId);
-      console.log(order);
-      const processingOrders = order.filter((o: { is_cart: boolean }) => !o.is_cart);
-      console.log(processingOrders);
+
+      const processingOrders = order.filter(
+        (o: { is_cart: boolean }) => !o.is_cart
+      );
+
       setOrders(processingOrders);
     };
 
     if (userId !== 0) {
-      console.log("got here", userId);
       orderHistory(userId);
     }
   }, [userId]);
@@ -49,7 +49,8 @@ const OrderHistroy: React.FC = () => {
               Order history
             </h1>
             <p className="mt-2 text-sm text-gray-500">
-              Check the status of recent orders, manage returns, and discover similar products.
+              Check the status of recent orders, manage returns, and discover
+              similar products.
             </p>
           </div>
         </div>
@@ -67,31 +68,43 @@ const OrderHistroy: React.FC = () => {
                   total += Number(p.price) * Number(p.quantity);
                 });
 
-                console.log(total);
                 return (
                   <div
                     key={order.id}
-                    className="bg-white border-t border-b border-gray-200 shadow-sm sm:rounded-lg sm:border">
+                    className="bg-white border-t border-b border-gray-200 shadow-sm sm:rounded-lg sm:border"
+                  >
                     <h3 className="sr-only">
                       Order placed on{" "}
-                      <time dateTime={order.createdDatetime}>{order.createdDate}</time>
+                      <time dateTime={order.createdDatetime}>
+                        {order.createdDate}
+                      </time>
                     </h3>
 
                     <div className="flex items-center p-4 border-b border-gray-200 sm:grid sm:grid-cols-4 sm:gap-x-6 sm:p-6">
                       <dl className="grid flex-1 grid-cols-2 text-sm gap-x-6 sm:col-span-3 sm:grid-cols-3 lg:col-span-2">
                         <div>
-                          <dt className="font-medium text-gray-900">Order number</dt>
+                          <dt className="font-medium text-gray-900">
+                            Order number
+                          </dt>
                           <dd className="mt-1 text-gray-500">{order.id}</dd>
                         </div>
                         <div className="hidden sm:block">
-                          <dt className="font-medium text-gray-900">Date placed</dt>
+                          <dt className="font-medium text-gray-900">
+                            Date placed
+                          </dt>
                           <dd className="mt-1 text-gray-500">
-                            <time dateTime={order.purchased_at}>{formattedDate}</time>
+                            <time dateTime={order.purchased_at}>
+                              {formattedDate}
+                            </time>
                           </dd>
                         </div>
                         <div>
-                          <dt className="font-medium text-gray-900">Total amount</dt>
-                          <dd className="mt-1 font-medium text-gray-900">{total.toFixed(2)}</dd>
+                          <dt className="font-medium text-gray-900">
+                            Total amount
+                          </dt>
+                          <dd className="mt-1 font-medium text-gray-900">
+                            {total.toFixed(2)}
+                          </dd>
                         </div>
                       </dl>
                     </div>
@@ -111,7 +124,9 @@ const OrderHistroy: React.FC = () => {
                             </div>
                             <div className="flex-1 ml-6 text-sm">
                               <div className="font-medium text-gray-900 sm:flex sm:justify-between">
-                                <h5 className="font-extrabold">{product.title}</h5>
+                                <h5 className="font-extrabold">
+                                  {product.title}
+                                </h5>
                                 <p className="mt-2 sm:mt-0">{product.price}</p>
                               </div>
                               <p className="hidden text-gray-500 sm:mt-2 sm:block">
@@ -128,7 +143,8 @@ const OrderHistroy: React.FC = () => {
                               <div className="flex justify-center flex-1">
                                 <Link
                                   to={`/products/${product.id}`}
-                                  className="text-indigo-600 whitespace-nowrap hover:text-indigo-500">
+                                  className="text-indigo-600 whitespace-nowrap hover:text-indigo-500"
+                                >
                                   View product
                                 </Link>
                               </div>

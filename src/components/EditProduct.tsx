@@ -57,7 +57,7 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
       xlarge,
     };
     const edit = await fetchEditProduct(data);
-    console.log({ edit });
+
     setLoading(false);
     history(-1);
   };
@@ -79,7 +79,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
             <form onSubmit={handleEdit}>
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div className="sm:col-span-2">
-                  <label className="block mb-2 text-sm font-medium">Product Name</label>
+                  <label className="block mb-2 text-sm font-medium">
+                    Product Name
+                  </label>
                   <input
                     type="text"
                     name="name"
@@ -103,7 +105,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
                   />
                 </div>
                 <div className="w-full">
-                  <label className="block mb-2 text-sm font-medium">Price</label>
+                  <label className="block mb-2 text-sm font-medium">
+                    Price
+                  </label>
                   <input
                     type="number"
                     name="price"
@@ -115,7 +119,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
                   />
                 </div>
                 <div className="w-full">
-                  <label className="block mb-2 text-sm font-medium">Front Image URL</label>
+                  <label className="block mb-2 text-sm font-medium">
+                    Front Image URL
+                  </label>
                   <input
                     type="text"
                     name="front_url"
@@ -127,7 +133,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
                   />
                 </div>
                 <div className="w-full">
-                  <label className="block mb-2 text-sm font-medium">Back Image URL</label>
+                  <label className="block mb-2 text-sm font-medium">
+                    Back Image URL
+                  </label>
                   <input
                     type="text"
                     name="back_url"
@@ -141,7 +149,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
                 <div className="sm:col-span-2">
                   <div className="flex justify-between space-x-4">
                     <div className="w-40">
-                      <label className="block mb-2 text-sm font-medium">Small</label>
+                      <label className="block mb-2 text-sm font-medium">
+                        Small
+                      </label>
                       <input
                         type="number"
                         name="small"
@@ -152,7 +162,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
                       />
                     </div>
                     <div className="w-40">
-                      <label className="block mb-2 text-sm font-medium">Medium</label>
+                      <label className="block mb-2 text-sm font-medium">
+                        Medium
+                      </label>
                       <input
                         type="number"
                         name="medium"
@@ -163,7 +175,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
                       />
                     </div>
                     <div className="w-40">
-                      <label className="block mb-2 text-sm font-medium">Large</label>
+                      <label className="block mb-2 text-sm font-medium">
+                        Large
+                      </label>
                       <input
                         type="number"
                         name="large"
@@ -174,7 +188,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
                       />
                     </div>
                     <div className="w-40">
-                      <label className="block mb-2 text-sm font-medium">X-Large</label>
+                      <label className="block mb-2 text-sm font-medium">
+                        X-Large
+                      </label>
                       <input
                         type="number"
                         name="xlarge"
@@ -187,7 +203,9 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
                   </div>
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="block mb-2 text-sm font-medium">Description</label>
+                  <label className="block mb-2 text-sm font-medium">
+                    Description
+                  </label>
                   <textarea
                     id="description"
                     rows={8}
@@ -200,13 +218,15 @@ const EditProduct: React.FC<Props> = ({ product, productId, setProductId }) => {
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-blue-800 text-gray-50">
+                className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-blue-800 text-gray-50"
+              >
                 Edit product
               </button>
               <button
                 type="button"
                 className="inline-flex items-center px-5 py-2.5 m-4 sm:mt-6 text-sm font-medium text-center bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-blue-800 text-gray-50"
-                onClick={() => history(-1)}>
+                onClick={() => history(-1)}
+              >
                 go back
               </button>
             </form>

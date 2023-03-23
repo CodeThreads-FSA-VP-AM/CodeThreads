@@ -14,13 +14,11 @@ const Products2: React.FC<Props> = ({ setProductId, user }) => {
   const [selectedId, setSelectedId] = useState(0);
   const [message, setMessage] = useState("");
 
-  console.log(user.is_admin);
-
   useEffect(() => {
     const loadProducts = async () => {
       try {
         const allProducts = await fetchProducts();
-        console.log(allProducts);
+
         setProducts(allProducts);
         setLoading(false);
       } catch (error) {
@@ -31,18 +29,17 @@ const Products2: React.FC<Props> = ({ setProductId, user }) => {
   }, [message]);
 
   const idHandle = (id: number) => {
-    console.log(id);
     setProductId(id);
   };
 
-  const handleSelect: React.ChangeEventHandler<HTMLSelectElement> = (e: any) => {
+  const handleSelect: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: any
+  ) => {
     setProductId(e.target.value);
     setSelectedId(e.target.value);
   };
 
   const handleDelete = async () => {
-    console.log(selectedId);
-    console.log("delete me");
     const deletedProduct = await fetchDeleteProduct(selectedId);
 
     const filteredOrders = products.filter((p) => p.id !== selectedId);
@@ -52,8 +49,6 @@ const Products2: React.FC<Props> = ({ setProductId, user }) => {
     setTimeout(() => {
       setMessage("");
     }, 3000);
-
-    console.log("product removed", deletedProduct);
   };
 
   return (
@@ -61,11 +56,14 @@ const Products2: React.FC<Props> = ({ setProductId, user }) => {
       <section>
         <div className="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
           <header>
-            <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">Product Collection</h2>
+            <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
+              Product Collection
+            </h2>
 
             <p className="max-w-md mt-4 text-gray-500">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit
-              natus?
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
+              praesentium cumque iure dicta incidunt est ipsam, officia dolor
+              fugit natus?
             </p>
 
             {user.is_admin && (
@@ -104,7 +102,11 @@ const Products2: React.FC<Props> = ({ setProductId, user }) => {
             ) : (
               products?.map((p: Product) => (
                 <li key={p.id}>
-                  <Link to={`/products/${p.id}`} className="block overflow-hidden group" onClick={() => idHandle(p.id)}>
+                  <Link
+                    to={`/products/${p.id}`}
+                    className="block overflow-hidden group"
+                    onClick={() => idHandle(p.id)}
+                  >
                     <img
                       src={p.front_url}
                       alt=""
@@ -112,12 +114,17 @@ const Products2: React.FC<Props> = ({ setProductId, user }) => {
                     />
 
                     <div className="relative pt-3 bg-white">
-                      <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">{p.title}</h3>
+                      <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                        {p.title}
+                      </h3>
 
                       <p className="mt-2">
                         <span className="sr-only"> Regular Price </span>
 
-                        <span className="tracking-wider text-gray-900"> £{p.price} GBP </span>
+                        <span className="tracking-wider text-gray-900">
+                          {" "}
+                          £{p.price} GBP{" "}
+                        </span>
                       </p>
                     </div>
                   </Link>

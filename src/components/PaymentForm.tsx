@@ -18,7 +18,6 @@ const PaymentForm: React.FC<Prop> = (price) => {
   useEffect(() => {
     setAmount(price);
   }, [amount]);
-  console.log(amount?.price);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -39,9 +38,7 @@ const PaymentForm: React.FC<Prop> = (price) => {
           }
         );
 
-        console.log("loading");
         if (res.data.success) {
-          console.log("Payment successful");
           setSuccess(true);
         }
       } catch (error) {

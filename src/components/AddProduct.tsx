@@ -53,7 +53,7 @@ const AddProduct = (props: ProductProps) => {
       xlarge,
     };
     const create = await fetchCreateProduct(data);
-    console.log({ create });
+
     props.setSuccess(true);
     props.setSuccessTitle("Success!");
     props.setSuccessMsg("Product created!");

@@ -44,7 +44,6 @@ const Login: React.FC<Props> = ({
         setError(true);
         setErrorNoti("Incorrect user credentials");
       } else {
-        console.log(login);
         setErrorMsg("");
         localStorage.setItem("token", login.token);
         setToken(login.token);
@@ -69,22 +68,18 @@ const Login: React.FC<Props> = ({
     username: string;
   };
   const handleCredentialResponse = async (response: any) => {
-    console.log("Encoded JWT ID token: " + response.credential);
     try {
       const userObject: any = await jwt_decode(response.credential);
-      console.log(userObject);
-      console.log(userObject.name);
+
       const data: OAuthLogin = {
         username: userObject.name,
       };
       const res = await fetchOAuth(data);
       if (res.error) {
-        console.log(res.error);
         setErrorMsg(res.error);
         setError(true);
         setErrorNoti("Incorrect user credentials");
       } else {
-        console.log(res);
         localStorage.setItem("token", res.token);
         setToken(res.token);
         updateCart(res.user.id, res.token);
