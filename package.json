@@ -12,7 +12,9 @@
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
     "test": "jest --runInBand",
-    "test:watch": "jest --runInBand --watchAll"
+    "test:watch": "jest --runInBand --watchAll",
+    "build": "npm run db:build && npm run client:build",
+    "start:railway": "npm run db:build && node index.js"
   },
   "keywords": [],
   "author": "",
