@@ -13,8 +13,8 @@
     "start": "node index.js",
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watchAll",
-    "build": "npm run db:build && npm run client:build",
-    "start:railway": "npm run db:build && node index.js"
+    "build": "npm i",
+    "start:railway": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
