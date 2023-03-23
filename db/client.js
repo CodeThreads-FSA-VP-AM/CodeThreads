@@ -13,11 +13,11 @@ let client;
 if (process.env.CI) {
   // github actions client config
   client = new Client({
-    host: "localhost",
-    port: 5432,
+    host: "containers-us-west-142.railway.app",
+    port: 7889,
     user: "postgres",
-    password: process.env.PG_PASSWORD,
-    database: "postgres",
+    password: AbHxr6FEzzLfcLC4Op2R,
+    database: "railway",
   });
 } else {
   // local / heroku client config
