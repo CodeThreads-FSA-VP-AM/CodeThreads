@@ -13,7 +13,7 @@ let client;
 if (process.env.CI) {
   // github actions client config
   client = new Client({
-    host: "db.bit.io",
+    host: "localhost",
     port: 5432,
     user: "postgres",
     password: process.env.PG_PASSWORD,
