@@ -55,22 +55,6 @@ const FemaleProducts: React.FC<Props> = ({
     setCurrentPage(page);
   };
 
-  // const loadProducts = async () => {
-  //   try {
-  //     const allProducts = await fetchProducts();
-  //     const mensProducts = allProducts.filter((product) =>
-  //       product.tags.some((tag: { name: string }) => tag.name === "womens")
-  //     );
-  //     setProducts(mensProducts);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   loadProducts();
-  // }, []);
-
   const idHandle = (id: number) => {
     setProductId(id);
   };
