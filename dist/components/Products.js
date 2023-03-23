@@ -20,10 +20,10 @@ const AddProduct_1 = __importDefault(require("./AddProduct"));
 const Footer_1 = __importDefault(require("./Footer"));
 const Loader_1 = __importDefault(require("./Loader"));
 const Modal_1 = __importDefault(require("./Modal"));
-const Products = ({ setProductId, user, setSuccess, setSuccessMsg, setSuccessTitle, }) => {
+const Products = ({ setProductId, user, setSuccess, setSuccessMsg, setSuccessTitle, products, setProducts, }) => {
     var _a;
-    const [products, setProducts] = (0, react_1.useState)([]);
-    const [loading, setLoading] = (0, react_1.useState)(true);
+    // const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = (0, react_1.useState)(false);
     const [selectedId, setSelectedId] = (0, react_1.useState)(0);
     const [message, setMessage] = (0, react_1.useState)("");
     const [search, setSearch] = (0, react_1.useState)("");
@@ -48,20 +48,19 @@ const Products = ({ setProductId, user, setSuccess, setSuccessMsg, setSuccessTit
     const handlePageClick = (page) => {
         setCurrentPage(page);
     };
-    (0, react_1.useEffect)(() => {
-        const loadProducts = () => __awaiter(void 0, void 0, void 0, function* () {
-            try {
-                const allProducts = yield (0, api_1.fetchProducts)();
-                console.log(allProducts);
-                setProducts(allProducts);
-                setLoading(false);
-            }
-            catch (error) {
-                console.error(error);
-            }
-        });
-        loadProducts();
-    }, [message]);
+    // const loadProducts = async () => {
+    //   try {
+    //     const allProducts = await fetchProducts();
+    //     console.log(allProducts);
+    //     setProducts(allProducts);
+    //     setLoading(false);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
+    // useEffect(() => {
+    //   loadProducts();
+    // }, []);
     const idHandle = (id) => {
         console.log(id);
         setProductId(id);

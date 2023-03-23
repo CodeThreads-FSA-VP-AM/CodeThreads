@@ -46,6 +46,7 @@ const Register = ({ setToken, success, setSuccess, setSuccessTitle, setSuccessMs
                 setPassword("");
                 setEmail("");
                 setLoading(true);
+                navigate("/");
             }
         }
         catch (error) {
@@ -81,7 +82,7 @@ const Register = ({ setToken, success, setSuccess, setSuccessTitle, setSuccessMs
                 setSuccess(true);
                 setSuccessTitle("Success!");
                 setSuccessMsg("You're signed up!");
-                navigate("/products");
+                navigate("/");
                 setLoading(true);
             }
         }

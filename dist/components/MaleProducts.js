@@ -19,19 +19,20 @@ const api_1 = require("../api/api");
 const AddProduct_1 = __importDefault(require("./AddProduct"));
 const Loader_1 = __importDefault(require("./Loader"));
 const Modal_1 = __importDefault(require("./Modal"));
-const MaleProducts = ({ setProductId, user, setSuccess, setSuccessMsg, setSuccessTitle, }) => {
+const MaleProducts = ({ setProductId, user, setSuccess, setSuccessMsg, setSuccessTitle, mensProducts, setMensProducts, }) => {
     var _a;
-    const [products, setProducts] = (0, react_1.useState)([]);
-    const [loading, setLoading] = (0, react_1.useState)(true);
+    // const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = (0, react_1.useState)(false);
     const [selectedId, setSelectedId] = (0, react_1.useState)(0);
     const [message, setMessage] = (0, react_1.useState)("");
     const [search, setSearch] = (0, react_1.useState)("");
     const [currentPage, setCurrentPage] = (0, react_1.useState)(1);
     const [showModal, setShowModal] = (0, react_1.useState)(false);
+    console.log(mensProducts);
     const productsPerPage = 8;
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const filteredProducts = products.filter((p) => {
+    const filteredProducts = mensProducts.filter((p) => {
         if (search === "") {
             return p;
         }
@@ -47,20 +48,21 @@ const MaleProducts = ({ setProductId, user, setSuccess, setSuccessMsg, setSucces
     const handlePageClick = (page) => {
         setCurrentPage(page);
     };
-    (0, react_1.useEffect)(() => {
-        const loadProducts = () => __awaiter(void 0, void 0, void 0, function* () {
-            try {
-                const allProducts = yield (0, api_1.fetchProducts)();
-                const mensProducts = allProducts.filter((product) => product.tags.some((tag) => tag.name === "mens"));
-                setProducts(mensProducts);
-                setLoading(false);
-            }
-            catch (error) {
-                console.error(error);
-            }
-        });
-        loadProducts();
-    }, [message]);
+    // const loadProducts = async () => {
+    //   try {
+    //     const allProducts = await fetchProducts();
+    //     const mensProducts = allProducts.filter((product) =>
+    //       product.tags.some((tag: { name: string }) => tag.name === "mens")
+    //     );
+    //     setProducts(mensProducts);
+    //     setLoading(false);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
+    // useEffect(() => {
+    //   loadProducts();
+    // }, []);
     const idHandle = (id) => {
         console.log(id);
         setProductId(id);
@@ -73,8 +75,8 @@ const MaleProducts = ({ setProductId, user, setSuccess, setSuccessMsg, setSucces
         console.log(selectedId);
         console.log("delete me");
         const deletedProduct = yield (0, api_1.fetchDeleteProduct)(selectedId);
-        const filteredOrders = products.filter((p) => p.id !== selectedId);
-        setProducts(filteredOrders);
+        const filteredOrders = mensProducts.filter((p) => p.id !== selectedId);
+        setMensProducts(filteredOrders);
         setMessage("product deleted");
         setSuccess(true);
         setSuccessTitle("Success!");
@@ -85,7 +87,7 @@ const MaleProducts = ({ setProductId, user, setSuccess, setSuccessMsg, setSucces
         }, 3000);
         console.log("product removed", deletedProduct);
     });
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)("section", Object.assign({ className: "py-6 bg-white sm:py-8 lg:py-12" }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "px-4 mx-auto max-w-screen-2xl md:px-8" }, { children: [(0, jsx_runtime_1.jsxs)("header", Object.assign({ className: "mb-10 md:mb-16" }, { children: [(0, jsx_runtime_1.jsx)("h2", Object.assign({ className: "mb-4 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6" }, { children: "Product Collection" })), (0, jsx_runtime_1.jsx)("p", Object.assign({ className: "max-w-screen-md mx-auto text-center text-gray-500 md:text-lg" }, { children: "From everyday essentials to statement pieces, our selection features something for every occasion. Start exploring now and find your new favorite outfit!" })), user.is_admin && ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "flex items-center flex-col justify-center py-1" }, { children: [(0, jsx_runtime_1.jsxs)("select", Object.assign({ className: "rounded-md mr-1 capitalize", onChange: handleSelect }, { children: [(0, jsx_runtime_1.jsx)("option", Object.assign({ value: "delete" }, { children: "delete product" })), products.map((p) => ((0, jsx_runtime_1.jsx)("option", Object.assign({ value: p.id }, { children: p.title }), p.id)))] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "p-2" }, { children: [(0, jsx_runtime_1.jsx)(AddProduct_1.default, { setSuccess: setSuccess, setSuccessTitle: setSuccessTitle, setSuccessMsg: setSuccessMsg }), (0, jsx_runtime_1.jsx)(Modal_1.default, Object.assign({ showModal: showModal, setShowModal: setShowModal, handleSubmit: handleDelete, modalTitle: "Delete product", modalTxt: "Delete product", submitBtnText: "Delete" }, { children: (0, jsx_runtime_1.jsx)("div", { children: (0, jsx_runtime_1.jsx)("h1", { children: "Are you sure you want to delete this product?" }) }) }))] })), (0, jsx_runtime_1.jsx)("span", Object.assign({ className: "text-red-400" }, { children: message }))] })) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "flex items-center justify-center pt-9 " }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: "relative mb-6 pointer-events-auto" }, { children: (0, jsx_runtime_1.jsx)("svg", Object.assign({ className: "absolute text-slate-800 h-6 w-6 ml-[5px]", viewBox: "0 0 20 20", fill: "currentColor" }, { children: (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", d: "M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z", clipRule: "evenodd" }) })) })), (0, jsx_runtime_1.jsx)("input", { className: "w-full max-w-xs p-3 pl-8 border border-gray-800 rounded input input-bordered input-secondary capitalize", value: search, placeholder: "Search", onChange: (event) => {
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)("section", Object.assign({ className: "py-6 bg-white sm:py-8 lg:py-12" }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "px-4 mx-auto max-w-screen-2xl md:px-8" }, { children: [(0, jsx_runtime_1.jsxs)("header", Object.assign({ className: "mb-10 md:mb-16" }, { children: [(0, jsx_runtime_1.jsx)("h2", Object.assign({ className: "mb-4 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6" }, { children: "Product Collection" })), (0, jsx_runtime_1.jsx)("p", Object.assign({ className: "max-w-screen-md mx-auto text-center text-gray-500 md:text-lg" }, { children: "From everyday essentials to statement pieces, our selection features something for every occasion. Start exploring now and find your new favorite outfit!" })), user.is_admin && ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "flex items-center flex-col justify-center py-1" }, { children: [(0, jsx_runtime_1.jsxs)("select", Object.assign({ className: "rounded-md mr-1 capitalize", onChange: handleSelect }, { children: [(0, jsx_runtime_1.jsx)("option", Object.assign({ value: "delete" }, { children: "delete product" })), mensProducts.map((p) => ((0, jsx_runtime_1.jsx)("option", Object.assign({ value: p.id }, { children: p.title }), p.id)))] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "p-2" }, { children: [(0, jsx_runtime_1.jsx)(AddProduct_1.default, { setSuccess: setSuccess, setSuccessTitle: setSuccessTitle, setSuccessMsg: setSuccessMsg }), (0, jsx_runtime_1.jsx)(Modal_1.default, Object.assign({ showModal: showModal, setShowModal: setShowModal, handleSubmit: handleDelete, modalTitle: "Delete product", modalTxt: "Delete product", submitBtnText: "Delete" }, { children: (0, jsx_runtime_1.jsx)("div", { children: (0, jsx_runtime_1.jsx)("h1", { children: "Are you sure you want to delete this product?" }) }) }))] })), (0, jsx_runtime_1.jsx)("span", Object.assign({ className: "text-red-400" }, { children: message }))] })) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: "flex items-center justify-center pt-9 " }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: "relative mb-6 pointer-events-auto" }, { children: (0, jsx_runtime_1.jsx)("svg", Object.assign({ className: "absolute text-slate-800 h-6 w-6 ml-[5px]", viewBox: "0 0 20 20", fill: "currentColor" }, { children: (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", d: "M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z", clipRule: "evenodd" }) })) })), (0, jsx_runtime_1.jsx)("input", { className: "w-full max-w-xs p-3 pl-8 border border-gray-800 rounded input input-bordered input-secondary capitalize", value: search, placeholder: "Search", onChange: (event) => {
                                             setSearch(event.target.value);
                                         } })] }))] })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: "grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-8" }, { children: loading ? ((0, jsx_runtime_1.jsx)(Loader_1.default, {})) : ((_a = filteredProducts
                             .slice(indexOfFirstProduct, indexOfLastProduct)) === null || _a === void 0 ? void 0 : _a.map((p) => {

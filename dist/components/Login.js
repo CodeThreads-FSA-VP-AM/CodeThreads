@@ -80,7 +80,7 @@ const Login = ({ setToken, success, setSuccess, setSuccessTitle, setSuccessMsg, 
                 setSuccess(true);
                 setSuccessTitle("Success!");
                 setSuccessMsg("You're logged in!");
-                navigate("/products");
+                navigate("/");
                 setLoading(true);
             }
         }

@@ -35,7 +35,7 @@ const Navbar: React.FC<Props> = ({
         <div className="relative">
           {/* For large screens */}
           <div className="px-6 bg-white pb-9 ">
-            <div className="container flex items-center justify-between mx-auto">
+            <div className="container flex items-center justify-between ">
               <div className="flex items-start justify-start">
                 <NavLink to="/">
                   <img
@@ -506,7 +506,7 @@ const Navbar: React.FC<Props> = ({
                           Login
                         </NavLink>
                       </li>
-                      <li>
+                      <li className="mt-5">
                         <NavLink
                           to="./register"
                           className="text-base text-gray-800 dark:text-black hover:underline"

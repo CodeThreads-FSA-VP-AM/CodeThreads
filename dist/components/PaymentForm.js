@@ -38,7 +38,7 @@ const PaymentForm = (price) => {
         if (!error) {
             try {
                 const { id } = paymentMethod;
-                const res = yield axios_1.default.post("http://localhost:4000/payment", {
+                const res = yield axios_1.default.post("https://codethreads.onrender.com/payment", {
                     amount: amount === null || amount === void 0 ? void 0 : amount.price,
                     id,
                 });
