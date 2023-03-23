@@ -34,7 +34,7 @@ const Navbar: React.FC<Props> = ({
       <div>
         <div className="relative">
           {/* For large screens */}
-          <div className="pr-6 pl-3 bg-white pb-9 ">
+          <div className="px-5 bg-white pb-9 ">
             <div className="container flex items-center justify-between ">
               <div className="flex items-start justify-start">
                 <NavLink to="/">
