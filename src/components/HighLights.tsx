@@ -3,7 +3,7 @@ import React from "react";
 const Highlights: React.FC = () => {
   return (
     <div className="2xl:container 2xl:mx-auto md:py-12 py-9">
-      <div className="grid grid-cols-1 px-4 py-10  bg-gray-50 lg:grid-cols-4 md:grid-cols-2 lg:gap-8 md:gap-12 gap-14 lg:px-20 lg:py-12 md:px-12">
+      <div className="flex flex-col flex-wrap px-4 py-10  bg-gray-50 lg:gap-8 md:gap-12 gap-14 lg:px-20 lg:py-12 md:px-12">
         {/* Delivery grid Card */}
         <div>
           <svg
@@ -11,7 +11,8 @@ const Highlights: React.FC = () => {
             height="32"
             viewBox="0 0 32 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M21.3334 4H1.33337V21.3333H21.3334V4Z"
               stroke="#4B5563"
@@ -41,10 +42,10 @@ const Highlights: React.FC = () => {
               strokeLinejoin="round"
             />
           </svg>
-          <h3 className="mt-8 text-xl font-semibold leading-5 text-gray-800  lg:mt-10">
+          <h3 className="mt-8 text-sm font-semibold leading-5 text-gray-800  lg:mt-10">
             Delivery
           </h3>
-          <p className="w-full mt-4 text-base font-normal leading-6 text-gray-600  lg:w-full md:w-9/12">
+          <p className="w-full mt-4 text-xs font-normal leading-6 text-gray-600  lg:w-full md:w-9/12">
             Free worldwide delivery over orders above $100
           </p>
         </div>
@@ -57,7 +58,8 @@ const Highlights: React.FC = () => {
             height="32"
             viewBox="0 0 32 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M28 20C28 20.7072 27.719 21.3855 27.219 21.8856C26.7189 22.3857 26.0406 22.6667 25.3333 22.6667H9.33333L4 28V6.66667C4 5.95942 4.28095 5.28115 4.78105 4.78105C5.28115 4.28095 5.95942 4 6.66667 4H25.3333C26.0406 4 26.7189 4.28095 27.219 4.78105C27.719 5.28115 28 5.95942 28 6.66667V20Z"
               stroke="#4B5563"
@@ -66,13 +68,16 @@ const Highlights: React.FC = () => {
               strokeLinejoin="round"
             />
           </svg>
-          <h3 className="mt-8 text-xl font-semibold leading-5 text-gray-800  lg:mt-10">
+          <h3 className="mt-8 text-sm font-semibold leading-5 text-gray-800  lg:mt-10">
             Customer Care
           </h3>
-          <p className="w-full mt-4 text-base font-normal leading-6 text-gray-600  lg:w-full md:w-9/12">
+          <p className="w-full mt-4 text-xs font-normal leading-6 text-gray-600  lg:w-full md:w-9/12">
             Our customer care is available 24/7 at{" "}
-            <span className="font-semibold cursor-pointer ">+111-111-1111</span> and{" "}
-            <span className="font-semibold cursor-pointer ">codeThreads@gmail.com</span>
+            <span className="font-semibold cursor-pointer ">+111-111-1111</span>{" "}
+            and{" "}
+            <span className="font-semibold cursor-pointer ">
+              codeThreads@gmail.com
+            </span>
           </p>
         </div>
 
@@ -84,7 +89,8 @@ const Highlights: React.FC = () => {
             height="32"
             viewBox="0 0 32 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M22.6667 1.3335L28.0001 6.66683L22.6667 12.0002"
               stroke="#1F2937"
@@ -114,8 +120,10 @@ const Highlights: React.FC = () => {
               strokeLinejoin="round"
             />
           </svg>
-          <h3 className="mt-8 text-xl font-semibold leading-5 text-gray-800  lg:mt-10">Recycle</h3>
-          <p className="w-full mt-4 text-base font-normal leading-6 text-gray-600  lg:w-full md:w-9/12">
+          <h3 className="mt-8 text-sx font-semibold leading-5 text-gray-800  lg:mt-10">
+            Recycle
+          </h3>
+          <p className="w-full mt-4 text-xs font-normal leading-6 text-gray-600  lg:w-full md:w-9/12">
             All out products are 100 percent recycable
           </p>
         </div>
@@ -128,7 +136,8 @@ const Highlights: React.FC = () => {
             height="32"
             viewBox="0 0 32 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M15.9999 29.3332C15.9999 29.3332 26.6666 23.9998 26.6666 15.9998V6.6665L15.9999 2.6665L5.33325 6.6665V15.9998C5.33325 23.9998 15.9999 29.3332 15.9999 29.3332Z"
               stroke="#1F2937"
@@ -137,10 +146,10 @@ const Highlights: React.FC = () => {
               strokeLinejoin="round"
             />
           </svg>
-          <h3 className="mt-8 text-xl font-semibold leading-5 text-gray-800  lg:mt-10">
+          <h3 className="mt-8 text-sm font-semibold leading-5 text-gray-800  lg:mt-10">
             Secure Payment
           </h3>
-          <p className="w-full mt-4 text-base font-normal leading-6 text-gray-600  lg:w-full md:w-9/12">
+          <p className="w-full mt-4 text-xs font-normal leading-6 text-gray-600  lg:w-full md:w-9/12">
             Transaction process has end to end encryption
           </p>
         </div>
