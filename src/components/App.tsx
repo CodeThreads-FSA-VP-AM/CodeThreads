@@ -137,9 +137,13 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setWishlist(wishlist);
-    setOrders(orders);
-  }, [wishlist, orders]);
+    if (wishlist.length > 0) {
+      setWishlist(wishlist);
+    }
+    if (orders.length > 0) {
+      setOrders(orders);
+    }
+  }, []);
 
   const getProduct = async () => {
     const product = await fetchProductById(productId);
@@ -147,14 +151,14 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    getProduct();
+    if (productId > 0) {
+      getProduct();
+    }
   }, [productId]);
-
   useEffect(() => {}, [
     successMsg,
     successTitle,
     productsLength,
-    wishlist,
     wishlist.length,
   ]);
 
