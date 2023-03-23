@@ -93,7 +93,6 @@ type OAuth = {
 };
 export const fetchOAuth = async (data: OAuth): Promise<any> => {
   const { username } = data;
-  console.log(username);
   const res = await fetch(`${APIURL}/users/oauth`, {
     method: "POST",
     headers: {
@@ -155,7 +154,7 @@ export const deleteUser = async (data: DeleteUser) => {
         userId: userId,
       }),
     });
-    console.log(userId);
+
     const json = await res.json();
     return json;
   } catch (error) {
@@ -271,7 +270,6 @@ export const fetchUpdateSizeQty = async (data: SizeQTY) => {
 
 // delete product
 export const fetchDeleteProduct = async (productId: number): Promise<any> => {
-  console.log("frontend api", productId);
   try {
     const res = await fetch(`${APIURL}/products/delete/${productId}`, {
       method: "DELETE",
@@ -279,9 +277,9 @@ export const fetchDeleteProduct = async (productId: number): Promise<any> => {
         "Content-Type": "application/json",
       },
     });
-    console.log({ res });
+
     const json = await res.json();
-    console.log("json here", { json });
+
     return json;
   } catch (error) {
     console.error(error);
@@ -338,7 +336,6 @@ export const checkoutOrder = async (
   orderId: number,
   token: string
 ) => {
-  console.log(userId, orderId);
   const res = await fetch(`${APIURL}/orders/checkout`, {
     method: "PATCH",
     headers: {
@@ -352,10 +349,9 @@ export const checkoutOrder = async (
       is_cart: false,
     }),
   });
-  console.log("got here");
+
   const json = await res.json();
-  console.log("after json");
-  console.log(json);
+
   return json;
 };
 
@@ -366,7 +362,7 @@ export const fetchOrder = async (userId: number) => {
     },
   });
   const json = await res.json();
-  console.log(json);
+
   return json;
 };
 
@@ -378,7 +374,7 @@ export const fetchOrders = async () => {
       },
     });
     const json = await res.json();
-    console.log(json);
+
     return json;
   } catch (error) {
     console.error(error);
@@ -438,7 +434,7 @@ export const createReview = async (data: Reviews) => {
       rating: rating,
     }),
   });
-  console.log(data);
+
   const json = await res.json();
 
   return json;
@@ -479,7 +475,7 @@ type EditReviews = {
 
 export const editReview = async (data: EditReviews) => {
   const { title, description, rating, token, reviewId } = data;
-  console.log(data, "in api.tsx");
+
   try {
     const res = await fetch(`${APIURL}/reviews/edit/${reviewId}`, {
       method: "PATCH",
@@ -512,7 +508,7 @@ export const mergeCarts = async (
     const existingItemIndex = mergedCart.findIndex(
       (item) => item.product_id === cartItem.id
     );
-    console.log(existingItemIndex);
+
     if (existingItemIndex === -1) {
       const addOrder = await createOrder({
         product_id: cartItem.id,
@@ -520,10 +516,8 @@ export const mergeCarts = async (
         token: token,
       });
       mergedCart.push(addOrder);
-      console.log(mergedCart, "mergedCart1");
     } else {
       mergedCart[existingItemIndex].quantity += cartItem.quantity;
-      console.log(mergedCart, "mergedCart2");
     }
   }
   return mergedCart;
@@ -531,7 +525,7 @@ export const mergeCarts = async (
 
 export const updateCart = async (userId: number, token: string) => {
   const cartFromStorage = JSON.parse(sessionStorage.getItem("cart") || "[]");
-  console.log(cartFromStorage, "fromstorage");
+
   if (cartFromStorage.length === 0) {
     return;
   }
@@ -540,8 +534,7 @@ export const updateCart = async (userId: number, token: string) => {
     const res = await fetchOrder(userId);
     const cartFromDb = res;
     const updatedCart = await mergeCarts(cartFromDb, cartFromStorage, token);
-    console.log(cartFromDb, "fromdb");
-    console.log(userId, updatedCart, token);
+
     sessionStorage.removeItem("cart");
     return updateCart;
   } catch (error) {
@@ -579,7 +572,7 @@ export const fetchWishlistByUser = async (userId: number) => {
     },
   });
   const json = await res.json();
-  console.log(json);
+
   return json;
 };
 
