@@ -62,40 +62,6 @@ server.post("/payment", cors(), async (req: any, res: any) => {
   }
 });
 
-// server.post("/create-payment-intent", cors, async (req: any, res: any) => {
-//   try {
-//     const paymentIntent = await stripe.paymentIntents.create({
-//       currency: "USD",
-//       amount: 1999,
-//       automatic_payment_methods: { enabled: true },
-//     });
-//     console.log({ paymentIntent });
-//     res.send({ clientSecret: paymentIntent.client_secret });
-//   } catch (e) {
-//     console.error(e);
-//   }
-// });
-
-// server.post("/create-payment-intent", cors(), async (req: any, res: any) => {
-//   console.log("Stripe");
-//   res.send({ url: "stripe url" });
-//   const session = await stripe.checkout.sessions.create({
-//     line_items: [
-//       {
-//         price: "price_1MkH2rHrkACoVWSGv1DQaKAE",
-//         quantity: 5,
-//       },
-//     ],
-//     mode: "payment",
-//     success_url: `${YOUR_DOMAIN}/completion`,
-//     cancel_url: `${YOUR_DOMAIN}/completion`,
-//   });
-
-//   res.json({
-//     url: session.url,
-//   });
-// });
-
 // by default serve up the react app if we don't recognize the route
 server.use((req: any, res: { sendFile: (arg0: any) => void }, next: any) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
@@ -108,7 +74,7 @@ const { client } = require("./db");
 const PORT = process.env.PORT || 4000;
 
 // define a server handle to close open tcp connection after unit tests have run
-const handle = server.listen(PORT, "0.0.0.0", async () => {
+const handle = server.listen(PORT, async () => {
   console.log(`Server is running on ${PORT}!`);
 
   try {

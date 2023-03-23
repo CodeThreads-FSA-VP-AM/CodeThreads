@@ -14,7 +14,7 @@
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watchAll",
     "build": "npm i",
-    "start:railway": "nodemon index.js"
+    "start:railway": "node index.js"
   },
   "keywords": [],
   "author": "",
