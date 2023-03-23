@@ -62,14 +62,13 @@ const App: React.FC = () => {
     const productsAll = async () => {
       try {
         const products = await fetchProducts();
-        // console.log(products);
         if (products) {
           const mensProducts = products.filter((product) =>
             product.tags.some((tag: { name: string }) => tag.name === "mens")
           );
           setMensProducts(mensProducts);
         }
-        console.log(mensProducts);
+
         const womensProducts = products.filter((product) =>
           product.tags.some((tag: { name: string }) => tag.name === "womens")
         );
@@ -95,7 +94,6 @@ const App: React.FC = () => {
     getUser({ token });
     const fetchWishlist = async (userId: number) => {
       const wishlists = await fetchWishlistByUser(userId);
-      console.log(wishlists);
 
       const filteredWishlist = wishlists.filter(
         (wishlist: { users_id: number; status: string }) =>
@@ -109,12 +107,11 @@ const App: React.FC = () => {
     }
     const fetchOrders = async (userId: number) => {
       const orders = await fetchOrder(userId);
-      console.log(orders);
 
       const getorderid = orders.filter(
         (o: { status: string }) => o.status === "added"
       );
-      console.log(getorderid.length);
+
       setProductsLength(getorderid.length);
 
       const orderid = getorderid[0];

@@ -32,8 +32,6 @@ const MaleProducts: React.FC<Props> = ({
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
-
-  console.log(mensProducts);
   const productsPerPage = 8;
 
   const indexOfLastProduct = currentPage * productsPerPage;

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { fetchCreateProduct } from "../api/api";
 import Modal from "./Modal";
 
@@ -38,8 +37,6 @@ const AddProduct = (props: ProductProps) => {
   const [large, setLarge] = useState(1);
   const [xlarge, setXlarge] = useState(1);
   const [showModal, setShowModal] = useState(false);
-
-  const history = useNavigate();
 
   const handleCreate: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
