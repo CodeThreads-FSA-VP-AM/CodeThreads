@@ -31,10 +31,13 @@ const PaymentForm: React.FC<Prop> = (price) => {
     if (!error) {
       try {
         const { id } = paymentMethod;
-        const res = await axios.post("http://localhost:4000/payment", {
-          amount: amount?.price,
-          id,
-        });
+        const res = await axios.post(
+          "https://codethreads.onrender.com/payment",
+          {
+            amount: amount?.price,
+            id,
+          }
+        );
 
         console.log("loading");
         if (res.data.success) {
